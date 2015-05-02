@@ -1,0 +1,8 @@
+diff a/teste 2.txt b/teste 2.txt	(rejected hunks)
+@@ -1,3 +1,3 @@
+ teste 1 - alterado - de novo - again - once more!
+ teste 2 - alterado - vovozinha
+-teste 3 - alterado
+\ No newline at end of file
++teste 3 - alterado 11111111111111
+\ No newline at end of file
