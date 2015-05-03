@@ -1,5 +1,3 @@
-a - A
-b - vovózinha
 c
 d
 e
