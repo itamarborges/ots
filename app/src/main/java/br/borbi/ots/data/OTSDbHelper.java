@@ -22,14 +22,21 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
 
+    private static final String DROP_TABLE_IF_EXISTS = "DROP TABLE IF EXISTS ";
+
 
     public OTSDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
     }
 
     @Override
@@ -139,6 +146,46 @@ public class OTSDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        db.execSQL(DROP_TABLE_IF_EXISTS + Tag.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + Language.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + Search.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + RelCountryLanguage.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + Country.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + City.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + RelCityTag.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + RelCityLanguage.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + RelSearchCity.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + ResultSearch.TABLE_NAME);
+
+        onCreate(db);
+
+        //Inicializations Scripts - TAG
+        db.execSQL("INSERT INTO " + Tag.TABLE_NAME + "(" + Tag._ID + ", " + Tag.COLUMN_NAME_RESOURCE_NAME + ") VALUES (100000, 'beach');");
+        db.execSQL("INSERT INTO " + Tag.TABLE_NAME + "(" + Tag._ID + ", " + Tag.COLUMN_NAME_RESOURCE_NAME + ") VALUES (100001, 'snow');");
+
+        //Inicializations Scripts - LANGUAGE
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+
+        //Inicializations Scripts - COUNTRY
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+
+        //Inicializations Scripts - COUNTRY
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+
+        //Inicializations Scripts - COUNTRY
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+
+        //Inicializations Scripts - COUNTRY
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+
+        //Inicializations Scripts - COUNTRY
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
+        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
     }
 
 }
