@@ -5,5 +5,7 @@
     <string name="title">Onde tem sol?</string>
     <string name="datePeriod">Período: </string>
     <string name="dateFormat">dd/mm/aaaa</string>
+    <string name="to">a</string>
+    <string name="help_date_period">Previsão do tempo disponível apenas para o período de hoje mais 16 dias.</string>
 
 </resources>

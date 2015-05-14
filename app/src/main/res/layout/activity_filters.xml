@@ -38,10 +38,49 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/calendarDateBegin"
         android:layout_toRightOf="@+id/textViewDateBeginPeriod"
         android:layout_below="@+id/textViewTitulo"
         android:src="@drawable/calendar"
         android:onClick="showCalendar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to"
+        android:id="@+id/textViewTo"
+        android:layout_toRightOf="@+id/calendarDateBegin"
+        android:layout_below="@+id/textViewTitulo"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewDateEndPeriod"
+        android:text="@string/dateFormat"
+        android:layout_below="@+id/textViewTitulo"
+        android:layout_toRightOf="@+id/textViewTo"
+        />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendarDateEnd"
+        android:layout_toRightOf="@+id/textViewDateEndPeriod"
+        android:layout_below="@+id/textViewTitulo"
+        android:src="@drawable/calendar"
+        android:onClick="showCalendar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/help_date_period"
+        android:id="@+id/textViewHelpDatePeriod"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/textViewDateBeginPeriod"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

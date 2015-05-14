@@ -8,6 +8,8 @@
     <string name="title">Where is it sunny?</string>
     <string name="datePeriod">Date: </string>
     <string name="dateFormat">mm/dd/yyyy</string>
+    <string name="to">to</string>
+    <string name="help_date_period">Previsão do tempo disponível apenas para o período de hoje mais 16 dias.</string>
     <string name="pick_date">Escolha a data</string>
 
 <!-- TODO: Remove or change this placeholder text -->
