@@ -29,17 +29,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewDateBeginPeriod"
+        android:text="@string/dateFormat"
         android:layout_below="@+id/textViewTitulo"
         android:layout_toRightOf="@+id/textViewDatePeriod"
         />
 
-    <Button
-        android:id="@+id/date_picker_button"
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewDatePeriod"
-        android:text="@string/pick_date"
+        android:id="@+id/imageButton"
+        android:layout_toRightOf="@+id/textViewDateBeginPeriod"
+        android:layout_below="@+id/textViewTitulo"
+        android:src="@drawable/calendar"
         android:onClick="showCalendar"/>
 
 </RelativeLayout>

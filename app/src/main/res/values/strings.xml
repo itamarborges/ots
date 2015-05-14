@@ -7,6 +7,7 @@
     <string name="title_activity_filtros">FiltrosActivity</string>
     <string name="title">Where is it sunny?</string>
     <string name="datePeriod">Date: </string>
+    <string name="dateFormat">mm/dd/yyyy</string>
     <string name="pick_date">Escolha a data</string>
 
 <!-- TODO: Remove or change this placeholder text -->

@@ -4,5 +4,6 @@
     <string name="app_name">OTS 123</string>
     <string name="title">Onde tem sol?</string>
     <string name="datePeriod">Período: </string>
+    <string name="dateFormat">dd/mm/aaaa</string>
 
 </resources>

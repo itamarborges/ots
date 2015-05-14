@@ -33,7 +33,6 @@ public class FiltersActivity extends Activity {
 
         dateView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
 
-        final Button datePickerButton = (Button) findViewById(R.id.date_picker_button);
 
     }
 
