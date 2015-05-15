@@ -8,21 +8,36 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
+interface ClickFragment {
 
-public class FiltersActivity extends Activity {
+    public void OnClickFragment(int v, String date);
+}
+
+
+public class FiltersActivity extends Activity implements ClickFragment{
+
+    public void OnClickFragment(int v, String date){
+
+        if (v == R.id.calendarDateBegin) {
+            dateBeginView.setText(date);
+        } else {
+            dateEndView.setText(date);
+        }
+    }
+
+    private static final String BUTTON_CLICKED = "BUTTON_CLICKED";
 
     private static DateFormat dateFormat;
-    private static TextView dateView;
-    private static String dateBeginString;
+    private static TextView dateBeginView;
+    private static TextView dateEndView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +46,8 @@ public class FiltersActivity extends Activity {
 
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
-        dateView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
-
+        dateBeginView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
+        dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
 
     }
 
@@ -59,10 +74,13 @@ public class FiltersActivity extends Activity {
     }
 
     public void showCalendar(View view) {
-        showDatePickerDialog();
+        DialogFragment newFragment = new DatePickerFragment();
+        Bundle bundleArgument = new Bundle();
+        bundleArgument.putInt(BUTTON_CLICKED, view.getId());
+        newFragment.setArguments(bundleArgument);
+        newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    // DialogFragment used to pick a ToDoItem deadline date
 
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
@@ -84,22 +102,19 @@ public class FiltersActivity extends Activity {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            setDateString(year, monthOfYear, dayOfMonth);
+            String date = formatDate(year, monthOfYear, dayOfMonth);
 
-            dateView.setText(dateBeginString);
+
+            Bundle b = getArguments();
+                    ((ClickFragment) getActivity()).OnClickFragment(b.getInt(BUTTON_CLICKED), date);
         }
-    }
-
-    private void showDatePickerDialog() {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "datePicker");
     }
 
     /*
     Formata a data marcada no calendário de acordo com o formato marcado como padrão no aparelho.
      */
-    private static void setDateString(int year, int monthOfYear, int dayOfMonth) {
+    private static String formatDate(int year, int monthOfYear, int dayOfMonth) {
         Calendar data = new GregorianCalendar(year,monthOfYear,dayOfMonth);
-        dateBeginString = dateFormat.format(data.getTime());
+        return dateFormat.format(data.getTime());
     }
 }

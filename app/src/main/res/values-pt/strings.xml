@@ -7,5 +7,6 @@
     <string name="dateFormat">dd/mm/aaaa</string>
     <string name="to">a</string>
     <string name="help_date_period">Previsão do tempo disponível apenas para o período de hoje mais 16 dias.</string>
+    <string name="max_distance">Distância máxima de sua localização atual: </string>
 
 </resources>
