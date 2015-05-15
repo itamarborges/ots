@@ -43,6 +43,7 @@ public class FiltersActivity extends Activity implements ClickFragment{
     private static TextView dateEndView;
     private static RadioGroup distanceType;
     private static EditText distanceEditText;
+    private static EditText daysEditText;
 
 
     @Override
@@ -62,6 +63,9 @@ public class FiltersActivity extends Activity implements ClickFragment{
 
         distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
         distanceType = (RadioGroup) findViewById(R.id.radioGroupDistance);
+
+
+        daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
 
 
 
@@ -109,6 +113,17 @@ public class FiltersActivity extends Activity implements ClickFragment{
                 distance = convertMilesToKilometers(distance);
             }
             Log.i("DISTANCIA", "distancia = " + distance);
+        }
+
+        /*
+        Dias com sol
+         */
+
+        String daysString = daysEditText.getText().toString();
+        if(daysString != null && !daysString.isEmpty()) {
+            int days = Integer.valueOf(daysEditText.getText().toString());
+
+            Log.i("DIAS", "dias = " + days);
         }
     }
 

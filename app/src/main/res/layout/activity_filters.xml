@@ -156,6 +156,33 @@
 
     <!-- Dias bons -->
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/qty_sunny_days"
+        android:id="@+id/textViewQtySunnyDays"
+        android:layout_below="@+id/textViewMaxDistance"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextQtySunnyDays"
+        android:layout_below="@+id/textViewMaxDistance"
+        android:layout_toRightOf="@+id/textViewMaxDistance"
+        android:layout_toEndOf="@+id/textViewMaxDistance" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/days"
+        android:id="@+id/textViewDays"
+        android:layout_alignTop="@+id/editTextQtySunnyDays"
+        android:layout_alignRight="@+id/editTextQtySunnyDays"/>
+
 
     <!-- Botao para pesquisar-->
 
@@ -167,5 +194,7 @@
         android:layout_alignParentBottom="true"
         android:onClick="onSaveButtonClicked"
         />
+
+
 
 </RelativeLayout>

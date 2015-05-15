@@ -14,9 +14,7 @@
     <string name="kilometers">Km</string>
     <string name="miles">Miles</string>
     <string name="search">Go!</string>
-    <string name="pick_date">Escolha a data</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="qty_sunny_days">Quantos dias devem ser com tempo bom?</string>
+    <string name="days">days</string>
 
 </resources>
