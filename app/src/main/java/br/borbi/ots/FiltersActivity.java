@@ -5,12 +5,16 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -37,6 +41,8 @@ public class FiltersActivity extends Activity implements ClickFragment{
     private static DateFormat dateFormat;
     private static TextView dateBeginView;
     private static TextView dateEndView;
+    private static RadioGroup distanceType;
+    private static EditText distanceEditText;
 
 
     @Override
@@ -44,10 +50,20 @@ public class FiltersActivity extends Activity implements ClickFragment{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
 
+        /*
+        Prepara datas
+         */
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
         dateBeginView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
         dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
+
+
+
+        distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
+        distanceType = (RadioGroup) findViewById(R.id.radioGroupDistance);
+
+
 
     }
 
@@ -81,6 +97,21 @@ public class FiltersActivity extends Activity implements ClickFragment{
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
+    public void onSaveButtonClicked(View view){
+        /*
+        Prepara raio de distancia. Distancia sera sempre em km.
+         */
+
+        String distanceString = distanceEditText.getText().toString();
+        if(distanceString != null && !distanceString.isEmpty()) {
+            int distance = Integer.valueOf(distanceEditText.getText().toString());
+            if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles) {
+                distance = convertMilesToKilometers(distance);
+            }
+            Log.i("DISTANCIA", "distancia = " + distance);
+        }
+    }
+
 
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
@@ -111,10 +142,17 @@ public class FiltersActivity extends Activity implements ClickFragment{
     }
 
     /*
-    Formata a data marcada no calendário de acordo com o formato marcado como padrão no aparelho.
+    Formata a data marcada no calendario de acordo com o formato marcado como padrao no aparelho.
      */
     private static String formatDate(int year, int monthOfYear, int dayOfMonth) {
         Calendar data = new GregorianCalendar(year,monthOfYear,dayOfMonth);
         return dateFormat.format(data.getTime());
+    }
+
+    /*
+    Converte a medida de milhas para km.
+     */
+    private int convertMilesToKilometers(int distanceInMiles){
+        return Double.valueOf(distanceInMiles * 0.621371192237).intValue();
     }
 }

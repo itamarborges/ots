@@ -106,7 +106,6 @@
     <TextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/max_distance"
         android:id="@+id/textViewMaxDistance"
         android:layout_below="@+id/textViewHelpDatePeriod"
@@ -123,14 +122,50 @@
         android:layout_toRightOf="@+id/textViewMaxDistance"
         />
 
-    <TextView
+    <RadioGroup
+        android:id="@+id/radioGroupDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textViewKm"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/textViewHelpDatePeriod"
-        android:layout_toRightOf="@+id/editTextMaxDistance"/>
+        android:layout_below="@id/textViewHelpDatePeriod"
+        android:layout_alignEnd="@+id/editTextMaxDistance"
+        android:layout_alignRight="@+id/editTextMaxDistance"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp" >
 
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kilometers"
+            android:id="@+id/radioButtonKm"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/textViewHelpDatePeriod"
+            android:layout_alignRight="@+id/editTextMaxDistance"
+            android:layout_alignEnd="@+id/editTextMaxDistance" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/miles"
+            android:id="@+id/radioButtonMiles"
+            android:layout_below="@id/textViewHelpDatePeriod"
+            android:layout_alignRight="@+id/radioButtonKm"
+            android:layout_alignEnd="@+id/radioButtonKm"  />
+    </RadioGroup>
+
+
+
+    <!-- Dias bons -->
+
+
+    <!-- Botao para pesquisar-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/buttonSearch"
+        android:layout_alignParentBottom="true"
+        android:onClick="onSaveButtonClicked"
+        />
 
 </RelativeLayout>
