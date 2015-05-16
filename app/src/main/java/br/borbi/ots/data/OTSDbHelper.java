@@ -22,7 +22,7 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
@@ -58,20 +58,20 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 Search.COLUMN_NAME_MIN_TEMPERATURE + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 Search.COLUMN_NAME_DATETIME_LAST_SEARCH + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + " );";
 
+        final String SQL_CREATE_COUNTRY_TABLE = OTSContract.CREATE_TABLE + Country.TABLE_NAME + " (" +
+                Country._ID + OTSContract.PRIMARY_KEY + " ," +
+                Country.COLUMN_NAME_COUNTRY_CODE + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + ", " +
+                Country.COLUMN_NAME_NAME_ENGLISH + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + OTSContract.UNIQUE_ON_CONFLICT_REPLACE + ");, ";
+
         final String SQL_CREATE_REL_COUNTRY_LANGUAGE_TABLE = OTSContract.CREATE_TABLE + RelCountryLanguage.TABLE_NAME + " (" +
                 RelCountryLanguage._ID + OTSContract.PRIMARY_KEY + " ," +
                 RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 RelCountryLanguage.COLUMN_NAME_NAME + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + OTSContract.UNIQUE_ON_CONFLICT_REPLACE + ", " +
+                RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
+                " FOREIGN KEY (" + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ") REFERENCES " +
+                Country.TABLE_NAME + " (" + Country._ID + "), " +
                 " FOREIGN KEY (" + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ") REFERENCES " +
                 Language.TABLE_NAME + " (" + Language._ID + "));" ;
-
-        final String SQL_CREATE_COUNTRY_TABLE = OTSContract.CREATE_TABLE + Country.TABLE_NAME + " (" +
-                Country._ID + OTSContract.PRIMARY_KEY + " ," +
-                Country.COLUMN_NAME_COUNTRY_CODE + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + ", " +
-                Country.COLUMN_NAME_NAME_ENGLISH + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + OTSContract.UNIQUE_ON_CONFLICT_REPLACE + ", " +
-                Country.COLUMN_NAME_REL_COUNTRY_LANGUAGE_ID + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
-                " FOREIGN KEY (" + Country.COLUMN_NAME_REL_COUNTRY_LANGUAGE_ID + ") REFERENCES " +
-                RelCountryLanguage.TABLE_NAME+ " (" + RelCountryLanguage._ID + "));" ;
 
         final String SQL_CREATE_CITY_TABLE = OTSContract.CREATE_TABLE + City.TABLE_NAME + " (" +
                 City._ID + OTSContract.PRIMARY_KEY + " ," +
@@ -134,8 +134,8 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TAG_TABLE);
         db.execSQL(SQL_CREATE_LANGUAGE_TABLE);
         db.execSQL(SQL_CREATE_SEARCH_TABLE);
-        db.execSQL(SQL_CREATE_REL_COUNTRY_LANGUAGE_TABLE);
         db.execSQL(SQL_CREATE_COUNTRY_TABLE);
+        db.execSQL(SQL_CREATE_REL_COUNTRY_LANGUAGE_TABLE);
         db.execSQL(SQL_CREATE_CITY_TABLE);
         db.execSQL(SQL_CREATE_REL_CITY_TAG_TABLE);
         db.execSQL(SQL_CREATE_REL_CITY_LANGUAGE_TABLE);
@@ -149,8 +149,8 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE_IF_EXISTS + Tag.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + Language.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + Search.TABLE_NAME);
-        db.execSQL(DROP_TABLE_IF_EXISTS + RelCountryLanguage.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + Country.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + RelCountryLanguage.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + City.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + RelCityTag.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + RelCityLanguage.TABLE_NAME);
@@ -164,28 +164,38 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + Tag.TABLE_NAME + "(" + Tag._ID + ", " + Tag.COLUMN_NAME_RESOURCE_NAME + ") VALUES (100001, 'snow');");
 
         //Inicializations Scripts - LANGUAGE
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_CODE_POR + ", 'Portuguese', '" + OTSContract.LANGUAGE_CODE_POR + "');");
+        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_CODE_ENG + ", 'English', '" + OTSContract.LANGUAGE_CODE_ENG + "');");
+        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_CODE_FRA + ", 'French, '" + OTSContract.LANGUAGE_CODE_FRA + "'');");
+
+        //Inicializations Scripts - SEARCH
+        //NULL
 
         //Inicializations Scripts - COUNTRY
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100000, 'BR', 'Brazil');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100001, 'US', 'United States of America');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100002, 'FR', 'France');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100003, 'CA', 'Canada');");
 
-        //Inicializations Scripts - COUNTRY
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+        //Inicializations Scripts - REL_COUNTRY_LANGUAGE
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (100000, 100000, " + OTSContract.LANGUAGE_ID_POR + ", 'Brasil');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (100001, 100000, " + OTSContract.LANGUAGE_ID_ENG + ", 'Brazil');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (100002, 100000, " + OTSContract.LANGUAGE_ID_FRA + ", 'Brésil');");
 
-        //Inicializations Scripts - COUNTRY
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (200000, 100001, " + OTSContract.LANGUAGE_ID_POR + ", 'Estados Unidos');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (200001, 100001, " + OTSContract.LANGUAGE_ID_ENG + ", 'United States');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (200002, 100001, " + OTSContract.LANGUAGE_ID_FRA + ", 'États Unis');");
 
-        //Inicializations Scripts - COUNTRY
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (300000, 100002, " + OTSContract.LANGUAGE_ID_POR + ", 'França');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (300001, 100002, " + OTSContract.LANGUAGE_ID_ENG + ", 'France');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (300002, 100002, " + OTSContract.LANGUAGE_ID_FRA + ", 'France');");
 
-        //Inicializations Scripts - COUNTRY
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90000, 'beach');");
-        //db.execSQL("INSERT INTO tag(_ID, resource_name) VALUES (90001, 'snow');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (400000, 100003, " + OTSContract.LANGUAGE_ID_POR + ", 'Canadá');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (400001, 100003, " + OTSContract.LANGUAGE_ID_ENG + ", 'Canada');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (400002, 100003, " + OTSContract.LANGUAGE_ID_FRA + ", 'Canada');");
+
+        //Inicializations Scripts - CITY
+
     }
 
 }

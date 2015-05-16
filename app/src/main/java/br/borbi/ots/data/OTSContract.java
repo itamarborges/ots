@@ -29,6 +29,14 @@ public final class OTSContract {
     public static final String PATH_REL_SEARCH_CITY = "rel_search_city";
     public static final String PATH_RESULT_SEARCH = "result_search";
 
+    public static final int LANGUAGE_ID_FRA = 100002;
+    public static final int LANGUAGE_ID_ENG = 100001;
+    public static final int LANGUAGE_ID_POR = 100000;
+
+    public static final String LANGUAGE_CODE_FRA = "fra";
+    public static final String LANGUAGE_CODE_ENG = "eng";
+    public static final String LANGUAGE_CODE_POR = "por";
+
     public static long normalizeDate(long startDate) {
         // normalize the start date to the beginning of the (UTC) day
         Time time = new Time();
@@ -121,6 +129,7 @@ public final class OTSContract {
 
         public static final String TABLE_NAME = "language";
         public static final String COLUMN_NAME_NAME = "name";
+        public static final String COLUMN_NAME_LANGUAGE_CODE = "language_code";
 
         public static Uri buildLanguageUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
@@ -139,6 +148,7 @@ public final class OTSContract {
         public static final String TABLE_NAME = "rel_country_language";
         public static final String COLUMN_NAME_LANGUAGE_ID = "language_id";
         public static final String COLUMN_NAME_NAME = "name";
+        public static final String COLUMN_NAME_COUNTRY_ID = "country_id";
 
         public static Uri buildRelCountryLanguageUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
@@ -174,7 +184,6 @@ public final class OTSContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
 
         public static final String TABLE_NAME = "country";
-        public static final String COLUMN_NAME_REL_COUNTRY_LANGUAGE_ID = "rel_country_language_id";
         public static final String COLUMN_NAME_NAME_ENGLISH = "name_english";
         public static final String COLUMN_NAME_COUNTRY_CODE = "country_code";
 
