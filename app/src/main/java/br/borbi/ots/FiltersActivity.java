@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 interface ClickFragment {
 
@@ -61,6 +63,9 @@ public class FiltersActivity extends Activity implements ClickFragment{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
 
+
+        String country = Locale.getDefault().getCountry();
+
         /*
         Prepara datas
          */
@@ -72,12 +77,24 @@ public class FiltersActivity extends Activity implements ClickFragment{
         distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
         distanceType = (RadioGroup) findViewById(R.id.radioGroupDistance);
 
+        //TODO: 1- se ja estiver no shared pref, marcar como default o q estiver marcado. 2- se nao estiver, verificar locale. se for en-US, marcar como default milhas. se nao, km
+
+        RadioButton radioButtonKm = (RadioButton)findViewById(R.id.radioButtonKm);
+        if ("US".equalsIgnoreCase(country)){
+            //TODO acrescentar busca do shared prefs
+            RadioButton radioButtonMiles = (RadioButton) findViewById(R.id.radioButtonMiles);
+            radioButtonMiles.setChecked(true);
+        }else {
+            radioButtonKm.setChecked(true);
+        }
+
         daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
 
         daysWithoutRainCheckbox = (CheckBox) findViewById(R.id.checkBoxDaysWithoutRain);
 
         temperatureType = (RadioGroup) findViewById(R.id.radioGroupTemperature);
         temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
+        //TODO: 1- se ja estiver no shared pref, marcar como default o q estiver marcado. 2- se nao estiver, verificar locale. se for en-US, marcar como default fr. se nao, C
     }
 
     @Override
@@ -119,7 +136,10 @@ public class FiltersActivity extends Activity implements ClickFragment{
         if(distanceString != null && !distanceString.isEmpty()) {
             int distance = Integer.valueOf(distanceEditText.getText().toString());
             if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles) {
+                //TODO: se ja estiver salvo no shared preferences como milhas, nao salvar. se nao estiver, salvar.
                 distance = convertMilesToKilometers(distance);
+            }else{
+                //TODO: se ja estiver salvo no shared preferences como km, nao salvar. se nao estiver, salvar.
             }
             Log.i("DISTANCIA", "distancia = " + distance);
         }
@@ -149,7 +169,10 @@ public class FiltersActivity extends Activity implements ClickFragment{
         if(temperatureString != null && !temperatureString.isEmpty()) {
             int temperature = Integer.valueOf(temperatureEditText.getText().toString());
             if (temperatureType.getCheckedRadioButtonId() == R.id.radioButtonFarenheit) {
+                //TODO: se ja estiver salvo no shared preferences como far, nao salvar. se nao estiver, salvar.
                 temperature= convertFarenheitToCelsius(temperature);
+            }else{
+                //TODO: se ja estiver salvo no shared preferences como celsius, nao salvar. se nao estiver, salvar.
             }
             Log.i("TEMPERATURA", "temperatura = " + temperature);
         }

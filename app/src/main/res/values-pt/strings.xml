@@ -8,8 +8,8 @@
     <string name="to">a</string>
     <string name="help_date_period">Previsão do tempo disponível apenas para o período de hoje mais 16 dias.</string>
     <string name="max_distance">Distância máxima de sua localização atual: </string>
-    <string name="kilometers">Km</string>
-    <string name="miles">Milhas</string>
+    <string name="kilometers">km</string>
+    <string name="miles">mi</string>
     <string name="search">Vai!</string>
     <string name="qty_sunny_days">Quantos dias devem ser com tempo bom?</string>
     <string name="days">Dias</string>
