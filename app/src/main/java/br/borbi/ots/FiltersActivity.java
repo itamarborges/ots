@@ -19,22 +19,25 @@ import android.widget.TextView;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 interface ClickFragment {
 
-    public void OnClickFragment(int v, String date);
+    public void OnClickFragment(int v, Date date);
 }
 
 
 public class FiltersActivity extends Activity implements ClickFragment{
 
-    public void OnClickFragment(int v, String date){
+    public void OnClickFragment(int v, Date date){
 
         if (v == R.id.calendarDateBegin) {
-            dateBeginView.setText(date);
+            dateBeginView.setText(dateFormat.format(date));
+            dateBegin = date;
         } else {
-            dateEndView.setText(date);
+            dateEndView.setText(dateFormat.format(date));
+            dateEnd = date;
         }
     }
 
@@ -49,6 +52,8 @@ public class FiltersActivity extends Activity implements ClickFragment{
     private static CheckBox daysWithoutRainCheckbox;
     private static RadioGroup temperatureType;
     private static EditText temperatureEditText;
+    private static Date dateBegin;
+    private static Date dateEnd;
 
 
     @Override
@@ -106,10 +111,10 @@ public class FiltersActivity extends Activity implements ClickFragment{
     }
 
     public void onSaveButtonClicked(View view){
+
         /*
         Prepara raio de distancia. Distancia sera sempre em km.
          */
-
         String distanceString = distanceEditText.getText().toString();
         if(distanceString != null && !distanceString.isEmpty()) {
             int distance = Integer.valueOf(distanceEditText.getText().toString());
@@ -172,12 +177,16 @@ public class FiltersActivity extends Activity implements ClickFragment{
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            String date = formatDate(year, monthOfYear, dayOfMonth);
-
+            //String date = formatDate(year, monthOfYear, dayOfMonth);
+            Date date = getDate(year, monthOfYear, dayOfMonth);;
 
             Bundle b = getArguments();
-                    ((ClickFragment) getActivity()).OnClickFragment(b.getInt(BUTTON_CLICKED), date);
+            ((ClickFragment) getActivity()).OnClickFragment(b.getInt(BUTTON_CLICKED), date);
         }
+    }
+
+    private static Date getDate(int year, int monthOfYear, int dayOfMonth){
+        return (new GregorianCalendar(year,monthOfYear,dayOfMonth)).getTime();
     }
 
     /*
