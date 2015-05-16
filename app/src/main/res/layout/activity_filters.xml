@@ -1,0 +1,275 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="br.borbi.ots.FiltersActivity">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textViewTitulo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/title"/>
+
+    <!--
+    Período
+    -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:orientation="horizontal"
+        android:id="@+id/datePeriod">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/datePeriod"
+        android:id="@+id/textViewDatePeriod"
+        android:layout_below="@+id/textViewTitulo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:id="@+id/textViewDateBeginPeriod"
+        android:text="@string/dateFormat"
+        android:layout_below="@+id/textViewTitulo"
+        android:layout_toRightOf="@+id/textViewDatePeriod"
+        />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendarDateBegin"
+        android:layout_toRightOf="@+id/textViewDateBeginPeriod"
+        android:layout_below="@+id/textViewTitulo"
+        android:src="@drawable/calendar"
+        android:onClick="showCalendar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to"
+        android:id="@+id/textViewTo"
+        android:layout_toRightOf="@+id/calendarDateBegin"
+        android:layout_below="@+id/textViewTitulo"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:id="@+id/textViewDateEndPeriod"
+        android:text="@string/dateFormat"
+        android:layout_below="@+id/textViewTitulo"
+        android:layout_toRightOf="@+id/textViewTo"
+        />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendarDateEnd"
+        android:layout_toRightOf="@+id/textViewDateEndPeriod"
+        android:layout_below="@+id/textViewTitulo"
+        android:src="@drawable/calendar"
+        android:onClick="showCalendar"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/help_date_period"
+        android:id="@+id/textViewHelpDatePeriod"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/datePeriod"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Distância-->
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/max_distance"
+        android:id="@+id/textViewMaxDistance"
+        android:layout_below="@+id/textViewHelpDatePeriod"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextMaxDistance"
+        android:layout_below="@+id/textViewHelpDatePeriod"
+        android:layout_toRightOf="@+id/textViewMaxDistance"
+        />
+
+    <RadioGroup
+        android:id="@+id/radioGroupDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewHelpDatePeriod"
+        android:layout_alignEnd="@+id/editTextMaxDistance"
+        android:layout_alignRight="@+id/editTextMaxDistance"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp" >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kilometers"
+            android:id="@+id/radioButtonKm"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/textViewHelpDatePeriod"
+            android:layout_alignRight="@+id/editTextMaxDistance"
+            android:layout_alignEnd="@+id/editTextMaxDistance" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/miles"
+            android:id="@+id/radioButtonMiles"
+            android:layout_below="@id/textViewHelpDatePeriod"
+            android:layout_alignRight="@+id/radioButtonKm"
+            android:layout_alignEnd="@+id/radioButtonKm"  />
+    </RadioGroup>
+
+
+
+    <!-- Dias bons -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/qty_sunny_days"
+        android:id="@+id/textViewQtySunnyDays"
+        android:layout_below="@+id/textViewMaxDistance"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextQtySunnyDays"
+        android:layout_below="@+id/textViewMaxDistance"
+        android:layout_toRightOf="@+id/textViewMaxDistance"
+        android:layout_toEndOf="@+id/textViewMaxDistance" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/days"
+        android:id="@+id/textViewDays"
+        android:layout_alignTop="@+id/editTextQtySunnyDays"
+        android:layout_alignRight="@+id/editTextQtySunnyDays"/>
+
+
+    <!-- Considerar apenas dias sem chuva-->
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/days_without_rain"
+        android:id="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewQtySunnyDays"
+        />
+
+
+    <!-- Temperatura -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/min_temperature"
+        android:id="@+id/textViewMinTemperature"
+        android:layout_below="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignParentLeft="true"
+         />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextMinTemperature"
+        android:layout_below="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignTop="@+id/textViewMinTemperature"
+        android:layout_alignRight="@+id/textViewMinTemperature"
+        />
+
+    <RadioGroup
+        android:id="@+id/radioGroupTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignEnd="@+id/editTextMinTemperature"
+        android:layout_alignRight="@+id/editTextMinTemperature"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp" >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/celsius"
+            android:id="@+id/radioButtonCelsius"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/textViewHelpDatePeriod"
+            android:layout_alignRight="@+id/editTextMaxDistance"
+            android:layout_alignEnd="@+id/editTextMaxDistance" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/farenheit"
+            android:id="@+id/radioButtonFarenheit"
+            android:layout_below="@id/textViewHelpDatePeriod"
+            android:layout_alignRight="@+id/radioButtonCelsius"
+            android:layout_alignEnd="@+id/radioButtonCelsius"  />
+    </RadioGroup>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dont_care"
+        android:id="@+id/checkBoxTemperature"
+        android:layout_below="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignRight="@+id/radioGroupTemperature"
+        />
+
+
+    <!-- Botao para pesquisar-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:id="@+id/buttonSearch"
+        android:layout_alignParentBottom="true"
+        android:onClick="onSaveButtonClicked"
+        />
+
+
+
+
+</RelativeLayout>
