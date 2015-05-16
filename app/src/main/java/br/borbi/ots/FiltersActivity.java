@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -44,6 +46,9 @@ public class FiltersActivity extends Activity implements ClickFragment{
     private static RadioGroup distanceType;
     private static EditText distanceEditText;
     private static EditText daysEditText;
+    private static CheckBox daysWithoutRainCheckbox;
+    private static RadioGroup temperatureType;
+    private static EditText temperatureEditText;
 
 
     @Override
@@ -59,16 +64,15 @@ public class FiltersActivity extends Activity implements ClickFragment{
         dateBeginView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
         dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
 
-
-
         distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
         distanceType = (RadioGroup) findViewById(R.id.radioGroupDistance);
 
-
         daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
 
+        daysWithoutRainCheckbox = (CheckBox) findViewById(R.id.checkBoxDaysWithoutRain);
 
-
+        temperatureType = (RadioGroup) findViewById(R.id.radioGroupTemperature);
+        temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
     }
 
     @Override
@@ -125,6 +129,26 @@ public class FiltersActivity extends Activity implements ClickFragment{
 
             Log.i("DIAS", "dias = " + days);
         }
+
+        /*
+        Considerar dias nublados?
+         */
+
+        boolean daysWithoutRain = daysWithoutRainCheckbox.isChecked();
+        Log.i("DIAS-NUBLADOS", "dias nublados: " + daysWithoutRain);
+
+        /*
+        Temperatura
+         */
+        String temperatureString = temperatureEditText.getText().toString();
+        if(temperatureString != null && !temperatureString.isEmpty()) {
+            int temperature = Integer.valueOf(temperatureEditText.getText().toString());
+            if (temperatureType.getCheckedRadioButtonId() == R.id.radioButtonFarenheit) {
+                temperature= convertFarenheitToCelsius(temperature);
+            }
+            Log.i("TEMPERATURA", "temperatura = " + temperature);
+        }
+
     }
 
 
@@ -169,5 +193,12 @@ public class FiltersActivity extends Activity implements ClickFragment{
      */
     private int convertMilesToKilometers(int distanceInMiles){
         return Double.valueOf(distanceInMiles * 0.621371192237).intValue();
+    }
+
+    /*
+    Converte a temperatura de Farenheit para Celsius.
+     */
+    private int convertFarenheitToCelsius(int temperatureInFarenheit){
+        return Double.valueOf((temperatureInFarenheit-32)/1.8).intValue();
     }
 }

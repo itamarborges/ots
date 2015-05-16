@@ -184,16 +184,91 @@
         android:layout_alignRight="@+id/editTextQtySunnyDays"/>
 
 
+    <!-- Considerar apenas dias sem chuva-->
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/days_without_rain"
+        android:id="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewQtySunnyDays"
+        />
+
+
+    <!-- Temperatura -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/min_temperature"
+        android:id="@+id/textViewMinTemperature"
+        android:layout_below="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignParentLeft="true"
+         />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextMinTemperature"
+        android:layout_below="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignTop="@+id/textViewMinTemperature"
+        android:layout_alignRight="@+id/textViewMinTemperature"
+        />
+
+    <RadioGroup
+        android:id="@+id/radioGroupTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignEnd="@+id/editTextMinTemperature"
+        android:layout_alignRight="@+id/editTextMinTemperature"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp" >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/celsius"
+            android:id="@+id/radioButtonCelsius"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/textViewHelpDatePeriod"
+            android:layout_alignRight="@+id/editTextMaxDistance"
+            android:layout_alignEnd="@+id/editTextMaxDistance" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/farenheit"
+            android:id="@+id/radioButtonFarenheit"
+            android:layout_below="@id/textViewHelpDatePeriod"
+            android:layout_alignRight="@+id/radioButtonCelsius"
+            android:layout_alignEnd="@+id/radioButtonCelsius"  />
+    </RadioGroup>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dont_care"
+        android:id="@+id/checkBoxTemperature"
+        android:layout_below="@+id/checkBoxDaysWithoutRain"
+        android:layout_alignRight="@+id/radioGroupTemperature"
+        />
+
+
     <!-- Botao para pesquisar-->
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/search"
         android:id="@+id/buttonSearch"
         android:layout_alignParentBottom="true"
         android:onClick="onSaveButtonClicked"
         />
+
 
 
 

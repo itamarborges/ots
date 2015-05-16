@@ -13,5 +13,7 @@
     <string name="search">Vai!</string>
     <string name="qty_sunny_days">Quantos dias devem ser com tempo bom?</string>
     <string name="days">Dias</string>
-
+    <string name="days_without_rain">Considerar dias sem chuva - nublados - como tempo bom</string>
+    <string name="min_temperature">Temperatura mínima</string>
+    <string name="dont_care">Não importa</string>
 </resources>

@@ -16,5 +16,10 @@
     <string name="search">Go!</string>
     <string name="qty_sunny_days">Quantos dias devem ser com tempo bom?</string>
     <string name="days">days</string>
+    <string name="days_without_rain">Considerar dias sem chuva - nublados - como tempo bom</string>
+    <string name="min_temperature">Temperatura mínima</string>
+    <string name="celsius">C</string>
+    <string name="farenheit">F</string>
+    <string name="dont_care">Dont care</string>
 
 </resources>
