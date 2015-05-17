@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -23,6 +25,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+
+import br.borbi.ots.data.OTSContract;
 
 interface ClickFragment {
 
@@ -66,35 +70,48 @@ public class FiltersActivity extends Activity implements ClickFragment{
 
         String country = Locale.getDefault().getCountry();
 
-        /*
-        Prepara datas
-         */
+        //Datas
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
         dateBeginView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
         dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
 
+
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+        //Distancia
         distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
         distanceType = (RadioGroup) findViewById(R.id.radioGroupDistance);
 
-        //TODO: 1- se ja estiver no shared pref, marcar como default o q estiver marcado. 2- se nao estiver, verificar locale. se for en-US, marcar como default milhas. se nao, km
+        boolean usesKilometers = sharedPref.getBoolean(OTSContract.USE_KILOMETERS, true);
 
-        RadioButton radioButtonKm = (RadioButton)findViewById(R.id.radioButtonKm);
-        if ("US".equalsIgnoreCase(country)){
-            //TODO acrescentar busca do shared prefs
+        if ("US".equalsIgnoreCase(country) || !usesKilometers){
             RadioButton radioButtonMiles = (RadioButton) findViewById(R.id.radioButtonMiles);
             radioButtonMiles.setChecked(true);
         }else {
+            RadioButton radioButtonKm = (RadioButton)findViewById(R.id.radioButtonKm);
             radioButtonKm.setChecked(true);
         }
 
+        //Nro dias com sol
         daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
 
+        //Dias nublados
         daysWithoutRainCheckbox = (CheckBox) findViewById(R.id.checkBoxDaysWithoutRain);
 
+
+        //Temperatura
         temperatureType = (RadioGroup) findViewById(R.id.radioGroupTemperature);
         temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
-        //TODO: 1- se ja estiver no shared pref, marcar como default o q estiver marcado. 2- se nao estiver, verificar locale. se for en-US, marcar como default fr. se nao, C
+
+        boolean usesCelsius = sharedPref.getBoolean(OTSContract.USE_CELSIUS, true);
+        if ("US".equalsIgnoreCase(country) || !usesCelsius){
+            RadioButton radioButtonFarenheit = (RadioButton) findViewById(R.id.radioButtonFarenheit);
+            radioButtonFarenheit.setChecked(true);
+        }else {
+            RadioButton radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
+            radioButtonCelsius.setChecked(true);
+        }
     }
 
     @Override
@@ -129,6 +146,9 @@ public class FiltersActivity extends Activity implements ClickFragment{
 
     public void onSaveButtonClicked(View view){
 
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
         /*
         Prepara raio de distancia. Distancia sera sempre em km.
          */
@@ -136,10 +156,10 @@ public class FiltersActivity extends Activity implements ClickFragment{
         if(distanceString != null && !distanceString.isEmpty()) {
             int distance = Integer.valueOf(distanceEditText.getText().toString());
             if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles) {
-                //TODO: se ja estiver salvo no shared preferences como milhas, nao salvar. se nao estiver, salvar.
                 distance = convertMilesToKilometers(distance);
+                editor.putBoolean(OTSContract.USE_KILOMETERS,false);
             }else{
-                //TODO: se ja estiver salvo no shared preferences como km, nao salvar. se nao estiver, salvar.
+                editor.putBoolean(OTSContract.USE_KILOMETERS,true);
             }
             Log.i("DISTANCIA", "distancia = " + distance);
         }
@@ -169,10 +189,10 @@ public class FiltersActivity extends Activity implements ClickFragment{
         if(temperatureString != null && !temperatureString.isEmpty()) {
             int temperature = Integer.valueOf(temperatureEditText.getText().toString());
             if (temperatureType.getCheckedRadioButtonId() == R.id.radioButtonFarenheit) {
-                //TODO: se ja estiver salvo no shared preferences como far, nao salvar. se nao estiver, salvar.
                 temperature= convertFarenheitToCelsius(temperature);
+                editor.putBoolean(OTSContract.USE_CELSIUS,false);
             }else{
-                //TODO: se ja estiver salvo no shared preferences como celsius, nao salvar. se nao estiver, salvar.
+                editor.putBoolean(OTSContract.USE_CELSIUS,true);
             }
             Log.i("TEMPERATURA", "temperatura = " + temperature);
         }
@@ -224,7 +244,7 @@ public class FiltersActivity extends Activity implements ClickFragment{
     Converte a medida de milhas para km.
      */
     private int convertMilesToKilometers(int distanceInMiles){
-        return Double.valueOf(distanceInMiles * 0.621371192237).intValue();
+        return Double.valueOf(distanceInMiles * 1.609344).intValue();
     }
 
     /*

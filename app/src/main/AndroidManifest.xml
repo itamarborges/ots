@@ -12,18 +12,22 @@
             android:authorities="br.borbi.ots.app" />
 
         <activity
-            android:name=".FiltersActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".FiltersActivity"
+            android:label="@string/title_activity_filtros" >
+        </activity>
+        <activity
+            android:name=".SplashScreenActivity"
+            android:label="@string/title_activity_splash_screen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--activity
-            android:name=".FiltersActivity"
-            android:label="@string/title_activity_filtros" >
-        </activity-->
     </application>
 
 </manifest>
