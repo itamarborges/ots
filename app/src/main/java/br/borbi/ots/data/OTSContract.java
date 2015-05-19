@@ -12,12 +12,10 @@ import android.text.format.Time;
 public final class OTSContract {
 
     /*
-    Costantes shared preferences
+    Constantes shared preferences
      */
     public static final String USE_KILOMETERS = "USE_KILOMETERS";
     public static final String USE_CELSIUS = "USE_CELSIUS";
-
-
 
     public static final String CONTENT_AUTHORITY = "br.borbi.ots.app";
 
