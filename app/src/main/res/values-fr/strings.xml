@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OTS</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="title_activity_filtros">FiltrosActivity</string>
+    <string name="title">Où est ensoleillée?</string>
+    <string name="datePeriod">Date: </string>
+    <string name="dateFormat">mm/dd/yyyy</string>
+    <string name="to"> à </string>
+    <string name="help_date_period">Prévisions météo disponibles qu\'à partir d\'aujourd\'hui et jusqu\'à 16 jours à partir de maintenant.</string>
+    <string name="max_distance">La distance maximale de votre position actuelle: </string>
+    <string name="kilometers">km</string>
+    <string name="miles">mi</string>
+    <string name="search">Allez!</string>
+    <string name="qty_sunny_days">Combien de jours devrait être ensoleillé?</string>
+    <string name="days">journées</string>
+    <string name="days_without_rain">Considérez jours nuageux (sans pluie) aussi ensoleillé</string>
+    <string name="min_temperature">Température minimale: </string>
+    <string name="celsius">C</string>
+    <string name="farenheit">F</string>
+    <string name="dont_care">Ça ne fait rien</string>
+
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+
+</resources>
