@@ -2,11 +2,12 @@ package br.borbi.ots;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class SplashScreenActivity extends Activity {
@@ -16,14 +17,17 @@ public class SplashScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            Log.e("","",e);
-        }
+        new Timer().schedule(new TimerTask() {
 
-        Intent intent = new Intent(this, FiltersActivity.class);
-        startActivity(intent);
+            public void run() {
+                finish();
+
+                Intent intent = new Intent();
+                intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
+                startActivity(intent);
+            }
+        }, 6000);
+
 
     }
 
