@@ -22,7 +22,7 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 16;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
@@ -47,7 +47,8 @@ public class OTSDbHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_LANGUAGE_TABLE = OTSContract.CREATE_TABLE + Language.TABLE_NAME + " (" +
                 Language._ID + OTSContract.PRIMARY_KEY + " ," +
-                Language.COLUMN_NAME_NAME + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + OTSContract.UNIQUE_ON_CONFLICT_REPLACE + ");";
+                Language.COLUMN_NAME_NAME + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + OTSContract.UNIQUE_ON_CONFLICT_REPLACE + " ," +
+                Language.COLUMN_NAME_LANGUAGE_CODE + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + OTSContract.UNIQUE_ON_CONFLICT_REPLACE + ");";
 
         final String SQL_CREATE_SEARCH_TABLE = OTSContract.CREATE_TABLE + Search.TABLE_NAME + " (" +
                 Search._ID + OTSContract.PRIMARY_KEY + " ," +
@@ -164,38 +165,42 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + Tag.TABLE_NAME + "(" + Tag._ID + ", " + Tag.COLUMN_NAME_RESOURCE_NAME + ") VALUES (100001, 'snow');");
         db.execSQL("INSERT INTO " + Tag.TABLE_NAME + "(" + Tag._ID + ", " + Tag.COLUMN_NAME_RESOURCE_NAME + ") VALUES (100002, 'history');");
 
+
         //Inicializations Scripts - LANGUAGE
         db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_ID_POR + ", 'Portuguese', '" + OTSContract.LANGUAGE_CODE_POR + "');");
         db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_ID_ENG + ", 'English', '" + OTSContract.LANGUAGE_CODE_ENG + "');");
-        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_ID_FRA + ", 'French, '" + OTSContract.LANGUAGE_CODE_FRA + "'');");
+        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_ID_FRA + ", 'French', '" + OTSContract.LANGUAGE_CODE_FRA + "');");
 
         //Inicializations Scripts - SEARCH
         //NULL
 
         //Inicializations Scripts - COUNTRY
+
         db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100000, 'BR', 'Brazil');");
         db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100001, 'US', 'United States of America');");
         db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100002, 'FR', 'France');");
         db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100003, 'CA', 'Canada');");
 
         //Inicializations Scripts - REL_COUNTRY_LANGUAGE
+
         db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (100000, 100000, " + OTSContract.LANGUAGE_ID_POR + ", 'Brasil');");
         db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (100001, 100000, " + OTSContract.LANGUAGE_ID_ENG + ", 'Brazil');");
-        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (100002, 100000, " + OTSContract.LANGUAGE_ID_FRA + ", 'BrÈsil');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (100002, 100000, " + OTSContract.LANGUAGE_ID_FRA + ", 'Br√©sil');");
 
         db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (200000, 100001, " + OTSContract.LANGUAGE_ID_POR + ", 'Estados Unidos');");
         db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (200001, 100001, " + OTSContract.LANGUAGE_ID_ENG + ", 'United States');");
-        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (200002, 100001, " + OTSContract.LANGUAGE_ID_FRA + ", '…tats Unis');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (200002, 100001, " + OTSContract.LANGUAGE_ID_FRA + ", '√âtats Unis');");
 
-        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (300000, 100002, " + OTSContract.LANGUAGE_ID_POR + ", 'FranÁa');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (300000, 100002, " + OTSContract.LANGUAGE_ID_POR + ", 'Fran√ßa');");
         db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (300001, 100002, " + OTSContract.LANGUAGE_ID_ENG + ", 'France');");
         db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (300002, 100002, " + OTSContract.LANGUAGE_ID_FRA + ", 'France');");
 
-        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (400000, 100003, " + OTSContract.LANGUAGE_ID_POR + ", 'Canad·');");
+        db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (400000, 100003, " + OTSContract.LANGUAGE_ID_POR + ", 'Canad√°');");
         db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (400001, 100003, " + OTSContract.LANGUAGE_ID_ENG + ", 'Canada');");
         db.execSQL("INSERT INTO " + RelCountryLanguage.TABLE_NAME + "(" + RelCountryLanguage._ID + ", " + RelCountryLanguage.COLUMN_NAME_COUNTRY_ID + ", " + RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID + ", " + RelCountryLanguage.COLUMN_NAME_NAME + ") VALUES (400002, 100003, " + OTSContract.LANGUAGE_ID_FRA + ", 'Canada');");
 
         //Inicializations Scripts - CITY
+
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100000,100000,-1.45,-0.0253072742,-48.48333333,-0.846193799,'Belem');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100001,100000,-19.93333333,-0.3479022976,-43.95,-0.7670722063,'Belo Horizonte');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100002,100000,-15.86666667,-0.2769255746,-47.91666667,-0.8363035999,'Brasilia');");
@@ -210,7 +215,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100011,100002,48.85,0.8525933396,2.33,0.04066617157,'Paris');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100012,100003,45.508839,0.7942790793,-73.587807,-1.284349521,'Montreal');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100013,100000,-28.66666667,-0.5003277189,-48.28333333,-0.8427031405,'Torres');");
-        db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100014,100000,-28.26666667,-0.4933464019,-50,-0.872664626,'Cap„o da Canoa');");
+        db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100014,100000,-28.26666667,-0.4933464019,-50,-0.872664626,'Cap√£o da Canoa');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100015,100000,-28.31666667,-0.4942190665,-52.2,-0.9110618695,'Santa Maria');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100016,100000,-30.23333333,-0.5276712105,-51.66666667,-0.9017534469,'Pelotas');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100017,100000,-31.96666667,-0.5579235842,-51.91666667,-0.90611677,'Rio Grande');");
@@ -256,15 +261,34 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + RelCityTag.TABLE_NAME + "(" + RelCityTag._ID + ", " + RelCityTag.COLUMN_NAME_CITY_ID + ", " + RelCityTag.COLUMN_NAME_TAG_ID + ") VALUES (100031,100022,100000);");
 
         //Inicializations Scripts - REL_CITY_LANGUAGE
-
-        //db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100031,100022,100000);");
-
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100000,100000," + OTSContract.LANGUAGE_ID_POR + ",'Belem');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100001,100001," + OTSContract.LANGUAGE_ID_POR + ",'Belo Horizonte');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100002,100002," + OTSContract.LANGUAGE_ID_POR + ",'Brasilia');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100003,100003," + OTSContract.LANGUAGE_ID_POR + ",'Curitiba');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100004,100004," + OTSContract.LANGUAGE_ID_POR + ",'Fortaleza');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100005,100005," + OTSContract.LANGUAGE_ID_POR + ",'Porto Alegre');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100006,100006," + OTSContract.LANGUAGE_ID_POR + ",'Recife');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100007,100007," + OTSContract.LANGUAGE_ID_POR + ",'Rio De Janeiro');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100008,100008," + OTSContract.LANGUAGE_ID_POR + ",'Salvador');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100009,100009," + OTSContract.LANGUAGE_ID_POR + ",'Sao Paulo');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100010,100010," + OTSContract.LANGUAGE_ID_POR + ",'New York');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100011,100011," + OTSContract.LANGUAGE_ID_POR + ",'Paris');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100012,100012," + OTSContract.LANGUAGE_ID_POR + ",'Montreal');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100013,100013," + OTSContract.LANGUAGE_ID_POR + ",'Torres');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100014,100014," + OTSContract.LANGUAGE_ID_POR + ",'Cap√£o da Canoa');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100015,100015," + OTSContract.LANGUAGE_ID_POR + ",'Santa Maria');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100016,100016," + OTSContract.LANGUAGE_ID_POR + ",'Pelotas');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100017,100017," + OTSContract.LANGUAGE_ID_POR + ",'Rio Grande');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100018,100018," + OTSContract.LANGUAGE_ID_POR + ",'Santo √Çngelo');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100019,100019," + OTSContract.LANGUAGE_ID_POR + ",'Gramado');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100020,100020," + OTSContract.LANGUAGE_ID_POR + ",'Ant√¥nio Prado');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100021,100021," + OTSContract.LANGUAGE_ID_POR + ",'Vacaria');");
+        db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100022,100022," + OTSContract.LANGUAGE_ID_POR + ",'Florian√≥polis');");
         //Inicializations Scripts - REL_SEARCH_CITY
         //NULL
 
         //Inicializations Scripts - RESULT_SEARCH
         //NULL
-
 
 
 
