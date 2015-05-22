@@ -165,9 +165,9 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + Tag.TABLE_NAME + "(" + Tag._ID + ", " + Tag.COLUMN_NAME_RESOURCE_NAME + ") VALUES (100002, 'history');");
 
         //Inicializations Scripts - LANGUAGE
-        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_CODE_POR + ", 'Portuguese', '" + OTSContract.LANGUAGE_CODE_POR + "');");
-        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_CODE_ENG + ", 'English', '" + OTSContract.LANGUAGE_CODE_ENG + "');");
-        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_CODE_FRA + ", 'French, '" + OTSContract.LANGUAGE_CODE_FRA + "'');");
+        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_ID_POR + ", 'Portuguese', '" + OTSContract.LANGUAGE_CODE_POR + "');");
+        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_ID_ENG + ", 'English', '" + OTSContract.LANGUAGE_CODE_ENG + "');");
+        db.execSQL("INSERT INTO " + Language.TABLE_NAME + "(" + Language._ID + ", " + Language.COLUMN_NAME_NAME + ", " + Language.COLUMN_NAME_LANGUAGE_CODE + ") VALUES (" + OTSContract.LANGUAGE_ID_FRA + ", 'French, '" + OTSContract.LANGUAGE_CODE_FRA + "'');");
 
         //Inicializations Scripts - SEARCH
         //NULL
@@ -256,6 +256,8 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + RelCityTag.TABLE_NAME + "(" + RelCityTag._ID + ", " + RelCityTag.COLUMN_NAME_CITY_ID + ", " + RelCityTag.COLUMN_NAME_TAG_ID + ") VALUES (100031,100022,100000);");
 
         //Inicializations Scripts - REL_CITY_LANGUAGE
+
+        //db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100031,100022,100000);");
 
         //Inicializations Scripts - REL_SEARCH_CITY
         //NULL
