@@ -13,7 +13,7 @@ public class CoordinatesUtillity {
     }
 
     public static double getMaxLatitude(double originLatitude, double distance){
-        return getLatitude(270, originLatitude,distance);
+        return getLatitude(180, originLatitude,distance);
     }
 
     public static double getMinLongitude(double originLatitude, double originLongitude, double distance){
