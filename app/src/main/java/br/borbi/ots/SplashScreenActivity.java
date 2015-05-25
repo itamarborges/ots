@@ -2,15 +2,12 @@ package br.borbi.ots;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import java.util.Timer;
 import java.util.TimerTask;
-
-import br.borbi.ots.data.OTSContract;
 
 
 public class SplashScreenActivity extends Activity {
@@ -19,14 +16,6 @@ public class SplashScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
-        Cursor c = getContentResolver().query(
-                OTSContract.City.CONTENT_URI,
-                new String[]{OTSContract.City._ID},
-                null,
-                null,
-                null);
-
 
         new Timer().schedule(new TimerTask() {
 
