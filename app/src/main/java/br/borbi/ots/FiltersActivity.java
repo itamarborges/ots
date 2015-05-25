@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -54,6 +55,7 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
         }
     }
 
+    private static final String CLASS_NAME = FiltersActivity.class.getName();
     private static final String BUTTON_CLICKED = "BUTTON_CLICKED";
 
     private static DateFormat dateFormat;
@@ -125,6 +127,32 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
             RadioButton radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
             radioButtonCelsius.setChecked(true);
         }
+
+        Cursor c = getContentResolver().query(
+                OTSContract.City.CONTENT_URI,
+                new String[]{OTSContract.City.COLUMN_NAME_NAME_ENGLISH, OTSContract.City.COLUMN_NAME_LATITUDE_RAD, OTSContract.City.COLUMN_NAME_LONGITUDE_RAD},
+                null,
+                null,
+                null);
+
+
+        String strCity;
+
+        if (c.moveToFirst()) {
+            do {
+                int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
+                int numIndexLatRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LATITUDE_RAD);
+                int numIndexLongRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LONGITUDE_RAD);
+                strCity = "CityName " + c.getString(numIndexName) + ", LatRad = " + String.valueOf(c.getDouble(numIndexLatRad)) + ", LongRad = " + String.valueOf(c.getDouble(numIndexLongRad));
+                Toast.makeText(this,strCity,Toast.LENGTH_SHORT).show();
+                Log.v(CLASS_NAME, strCity);
+
+            }
+            while (c.moveToNext());
+
+        }
+
+
 
 
         // Inicializa API Google Services
