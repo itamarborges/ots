@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -18,6 +20,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -34,7 +41,7 @@ interface ClickFragment {
 }
 
 
-public class FiltersActivity extends Activity implements ClickFragment{
+public class FiltersActivity extends Activity implements ClickFragment, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     public void OnClickFragment(int v, Date date){
 
@@ -60,6 +67,12 @@ public class FiltersActivity extends Activity implements ClickFragment{
     private static EditText temperatureEditText;
     private static Date dateBegin;
     private static Date dateEnd;
+
+    private static GoogleApiClient mGoogleApiClient;
+    private static Location mLastLocation;
+
+    private static double lastLongitude;
+    private static double lastLatitude;
 
 
     @Override
@@ -112,6 +125,29 @@ public class FiltersActivity extends Activity implements ClickFragment{
             RadioButton radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
             radioButtonCelsius.setChecked(true);
         }
+
+
+        // Inicializa API Google Services
+        buildGoogleApiClient();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
     }
 
     @Override
@@ -196,6 +232,43 @@ public class FiltersActivity extends Activity implements ClickFragment{
             }
             Log.i("TEMPERATURA", "temperatura = " + temperature);
         }
+
+    }
+
+    /*
+    Busca cidades
+     */
+    private void searchCities(){
+        Cursor c = getContentResolver().query(
+                OTSContract.City.CONTENT_URI,
+                new String[]{OTSContract.City._ID},
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (mLastLocation != null) {
+            Log.i("COORDENADAS", "mLastLocation  nao e null" );
+            lastLatitude = mLastLocation.getLatitude();
+            lastLongitude = mLastLocation.getLongitude();
+        }
+
+        Log.i("COORDENADAS", "latitude = " + lastLatitude);
+        Log.i("COORDENADAS", "longitude = " + lastLongitude);
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.e("OTS", "conexao suspensa, erro = " + i);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.e("OTS", "falhou na conexao, erro = " + connectionResult.getErrorCode());
 
     }
 
