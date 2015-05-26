@@ -8,9 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +25,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +32,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.utility.CoordinatesUtillity;
 
 interface ClickFragment {
 
@@ -217,15 +215,16 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
         Prepara raio de distancia. Distancia sera sempre em km.
          */
         String distanceString = distanceEditText.getText().toString();
+        int distance = 0;
         if(distanceString != null && !distanceString.isEmpty()) {
-            int distance = Integer.valueOf(distanceEditText.getText().toString());
+           distance = Integer.valueOf(distanceEditText.getText().toString());
             if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles) {
                 distance = convertMilesToKilometers(distance);
                 editor.putBoolean(OTSContract.USE_KILOMETERS,false);
             }else{
                 editor.putBoolean(OTSContract.USE_KILOMETERS,true);
             }
-            Log.i("DISTANCIA", "distancia = " + distance);
+            Log.i(CLASS_NAME, "distancia = " + distance);
         }
 
         /*
@@ -236,7 +235,7 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
         if(daysString != null && !daysString.isEmpty()) {
             int days = Integer.valueOf(daysEditText.getText().toString());
 
-            Log.i("DIAS", "dias = " + days);
+            Log.i(CLASS_NAME, "dias = " + days);
         }
 
         /*
@@ -244,7 +243,7 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
          */
 
         boolean daysWithoutRain = daysWithoutRainCheckbox.isChecked();
-        Log.i("DIAS-NUBLADOS", "dias nublados: " + daysWithoutRain);
+        Log.i(CLASS_NAME, "dias nublados: " + daysWithoutRain);
 
         /*
         Temperatura
@@ -258,34 +257,87 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
             }else{
                 editor.putBoolean(OTSContract.USE_CELSIUS,true);
             }
-            Log.i("TEMPERATURA", "temperatura = " + temperature);
+            Log.i(CLASS_NAME, "temperatura = " + temperature);
         }
+
+        searchCities(Double.valueOf(distance));
 
     }
 
     /*
     Busca cidades
      */
-    private void searchCities(){
+    private void searchCities(double distance){
+        double minLatitude = CoordinatesUtillity.getMinLatitude(lastLatitude, distance);
+        double maxLatitude = CoordinatesUtillity.getMaxLatitude(lastLatitude, distance);
+        double minLongitude = CoordinatesUtillity.getMinLongitude(lastLatitude, lastLongitude, distance);
+        double maxLongitude = CoordinatesUtillity.getMaxLongitude(lastLatitude, lastLongitude, distance);
+
+
+        if(minLatitude > maxLatitude){
+            double aux = maxLatitude;
+            maxLatitude = minLatitude;
+            minLatitude = aux;
+        }
+        if(minLongitude > maxLongitude){
+            double aux = maxLongitude;
+            maxLongitude = minLongitude;
+            minLongitude = aux;
+        }
+
+        Log.i(CLASS_NAME,"minlat = " + minLatitude);
+        Log.i(CLASS_NAME,"maxlat = " + maxLatitude);
+        Log.i(CLASS_NAME,"minlong = " + minLongitude);
+        Log.i(CLASS_NAME,"maxlong  = " + maxLongitude);
+
+
+        StringBuffer whereClause = new StringBuffer(OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ").append(minLatitude).append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ").append(maxLatitude).append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ").append(minLongitude).append(" AND ").append(OTSContract.City.COLUMN_NAME_LONGITUDE)
+                .append(minLongitude).append(" <= ").append(maxLongitude);
+
+
+        Log.i(CLASS_NAME, whereClause.toString());
+
+
         Cursor c = getContentResolver().query(
                 OTSContract.City.CONTENT_URI,
-                new String[]{OTSContract.City._ID},
-                null,
+                new String[]{OTSContract.City.COLUMN_NAME_NAME_ENGLISH},
+                whereClause.toString(),
                 null,
                 null);
+
+
+        String strCity;
+
+
+        Log.i(CLASS_NAME," vai iterar nos retornos" );
+        if (c.moveToFirst()) {
+            do {
+                int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
+                //int numIndexLatRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LATITUDE_RAD);
+                //int numIndexLongRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LONGITUDE_RAD);
+                strCity = "CityName " + c.getString(numIndexName);
+                //Toast.makeText(this,strCity,Toast.LENGTH_SHORT).show();
+                Log.i(CLASS_NAME, strCity);
+
+            }
+            while (c.moveToNext());
+
+        }
     }
 
     @Override
     public void onConnected(Bundle bundle) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
-            Log.i("COORDENADAS", "mLastLocation  nao e null" );
+            Log.i(CLASS_NAME, "mLastLocation  nao e null" );
             lastLatitude = mLastLocation.getLatitude();
             lastLongitude = mLastLocation.getLongitude();
         }
 
-        Log.i("COORDENADAS", "latitude = " + lastLatitude);
-        Log.i("COORDENADAS", "longitude = " + lastLongitude);
+        Log.i(CLASS_NAME, "latitude = " + lastLatitude);
+        Log.i(CLASS_NAME, "longitude = " + lastLongitude);
 
     }
 
@@ -296,7 +348,7 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e("OTS", "falhou na conexao, erro = " + connectionResult.getErrorCode());
+        Log.e(CLASS_NAME, "falhou na conexao, erro = " + connectionResult.getErrorCode());
 
     }
 
