@@ -126,33 +126,6 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
             radioButtonCelsius.setChecked(true);
         }
 
-        Cursor c = getContentResolver().query(
-                OTSContract.City.CONTENT_URI,
-                new String[]{OTSContract.City.COLUMN_NAME_NAME_ENGLISH, OTSContract.City.COLUMN_NAME_LATITUDE_RAD, OTSContract.City.COLUMN_NAME_LONGITUDE_RAD},
-                null,
-                null,
-                null);
-
-
-        String strCity;
-
-        if (c.moveToFirst()) {
-            do {
-                int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
-                int numIndexLatRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LATITUDE_RAD);
-                int numIndexLongRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LONGITUDE_RAD);
-                strCity = "CityName " + c.getString(numIndexName) + ", LatRad = " + String.valueOf(c.getDouble(numIndexLatRad)) + ", LongRad = " + String.valueOf(c.getDouble(numIndexLongRad));
-                Toast.makeText(this,strCity,Toast.LENGTH_SHORT).show();
-                Log.v(CLASS_NAME, strCity);
-
-            }
-            while (c.moveToNext());
-
-        }
-
-
-
-
         // Inicializa API Google Services
         buildGoogleApiClient();
     }
@@ -317,15 +290,23 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
                 int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
                 //int numIndexLatRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LATITUDE_RAD);
                 //int numIndexLongRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LONGITUDE_RAD);
-                strCity = "CityName " + c.getString(numIndexName);
+                strCity = c.getString(numIndexName);
                 //Toast.makeText(this,strCity,Toast.LENGTH_SHORT).show();
                 Log.i(CLASS_NAME, strCity);
+
+                updateWeather(strCity);
 
             }
             while (c.moveToNext());
 
         }
     }
+
+    private void updateWeather(String cityName) {
+        FetchWeatherTask weatherTask = new FetchWeatherTask(this);
+        weatherTask.execute(cityName);
+    }
+
 
     @Override
     public void onConnected(Bundle bundle) {
