@@ -29,18 +29,25 @@ import br.borbi.ots.pojo.DayForecast;
 /**
  * Created by Gabriela on 26/05/2015.
  */
-public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
+public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
 
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
     private final Context mContext;
 
+    private SearchActivity.TaskFinishedListener taskFinishedListener;
+
     public FetchWeatherTask(Context context) {
         mContext = context;
     }
 
+    public FetchWeatherTask(Context context,SearchActivity.TaskFinishedListener taskFinishedListener) {
+        mContext = context;
+        this.taskFinishedListener = taskFinishedListener;
+    }
+
     @Override
-    protected Void doInBackground(String... params) {
+    protected List<City> doInBackground(String[]... params) {
 
         Log.i(LOG_TAG,"entrou no doInBackground");
 
@@ -49,9 +56,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
             Log.i(LOG_TAG,"params sao vazios");
             return null;
         }
-        String locationQuery = params[0];
-
-        Log.i(LOG_TAG,"params nao sao vazios, cidade = " + locationQuery);
 
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
@@ -64,56 +68,53 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
         String format = "json";
         String units = "metric";
 
-        City city = null;
+        List<City> cities = new ArrayList<City>();
+        String[] citiesArray = params[0];
 
         try {
-            // Construct the URL for the OpenWeatherMap query
-            // Possible parameters are avaiable at OWM's forecast API page, at
-            // http://openweathermap.org/API#forecast
-            final String FORECAST_BASE_URL =
-                    "http://api.openweathermap.org/data/2.5/forecast/daily?";
+            final String FORECAST_BASE_URL ="http://api.openweathermap.org/data/2.5/forecast/daily?";
             final String QUERY_PARAM = "q";
             final String FORMAT_PARAM = "mode";
             final String UNITS_PARAM = "units";
             final String DAYS_PARAM = "cnt";
 
-            Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                    .appendQueryParameter(QUERY_PARAM, params[0])
-                    .appendQueryParameter(FORMAT_PARAM, format)
-                    .appendQueryParameter(UNITS_PARAM, units)
-                    .appendQueryParameter(DAYS_PARAM, params[1])
-                    .build();
+            for (int i=1;i<citiesArray.length;i++){
 
-            URL url = new URL(builtUri.toString());
+                Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                        .appendQueryParameter(QUERY_PARAM, citiesArray[i])
+                        .appendQueryParameter(FORMAT_PARAM, format)
+                        .appendQueryParameter(UNITS_PARAM, units)
+                        .appendQueryParameter(DAYS_PARAM, citiesArray[0])
+                        .build();
 
-            // Create the request to OpenWeatherMap, and open the connection
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
+                URL url = new URL(builtUri.toString());
 
-            // Read the input stream into a String
-            InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
-            if (inputStream == null) {
-                // Nothing to do.
-                return null;
+                // Create the request to OpenWeatherMap, and open the connection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream != null) {
+                    reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        buffer.append(line + "\n");
+                    }
+
+                    if (buffer.length() != 0) {
+                        forecastJsonStr = buffer.toString();
+
+                        Log.i(LOG_TAG, forecastJsonStr);
+
+                        cities.add(getWeatherDataFromJson(forecastJsonStr, citiesArray[i]));
+                    }
+                }
             }
-            reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line + "\n");
-            }
-
-            if (buffer.length() == 0) {
-                // Stream was empty.  No point in parsing.
-                return null;
-            }
-            forecastJsonStr = buffer.toString();
-
-            Log.i(LOG_TAG, forecastJsonStr);
-
-            getWeatherDataFromJson(forecastJsonStr, locationQuery);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attempting
@@ -133,7 +134,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
                 }
             }
         }
-        return null;
+        return cities;
     }
 
     private City getWeatherDataFromJson(String forecastJsonStr, String locationSetting)
@@ -209,8 +210,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
 
                 // Description is in a child array called "weather", which is 1 element long.
                 // That element also contains a weather code.
-                JSONObject weatherObject =
-                        dayForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
+                JSONObject weatherObject = dayForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
                 String description = weatherObject.getString(OWM_DESCRIPTION);
                 int weatherId = weatherObject.getInt(OWM_WEATHER_ID);
 
@@ -219,7 +219,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
                 JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
                 double high = temperatureObject.getDouble(OWM_MAX);
                 double low = temperatureObject.getDouble(OWM_MIN);
-
 
                 DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high, WeatherType.getWeatherType(weatherId));
                 daysForecast.add(forecastForTheDay);
@@ -234,5 +233,12 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
         }
 
         return city;
+    }
+
+
+    @Override
+    protected void onPostExecute(List<City> cities) {
+        super.onPostExecute(cities);
+        this.taskFinishedListener.OnTaskFinished(cities);
     }
 }

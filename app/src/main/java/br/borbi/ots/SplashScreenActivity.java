@@ -26,7 +26,7 @@ public class SplashScreenActivity extends Activity {
                 intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
                 startActivity(intent);
             }
-        }, 6000);
+        }, 3000);
 
 
     }
