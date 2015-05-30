@@ -5,13 +5,12 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -19,20 +18,23 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.CoordinatesUtillity;
+import br.borbi.ots.utility.Utility;
 
 interface ClickFragment {
 
@@ -40,21 +42,18 @@ interface ClickFragment {
 }
 
 
-public class FiltersActivity extends Activity implements ClickFragment, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class FiltersActivity extends Activity
+        implements ClickFragment, android.app.LoaderManager.LoaderCallbacks<Cursor>{
 
-    public void OnClickFragment(int v, Date date){
-
-        if (v == R.id.calendarDateBegin) {
-            dateBeginView.setText(dateFormat.format(date));
-            dateBegin = date;
-        } else {
-            dateEndView.setText(dateFormat.format(date));
-            dateEnd = date;
-        }
-    }
-
-    private static final String CLASS_NAME = FiltersActivity.class.getName();
-    private static final String BUTTON_CLICKED = "BUTTON_CLICKED";
+    public static final String CLASS_NAME = FiltersActivity.class.getName();
+    public static final int CITY_LOADER = 1;
+    public static final String BUTTON_CLICKED = "BUTTON_CLICKED";
+    public static final String DATE_BEGIN = "DATE_BEGIN";
+    public static final String DATE_END = "DATE_END";
+    public static final String DISTANCE = "DISTANCE";
+    public static final String NUMBER_SUNNY_DAYS = "NUMBER_SUNNY_DAYS";
+    public static final String USE_CLOUDY_DAYS = "USE_CLOUDY_DAYS";
+    public static final String MIN_TEMPERATURE = "MIN_TEMPERATURE";
 
     private static DateFormat dateFormat;
     private static TextView dateBeginView;
@@ -68,15 +67,10 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
     private static Date dateBegin;
     private static Date dateEnd;
 
-    private static GoogleApiClient mGoogleApiClient;
-    private static Location mLastLocation;
-
-    private static double lastLongitude;
-    private static double lastLatitude;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
 
@@ -126,50 +120,12 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
             radioButtonCelsius.setChecked(true);
         }
 
-        // Inicializa API Google Services
-        buildGoogleApiClient();
+
+        getLoaderManager().initLoader(CITY_LOADER,null,this);
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect();
-    }
 
-    protected void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
-    }
-
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_filters, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void showCalendar(View view) {
         DialogFragment newFragment = new DatePickerFragment();
@@ -192,40 +148,38 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
         if(distanceString != null && !distanceString.isEmpty()) {
            distance = Integer.valueOf(distanceEditText.getText().toString());
             if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles) {
-                distance = convertMilesToKilometers(distance);
+                distance = Utility.convertMilesToKilometers(distance);
                 editor.putBoolean(OTSContract.USE_KILOMETERS,false);
             }else{
                 editor.putBoolean(OTSContract.USE_KILOMETERS,true);
             }
-            Log.i(CLASS_NAME, "distancia = " + distance);
         }
 
         /*
         Dias com sol
          */
-
         String daysString = daysEditText.getText().toString();
+        int numberSunnyDays = 0;
         if(daysString != null && !daysString.isEmpty()) {
-            int days = Integer.valueOf(daysEditText.getText().toString());
-
-            Log.i(CLASS_NAME, "dias = " + days);
+            numberSunnyDays = Integer.valueOf(daysEditText.getText().toString());
         }
 
         /*
         Considerar dias nublados?
          */
 
-        boolean daysWithoutRain = daysWithoutRainCheckbox.isChecked();
-        Log.i(CLASS_NAME, "dias nublados: " + daysWithoutRain);
+        boolean usesCloudyDays = daysWithoutRainCheckbox.isChecked();
+        Log.i(CLASS_NAME, "dias nublados: " + usesCloudyDays);
 
         /*
         Temperatura
          */
         String temperatureString = temperatureEditText.getText().toString();
+        int temperature = 0;
         if(temperatureString != null && !temperatureString.isEmpty()) {
-            int temperature = Integer.valueOf(temperatureEditText.getText().toString());
+            temperature = Integer.valueOf(temperatureEditText.getText().toString());
             if (temperatureType.getCheckedRadioButtonId() == R.id.radioButtonFarenheit) {
-                temperature= convertFarenheitToCelsius(temperature);
+                temperature= Utility.convertFarenheitToCelsius(temperature);
                 editor.putBoolean(OTSContract.USE_CELSIUS,false);
             }else{
                 editor.putBoolean(OTSContract.USE_CELSIUS,true);
@@ -233,103 +187,30 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
             Log.i(CLASS_NAME, "temperatura = " + temperature);
         }
 
-        searchCities(Double.valueOf(distance));
+        Intent intent = new Intent(this,SearchActivity.class);
+        intent.putExtra(DATE_BEGIN, dateBegin);
+        intent.putExtra(DATE_END, dateEnd);
+        intent.putExtra(DISTANCE, distance);
+        intent.putExtra(NUMBER_SUNNY_DAYS, numberSunnyDays);
+        intent.putExtra(USE_CLOUDY_DAYS, usesCloudyDays);
+        intent.putExtra(MIN_TEMPERATURE, temperature);
 
-    }
-
-    /*
-    Busca cidades
-     */
-    private void searchCities(double distance){
-        double minLatitude = CoordinatesUtillity.getMinLatitude(lastLatitude, distance);
-        double maxLatitude = CoordinatesUtillity.getMaxLatitude(lastLatitude, distance);
-        double minLongitude = CoordinatesUtillity.getMinLongitude(lastLatitude, lastLongitude, distance);
-        double maxLongitude = CoordinatesUtillity.getMaxLongitude(lastLatitude, lastLongitude, distance);
-
-
-        if(minLatitude > maxLatitude){
-            double aux = maxLatitude;
-            maxLatitude = minLatitude;
-            minLatitude = aux;
-        }
-        if(minLongitude > maxLongitude){
-            double aux = maxLongitude;
-            maxLongitude = minLongitude;
-            minLongitude = aux;
-        }
-
-        Log.i(CLASS_NAME,"minlat = " + minLatitude);
-        Log.i(CLASS_NAME,"maxlat = " + maxLatitude);
-        Log.i(CLASS_NAME,"minlong = " + minLongitude);
-        Log.i(CLASS_NAME,"maxlong  = " + maxLongitude);
-
-
-        StringBuffer whereClause = new StringBuffer(OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ").append(minLatitude).append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ").append(maxLatitude).append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ").append(minLongitude).append(" AND ").append(OTSContract.City.COLUMN_NAME_LONGITUDE)
-                .append(minLongitude).append(" <= ").append(maxLongitude);
-
-
-        Log.i(CLASS_NAME, whereClause.toString());
-
-
-        Cursor c = getContentResolver().query(
-                OTSContract.City.CONTENT_URI,
-                new String[]{OTSContract.City.COLUMN_NAME_NAME_ENGLISH},
-                whereClause.toString(),
-                null,
-                null);
-
-
-        String strCity;
-
-
-        Log.i(CLASS_NAME," vai iterar nos retornos" );
-        if (c.moveToFirst()) {
-            do {
-                int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
-                //int numIndexLatRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LATITUDE_RAD);
-                //int numIndexLongRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LONGITUDE_RAD);
-                strCity = c.getString(numIndexName);
-                //Toast.makeText(this,strCity,Toast.LENGTH_SHORT).show();
-                Log.i(CLASS_NAME, strCity);
-
-                updateWeather(strCity);
-
-            }
-            while (c.moveToNext());
-
-        }
-    }
-
-    private void updateWeather(String cityName) {
-        FetchWeatherTask weatherTask = new FetchWeatherTask(this);
-        weatherTask.execute(cityName);
+        startActivity(intent);
     }
 
 
     @Override
-    public void onConnected(Bundle bundle) {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            Log.i(CLASS_NAME, "mLastLocation  nao e null" );
-            lastLatitude = mLastLocation.getLatitude();
-            lastLongitude = mLastLocation.getLongitude();
-        }
+    public android.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
 
-        Log.i(CLASS_NAME, "latitude = " + lastLatitude);
-        Log.i(CLASS_NAME, "longitude = " + lastLongitude);
+    @Override
+    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor data) {
 
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-        Log.e("OTS", "conexao suspensa, erro = " + i);
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e(CLASS_NAME, "falhou na conexao, erro = " + connectionResult.getErrorCode());
+    public void onLoaderReset(android.content.Loader<Cursor> loader) {
 
     }
 
@@ -354,37 +235,20 @@ public class FiltersActivity extends Activity implements ClickFragment, GoogleAp
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            //String date = formatDate(year, monthOfYear, dayOfMonth);
-            Date date = getDate(year, monthOfYear, dayOfMonth);;
+            Date date = Utility.getDate(year, monthOfYear, dayOfMonth);
 
             Bundle b = getArguments();
             ((ClickFragment) getActivity()).OnClickFragment(b.getInt(BUTTON_CLICKED), date);
         }
     }
 
-    private static Date getDate(int year, int monthOfYear, int dayOfMonth){
-        return (new GregorianCalendar(year,monthOfYear,dayOfMonth)).getTime();
-    }
-
-    /*
-    Formata a data marcada no calendario de acordo com o formato marcado como padrao no aparelho.
-     */
-    private static String formatDate(int year, int monthOfYear, int dayOfMonth) {
-        Calendar data = new GregorianCalendar(year,monthOfYear,dayOfMonth);
-        return dateFormat.format(data.getTime());
-    }
-
-    /*
-    Converte a medida de milhas para km.
-     */
-    private int convertMilesToKilometers(int distanceInMiles){
-        return Double.valueOf(distanceInMiles * 1.609344).intValue();
-    }
-
-    /*
-    Converte a temperatura de Farenheit para Celsius.
-     */
-    private int convertFarenheitToCelsius(int temperatureInFarenheit){
-        return Double.valueOf((temperatureInFarenheit-32)/1.8).intValue();
+    public void OnClickFragment(int v, Date date){
+        if (v == R.id.calendarDateBegin) {
+            dateBeginView.setText(dateFormat.format(date));
+            dateBegin = date;
+        } else {
+            dateEndView.setText(dateFormat.format(date));
+            dateEnd = date;
+        }
     }
 }
