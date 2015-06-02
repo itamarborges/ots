@@ -21,7 +21,7 @@
     <string name="farenheit">F</string>
     <string name="dont_care">Dont care</string>
 
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_splash_screen">Where are </string>
     <string name="title_activity_search">SearchActivity</string>
 
     <string name="hello_world">Hello world!</string>

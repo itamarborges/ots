@@ -16,4 +16,5 @@
     <string name="days_without_rain">Considerar dias sem chuva - nublados - como tempo bom</string>
     <string name="min_temperature">Temperatura mínima</string>
     <string name="dont_care">Não importa</string>
+    <string name="title_activity_splash_screen">Onde tem sol ?</string>
 </resources>

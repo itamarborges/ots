@@ -12,6 +12,8 @@ import java.util.TimerTask;
 
 public class SplashScreenActivity extends Activity {
 
+    public static final int TIME_SPLASH = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,7 @@ public class SplashScreenActivity extends Activity {
                 intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
                 startActivity(intent);
             }
-        }, 3000);
+        }, TIME_SPLASH);
 
 
     }
