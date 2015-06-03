@@ -3,21 +3,18 @@ package br.borbi.ots;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.City;
+import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
 
@@ -33,6 +30,13 @@ public class SearchActivity extends ActionBarActivity{
 
     private Context mContext;
 
+    private List<City> mCities;
+
+    private int minTemperature=0;
+    private int numberSunnyDays = 0;
+    private boolean usesCloudyDays = false;
+    private boolean dontUseTemperature = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +49,8 @@ public class SearchActivity extends ActionBarActivity{
         int distance = 0;
         Date dateBegin = null;
         Date dateEnd = null;
-        int numberSunnyDays = 0;
-        int minTemperature = 0;
-        boolean usesCloudyDays = false;
+
+
         double lastLatitude = 0d;
         double lastLongitude =0d;
         if (intent != null) {
@@ -56,6 +59,7 @@ public class SearchActivity extends ActionBarActivity{
             dateEnd = (Date) intent.getSerializableExtra(FiltersActivity.DATE_END);
             numberSunnyDays= intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS,0);
             minTemperature= intent.getIntExtra(FiltersActivity.MIN_TEMPERATURE,0);
+            dontUseTemperature = intent.getBooleanExtra(FiltersActivity.DONT_USE_TEMPERATURE, false);
             usesCloudyDays = intent.getBooleanExtra(FiltersActivity.USE_CLOUDY_DAYS, false);
             lastLatitude = intent.getDoubleExtra(FiltersActivity.LAST_LATITUDE,0);
             lastLongitude = intent.getDoubleExtra(FiltersActivity.LAST_LONGITUDE,0);
@@ -67,16 +71,18 @@ public class SearchActivity extends ActionBarActivity{
     }
 
     private int getNumberOfDays(Date dateBegin, Date dateEnd){
-        Calendar today = new GregorianCalendar();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
+        Date today = Utility.setDateToInitialHours(new Date());
+        dateBegin = Utility.setDateToInitialHours(dateBegin);
+        dateEnd = Utility.setDateToFinalHours(dateEnd);
 
         int numberOfDays = 16;
-        if(dateBegin.compareTo(today.getTime()) == 0){
+
+        if(dateBegin.compareTo(today) == 0){
             numberOfDays = Utility.getDifferenceInDays(dateBegin, dateEnd);
+            numberOfDays++;
         }else{
-            numberOfDays = Utility.getDifferenceInDays(today.getTime(), dateEnd);
+            numberOfDays = Utility.getDifferenceInDays(today, dateEnd);
+            numberOfDays++;
         }
 
         return numberOfDays;
@@ -108,19 +114,6 @@ public class SearchActivity extends ActionBarActivity{
         Log.i(CLASS_NAME, "maxlat = " + maxLatitude);
         Log.i(CLASS_NAME, "minlong = " + minLongitude);
         Log.i(CLASS_NAME, "maxlong  = " + maxLongitude);
-
-
-        /*
-        StringBuffer whereClause = new StringBuffer(
-                OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ").append(minLatitude)
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ").append(maxLatitude)
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ").append(minLongitude)
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ").append(minLongitude)
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" <= ").append(maxLongitude);*/
 
 
         StringBuffer whereClause = new StringBuffer(
@@ -193,6 +186,48 @@ public class SearchActivity extends ActionBarActivity{
 
     }
 
+    private void validateCities(List<City> cities){
+
+        mCities = new ArrayList<City>();
+
+        Iterator<City> itCity = cities.iterator();
+        while (itCity.hasNext()) {
+            City city = (City) itCity.next();
+
+            Iterator<DayForecast> itDayForecast = city.getDayForecasts().iterator();
+            int contSunnyDays = 0;
+            boolean validCity = true;
+
+
+            while(itDayForecast.hasNext() && validCity){
+                DayForecast dayForecast = (DayForecast) itDayForecast.next();
+
+                if(!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature){
+                    validCity = false;
+                }
+
+                if(dayForecast.getWeatherType().isSunnyDay(usesCloudyDays)){
+                    contSunnyDays++;
+                }
+            }
+
+            if(contSunnyDays < numberSunnyDays){
+                validCity = false;
+            }
+
+            if(validCity){
+                mCities.add(city);
+            }
+        }
+
+        Log.i(CLASS_NAME, "============= CIDADES VALIDAS");
+        itCity = mCities.iterator();
+        while (itCity.hasNext()) {
+            City city = (City) itCity.next();
+            Log.i(CLASS_NAME, city.toString());
+        }
+    }
+
 
 
     public class TaskFinishedListener implements TaskFinished{
@@ -205,11 +240,7 @@ public class SearchActivity extends ActionBarActivity{
                 Log.i(CLASS_NAME, city.toString());
             }
 
-            /*
-            Intent intent = new Intent(mContext, FiltersActivity.class);
-            intent.putExtra("bla",new ArrayList<City>(cities));
-            startActivity(intent);
-            */
+            validateCities(cities);
 
         }
 

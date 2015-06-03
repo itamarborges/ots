@@ -24,16 +24,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
 
 interface ClickFragment {
@@ -55,6 +50,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     public static final String MIN_TEMPERATURE = "MIN_TEMPERATURE";
     public static final String LAST_LATITUDE = "LAST_LATITUDE";
     public static final String LAST_LONGITUDE = "LAST_LONGITUDE";
+    public static final String DONT_USE_TEMPERATURE = "DONT_USE_TEMPERATURE";
 
 
     private static DateFormat dateFormat;
@@ -66,6 +62,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     private static CheckBox daysWithoutRainCheckbox;
     private static RadioGroup temperatureType;
     private static EditText temperatureEditText;
+    private static CheckBox temperatureCheckbox;
     private static Date dateBegin;
     private static Date dateEnd;
 
@@ -121,6 +118,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         //Temperatura
         temperatureType = (RadioGroup) findViewById(R.id.radioGroupTemperature);
         temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
+        temperatureCheckbox = (CheckBox) findViewById(R.id.checkBoxTemperature);
 
         boolean usesCelsius = sharedPref.getBoolean(OTSContract.USE_CELSIUS, true);
         if ("US".equalsIgnoreCase(country) || !usesCelsius){
@@ -130,7 +128,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             RadioButton radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
             radioButtonCelsius.setChecked(true);
         }
-
 
         getLoaderManager().initLoader(CITY_LOADER,null,this);
 
@@ -207,6 +204,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         intent.putExtra(NUMBER_SUNNY_DAYS, numberSunnyDays);
         intent.putExtra(USE_CLOUDY_DAYS, usesCloudyDays);
         intent.putExtra(MIN_TEMPERATURE, temperature);
+        intent.putExtra(DONT_USE_TEMPERATURE, temperatureCheckbox.isChecked());
         intent.putExtra(LAST_LATITUDE,lastLatitude);
         intent.putExtra(LAST_LONGITUDE, lastLongitude);
 

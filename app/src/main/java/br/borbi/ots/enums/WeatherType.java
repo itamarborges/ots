@@ -26,4 +26,14 @@ public enum WeatherType {
 
         return WeatherType.RAIN;
     }
+
+
+    public boolean isSunnyDay(boolean acceptsClouds){
+        if(this.equals(SUNNY) || (acceptsClouds && this.equals(CLOUDS))){
+            return true;
+        }
+
+        return false;
+
+    }
 }
