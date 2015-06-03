@@ -218,6 +218,8 @@ public final class OTSContract {
         public static final String COLUMN_NAME_MIN_SUNNY_DAYS = "min_sunny_days";
         public static final String COLUMN_NAME_MIN_TEMPERATURE = "min_temperature";
         public static final String COLUMN_NAME_DATETIME_LAST_SEARCH = "datetime_last_search";
+        public static final String COLUMN_NAME_ORIGIN_LONG = "origin_long";
+        public static final String COLUMN_NAME_ORIGIN_LAT = "origin_lat";
 
         public static Uri buildSearchUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
