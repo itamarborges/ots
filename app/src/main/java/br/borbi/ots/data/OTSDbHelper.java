@@ -23,7 +23,7 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 24;
+    private static final int DATABASE_VERSION = 25;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
@@ -222,7 +222,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100011,100002,48.85,0.8525933396,2.33,0.04066617157,'Paris');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100012,100003,45.508839,0.7942790793,-73.587807,-1.284349521,'Montreal');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100013,100000,-28.66666667,-0.5003277189,-48.28333333,-0.8427031405,'Torres');");
-        db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100014,100000,-28.26666667,-0.4933464019,-50,-0.872664626,'CapÃ£o da Canoa');");
+        db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100014,100000,-28.26666667,-0.4933464019,-50,-0.872664626,'Capao da Canoa');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100015,100000,-28.31666667,-0.4942190665,-52.2,-0.9110618695,'Santa Maria');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100016,100000,-30.23333333,-0.5276712105,-51.66666667,-0.9017534469,'Pelotas');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100017,100000,-31.96666667,-0.5579235842,-51.91666667,-0.90611677,'Rio Grande');");
