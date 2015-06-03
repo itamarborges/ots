@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import br.borbi.ots.data.OTSContract.City;
 import br.borbi.ots.data.OTSContract.Country;
@@ -22,7 +23,7 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 21;
+    private static final int DATABASE_VERSION = 24;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
@@ -146,6 +147,8 @@ public class OTSDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        Log.v(LOG_TAG, "vai entrar no onUpgrade");
 
         db.execSQL(DROP_TABLE_IF_EXISTS + Tag.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + Language.TABLE_NAME);
@@ -288,6 +291,9 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100020,100020," + OTSContract.LANGUAGE_ID_POR + ",'AntÃ´nio Prado');");
         db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100021,100021," + OTSContract.LANGUAGE_ID_POR + ",'Vacaria');");
         db.execSQL("INSERT INTO " + RelCityLanguage.TABLE_NAME + "(" + RelCityLanguage._ID + ", " + RelCityLanguage.COLUMN_NAME_CITY_ID + ", "+ RelCityLanguage.COLUMN_NAME_LANGUAGE_ID + "," + RelCityLanguage.COLUMN_NAME_NAME + ") VALUES (100022,100022," + OTSContract.LANGUAGE_ID_POR + ",'FlorianÃ³polis');");
+
+
+        Log.v(LOG_TAG, "inseriu tudo");
         //Inicializations Scripts - REL_SEARCH_CITY
         //NULL
 

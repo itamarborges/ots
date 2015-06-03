@@ -42,6 +42,11 @@ public final class OTSContract {
     public static final String LANGUAGE_CODE_ENG = "eng";
     public static final String LANGUAGE_CODE_POR = "por";
 
+
+    public static final String PATH_LIST_CITIES_BY_COORDINATES = "list_cities_by_coordinates";
+    public static final Uri CONTENT_URI_LIST_CITIES_BY_COORDINATES = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_BY_COORDINATES).build();
+
+
     public static long normalizeDate(long startDate) {
         // normalize the start date to the beginning of the (UTC) day
         Time time = new Time();

@@ -3,6 +3,7 @@ package br.borbi.ots;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
@@ -108,37 +110,63 @@ public class SearchActivity extends ActionBarActivity{
         Log.i(CLASS_NAME, "maxlong  = " + maxLongitude);
 
 
-        StringBuffer whereClause = new StringBuffer(OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ").append(minLatitude).append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ").append(maxLatitude).append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ").append(minLongitude).append(" AND ").append(OTSContract.City.COLUMN_NAME_LONGITUDE)
-                .append(minLongitude).append(" <= ").append(maxLongitude);
+        /*
+        StringBuffer whereClause = new StringBuffer(
+                OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ").append(minLatitude)
+                .append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ").append(maxLatitude)
+                .append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ").append(minLongitude)
+                .append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ").append(minLongitude)
+                .append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" <= ").append(maxLongitude);*/
+
+
+        StringBuffer whereClause = new StringBuffer(
+                OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ?")
+                .append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ?")
+                .append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ?")
+                .append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ?")
+                .append(" AND ")
+                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" <= ?");
+
+
+        String[] selectionArgs = new String[4];
+        selectionArgs[0] = String.valueOf(minLatitude);
+        selectionArgs[1] = String.valueOf(maxLatitude);
+        selectionArgs[2] = String.valueOf(minLongitude);
+        selectionArgs[3] = String.valueOf(maxLongitude);
 
 
         Log.i(CLASS_NAME, whereClause.toString());
 
 
         Cursor c = getContentResolver().query(
-                OTSContract.City.CONTENT_URI,
-                new String[]{OTSContract.City.COLUMN_NAME_NAME_ENGLISH},
+                OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES,
+                new String[]{OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH, OTSContract.Country.COLUMN_NAME_COUNTRY_CODE},
                 whereClause.toString(),
-                null,
+                selectionArgs,
                 null);
 
 
         List<String> cities = new ArrayList<String>();
 
         Log.i(CLASS_NAME, " vai iterar nos retornos");
+        Log.i(CLASS_NAME, " total de retornos = " + c.getCount());
         if (c.moveToFirst()) {
             do {
                 int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
-                //int numIndexLatRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LATITUDE_RAD);
-                //int numIndexLongRad = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LONGITUDE_RAD);
-                //strCity = c.getString(numIndexName);
-                //Toast.makeText(this,strCity,Toast.LENGTH_SHORT).show();
-                //Log.i(CLASS_NAME, strCity);
-                cities.add(c.getString(numIndexName));
+                int numIndexCountryCode = c.getColumnIndex(OTSContract.City.COLUMN_NAME_COUNTRY_ID);
 
-                Log.i(CLASS_NAME, c.getString(numIndexName));
+                String city = c.getString(numIndexName)+","+ c.getString(numIndexCountryCode);
+
+                cities.add(city);
+
+                Log.i(CLASS_NAME, city);
             }
             while (c.moveToNext());
         }

@@ -71,6 +71,8 @@ public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
         List<City> cities = new ArrayList<City>();
         String[] citiesArray = params[0];
 
+        Log.i(LOG_TAG, "tamanho array params = " + citiesArray.length);
+
         try {
             final String FORECAST_BASE_URL ="http://api.openweathermap.org/data/2.5/forecast/daily?";
             final String QUERY_PARAM = "q";
@@ -79,6 +81,7 @@ public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
             final String DAYS_PARAM = "cnt";
 
             for (int i=1;i<citiesArray.length;i++){
+                Log.i(LOG_TAG, "vai procurar previsao da cidade = " + citiesArray[i]);
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                         .appendQueryParameter(QUERY_PARAM, citiesArray[i])

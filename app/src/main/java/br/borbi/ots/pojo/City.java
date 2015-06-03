@@ -45,7 +45,7 @@ public class City {
             Iterator<DayForecast> it = dayForecasts.iterator();
             while (it.hasNext()) {
                 DayForecast dayForecast = (DayForecast) it.next();
-                dayForecast.toString();
+                retorno += dayForecast.toString();
             }
         }
 

@@ -5,7 +5,9 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 
 /**
  * Created by Itamar on 08/04/2015.
@@ -22,7 +24,9 @@ public class OTSProvider extends ContentProvider {
     static final int SEARCH = 800;
     static final int REL_SEARCH_CITY = 900;
     static final int RESULT_SEARCH = 1000;
+    static final int LIST_CITIES_BY_COORDINATES = 1100;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
+    private static final String CLASS_NAME = OTSProvider.CLASS_NAME;
     private OTSDbHelper mOpenHelper;
 
     private static UriMatcher buildUriMatcher() {
@@ -39,6 +43,8 @@ public class OTSProvider extends ContentProvider {
         uriMatcher.addURI(authority, OTSContract.PATH_SEARCH, SEARCH);
         uriMatcher.addURI(authority, OTSContract.PATH_REL_SEARCH_CITY, REL_SEARCH_CITY);
         uriMatcher.addURI(authority, OTSContract.PATH_RESULT_SEARCH, RESULT_SEARCH);
+
+        uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_COORDINATES, LIST_CITIES_BY_COORDINATES);
 
         return uriMatcher;
     }
@@ -172,6 +178,10 @@ public class OTSProvider extends ContentProvider {
                         null,
                         sortOrder
                 );
+                break;
+            }
+            case LIST_CITIES_BY_COORDINATES: {
+                    retCursor = listCitiesByCoordinates(projection, selection, selectionArgs);
                 break;
             }
         }
@@ -447,6 +457,30 @@ public class OTSProvider extends ContentProvider {
             default:
                 return super.bulkInsert(uri, values);
         }
+    }
+
+    public Cursor listCitiesByCoordinates(String[] projection, String selection, String[] selectionArgs){
+        SQLiteQueryBuilder sWeatherByLocationSettingQueryBuilder = new SQLiteQueryBuilder();
+
+        sWeatherByLocationSettingQueryBuilder.setTables(
+                OTSContract.City.TABLE_NAME + " INNER JOIN " +
+                        OTSContract.Country.TABLE_NAME +
+                        " ON " + OTSContract.City.TABLE_NAME +
+                        "." + OTSContract.Country._ID +
+                        " = " + OTSContract.City.TABLE_NAME +
+                        "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID);
+
+
+
+
+        return sWeatherByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
+
     }
 
 }
