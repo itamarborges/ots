@@ -130,8 +130,6 @@ public class SearchActivity extends ActionBarActivity{
                 .append(" AND ")
                 .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ?")
                 .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ?")
-                .append(" AND ")
                 .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" <= ?");
 
 
@@ -160,7 +158,7 @@ public class SearchActivity extends ActionBarActivity{
         if (c.moveToFirst()) {
             do {
                 int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
-                int numIndexCountryCode = c.getColumnIndex(OTSContract.City.COLUMN_NAME_COUNTRY_ID);
+                int numIndexCountryCode = c.getColumnIndex(OTSContract.Country.COLUMN_NAME_COUNTRY_CODE);
 
                 String city = c.getString(numIndexName)+","+ c.getString(numIndexCountryCode);
 

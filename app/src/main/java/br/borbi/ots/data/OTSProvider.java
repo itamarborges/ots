@@ -26,7 +26,7 @@ public class OTSProvider extends ContentProvider {
     static final int RESULT_SEARCH = 1000;
     static final int LIST_CITIES_BY_COORDINATES = 1100;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
-    private static final String CLASS_NAME = OTSProvider.CLASS_NAME;
+    private static final String CLASS_NAME = OTSProvider.class.getName();
     private OTSDbHelper mOpenHelper;
 
     private static UriMatcher buildUriMatcher() {
@@ -465,13 +465,20 @@ public class OTSProvider extends ContentProvider {
         sWeatherByLocationSettingQueryBuilder.setTables(
                 OTSContract.City.TABLE_NAME + " INNER JOIN " +
                         OTSContract.Country.TABLE_NAME +
-                        " ON " + OTSContract.City.TABLE_NAME +
+                        " ON " + OTSContract.Country.TABLE_NAME +
                         "." + OTSContract.Country._ID +
                         " = " + OTSContract.City.TABLE_NAME +
                         "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID);
 
 
-
+        /*
+        Log.v(CLASS_NAME, "=== projection = ");
+        printArray(projection);
+        Log.v(CLASS_NAME, "==== selection = " + selection);
+        Log.v(CLASS_NAME, "==== selectionArgs = ");
+        printArray(selectionArgs);
+        Log.v(CLASS_NAME, "tables = " + sWeatherByLocationSettingQueryBuilder.getTables());
+        */
 
         return sWeatherByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
@@ -481,6 +488,12 @@ public class OTSProvider extends ContentProvider {
                 null,
                 null);
 
+    }
+
+    private void printArray(String[] arr){
+        for (int i =0;i<arr.length;i++){
+            Log.v(CLASS_NAME,arr[i]);
+        }
     }
 
 }
