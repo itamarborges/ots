@@ -89,7 +89,12 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
         dateBeginView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
+        dateBegin  = new Date();
+        dateBeginView.setText(dateFormat.format(dateBegin));
+
         dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
+        dateEnd = Utility.getDateDaysFromToday(16);
+        dateEndView.setText(dateFormat.format(dateEnd));
 
 
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);

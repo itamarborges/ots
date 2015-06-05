@@ -59,4 +59,13 @@ public class Utility {
         calendar.set(Calendar.SECOND, 0);
         return calendar.getTime();
     }
+
+    /*
+    Returns a date <code>numberOfDays</code> from today.
+     */
+    public static Date getDateDaysFromToday(int numberOfDays){
+        Calendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.DAY_OF_MONTH,numberOfDays);
+        return calendar.getTime();
+    }
 }
