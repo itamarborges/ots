@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.os.Bundle;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
@@ -53,8 +55,8 @@ public class SearchActivity extends ActionBarActivity{
             distance = intent.getIntExtra(FiltersActivity.DISTANCE,0);
             dateBegin = (Date) intent.getSerializableExtra(FiltersActivity.DATE_BEGIN);
             dateEnd = (Date) intent.getSerializableExtra(FiltersActivity.DATE_END);
-            numberSunnyDays= intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS, 0);
-            minTemperature= intent.getIntExtra(FiltersActivity.MIN_TEMPERATURE, 0);
+            numberSunnyDays= intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS,0);
+            minTemperature= intent.getIntExtra(FiltersActivity.MIN_TEMPERATURE,0);
             usesCloudyDays = intent.getBooleanExtra(FiltersActivity.USE_CLOUDY_DAYS, false);
 }
 

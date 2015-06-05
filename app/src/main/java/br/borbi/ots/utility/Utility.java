@@ -41,4 +41,31 @@ public class Utility {
         Calendar data = new GregorianCalendar(year,monthOfYear,dayOfMonth);
         return dateFormat.format(data.getTime());
     }
+
+    public static Date setDateToFinalHours(Date date){
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        return calendar.getTime();
+    }
+
+    public static Date setDateToInitialHours(Date date){
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTime();
+    }
+
+    /*
+    Returns a date <code>numberOfDays</code> from today.
+     */
+    public static Date getDateDaysFromToday(int numberOfDays){
+        Calendar calendar = new GregorianCalendar();
+        calendar.add(Calendar.DAY_OF_MONTH,numberOfDays);
+        return calendar.getTime();
+    }
 }

@@ -1,12 +1,13 @@
 package br.borbi.ots.pojo;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Gabriela on 28/05/2015.
  */
-public class City {
+public class City implements Serializable{
 
     private String name;
     private List<DayForecast> dayForecasts;

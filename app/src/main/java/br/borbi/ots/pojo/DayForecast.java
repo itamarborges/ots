@@ -1,5 +1,6 @@
 package br.borbi.ots.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import br.borbi.ots.enums.WeatherType;
@@ -7,7 +8,7 @@ import br.borbi.ots.enums.WeatherType;
 /**
  * Created by Gabriela on 28/05/2015.
  */
-public class DayForecast {
+public class DayForecast implements Serializable{
 
     private Date date;
     private Double minTemperature;

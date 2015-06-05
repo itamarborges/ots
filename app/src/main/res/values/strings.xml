@@ -19,7 +19,7 @@
     <string name="min_temperature">Minimum minTemperature: </string>
     <string name="celsius">C</string>
     <string name="farenheit">F</string>
-    <string name="dont_care">Dont care</string>
+    <string name="dont_care">Don\'t care</string>
 
     <string name="title_activity_splash_screen">Where are </string>
     <string name="title_activity_search">SearchActivity</string>

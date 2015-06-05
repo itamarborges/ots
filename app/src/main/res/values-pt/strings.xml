@@ -18,4 +18,6 @@
     <string name="dont_care">Não importa</string>
     <string name="title_activity_splash_screen">Onde tem sol ?</string>
     <string name="error_localization">Não foi possível determinar a sua localização.</string>
+    <string name="celsius">C</string>
+    <string name="farenheit">F</string>
 </resources>
