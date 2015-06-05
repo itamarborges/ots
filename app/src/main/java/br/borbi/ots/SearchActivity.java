@@ -20,6 +20,7 @@ import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.Coordinates;
+import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
 
@@ -32,8 +33,15 @@ public class SearchActivity extends ActionBarActivity{
 
     private static final String CLASS_NAME = SearchActivity.class.getName();
 
+    public static final String CITY_LIST = "CITY_LIST";
 
     private Context mContext;
+    private ArrayList<City> mCities;
+
+    private int minTemperature=0;
+    private int numberSunnyDays = 0;
+    private boolean usesCloudyDays = false;
+    private boolean dontUseTemperature = false;
 
 
     @Override
@@ -56,10 +64,11 @@ public class SearchActivity extends ActionBarActivity{
             distance = intent.getIntExtra(FiltersActivity.DISTANCE,0);
             dateBegin = (Date) intent.getSerializableExtra(FiltersActivity.DATE_BEGIN);
             dateEnd = (Date) intent.getSerializableExtra(FiltersActivity.DATE_END);
-            numberSunnyDays= intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS,0);
-            minTemperature= intent.getIntExtra(FiltersActivity.MIN_TEMPERATURE,0);
+            numberSunnyDays= intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS, 0);
+            minTemperature= intent.getIntExtra(FiltersActivity.MIN_TEMPERATURE, 0);
+            dontUseTemperature = intent.getBooleanExtra(FiltersActivity.DONT_USE_TEMPERATURE, false);
             usesCloudyDays = intent.getBooleanExtra(FiltersActivity.USE_CLOUDY_DAYS, false);
-}
+        }
 
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -162,6 +171,51 @@ public class SearchActivity extends ActionBarActivity{
 
     }
 
+    private void validateCities(List<City> cities){
+
+        mCities = new ArrayList<City>();
+
+        Iterator<City> itCity = cities.iterator();
+        while (itCity.hasNext()) {
+            City city = (City) itCity.next();
+
+            Iterator<DayForecast> itDayForecast = city.getDayForecasts().iterator();
+            int contSunnyDays = 0;
+            boolean validCity = true;
+
+
+            while(itDayForecast.hasNext() && validCity){
+                DayForecast dayForecast = (DayForecast) itDayForecast.next();
+
+                if(!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature){
+                    validCity = false;
+                }
+
+                if(dayForecast.getWeatherType().isSunnyDay(usesCloudyDays)){
+                    contSunnyDays++;
+                }
+            }
+
+            if(contSunnyDays < numberSunnyDays){
+                validCity = false;
+            }
+
+            if(validCity){
+                mCities.add(city);
+            }
+        }
+
+        Log.i(CLASS_NAME, "============= CIDADES VALIDAS");
+        itCity = mCities.iterator();
+        while (itCity.hasNext()) {
+            City city = (City) itCity.next();
+            Log.i(CLASS_NAME, city.toString());
+        }
+
+        Intent intent = new Intent(this,ResultActivity.class);
+        intent.putExtra(CITY_LIST, new ArrayList(mCities));
+        startActivity(intent);
+    }
 
 
     public class TaskFinishedListener implements TaskFinished{
@@ -174,11 +228,7 @@ public class SearchActivity extends ActionBarActivity{
                 Log.i(CLASS_NAME, city.toString());
             }
 
-            /*
-            Intent intent = new Intent(mContext, FiltersActivity.class);
-            intent.putExtra("bla",new ArrayList<City>(cities));
-            startActivity(intent);
-            */
+            validateCities(cities);
 
         }
 
