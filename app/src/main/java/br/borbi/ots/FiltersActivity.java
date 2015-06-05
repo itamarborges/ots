@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,21 +18,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
 
 interface ClickFragment {
@@ -42,7 +32,7 @@ interface ClickFragment {
 }
 
 
-public class FiltersActivity extends Activity implements ClickFragment, android.app.LoaderManager.LoaderCallbacks<Cursor>,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class FiltersActivity extends Activity implements ClickFragment, android.app.LoaderManager.LoaderCallbacks<Cursor>{
 
     public static final String CLASS_NAME = FiltersActivity.class.getName();
     public static final int CITY_LOADER = 1;
@@ -53,9 +43,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     public static final String NUMBER_SUNNY_DAYS = "NUMBER_SUNNY_DAYS";
     public static final String USE_CLOUDY_DAYS = "USE_CLOUDY_DAYS";
     public static final String MIN_TEMPERATURE = "MIN_TEMPERATURE";
-    public static final String LAST_LATITUDE = "LAST_LATITUDE";
-    public static final String LAST_LONGITUDE = "LAST_LONGITUDE";
-
 
     private static DateFormat dateFormat;
     private static TextView dateBeginView;
@@ -69,9 +56,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     private static Date dateBegin;
     private static Date dateEnd;
 
-    private static GoogleApiClient mGoogleApiClient;
-    private static Location mLastLocation;
-
     private static double lastLongitude;
     private static double lastLatitude;
 
@@ -81,10 +65,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
-
-        // Inicializa API Google Services
-        buildGoogleApiClient();
-
 
         String country = Locale.getDefault().getCountry();
 
@@ -207,8 +187,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         intent.putExtra(NUMBER_SUNNY_DAYS, numberSunnyDays);
         intent.putExtra(USE_CLOUDY_DAYS, usesCloudyDays);
         intent.putExtra(MIN_TEMPERATURE, temperature);
-        intent.putExtra(LAST_LATITUDE,lastLatitude);
-        intent.putExtra(LAST_LONGITUDE, lastLongitude);
 
         startActivity(intent);
     }
@@ -265,49 +243,5 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             dateEndView.setText(dateFormat.format(date));
             dateEnd = date;
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect();
-    }
-
-    protected void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
-    }
-
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-    }
-
-    @Override
-    public void onConnected(Bundle bundle) {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            Log.i(CLASS_NAME, "mLastLocation  nao e null" );
-            lastLatitude = mLastLocation.getLatitude();
-            lastLongitude = mLastLocation.getLongitude();
-        }
-
-        Log.i(CLASS_NAME, "latitude = " + lastLatitude);
-        Log.i(CLASS_NAME, "longitude = " + lastLongitude);
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        Log.e(CLASS_NAME, "conexao suspensa, erro = " + i);
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e(CLASS_NAME, "falhou na conexao, erro = " + connectionResult.getErrorCode());
-
     }
 }

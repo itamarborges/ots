@@ -2,10 +2,10 @@ package br.borbi.ots;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteQueryBuilder;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
@@ -54,12 +53,15 @@ public class SearchActivity extends ActionBarActivity{
             distance = intent.getIntExtra(FiltersActivity.DISTANCE,0);
             dateBegin = (Date) intent.getSerializableExtra(FiltersActivity.DATE_BEGIN);
             dateEnd = (Date) intent.getSerializableExtra(FiltersActivity.DATE_END);
-            numberSunnyDays= intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS,0);
-            minTemperature= intent.getIntExtra(FiltersActivity.MIN_TEMPERATURE,0);
+            numberSunnyDays= intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS, 0);
+            minTemperature= intent.getIntExtra(FiltersActivity.MIN_TEMPERATURE, 0);
             usesCloudyDays = intent.getBooleanExtra(FiltersActivity.USE_CLOUDY_DAYS, false);
-            lastLatitude = intent.getDoubleExtra(FiltersActivity.LAST_LATITUDE,0);
-            lastLongitude = intent.getDoubleExtra(FiltersActivity.LAST_LONGITUDE,0);
-        }
+}
+
+        SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+
+        lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
+        lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         List<String> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
         int numberOfDays = getNumberOfDays(dateBegin,dateEnd);
