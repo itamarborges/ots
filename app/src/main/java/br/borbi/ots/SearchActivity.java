@@ -19,6 +19,7 @@ import java.util.List;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.City;
+import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
 
@@ -91,41 +92,7 @@ public class SearchActivity extends ActionBarActivity{
     Busca cidades
      */
     private List<String> searchCities(double distance, double lastLatitude, double lastLongitude){
-        double minLatitude = CoordinatesUtillity.getMinLatitude(lastLatitude, distance);
-        double maxLatitude = CoordinatesUtillity.getMaxLatitude(lastLatitude, distance);
-        double minLongitude = CoordinatesUtillity.getMinLongitude(lastLatitude, lastLongitude, distance);
-        double maxLongitude = CoordinatesUtillity.getMaxLongitude(lastLatitude, lastLongitude, distance);
-
-
-        if(minLatitude > maxLatitude){
-            double aux = maxLatitude;
-            maxLatitude = minLatitude;
-            minLatitude = aux;
-        }
-        if(minLongitude > maxLongitude){
-            double aux = maxLongitude;
-            maxLongitude = minLongitude;
-            minLongitude = aux;
-        }
-
-        Log.i(CLASS_NAME, "minlat = " + minLatitude);
-        Log.i(CLASS_NAME, "maxlat = " + maxLatitude);
-        Log.i(CLASS_NAME, "minlong = " + minLongitude);
-        Log.i(CLASS_NAME, "maxlong  = " + maxLongitude);
-
-
-        /*
-        StringBuffer whereClause = new StringBuffer(
-                OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ").append(minLatitude)
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ").append(maxLatitude)
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ").append(minLongitude)
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ").append(minLongitude)
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" <= ").append(maxLongitude);*/
-
+        Coordinates coordinates = new Coordinates(lastLatitude,lastLongitude,distance);
 
         StringBuffer whereClause = new StringBuffer(
                 OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ?")
@@ -138,14 +105,12 @@ public class SearchActivity extends ActionBarActivity{
 
 
         String[] selectionArgs = new String[4];
-        selectionArgs[0] = String.valueOf(minLatitude);
-        selectionArgs[1] = String.valueOf(maxLatitude);
-        selectionArgs[2] = String.valueOf(minLongitude);
-        selectionArgs[3] = String.valueOf(maxLongitude);
-
+        selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
+        selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
+        selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
+        selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
 
         Log.i(CLASS_NAME, whereClause.toString());
-
 
         Cursor c = getContentResolver().query(
                 OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES,
