@@ -19,4 +19,5 @@
     <string name="title_activity_splash_screen">Onde tem sol ?</string>
     <string name="celsius">C</string>
     <string name="farenheit">F</string>
+    <string name="begin_date_before_end_date">A data inicial deve ser anterior à data final.</string>
 </resources>

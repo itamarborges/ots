@@ -20,10 +20,11 @@
     <string name="celsius">C</string>
     <string name="farenheit">F</string>
     <string name="dont_care">Don\'t care</string>
-
+    <string name="begin_date_before_end_date">Please set begin date before end date.</string>
     <string name="title_activity_splash_screen">Where are </string>
     <string name="title_activity_search">SearchActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_result">ResultActivity</string>
 
 </resources>

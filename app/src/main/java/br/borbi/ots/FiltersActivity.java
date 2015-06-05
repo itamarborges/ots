@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,6 +27,7 @@ import com.google.android.gms.location.LocationServices;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.borbi.ots.data.OTSContract;
@@ -134,11 +136,9 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             radioButtonCelsius.setChecked(true);
         }
 
-        getLoaderManager().initLoader(CITY_LOADER,null,this);
+        getLoaderManager().initLoader(CITY_LOADER, null, this);
 
     }
-
-
 
     public void showCalendar(View view) {
         DialogFragment newFragment = new DatePickerFragment();
@@ -241,13 +241,31 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
 
             // Use the current date as the default date in the picker
 
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+            Calendar today = new GregorianCalendar();
+            today.setTime(Utility.setDateToInitialHours(new Date()));
+
+            Calendar maxDate = new GregorianCalendar();
+            maxDate.setTime(Utility.setDateToFinalHours(new Date()));
+            maxDate.add(Calendar.DAY_OF_MONTH, 16);
+
+            DatePickerDialog datePickerDialog = null;
+
+            Bundle b = getArguments();
+            int buttonClicked = b.getInt(BUTTON_CLICKED);
+            if (buttonClicked == R.id.calendarDateBegin) {
+                datePickerDialog = new DatePickerDialog(getActivity(), this, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
+            }else{
+                datePickerDialog = new DatePickerDialog(getActivity(), this, maxDate.get(Calendar.YEAR), maxDate.get(Calendar.MONTH), maxDate.get(Calendar.DAY_OF_MONTH));
+
+            }
+
+            datePickerDialog.getDatePicker().setMinDate(today.getTimeInMillis());
+            datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            //return new DatePickerDialog(getActivity(), this, year, month, day);
+            return datePickerDialog;
         }
 
         @Override
@@ -267,6 +285,13 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         } else {
             dateEndView.setText(dateFormat.format(date));
             dateEnd = date;
+        }
+        validateDates();
+    }
+
+    private void validateDates(){
+        if(dateBegin != null && dateBegin.after(dateEnd)){
+            Toast.makeText(this,R.string.begin_date_before_end_date,Toast.LENGTH_LONG).show();
         }
     }
 
