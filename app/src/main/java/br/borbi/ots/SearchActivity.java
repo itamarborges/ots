@@ -27,10 +27,12 @@ public class SearchActivity extends ActionBarActivity{
 
     private static final String CLASS_NAME = SearchActivity.class.getName();
 
+    public static final String CITY_LIST = "CITY_LIST";
+
 
     private Context mContext;
 
-    private List<City> mCities;
+    private ArrayList<City> mCities;
 
     private int minTemperature=0;
     private int numberSunnyDays = 0;
@@ -226,6 +228,10 @@ public class SearchActivity extends ActionBarActivity{
             City city = (City) itCity.next();
             Log.i(CLASS_NAME, city.toString());
         }
+
+        Intent intent = new Intent(this,ResultActivity.class);
+        intent.putExtra(CITY_LIST, new ArrayList(mCities));
+        startActivity(intent);
     }
 
 
