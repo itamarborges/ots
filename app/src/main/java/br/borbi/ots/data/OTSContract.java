@@ -19,6 +19,9 @@ public final class OTSContract {
 
     public static final String CONTENT_AUTHORITY = "br.borbi.ots.app";
 
+    public static final String SHARED_PREFERENCES = "br.borbi.ots.shared_preference";
+    public static final String SHARED_LONGITUDE = "longitude";
+    public static final String SHARED_LATITUDE = "latitude";
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
     // the content provider.
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);

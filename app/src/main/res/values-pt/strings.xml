@@ -17,6 +17,7 @@
     <string name="min_temperature">Temperatura mínima</string>
     <string name="dont_care">Não importa</string>
     <string name="title_activity_splash_screen">Onde tem sol ?</string>
+    <string name="error_localization">Não foi possível determinar a sua localização.</string>
     <string name="celsius">C</string>
     <string name="farenheit">F</string>
     <string name="begin_date_before_end_date">A data inicial deve ser anterior à data final.</string>
