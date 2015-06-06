@@ -27,6 +27,7 @@ import java.util.Locale;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.Utility;
+import br.borbi.ots.utility.ValidationUtility;
 
 interface ClickFragment {
 
@@ -100,9 +101,9 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus && distanceEditText.getText()!=null){
                     if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles){
-                        validateInteger(distanceEditText, 60, null, R.string.minimum_distance);
+                        ValidationUtility.validateInteger(distanceEditText, 60, null, mContext.getString(R.string.minimum_distance));
                     }else{
-                        validateInteger(distanceEditText, 100, null, R.string.minimum_distance);
+                        ValidationUtility.validateInteger(distanceEditText, 100, null, mContext.getString(R.string.minimum_distance));
                     }
                 }
             }
@@ -129,7 +130,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus && daysEditText.getText()!=null){
-                    validateInteger(daysEditText,1,Utility.getNumberOfDaysToShow(dateBegin, dateEnd),R.string.minimum_days);
+                    ValidationUtility.validateInteger(daysEditText, 1, Utility.getNumberOfDaysToShow(dateBegin, dateEnd), mContext.getString(R.string.minimum_days));
                 }
             }
         });
@@ -319,20 +320,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         return true;
     }
 
-    private boolean validateInteger(EditText editText, Integer minNumber, Integer maxNumber, int messageId){
-        String value = editText.getText().toString();
-        if ("".equals(value.trim()) ) {
-            editText.setError(mContext.getString(messageId));
-            return false;
-        }else{
-            int number = Integer.valueOf(value);
-            if((minNumber != null && number < minNumber) || (maxNumber != null && number > maxNumber)){
-                editText.setError(mContext.getString(messageId));
-                return false;
-            }
-        }
-        return true;
-    }
+
 
 
 }
