@@ -65,7 +65,23 @@ public class Utility {
      */
     public static Date getDateDaysFromToday(int numberOfDays){
         Calendar calendar = new GregorianCalendar();
-        calendar.add(Calendar.DAY_OF_MONTH,numberOfDays);
+        calendar.add(Calendar.DAY_OF_MONTH, numberOfDays);
         return calendar.getTime();
+    }
+
+    public static int getNumberOfDaysDifference(Date dateBegin, Date dateEnd){
+        Calendar today = new GregorianCalendar();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+
+        int numberOfDays = 16;
+        if(dateBegin.compareTo(today.getTime()) == 0){
+            numberOfDays = Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
+        }else{
+            numberOfDays = Utility.getDifferenceInDays(today.getTime(), dateEnd) + 1;
+        }
+
+        return numberOfDays;
     }
 }

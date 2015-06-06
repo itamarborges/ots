@@ -55,7 +55,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     public static final String LAST_LONGITUDE = "LAST_LONGITUDE";
     public static final String DONT_USE_TEMPERATURE = "DONT_USE_TEMPERATURE";
 
-
     private static DateFormat dateFormat;
     private static TextView dateBeginView;
     private static TextView dateEndView;
@@ -106,20 +105,12 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus && distanceEditText.getText()!=null){
-                    String distanceString = distanceEditText.getText().toString();
-                    if ("".equals(distanceString.trim()) ) {
-                        distanceEditText.setError(mContext.getString(R.string.minimum_distance));
+                    if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles){
+                        validateInteger(distanceEditText, 60, null, R.string.minimum_distance);
                     }else{
-                        int distance = Integer.valueOf(distanceString);
-                        if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles) {
-                            distance = Utility.convertMilesToKilometers(distance);
-                        }
-                        if(distance < 100) {
-                            distanceEditText.setError(mContext.getString(R.string.minimum_distance));
-                        }
+                        validateInteger(distanceEditText, 100, null, R.string.minimum_distance);
                     }
                 }
-
             }
         });
 
@@ -138,6 +129,16 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
 
         //Nro dias com sol
         daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
+        daysEditText.setText(String.valueOf(Utility.getNumberOfDaysDifference(dateBegin,dateEnd)));
+
+        daysEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus && daysEditText.getText()!=null){
+                    validateInteger(daysEditText,1,Utility.getNumberOfDaysDifference(dateBegin,dateEnd),R.string.minimum_days);
+                }
+            }
+        });
 
         //Dias nublados
         daysWithoutRainCheckbox = (CheckBox) findViewById(R.id.checkBoxDaysWithoutRain);
@@ -309,12 +310,35 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             dateEndView.setText(dateFormat.format(date));
             dateEnd = date;
         }
-        validateDates();
-    }
-
-    private void validateDates(){
-        if(dateBegin != null && dateBegin.after(dateEnd)){
-            Toast.makeText(this,R.string.begin_date_before_end_date,Toast.LENGTH_LONG).show();
+        boolean validDates = validateDates();
+        if(validDates){
+            int numberOfDays = Utility.getDifferenceInDays(dateBegin,dateEnd);
+            daysEditText.setText(String.valueOf(numberOfDays));
         }
     }
+
+    private boolean validateDates(){
+        if(dateBegin != null && dateBegin.after(dateEnd)){
+            Toast.makeText(this,R.string.begin_date_before_end_date,Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateInteger(EditText editText, Integer minNumber, Integer maxNumber, int messageId){
+        String value = editText.getText().toString();
+        if ("".equals(value.trim()) ) {
+            editText.setError(mContext.getString(messageId));
+            return false;
+        }else{
+            int number = Integer.valueOf(value);
+            if((minNumber != null && number < minNumber) || (maxNumber != null && number > maxNumber)){
+                editText.setError(mContext.getString(messageId));
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
