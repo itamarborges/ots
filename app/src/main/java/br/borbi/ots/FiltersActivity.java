@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -71,12 +72,16 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     private static double lastLongitude;
     private static double lastLatitude;
 
+    Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
+
+        mContext = this;
 
         String country = Locale.getDefault().getCountry();
 
@@ -96,6 +101,29 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
 
         //Distancia
         distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
+
+        distanceEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus && distanceEditText.getText()!=null){
+                    String distanceString = distanceEditText.getText().toString();
+                    if ("".equals(distanceString.trim()) ) {
+                        distanceEditText.setError(mContext.getString(R.string.minimum_distance));
+                    }else{
+                        int distance = Integer.valueOf(distanceString);
+                        if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles) {
+                            distance = Utility.convertMilesToKilometers(distance);
+                        }
+                        if(distance < 100) {
+                            distanceEditText.setError(mContext.getString(R.string.minimum_distance));
+                        }
+                    }
+                }
+
+            }
+        });
+
+
         distanceType = (RadioGroup) findViewById(R.id.radioGroupDistance);
 
         boolean usesKilometers = sharedPref.getBoolean(OTSContract.USE_KILOMETERS, true);
