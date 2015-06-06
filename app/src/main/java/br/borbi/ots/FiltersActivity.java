@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -21,17 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
 
 interface ClickFragment {
@@ -88,11 +82,11 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
         dateBeginView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
-        dateBegin  = new Date();
+        dateBegin  = Utility.setDateToInitialHours(new Date());
         dateBeginView.setText(dateFormat.format(dateBegin));
 
         dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
-        dateEnd = Utility.getDateDaysFromToday(16);
+        dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(16));
         dateEndView.setText(dateFormat.format(dateEnd));
 
 
@@ -129,13 +123,13 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
 
         //Nro dias com sol
         daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
-        daysEditText.setText(String.valueOf(Utility.getNumberOfDaysDifference(dateBegin,dateEnd)));
+        daysEditText.setText(String.valueOf(Utility.getNumberOfDaysToShow(dateBegin, dateEnd)));
 
         daysEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus && daysEditText.getText()!=null){
-                    validateInteger(daysEditText,1,Utility.getNumberOfDaysDifference(dateBegin,dateEnd),R.string.minimum_days);
+                    validateInteger(daysEditText,1,Utility.getNumberOfDaysToShow(dateBegin, dateEnd),R.string.minimum_days);
                 }
             }
         });
@@ -305,14 +299,14 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     public void OnClickFragment(int v, Date date){
         if (v == R.id.calendarDateBegin) {
             dateBeginView.setText(dateFormat.format(date));
-            dateBegin = date;
+            dateBegin = Utility.setDateToInitialHours(date);
         } else {
             dateEndView.setText(dateFormat.format(date));
-            dateEnd = date;
+            dateEnd = Utility.setDateToFinalHours(date);
         }
         boolean validDates = validateDates();
         if(validDates){
-            int numberOfDays = Utility.getDifferenceInDays(dateBegin,dateEnd);
+            int numberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
             daysEditText.setText(String.valueOf(numberOfDays));
         }
     }

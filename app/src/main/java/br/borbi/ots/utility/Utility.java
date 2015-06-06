@@ -1,5 +1,7 @@
 package br.borbi.ots.utility;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -69,19 +71,29 @@ public class Utility {
         return calendar.getTime();
     }
 
-    public static int getNumberOfDaysDifference(Date dateBegin, Date dateEnd){
+    /*
+    Retorna o numero de dias que deve ser utilizado para buscar a previsao do tempo.
+     */
+    public static int getNumberOfDaysToSearch(Date dateBegin, Date dateEnd){
         Calendar today = new GregorianCalendar();
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
 
         int numberOfDays = 16;
-        if(dateBegin.compareTo(today.getTime()) == 0){
-            numberOfDays = Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
-        }else{
+        if(dateBegin.after(today.getTime())){
             numberOfDays = Utility.getDifferenceInDays(today.getTime(), dateEnd) + 1;
+        }else{
+            numberOfDays = Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
         }
 
         return numberOfDays;
+    }
+
+    /*
+        Retorna o numero de dias de pesquisa que deve ser mostrado ao usuario. Apenas para exibicao
+     */
+    public static int getNumberOfDaysToShow(Date dateBegin, Date dateEnd){
+        return Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
     }
 }

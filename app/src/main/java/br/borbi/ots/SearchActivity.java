@@ -73,7 +73,7 @@ public class SearchActivity extends ActionBarActivity{
         lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         List<String> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
-        int numberOfDays = Utility.getDifferenceInDays(dateBegin,dateEnd);
+        int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin,dateEnd);
         searchWeatherData(cities, numberOfDays);
     }
 

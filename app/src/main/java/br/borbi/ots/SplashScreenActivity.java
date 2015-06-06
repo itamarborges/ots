@@ -90,7 +90,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                     intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
                     startActivity(intent);
                 } else {
-                    Log.v("Debug", "Não possui dados");
+                    Log.v("Debug", "Nao possui dados");
                     Intent intent = new Intent();
                     intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
                     startActivity(intent);
