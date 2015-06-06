@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteQueryBuilder;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,11 +16,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.pojo.DayForecast;
-import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
 
 interface TaskFinished {

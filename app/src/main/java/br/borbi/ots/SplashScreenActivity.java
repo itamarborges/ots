@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,15 +16,19 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.pojo.Coordinates;
 
 
 public class SplashScreenActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     public static final String CLASS_NAME = SplashScreenActivity.class.getName();
+    public static final int MAX_DISTANCE_VALID = 100;
 
     private static GoogleApiClient mGoogleApiClient;
     private static Location mLastLocation;
@@ -51,38 +56,46 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 //- the table search is not empty and
                 //- the date_end is before than today
                 //- the current location is not too far from the place where the seach was originally made
+                Coordinates coordinates = new Coordinates(lastLatitude,lastLongitude, MAX_DISTANCE_VALID);
 
-                /*
                 StringBuffer whereClause = new StringBuffer(
-                        OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ?")
+                        OTSContract.Search.COLUMN_NAME_ORIGIN_LAT).append(" >= ?")
                         .append(" AND ")
-                        .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ?")
+                        .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT).append(" <= ?")
                         .append(" AND ")
-                        .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ?")
+                        .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG).append(" >= ?")
                         .append(" AND ")
-                        .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" <= ?");
+                        .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG).append(" <= ?")
+                        .append(" AND ")
+                        .append(OTSContract.Search.COLUMN_NAME_DATE_END).append(" >= ?");
 
 
-                String[] selectionArgs = new String[4];
-                selectionArgs[0] = String.valueOf(minLatitude);
-                selectionArgs[1] = String.valueOf(maxLatitude);
-                selectionArgs[2] = String.valueOf(minLongitude);
-                selectionArgs[3] = String.valueOf(maxLongitude);
-
+                String[] selectionArgs = new String[5];
+                selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
+                selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
+                selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
+                selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
+                selectionArgs[4] = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
                 Cursor c = getContentResolver().query(
-                        OTSContract.PATH_SEARCH,
+                        OTSContract.Search.CONTENT_URI,
                         new String[]{OTSContract.Search._ID},
                         whereClause.toString(),
                         selectionArgs,
                         null);
 
+                if (c.moveToFirst()) {
+                    Log.v("Debug", "Possui dados");
+                    Intent intent = new Intent();
+                    intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
+                    startActivity(intent);
+                } else {
+                    Log.v("Debug", "Não possui dados");
+                    Intent intent = new Intent();
+                    intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
+                    startActivity(intent);
+                }
 
-*/
-
-                Intent intent = new Intent();
-                intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
-                startActivity(intent);
             }
         }, TIME_SPLASH);
 
@@ -127,28 +140,21 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 Log.i(CLASS_NAME, "mLastLocation  nao e null");
                 lastLatitude = mLastLocation.getLatitude();
                 lastLongitude = mLastLocation.getLongitude();
+
+                Log.i(CLASS_NAME, "latitude = " + lastLatitude);
+                Log.i(CLASS_NAME, "longitude = " + lastLongitude);
+
+                SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putLong(OTSContract.SHARED_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
+                editor.putLong(OTSContract.SHARED_LONGITUDE, Double.doubleToRawLongBits(lastLongitude));
+
+                editor.commit();
+            } else {
+                lastLatitude = OTSContract.INDETERMINATED_VALUE;
+                lastLongitude = OTSContract.INDETERMINATED_VALUE;
             }
-
-            Log.i(CLASS_NAME, "latitude = " + lastLatitude);
-            Log.i(CLASS_NAME, "longitude = " + lastLongitude);
-
-            SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            /*
- Editor putDouble(final Editor edit, final String key, final double value) {
-   return edit.putLong(key, Double.doubleToRawLongBits(value));
-}
-
-double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
-}
-
-             */
-            editor.putLong(OTSContract.SHARED_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
-            editor.putLong(OTSContract.SHARED_LONGITUDE, Double.doubleToRawLongBits(lastLongitude));
-
-            editor.commit();
 
 
 
