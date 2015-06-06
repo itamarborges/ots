@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class City implements Serializable{
 
+    private static final long serialVersionUID = 42L;
+
     private String name;
     private List<DayForecast> dayForecasts;
 

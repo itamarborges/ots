@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import br.borbi.ots.data.OTSContract;
@@ -39,6 +40,8 @@ public class SearchActivity extends ActionBarActivity{
     private int numberSunnyDays = 0;
     private boolean usesCloudyDays = false;
     private boolean dontUseTemperature = false;
+    private Date dateBegin = null;
+    private Date dateEnd = null;
 
 
     @Override
@@ -50,8 +53,6 @@ public class SearchActivity extends ActionBarActivity{
 
         Intent intent = getIntent();
         int distance = 0;
-        Date dateBegin = null;
-        Date dateEnd = null;
         int numberSunnyDays = 0;
         int minTemperature = 0;
         boolean usesCloudyDays = false;
@@ -73,7 +74,7 @@ public class SearchActivity extends ActionBarActivity{
         lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         List<String> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
-        int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin,dateEnd);
+        int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin, dateEnd);
         searchWeatherData(cities, numberOfDays);
     }
 
@@ -163,16 +164,21 @@ public class SearchActivity extends ActionBarActivity{
             int contSunnyDays = 0;
             boolean validCity = true;
 
+            List<DayForecast> dayForecasts = new LinkedList<DayForecast>();
 
             while(itDayForecast.hasNext() && validCity){
                 DayForecast dayForecast = (DayForecast) itDayForecast.next();
+                if(dayForecast.getDate().after(dateBegin)){
 
-                if(!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature){
-                    validCity = false;
-                }
+                    if(!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature){
+                        validCity = false;
+                    }
 
-                if(dayForecast.getWeatherType().isSunnyDay(usesCloudyDays)){
-                    contSunnyDays++;
+                    if(dayForecast.getWeatherType().isSunnyDay(usesCloudyDays)){
+                        contSunnyDays++;
+                    }
+
+                    dayForecasts.add(dayForecast);
                 }
             }
 
@@ -181,6 +187,7 @@ public class SearchActivity extends ActionBarActivity{
             }
 
             if(validCity){
+                city.setDayForecasts(dayForecasts);
                 mCities.add(city);
             }
         }

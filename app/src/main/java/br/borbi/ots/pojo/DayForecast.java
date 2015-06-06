@@ -10,6 +10,8 @@ import br.borbi.ots.enums.WeatherType;
  */
 public class DayForecast implements Serializable{
 
+    private static final long serialVersionUID = -5659072624209865929L;
+
     private Date date;
     private Double minTemperature;
     private Double maxTemperature;
