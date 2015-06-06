@@ -22,6 +22,8 @@ public final class OTSContract {
     public static final String SHARED_PREFERENCES = "br.borbi.ots.shared_preference";
     public static final String SHARED_LONGITUDE = "longitude";
     public static final String SHARED_LATITUDE = "latitude";
+
+    public static final int INDETERMINATED_VALUE = 99999;
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
     // the content provider.
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
