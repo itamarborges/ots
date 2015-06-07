@@ -23,4 +23,5 @@
     <string name="begin_date_before_end_date">A data inicial deve ser anterior à data final.</string>
     <string name="minimum_distance">Distância mínima é de 100 km.</string>
     <string name="minimum_days">Número de dias deve ser entre 1 e o número de dias de sua pesquisa.</string>
+    <string name="invalid_fields">Por favor, verifique todos os campos destacados.</string>
 </resources>

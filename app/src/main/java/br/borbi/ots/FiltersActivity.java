@@ -144,19 +144,31 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
         temperatureCheckbox = (CheckBox) findViewById(R.id.checkBoxTemperature);
 
+        final RadioButton radioButtonFarenheit = (RadioButton) findViewById(R.id.radioButtonFarenheit);
+        final RadioButton radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
+
         boolean usesCelsius = sharedPref.getBoolean(OTSContract.USE_CELSIUS, true);
         if ("US".equalsIgnoreCase(country) || !usesCelsius){
-            RadioButton radioButtonFarenheit = (RadioButton) findViewById(R.id.radioButtonFarenheit);
             radioButtonFarenheit.setChecked(true);
         }else {
-            RadioButton radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
             radioButtonCelsius.setChecked(true);
         }
 
+        temperatureCheckbox.setChecked(true);
 
-        getLoaderManager().initLoader(CITY_LOADER,null,this);
+        temperatureCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isChecked = temperatureCheckbox.isChecked();
+                RadioGroup temperatureRadioGroup = (RadioGroup) findViewById(R.id.radioGroupTemperature);
+                temperatureEditText.setEnabled(!isChecked);
+                temperatureRadioGroup.setEnabled(!isChecked);
+                radioButtonCelsius.setEnabled(!isChecked);
+                radioButtonFarenheit.setEnabled(!isChecked);
+            }
+        });
+
         getLoaderManager().initLoader(CITY_LOADER, null, this);
-
     }
 
     public void showCalendar(View view) {
@@ -167,8 +179,17 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    public void onSaveButtonClicked(View view){
+    public void onSaveButtonClicked(View view) {
 
+        boolean allFieldsValid = validateFields();
+        if (allFieldsValid) {
+            callSearch();
+        } else {
+            Toast.makeText(this,R.string.invalid_fields, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void callSearch(){
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
@@ -201,13 +222,12 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
          */
 
         boolean usesCloudyDays = daysWithoutRainCheckbox.isChecked();
-        Log.i(CLASS_NAME, "dias nublados: " + usesCloudyDays);
 
         /*
         Temperatura
          */
         String temperatureString = temperatureEditText.getText().toString();
-        int temperature = 0;
+        Integer temperature = null;
         if(temperatureString != null && !temperatureString.isEmpty()) {
             temperature = Integer.valueOf(temperatureEditText.getText().toString());
             if (temperatureType.getCheckedRadioButtonId() == R.id.radioButtonFarenheit) {
@@ -216,7 +236,11 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             }else{
                 editor.putBoolean(OTSContract.USE_CELSIUS,true);
             }
-            Log.i(CLASS_NAME, "temperatura = " + temperature);
+        }
+
+        boolean dontUseTemperature = temperatureCheckbox.isChecked();
+        if(temperature == null){
+            dontUseTemperature = true;
         }
 
         editor.commit();
@@ -228,7 +252,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         intent.putExtra(NUMBER_SUNNY_DAYS, numberSunnyDays);
         intent.putExtra(USE_CLOUDY_DAYS, usesCloudyDays);
         intent.putExtra(MIN_TEMPERATURE, temperature);
-        intent.putExtra(DONT_USE_TEMPERATURE, temperatureCheckbox.isChecked());
+        intent.putExtra(DONT_USE_TEMPERATURE, dontUseTemperature);
         intent.putExtra(LAST_LATITUDE,lastLatitude);
         intent.putExtra(LAST_LONGITUDE, lastLongitude);
 
@@ -320,7 +344,20 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         return true;
     }
 
+    private boolean validateFields(){
 
+        boolean validDistance = true;
+        // Valida distancia.
+        if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles){
+            validDistance = ValidationUtility.validateInteger(distanceEditText, 60, null, mContext.getString(R.string.minimum_distance));
+        }else{
+            validDistance = ValidationUtility.validateInteger(distanceEditText, 100, null, mContext.getString(R.string.minimum_distance));
+        }
 
+        // Valida numero de dias
+        boolean validDays = ValidationUtility.validateInteger(daysEditText, 1, Utility.getNumberOfDaysToShow(dateBegin, dateEnd), mContext.getString(R.string.minimum_days));
+
+        return (validDistance || validDays);
+    }
 
 }

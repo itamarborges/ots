@@ -28,5 +28,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="error_localization">Não foi possível determinar a sua localização.</string>
     <string name="title_activity_result">ResultActivity</string>
+    <string name="invalid_fields">Please verify all red fields.</string>
 
 </resources>
