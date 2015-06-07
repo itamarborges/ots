@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,8 +17,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -56,6 +55,11 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 //- the table search is not empty and
                 //- the date_end is before than today
                 //- the current location is not too far from the place where the seach was originally made
+                Time dayTime = new Time();
+                dayTime.setToNow();
+
+                int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
+
                 Coordinates coordinates = new Coordinates(lastLatitude,lastLongitude, MAX_DISTANCE_VALID);
 
                 StringBuffer whereClause = new StringBuffer(
@@ -75,7 +79,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
                 selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
                 selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
-                selectionArgs[4] = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                selectionArgs[4] = Long.toString(dayTime.setJulianDay(julianToday));
 
                 Cursor c = getContentResolver().query(
                         OTSContract.Search.CONTENT_URI,
@@ -90,7 +94,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                     intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
                     startActivity(intent);
                 } else {
-                    Log.v("Debug", "Nao possui dados");
+                    Log.v("Debug", "Não possui dados");
                     Intent intent = new Intent();
                     intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
                     startActivity(intent);
