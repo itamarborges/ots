@@ -73,26 +73,9 @@ public class SearchActivity extends ActionBarActivity{
         lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         List<String> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
-        int numberOfDays = getNumberOfDays(dateBegin,dateEnd);
+        int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin,dateEnd);
         searchWeatherData(cities, numberOfDays);
     }
-
-    private int getNumberOfDays(Date dateBegin, Date dateEnd){
-        Calendar today = new GregorianCalendar();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-
-        int numberOfDays = 16;
-        if(dateBegin.compareTo(today.getTime()) == 0){
-            numberOfDays = Utility.getDifferenceInDays(dateBegin, dateEnd);
-        }else{
-            numberOfDays = Utility.getDifferenceInDays(today.getTime(), dateEnd);
-        }
-
-        return numberOfDays;
-    }
-
 
     /*
     Busca cidades
