@@ -27,6 +27,19 @@ public enum WeatherType {
         return WeatherType.RAIN;
     }
 
+    public static int getId(WeatherType weatherType){
+        if(WeatherType.SUNNY.equals(weatherType)){
+            return 800;
+        }
+        if(WeatherType.CLOUDS.equals(weatherType)){
+            return 802;
+        }
+        if(WeatherType.SNOW.equals(weatherType)){
+            return 600;
+        }
+        return 500;
+    }
+
 
     public boolean isSunnyDay(boolean acceptsClouds){
         if(this.equals(SUNNY) || (acceptsClouds && this.equals(CLOUDS))){

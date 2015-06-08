@@ -18,18 +18,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.DayForecast;
+import br.borbi.ots.pojo.SearchParameters;
 
 
 /**
  * Created by Gabriela on 26/05/2015.
  */
-public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
+public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<City>> {
 
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
@@ -47,7 +49,7 @@ public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
     }
 
     @Override
-    protected List<City> doInBackground(String[]... params) {
+    protected List<City> doInBackground(SearchParameters... params) {
 
         Log.i(LOG_TAG,"entrou no doInBackground");
 
@@ -68,10 +70,10 @@ public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
         String format = "json";
         String units = "metric";
 
-        List<City> cities = new ArrayList<City>();
-        String[] citiesArray = params[0];
+        SearchParameters searchParameters = params[0];
 
-        Log.i(LOG_TAG, "tamanho array params = " + citiesArray.length);
+        List<City> cities = new ArrayList<City>();
+        List<City> citiesToSearch = searchParameters.getCities();
 
         try {
             final String FORECAST_BASE_URL ="http://api.openweathermap.org/data/2.5/forecast/daily?";
@@ -80,6 +82,48 @@ public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
             final String UNITS_PARAM = "units";
             final String DAYS_PARAM = "cnt";
 
+
+            Iterator<City> it = citiesToSearch.iterator();
+            while(it.hasNext()){
+                City cityToSearch = (City) it.next();
+                Log.i(LOG_TAG, "vai procurar previsao da cidade = " + cityToSearch.toString());
+
+                Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                        .appendQueryParameter(QUERY_PARAM, cityToSearch.getName()+"," + cityToSearch.getCountryCode())
+                        .appendQueryParameter(FORMAT_PARAM, format)
+                        .appendQueryParameter(UNITS_PARAM, units)
+                        .appendQueryParameter(DAYS_PARAM, String.valueOf(searchParameters.getNumberOfDays()))
+                        .build();
+
+                URL url = new URL(builtUri.toString());
+
+                // Create the request to OpenWeatherMap, and open the connection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream != null) {
+                    reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        buffer.append(line + "\n");
+                    }
+
+                    if (buffer.length() != 0) {
+                        forecastJsonStr = buffer.toString();
+
+                        Log.i(LOG_TAG, forecastJsonStr);
+
+                        cities.add(getWeatherDataFromJson(forecastJsonStr, cityToSearch));
+                    }
+                }
+            }
+
+            /*
             for (int i=1;i<citiesArray.length;i++){
                 Log.i(LOG_TAG, "vai procurar previsao da cidade = " + citiesArray[i]);
 
@@ -117,6 +161,7 @@ public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
                     }
                 }
             }
+            */
 
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
@@ -140,12 +185,8 @@ public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
         return cities;
     }
 
-    private City getWeatherDataFromJson(String forecastJsonStr, String locationSetting)
+    private City getWeatherDataFromJson(String forecastJsonStr, City citySearched)
             throws JSONException {
-
-        // Now we have a String representing the complete forecast in JSON Format.
-        // Fortunately parsing is easy:  constructor takes the JSON string and converts it
-        // into an Object hierarchy for us.
 
         // These are the names of the JSON objects that need to be extracted.
 
@@ -171,7 +212,6 @@ public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
         final String OWM_WEATHER_ID = "id";
 
 
-        //List<DayForecast> daysForecast = new ArrayList<DayForecast>();
         LinkedList<DayForecast> daysForecast = new LinkedList<DayForecast>();
         City city = null;
 
@@ -227,7 +267,7 @@ public class FetchWeatherTask extends AsyncTask<String[], Void, List<City>> {
                 daysForecast.add(forecastForTheDay);
             }
 
-            city = new City(cityName,daysForecast);
+            city = new City(citySearched.getId(), citySearched.getName(), citySearched.getCountryCode(),daysForecast);
 
 
         } catch (JSONException e) {
