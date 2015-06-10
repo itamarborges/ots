@@ -20,6 +20,7 @@ import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.pojo.DayForecast;
+import br.borbi.ots.pojo.SearchParameters;
 import br.borbi.ots.utility.Utility;
 
 interface TaskFinished {
@@ -73,7 +74,11 @@ public class SearchActivity extends ActionBarActivity{
         lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        List<String> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
+        //lastLatitude = -30.033333;
+        //lastLongitude = -51.216667;
+
+
+        List<City> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
         int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin, dateEnd);
         searchWeatherData(cities, numberOfDays);
     }
@@ -81,7 +86,7 @@ public class SearchActivity extends ActionBarActivity{
     /*
     Busca cidades
      */
-    private List<String> searchCities(double distance, double lastLatitude, double lastLongitude){
+    private List<City> searchCities(double distance, double lastLatitude, double lastLongitude){
         Coordinates coordinates = new Coordinates(lastLatitude,lastLongitude,distance);
 
         StringBuffer whereClause = new StringBuffer(
@@ -104,51 +109,41 @@ public class SearchActivity extends ActionBarActivity{
 
         Cursor c = getContentResolver().query(
                 OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES,
-                new String[]{OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH, OTSContract.Country.COLUMN_NAME_COUNTRY_CODE},
+                new String[]{OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH, OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID, OTSContract.Country.COLUMN_NAME_COUNTRY_CODE},
                 whereClause.toString(),
                 selectionArgs,
                 null);
 
 
-        List<String> cities = new ArrayList<String>();
+        List<City> cities = new ArrayList<City>();
 
         Log.i(CLASS_NAME, " vai iterar nos retornos");
         Log.i(CLASS_NAME, " total de retornos = " + c.getCount());
         if (c.moveToFirst()) {
             do {
                 int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
+                int numIndexCityId = c.getColumnIndex(OTSContract.City._ID);
                 int numIndexCountryCode = c.getColumnIndex(OTSContract.Country.COLUMN_NAME_COUNTRY_CODE);
 
-                String city = c.getString(numIndexName)+","+ c.getString(numIndexCountryCode);
+                City city = new City(c.getLong(numIndexCityId), c.getString(numIndexName),c.getString(numIndexCountryCode));
 
                 cities.add(city);
 
-                Log.i(CLASS_NAME, city);
+                Log.i(CLASS_NAME, city.toString());
             }
             while (c.moveToNext());
         }
         return cities;
     }
 
-    private void searchWeatherData(List<String> cities, int numberOfDays){
+    private void searchWeatherData(List<City> cities, int numberOfDays){
 
         Log.i(CLASS_NAME, "number of days = " + numberOfDays);
 
-        String[] citiesArray = new String[cities.size() + 1];
-        citiesArray[0] = String.valueOf(numberOfDays);
-
-        Iterator<String> it = cities.iterator();
-        int i = 1;
-        while(it.hasNext()){
-            citiesArray[i++] = (String) it.next();
-        }
-
-        for (int j=0;j<citiesArray.length;j++){
-            Log.i(CLASS_NAME, citiesArray[j]);
-        }
+        SearchParameters searchParameters = new SearchParameters(numberOfDays,cities);
 
         FetchWeatherTask weatherTask = new FetchWeatherTask(this, new TaskFinishedListener());
-        weatherTask.execute(citiesArray);
+        weatherTask.execute(searchParameters);
 
     }
 

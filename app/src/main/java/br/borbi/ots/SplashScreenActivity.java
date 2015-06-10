@@ -35,7 +35,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     private static double lastLongitude;
     private static double lastLatitude;
 
-    public static final int TIME_SPLASH = 1;
+    public static final int TIME_SPLASH = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
