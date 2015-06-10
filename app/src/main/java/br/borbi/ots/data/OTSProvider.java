@@ -7,7 +7,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
+
+
+import java.util.List;
+
+import br.borbi.ots.SearchActivity;
+import br.borbi.ots.entity.Search;
+import br.borbi.ots.enums.WeatherType;
+import br.borbi.ots.pojo.City;
+import br.borbi.ots.pojo.DayForecast;
 
 /**
  * Created by Itamar on 08/04/2015.
@@ -181,7 +191,7 @@ public class OTSProvider extends ContentProvider {
                 break;
             }
             case LIST_CITIES_BY_COORDINATES: {
-                    retCursor = listCitiesByCoordinates(projection, selection, selectionArgs);
+                retCursor = listCitiesByCoordinates(projection, selection, selectionArgs);
                 break;
             }
         }
@@ -459,7 +469,7 @@ public class OTSProvider extends ContentProvider {
         }
     }
 
-    public Cursor listCitiesByCoordinates(String[] projection, String selection, String[] selectionArgs){
+    public Cursor listCitiesByCoordinates(String[] projection, String selection, String[] selectionArgs) {
         SQLiteQueryBuilder sWeatherByLocationSettingQueryBuilder = new SQLiteQueryBuilder();
 
         sWeatherByLocationSettingQueryBuilder.setTables(
@@ -490,10 +500,123 @@ public class OTSProvider extends ContentProvider {
 
     }
 
-    private void printArray(String[] arr){
-        for (int i =0;i<arr.length;i++){
-            Log.v(CLASS_NAME,arr[i]);
+
+    @Override
+    public Bundle call(String method, String arg, Bundle extras) {
+
+        Bundle bundle = null;
+
+        Log.v(CLASS_NAME, "entrou no call, method = " + method);
+        if ("insertSearch".equals(method)) {
+            Search search = (Search) extras.getSerializable(SearchActivity.SEARCH);
+            bundle = insertSearch(search);
+        }
+
+        //return super.call(method, arg, extras);
+        return bundle;
+    }
+
+    private Bundle insertSearch(Search search) {
+
+        Log.v(CLASS_NAME, "ENTROU EM insertSearch");
+
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        long searchId = 0;
+
+
+        Uri returnUri;
+        try {
+            //Insere search;
+            ContentValues searchValues = new ContentValues();
+            searchValues.put(OTSContract.Search.COLUMN_NAME_DATE_BEGIN, search.getBeginDate().getTime());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_DATE_END, search.getEndDate().getTime());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_RADIUS, search.getRadius());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_MIN_SUNNY_DAYS, search.getMinSunnyDays());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_MIN_TEMPERATURE, search.getMinTemperature());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_MIN_SUNNY_DAYS, search.getMinSunnyDays());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_DATETIME_LAST_SEARCH, search.getDateTimeLastSearch().getTime());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT, search.getOriginLatitude());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG, search.getOriginLongitude());
+
+
+            db.beginTransaction();
+            searchId = db.insert(OTSContract.Search.TABLE_NAME, null, searchValues);
+
+            if (searchId <= 0) {
+                throw new android.database.SQLException("Failed to insert row into search");
+            }
+
+            List<City> cities = search.getCites();
+
+            for (City city : cities) {
+                ContentValues relSearchCityValues = new ContentValues();
+                relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_CITY_ID, city.getId());
+                relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID, searchId);
+
+                long relSearchCityId = db.insert(OTSContract.RelSearchCity.TABLE_NAME, null, relSearchCityValues);
+
+
+                for (DayForecast dayForecast : city.getDayForecasts()) {
+                    ContentValues resultSearchValues = new ContentValues();
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_DATE, dayForecast.getDate().getTime());
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE, dayForecast.getMinTemperature());
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE, dayForecast.getMaxTemperature());
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE, WeatherType.getId(dayForecast.getWeatherType()));
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID, relSearchCityId);
+
+                    db.insert(OTSContract.ResultSearch.TABLE_NAME, null, resultSearchValues);
+                }
+            }
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e) {
+
+        } finally {
+            db.endTransaction();
+        }
+
+
+
+
+        returnUri = OTSContract.Search.buildSearchUri(searchId);
+
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(SearchActivity.SEARCH, searchId);
+
+
+        Log.v(CLASS_NAME, "SAIU DE insertSearch");
+
+        return bundle;
+    }
+
+    /*
+    private void normalizeDate(ContentValues values) {
+        // normalize the date value
+        if (values.containsKey(OTSContract.Search.COLUMN_NAME_DATE_BEGIN) || values.containsKey(OTSContract.Search.COLUMN_NAME_DATE_BEGIN)) {
+            long dateValue = values.getAsLong(WeatherContract.WeatherEntry.COLUMN_DATE);
+            values.put(WeatherContract.WeatherEntry.COLUMN_DATE, WeatherContract.normalizeDate(dateValue));
         }
     }
+
+
+    // To make it easy to query for the exact date, we normalize all dates that go into
+    // the database to the start of the the Julian day at UTC.
+    public static long normalizeDate(long startDate) {
+        // normalize the start date to the beginning of the (UTC) day
+        Time time = new Time();
+        time.set(startDate);
+        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
+        return time.setJulianDay(julianDay);
+    }
+*/
+
+    private void printArray(String[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            Log.v(CLASS_NAME, arr[i]);
+        }
+    }
+
 
 }

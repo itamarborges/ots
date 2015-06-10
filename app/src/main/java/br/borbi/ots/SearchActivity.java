@@ -1,5 +1,7 @@
 package br.borbi.ots;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,8 +17,12 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.data.OTSProvider;
+import br.borbi.ots.entity.Search;
+import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.pojo.DayForecast;
@@ -28,21 +34,26 @@ interface TaskFinished {
     public void OnTaskFinished(List<City> cities);
 }
 
-public class SearchActivity extends ActionBarActivity{
+public class SearchActivity extends ActionBarActivity {
 
     private static final String CLASS_NAME = SearchActivity.class.getName();
 
     public static final String CITY_LIST = "CITY_LIST";
 
+    public static final String SEARCH = "SEARCH";
+
     private Context mContext;
     private ArrayList<City> mCities;
 
-    private int minTemperature=0;
+    private int minTemperature = 0;
     private int numberSunnyDays = 0;
     private boolean usesCloudyDays = false;
     private boolean dontUseTemperature = false;
     private Date dateBegin = null;
     private Date dateEnd = null;
+    private Integer distance = null;
+    private Double lastLatitude = 0d;
+    private Double lastLongitude = 0d;
 
 
     @Override
@@ -53,18 +64,16 @@ public class SearchActivity extends ActionBarActivity{
         mContext = this;
 
         Intent intent = getIntent();
-        int distance = 0;
         int numberSunnyDays = 0;
         int minTemperature = 0;
         boolean usesCloudyDays = false;
-        double lastLatitude = 0d;
-        double lastLongitude =0d;
+
         if (intent != null) {
-            distance = intent.getIntExtra(FiltersActivity.DISTANCE,0);
+            distance = intent.getIntExtra(FiltersActivity.DISTANCE, 0);
             dateBegin = (Date) intent.getSerializableExtra(FiltersActivity.DATE_BEGIN);
             dateEnd = (Date) intent.getSerializableExtra(FiltersActivity.DATE_END);
-            numberSunnyDays= intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS, 0);
-            minTemperature= intent.getIntExtra(FiltersActivity.MIN_TEMPERATURE, 0);
+            numberSunnyDays = intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS, 0);
+            minTemperature = intent.getIntExtra(FiltersActivity.MIN_TEMPERATURE, 0);
             dontUseTemperature = intent.getBooleanExtra(FiltersActivity.DONT_USE_TEMPERATURE, false);
             usesCloudyDays = intent.getBooleanExtra(FiltersActivity.USE_CLOUDY_DAYS, false);
         }
@@ -74,8 +83,8 @@ public class SearchActivity extends ActionBarActivity{
         lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        //lastLatitude = -30.033333;
-        //lastLongitude = -51.216667;
+        lastLatitude = -30.033333;
+        lastLongitude = -51.216667;
 
 
         List<City> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
@@ -86,8 +95,8 @@ public class SearchActivity extends ActionBarActivity{
     /*
     Busca cidades
      */
-    private List<City> searchCities(double distance, double lastLatitude, double lastLongitude){
-        Coordinates coordinates = new Coordinates(lastLatitude,lastLongitude,distance);
+    private List<City> searchCities(double distance, double lastLatitude, double lastLongitude) {
+        Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, distance);
 
         StringBuffer whereClause = new StringBuffer(
                 OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ?")
@@ -125,7 +134,7 @@ public class SearchActivity extends ActionBarActivity{
                 int numIndexCityId = c.getColumnIndex(OTSContract.City._ID);
                 int numIndexCountryCode = c.getColumnIndex(OTSContract.Country.COLUMN_NAME_COUNTRY_CODE);
 
-                City city = new City(c.getLong(numIndexCityId), c.getString(numIndexName),c.getString(numIndexCountryCode));
+                City city = new City(c.getLong(numIndexCityId), c.getString(numIndexName), c.getString(numIndexCountryCode));
 
                 cities.add(city);
 
@@ -136,40 +145,36 @@ public class SearchActivity extends ActionBarActivity{
         return cities;
     }
 
-    private void searchWeatherData(List<City> cities, int numberOfDays){
+    private void searchWeatherData(List<City> cities, int numberOfDays) {
 
         Log.i(CLASS_NAME, "number of days = " + numberOfDays);
 
-        SearchParameters searchParameters = new SearchParameters(numberOfDays,cities);
+        SearchParameters searchParameters = new SearchParameters(numberOfDays, cities);
 
         FetchWeatherTask weatherTask = new FetchWeatherTask(this, new TaskFinishedListener());
         weatherTask.execute(searchParameters);
 
     }
 
-    private void validateCities(List<City> cities){
+    private void validateCities(List<City> cities) {
 
         mCities = new ArrayList<City>();
 
-        Iterator<City> itCity = cities.iterator();
-        while (itCity.hasNext()) {
-            City city = (City) itCity.next();
+        for (City city : cities) {
 
-            Iterator<DayForecast> itDayForecast = city.getDayForecasts().iterator();
             int contSunnyDays = 0;
             boolean validCity = true;
 
             List<DayForecast> dayForecasts = new LinkedList<DayForecast>();
 
-            while(itDayForecast.hasNext() && validCity){
-                DayForecast dayForecast = (DayForecast) itDayForecast.next();
-                if(dayForecast.getDate().after(dateBegin)){
+            for (DayForecast dayForecast : city.getDayForecasts()) {
+                if (dayForecast.getDate().after(dateBegin)) {
 
-                    if(!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature){
+                    if (!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature) {
                         validCity = false;
                     }
 
-                    if(dayForecast.getWeatherType().isSunnyDay(usesCloudyDays)){
+                    if (dayForecast.getWeatherType().isSunnyDay(usesCloudyDays)) {
                         contSunnyDays++;
                     }
 
@@ -177,35 +182,81 @@ public class SearchActivity extends ActionBarActivity{
                 }
             }
 
-            if(contSunnyDays < numberSunnyDays){
+            if (contSunnyDays < numberSunnyDays) {
                 validCity = false;
             }
 
-            if(validCity){
+            if (validCity) {
                 city.setDayForecasts(dayForecasts);
                 mCities.add(city);
             }
         }
 
+        Search search = new Search();
+        search.setBeginDate(dateBegin);
+        search.setEndDate(dateEnd);
+        search.setRadius(distance);
+        search.setMinSunnyDays(numberSunnyDays);
+        search.setMinTemperature(Double.valueOf(minTemperature));
+        search.setDateTimeLastSearch(new Date());
+        search.setOriginLatitude(lastLatitude);
+        search.setOriginLongitude(lastLongitude);
+        search.setCites(mCities);
+
+
         Log.i(CLASS_NAME, "============= CIDADES VALIDAS");
-        itCity = mCities.iterator();
-        while (itCity.hasNext()) {
-            City city = (City) itCity.next();
+        for (City city : mCities) {
             Log.i(CLASS_NAME, city.toString());
         }
 
-        Intent intent = new Intent(this,ResultActivity.class);
+        Long searchId = null;
+        if (mCities.size() > 0) {
+            searchId = saveSearch(search);
+        }
+
+        Intent intent = new Intent(this, ResultActivity.class);
+        //TODO verificar se segue enviando a lista de cidades aqui ou o id da search
         intent.putExtra(CITY_LIST, new ArrayList(mCities));
         startActivity(intent);
     }
 
+    private Long saveSearch(Search search) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(SEARCH, search);
+        bundle = getContentResolver().call(OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES, "insertSearch", "", bundle);
+        if (bundle == null) {
+            return null;
+        }
+        return bundle.getLong(SEARCH);
+    }
 
-    public class TaskFinishedListener implements TaskFinished{
+    /*
+    private void normalizeDate(ContentValues values) {
+        // normalize the date value
+        if (values.containsKey(WeatherContract.WeatherEntry.COLUMN_DATE)) {
+            long dateValue = values.getAsLong(WeatherContract.WeatherEntry.COLUMN_DATE);
+            values.put(WeatherContract.WeatherEntry.COLUMN_DATE, WeatherContract.normalizeDate(dateValue));
+        }
+    }
+
+
+    // To make it easy to query for the exact date, we normalize all dates that go into
+    // the database to the start of the the Julian day at UTC.
+    public static long normalizeDate(long startDate) {
+        // normalize the start date to the beginning of the (UTC) day
+        Time time = new Time();
+        time.set(startDate);
+        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
+        return time.setJulianDay(julianDay);
+    }
+*/
+
+    public class TaskFinishedListener implements TaskFinished {
         @Override
         public void OnTaskFinished(List<City> cities) {
 
             Iterator<City> itCity = cities.iterator();
-            while (itCity.hasNext()){
+            while (itCity.hasNext()) {
                 City city = (City) itCity.next();
                 Log.i(CLASS_NAME, city.toString());
             }
