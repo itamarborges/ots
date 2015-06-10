@@ -1,6 +1,8 @@
 package br.borbi.ots.utility;
 
-import android.util.Log;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -96,4 +98,12 @@ public class Utility {
     public static int getNumberOfDaysToShow(Date dateBegin, Date dateEnd){
         return Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
     }
+
+    static public boolean isNetworkAvailable(Context c) {
+        ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
 }
