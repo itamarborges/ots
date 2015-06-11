@@ -29,5 +29,7 @@
     <string name="error_localization">Não foi possível determinar a sua localização.</string>
     <string name="title_activity_result">ResultActivity</string>
     <string name="invalid_fields">Please verify all red fields.</string>
+    <string name="title_activity_failure">FailureActivity</string>
+    <string name="failure_message">Ops ...It was not possible determine your location. Set the location on in your device and press \"Try to find me\" button.</string>
 
 </resources>
