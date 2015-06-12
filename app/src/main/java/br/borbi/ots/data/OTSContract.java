@@ -51,6 +51,8 @@ public final class OTSContract {
     public static final String PATH_LIST_CITIES_BY_COORDINATES = "list_cities_by_coordinates";
     public static final Uri CONTENT_URI_LIST_CITIES_BY_COORDINATES = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_BY_COORDINATES).build();
 
+    public static final String METHOD_SAVE_SEARCH = "METHOD_SAVE_SEARCH";
+
 
     public static long normalizeDate(long startDate) {
         // normalize the start date to the beginning of the (UTC) day

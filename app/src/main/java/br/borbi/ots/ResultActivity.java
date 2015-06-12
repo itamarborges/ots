@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import br.borbi.ots.pojo.City;
@@ -26,9 +25,7 @@ public class ResultActivity extends ActionBarActivity {
         List<City> cities = (ArrayList<City>)intent.getSerializableExtra(SearchActivity.CITY_LIST);
         TextView textView = (TextView) findViewById(R.id.textViewResultList);
         String results = new String();
-        Iterator itCity = cities.iterator();
-        while (itCity.hasNext()) {
-            City city = (City) itCity.next();
+        for(City city:cities){
             results += city.toString() + "\n";
         }
 

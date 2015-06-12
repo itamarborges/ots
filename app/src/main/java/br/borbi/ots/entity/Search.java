@@ -101,4 +101,20 @@ public class Search implements Serializable{
     public void setOriginLongitude(Double originLongitude) {
         this.originLongitude = originLongitude;
     }
+
+    @Override
+    public String toString() {
+        return "Search{" +
+                "id=" + id +
+                ", beginDate=" + beginDate +
+                ", endDate=" + endDate +
+                ", radius=" + radius +
+                ", minSunnyDays=" + minSunnyDays +
+                ", minTemperature=" + minTemperature +
+                ", dateTimeLastSearch=" + dateTimeLastSearch +
+                ", originLatitude=" + originLatitude +
+                ", originLongitude=" + originLongitude +
+                ", cites=" + cites +
+                '}';
+    }
 }

@@ -8,9 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import br.borbi.ots.SearchActivity;
@@ -507,7 +510,7 @@ public class OTSProvider extends ContentProvider {
         Bundle bundle = null;
 
         Log.v(CLASS_NAME, "entrou no call, method = " + method);
-        if ("insertSearch".equals(method)) {
+        if (OTSContract.METHOD_SAVE_SEARCH.equals(method)) {
             Search search = (Search) extras.getSerializable(SearchActivity.SEARCH);
             bundle = insertSearch(search);
         }
@@ -521,10 +524,14 @@ public class OTSProvider extends ContentProvider {
         Log.v(CLASS_NAME, "ENTROU EM insertSearch");
 
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+
+        // Apaga pesquisas já existentes
+
+        delete(OTSContract.Search.CONTENT_URI,null,null);
+
+
         long searchId = 0;
 
-
-        Uri returnUri;
         try {
             //Insere search;
             ContentValues searchValues = new ContentValues();
@@ -555,7 +562,6 @@ public class OTSProvider extends ContentProvider {
 
                 long relSearchCityId = db.insert(OTSContract.RelSearchCity.TABLE_NAME, null, relSearchCityValues);
 
-
                 for (DayForecast dayForecast : city.getDayForecasts()) {
                     ContentValues resultSearchValues = new ContentValues();
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_DATE, dayForecast.getDate().getTime());
@@ -576,41 +582,36 @@ public class OTSProvider extends ContentProvider {
             db.endTransaction();
         }
 
-
-
-
-        returnUri = OTSContract.Search.buildSearchUri(searchId);
-
-
         Bundle bundle = new Bundle();
         bundle.putLong(SearchActivity.SEARCH, searchId);
-
 
         Log.v(CLASS_NAME, "SAIU DE insertSearch");
 
         return bundle;
     }
 
-    /*
+
     private void normalizeDate(ContentValues values) {
         // normalize the date value
         if (values.containsKey(OTSContract.Search.COLUMN_NAME_DATE_BEGIN) || values.containsKey(OTSContract.Search.COLUMN_NAME_DATE_BEGIN)) {
-            long dateValue = values.getAsLong(WeatherContract.WeatherEntry.COLUMN_DATE);
-            values.put(WeatherContract.WeatherEntry.COLUMN_DATE, WeatherContract.normalizeDate(dateValue));
+            long dateValue = values.getAsLong(OTSContract.Search.COLUMN_NAME_DATE_BEGIN);
+            values.put(OTSContract.Search.COLUMN_NAME_DATE_BEGIN, normalizeDate(dateValue));
         }
     }
 
 
     // To make it easy to query for the exact date, we normalize all dates that go into
     // the database to the start of the the Julian day at UTC.
-    public static long normalizeDate(long startDate) {
+    private long normalizeDate(long startDate) {
         // normalize the start date to the beginning of the (UTC) day
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(startDate);
         Time time = new Time();
         time.set(startDate);
         int julianDay = Time.getJulianDay(startDate, time.gmtoff);
         return time.setJulianDay(julianDay);
     }
-*/
+
 
     private void printArray(String[] arr) {
         for (int i = 0; i < arr.length; i++) {

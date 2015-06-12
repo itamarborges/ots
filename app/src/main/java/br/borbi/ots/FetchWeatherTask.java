@@ -123,46 +123,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                 }
             }
 
-            /*
-            for (int i=1;i<citiesArray.length;i++){
-                Log.i(LOG_TAG, "vai procurar previsao da cidade = " + citiesArray[i]);
-
-                Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                        .appendQueryParameter(QUERY_PARAM, citiesArray[i])
-                        .appendQueryParameter(FORMAT_PARAM, format)
-                        .appendQueryParameter(UNITS_PARAM, units)
-                        .appendQueryParameter(DAYS_PARAM, citiesArray[0])
-                        .build();
-
-                URL url = new URL(builtUri.toString());
-
-                // Create the request to OpenWeatherMap, and open the connection
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                // Read the input stream into a String
-                InputStream inputStream = urlConnection.getInputStream();
-                StringBuffer buffer = new StringBuffer();
-                if (inputStream != null) {
-                    reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        buffer.append(line + "\n");
-                    }
-
-                    if (buffer.length() != 0) {
-                        forecastJsonStr = buffer.toString();
-
-                        Log.i(LOG_TAG, forecastJsonStr);
-
-                        cities.add(getWeatherDataFromJson(forecastJsonStr, citiesArray[i]));
-                    }
-                }
-            }
-            */
-
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attempting

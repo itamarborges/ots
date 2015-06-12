@@ -64,9 +64,6 @@ public class SearchActivity extends ActionBarActivity {
         mContext = this;
 
         Intent intent = getIntent();
-        int numberSunnyDays = 0;
-        int minTemperature = 0;
-        boolean usesCloudyDays = false;
 
         if (intent != null) {
             distance = intent.getIntExtra(FiltersActivity.DISTANCE, 0);
@@ -203,6 +200,8 @@ public class SearchActivity extends ActionBarActivity {
         search.setOriginLongitude(lastLongitude);
         search.setCites(mCities);
 
+        Log.i(CLASS_NAME, search.toString());
+
 
         Log.i(CLASS_NAME, "============= CIDADES VALIDAS");
         for (City city : mCities) {
@@ -223,7 +222,7 @@ public class SearchActivity extends ActionBarActivity {
     private Long saveSearch(Search search) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(SEARCH, search);
-        bundle = getContentResolver().call(OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES, "insertSearch", "", bundle);
+        bundle = getContentResolver().call(OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES, OTSContract.METHOD_SAVE_SEARCH, "", bundle);
         if (bundle == null) {
             return null;
         }

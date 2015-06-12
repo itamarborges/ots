@@ -22,7 +22,7 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 29;
+    private static final int DATABASE_VERSION = 31;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
@@ -37,6 +37,12 @@ public class OTSDbHelper extends SQLiteOpenHelper {
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        db.execSQL("PRAGMA foreign_keys=ON;");
+        super.onConfigure(db);
     }
 
     @Override
@@ -113,7 +119,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 " FOREIGN KEY (" + RelSearchCity.COLUMN_NAME_CITY_ID + ") REFERENCES " +
                 City.TABLE_NAME + " (" + City._ID + "), " +
                 " FOREIGN KEY (" + RelSearchCity.COLUMN_NAME_SEARCH_ID + ") REFERENCES " +
-                Search.TABLE_NAME + " (" + Search._ID + "));" ;
+                Search.TABLE_NAME + " (" + Search._ID + ") ON DELETE CASCADE);" ;
 
         final String SQL_CREATE_RESULT_SEARCH_TABLE = OTSContract.CREATE_TABLE + ResultSearch.TABLE_NAME + " (" +
                 ResultSearch._ID + OTSContract.PRIMARY_KEY + " ," +
@@ -123,7 +129,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
                 ResultSearch.COLUMN_NAME_WEATHER_TYPE + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 " FOREIGN KEY (" + ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID+ ") REFERENCES " +
-                RelSearchCity.TABLE_NAME + " (" + RelSearchCity._ID + "));";
+                RelSearchCity.TABLE_NAME + " (" + RelSearchCity._ID + ") ON DELETE CASCADE);";
 
         Log.v(LOG_TAG, SQL_CREATE_TAG_TABLE);
         Log.v(LOG_TAG, SQL_CREATE_LANGUAGE_TABLE);
@@ -153,16 +159,16 @@ public class OTSDbHelper extends SQLiteOpenHelper {
 
         Log.v(LOG_TAG, "vai entrar no onUpgrade");
 
-        db.execSQL(DROP_TABLE_IF_EXISTS + Tag.TABLE_NAME);
-        db.execSQL(DROP_TABLE_IF_EXISTS + Language.TABLE_NAME);
-        db.execSQL(DROP_TABLE_IF_EXISTS + Search.TABLE_NAME);
-        db.execSQL(DROP_TABLE_IF_EXISTS + Country.TABLE_NAME);
-        db.execSQL(DROP_TABLE_IF_EXISTS + RelCountryLanguage.TABLE_NAME);
-        db.execSQL(DROP_TABLE_IF_EXISTS + City.TABLE_NAME);
-        db.execSQL(DROP_TABLE_IF_EXISTS + RelCityTag.TABLE_NAME);
-        db.execSQL(DROP_TABLE_IF_EXISTS + RelCityLanguage.TABLE_NAME);
-        db.execSQL(DROP_TABLE_IF_EXISTS + RelSearchCity.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + ResultSearch.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + RelSearchCity.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + Search.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + RelCityTag.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + Tag.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + RelCountryLanguage.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + RelCityLanguage.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + Language.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + City.TABLE_NAME);
+        db.execSQL(DROP_TABLE_IF_EXISTS + Country.TABLE_NAME);
 
         Log.v(LOG_TAG, "vai entrar no oncreate");
 
