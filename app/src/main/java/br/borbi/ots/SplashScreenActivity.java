@@ -23,6 +23,7 @@ import java.util.TimerTask;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.pojo.Coordinates;
+import br.borbi.ots.utility.QueryUtility;
 import br.borbi.ots.utility.Utility;
 
 
@@ -38,12 +39,14 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     private boolean mSearchedLocation = false;
     private boolean mFoundLocation = false;
 
-    private static double lastLongitude;
-    private static double lastLatitude;
+    private static Double lastLongitude;
+    private static Double lastLatitude;
 
     public static final int MIN_TIME_SPLASH = 3000;
     public static final int MAX_TIME_SPLASH = 13000;
     public static final int TIME_SPLASH = 3000;
+    public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
+
     private Long initialTime;
     private Long currentTime;
 
@@ -55,7 +58,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         initialTime = currentTime = System.currentTimeMillis();
 
         findLocation();
-        Log.v(CLASS_NAME, "começou em :" +currentTime.toString());
+        Log.v(CLASS_NAME, "começou em :" + currentTime.toString());
 
 
         new Timer().schedule(new TimerTask() {
@@ -75,17 +78,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
                 Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, MAX_DISTANCE_VALID);
 
-                StringBuffer whereClause = new StringBuffer(
-                        OTSContract.Search.COLUMN_NAME_ORIGIN_LAT).append(" >= ?")
-                        .append(" AND ")
-                        .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT).append(" <= ?")
-                        .append(" AND ")
-                        .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG).append(" >= ?")
-                        .append(" AND ")
-                        .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG).append(" <= ?")
-                        .append(" AND ")
-                        .append(OTSContract.Search.COLUMN_NAME_DATE_END).append(" >= ?");
-
+                Log.v(CLASS_NAME, "latitude = " + lastLatitude + ", long = " + lastLongitude);
 
                 String[] selectionArgs = new String[5];
                 selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
@@ -97,14 +90,19 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 Cursor c = getContentResolver().query(
                         OTSContract.Search.CONTENT_URI,
                         new String[]{OTSContract.Search._ID},
-                        whereClause.toString(),
+                        QueryUtility.buildQuerySelectSearchByCoordinatesAndDate(),
                         selectionArgs,
                         null);
 
                 if (c.moveToFirst()) {
                     Log.v(CLASS_NAME, "Possui dados");
                     Intent intent = new Intent();
-                    intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
+
+                    intent.setClass(SplashScreenActivity.this, ResultActivity.class);
+                    if (lastLatitude == null || lastLongitude == null) {
+                        intent.putExtra(COORDINATES_FOUND,false);
+                    }
+
                     startActivity(intent);
                 } else {
                     Log.v(CLASS_NAME, "Nao possui dados");
@@ -131,11 +129,11 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
             if (mLastLocation == null) {
 
-                Log.v(CLASS_NAME,"mLastLocation e null");
+                Log.v(CLASS_NAME, "mLastLocation e null");
 
 
-                lastLatitude = OTSContract.INDETERMINATED_VALUE;
-                lastLongitude = OTSContract.INDETERMINATED_VALUE;
+                lastLatitude = Double.valueOf(OTSContract.INDETERMINATED_VALUE);
+                lastLongitude = Double.valueOf(OTSContract.INDETERMINATED_VALUE);
 
                 //createLocationRequest();
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
@@ -163,7 +161,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         }
     }
 
-    private void saveCoordinates(){
+    private void saveCoordinates() {
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -199,19 +197,19 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
     /**
      * Method to verify google play services on the device
-     * */
+     */
     private void findLocation() {
 
         Log.v(CLASS_NAME, "entrou em findLocation");
 
-        if(Utility.isNetworkAvailable(this)){
+        if (Utility.isNetworkAvailable(this)) {
 
-            Log.v(CLASS_NAME,"tem internet");
+            Log.v(CLASS_NAME, "tem internet");
 
             buildGoogleApiClient();
 
-        }else{
-            Log.v(CLASS_NAME,"nao tem internet");
+        } else {
+            Log.v(CLASS_NAME, "nao tem internet");
 
             setContentView(R.layout.activity_failure);
         }
@@ -273,10 +271,10 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         disconnectFromLocationServices();
     }
 
-    private void createLocationRequest(){
+    private void createLocationRequest() {
         // Create the LocationRequest object
 
-        Log.v(CLASS_NAME,"entrou no createLocationRequest, tempo = " + System.currentTimeMillis());
+        Log.v(CLASS_NAME, "entrou no createLocationRequest, tempo = " + System.currentTimeMillis());
 
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_LOW_POWER)
@@ -284,7 +282,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
     }
 
-    private void disconnectFromLocationServices(){
+    private void disconnectFromLocationServices() {
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
