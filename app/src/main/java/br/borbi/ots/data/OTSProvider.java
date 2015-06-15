@@ -525,10 +525,9 @@ public class OTSProvider extends ContentProvider {
 
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
-        // Apaga pesquisas já existentes
+        // Apaga pesquisas ja existentes
 
         delete(OTSContract.Search.CONTENT_URI,null,null);
-
 
         long searchId = 0;
 

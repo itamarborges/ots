@@ -243,7 +243,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             dontUseTemperature = true;
         }
 
-        editor.commit();
+        editor.apply();
 
         Intent intent = new Intent(this,SearchActivity.class);
         intent.putExtra(DATE_BEGIN, dateBegin);
