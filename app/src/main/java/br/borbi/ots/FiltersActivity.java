@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -49,6 +48,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     public static final String LAST_LATITUDE = "LAST_LATITUDE";
     public static final String LAST_LONGITUDE = "LAST_LONGITUDE";
     public static final String DONT_USE_TEMPERATURE = "DONT_USE_TEMPERATURE";
+    public static final int MAX_NUMBER_OF_DAYS = 15;
 
     private static DateFormat dateFormat;
     private static TextView dateBeginView;
@@ -87,7 +87,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         dateBeginView.setText(dateFormat.format(dateBegin));
 
         dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
-        dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(16));
+        dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
         dateEndView.setText(dateFormat.format(dateEnd));
 
 
