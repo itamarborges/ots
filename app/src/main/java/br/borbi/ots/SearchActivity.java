@@ -83,6 +83,12 @@ public class SearchActivity extends ActionBarActivity {
         //lastLatitude = -30.033333;
         //lastLongitude = -51.216667;
 
+        if(lastLatitude == null || lastLongitude == null){
+            Intent failureIntent = new Intent();
+            failureIntent.setClass(SearchActivity.this, FailureActivity.class);
+            startActivity(failureIntent);
+        }
+
 
         List<City> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
         int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin, dateEnd);

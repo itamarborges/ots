@@ -64,7 +64,6 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         new Timer().schedule(new TimerTask() {
 
             public void run() {
-                //finish();
 
                 //Verify if there is any data in search and/or if this is valid data.
                 //Meaning that:
@@ -76,41 +75,65 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
                 int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
 
-                Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, MAX_DISTANCE_VALID);
+                if(lastLongitude == null || lastLatitude == null){
 
-                Log.v(CLASS_NAME, "latitude = " + lastLatitude + ", long = " + lastLongitude);
+                    String[] selectionArgs = new String[1];
+                    selectionArgs[0] = Long.toString(dayTime.setJulianDay(julianToday));
 
-                String[] selectionArgs = new String[5];
-                selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
-                selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
-                selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
-                selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
-                selectionArgs[4] = Long.toString(dayTime.setJulianDay(julianToday));
+                    Cursor c = getContentResolver().query(
+                            OTSContract.Search.CONTENT_URI,
+                            new String[]{OTSContract.Search._ID},
+                            QueryUtility.buildQuerySelectSearchByDate(),
+                            selectionArgs,
+                            null);
 
-                Cursor c = getContentResolver().query(
-                        OTSContract.Search.CONTENT_URI,
-                        new String[]{OTSContract.Search._ID},
-                        QueryUtility.buildQuerySelectSearchByCoordinatesAndDate(),
-                        selectionArgs,
-                        null);
+                    if (c.moveToFirst()) {
+                        Log.v(CLASS_NAME, "Possui dados");
+                        Intent intent = new Intent();
 
-                if (c.moveToFirst()) {
-                    Log.v(CLASS_NAME, "Possui dados");
-                    Intent intent = new Intent();
-
-                    intent.setClass(SplashScreenActivity.this, ResultActivity.class);
-                    if (lastLatitude == null || lastLongitude == null) {
+                        intent.setClass(SplashScreenActivity.this, ResultActivity.class);
                         intent.putExtra(COORDINATES_FOUND,false);
+
+                        startActivity(intent);
+                    } else {
+                        Log.v(CLASS_NAME, "Nao possui dados");
+                        Intent intent = new Intent();
+                        intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
+                        startActivity(intent);
                     }
 
-                    startActivity(intent);
-                } else {
-                    Log.v(CLASS_NAME, "Nao possui dados");
-                    Intent intent = new Intent();
-                    intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
-                    startActivity(intent);
-                }
 
+                }else{
+                    Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, MAX_DISTANCE_VALID);
+
+                    Log.v(CLASS_NAME, "latitude = " + lastLatitude + ", long = " + lastLongitude);
+
+                    String[] selectionArgs = new String[5];
+                    selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
+                    selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
+                    selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
+                    selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
+                    selectionArgs[4] = Long.toString(dayTime.setJulianDay(julianToday));
+
+                    Cursor c = getContentResolver().query(
+                            OTSContract.Search.CONTENT_URI,
+                            new String[]{OTSContract.Search._ID},
+                            QueryUtility.buildQuerySelectSearchByCoordinatesAndDate(),
+                            selectionArgs,
+                            null);
+
+                    if (c.moveToFirst()) {
+                        Log.v(CLASS_NAME, "Possui dados");
+                        Intent intent = new Intent();
+                        intent.setClass(SplashScreenActivity.this, ResultActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Log.v(CLASS_NAME, "Nao possui dados");
+                        Intent intent = new Intent();
+                        intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
+                        startActivity(intent);
+                    }
+                }
             }
         }, TIME_SPLASH);
 

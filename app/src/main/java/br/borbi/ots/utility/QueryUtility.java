@@ -21,4 +21,9 @@ public class QueryUtility {
 
         return whereClause.toString();
     }
+
+    public static String buildQuerySelectSearchByDate(){
+        StringBuffer whereClause = new StringBuffer(OTSContract.Search.COLUMN_NAME_DATE_END).append(" >= ?");
+        return whereClause.toString();
+    }
 }
