@@ -160,8 +160,8 @@ public class FailureActivity extends ActionBarActivity implements GoogleApiClien
                 editor.commit();
                 bLocalizationDetermined = true;
             } else {
-                lastLatitude = OTSContract.INDETERMINATED_VALUE;
-                lastLongitude = OTSContract.INDETERMINATED_VALUE;
+                //lastLatitude = OTSContract.INDETERMINATED_VALUE;
+                //lastLongitude = OTSContract.INDETERMINATED_VALUE;
             }
             mGoogleApiClient.disconnect();
         } catch (Exception e) {
