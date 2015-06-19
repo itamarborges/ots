@@ -38,9 +38,14 @@ public class OTSProvider extends ContentProvider {
     static final int REL_SEARCH_CITY = 900;
     static final int RESULT_SEARCH = 1000;
     static final int LIST_CITIES_BY_COORDINATES = 1100;
+    static final int LIST_CITIES_BY_SEARCH = 1200;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final String CLASS_NAME = OTSProvider.class.getName();
     private OTSDbHelper mOpenHelper;
+
+    public static final String FILTER_BY_LOCALE=
+            OTSContract.Language.TABLE_NAME+
+                    "." + OTSContract.Language.COLUMN_NAME_LANGUAGE_CODE + " = ? ";
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -58,6 +63,7 @@ public class OTSProvider extends ContentProvider {
         uriMatcher.addURI(authority, OTSContract.PATH_RESULT_SEARCH, RESULT_SEARCH);
 
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_COORDINATES, LIST_CITIES_BY_COORDINATES);
+        uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_SEARCH, LIST_CITIES_BY_SEARCH);
 
         return uriMatcher;
     }
@@ -195,6 +201,10 @@ public class OTSProvider extends ContentProvider {
             }
             case LIST_CITIES_BY_COORDINATES: {
                 retCursor = listCitiesByCoordinates(projection, selection, selectionArgs);
+                break;
+            }
+            case LIST_CITIES_BY_SEARCH: {
+                retCursor = listCitiesBySearch(projection, selection, selectionArgs);
                 break;
             }
         }
@@ -501,6 +511,55 @@ public class OTSProvider extends ContentProvider {
                 null,
                 null);
 
+    }
+
+    public Cursor listCitiesBySearch(String[] projection, String selection, String[] selectionArgs) {
+        SQLiteQueryBuilder sWeatherBySearchQueryBuilder = new SQLiteQueryBuilder();
+
+        //search s inner join rel_search_city r on (s._id = r.search_id) inner join city c on (c._id = r.city_id) inner join rel_city_language rc on (rc.city_id = c._id)
+        //inner join language l on (l._id = rc.language_id)
+
+        sWeatherBySearchQueryBuilder.setTables(
+                OTSContract.Search.TABLE_NAME + " INNER JOIN " +
+                        OTSContract.RelSearchCity.TABLE_NAME +
+                        " ON " + OTSContract.Search.TABLE_NAME +
+                        "." + OTSContract.Search._ID +
+                        " = " + OTSContract.RelSearchCity.TABLE_NAME +
+                        "." + OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID +
+                        " INNER JOIN " +
+                        OTSContract.City.TABLE_NAME +
+                        " ON " + OTSContract.City.TABLE_NAME +
+                        "." + OTSContract.City._ID +
+                        " = " + OTSContract.RelSearchCity.TABLE_NAME +
+                        "." + OTSContract.RelSearchCity.COLUMN_NAME_CITY_ID +
+                        " INNER JOIN " +
+                        OTSContract.RelCityLanguage.TABLE_NAME +
+                        " ON " + OTSContract.RelCityLanguage.TABLE_NAME +
+                        "." + OTSContract.RelCityLanguage.COLUMN_NAME_CITY_ID +
+                        " = " + OTSContract.City.TABLE_NAME +
+                        "." + OTSContract.City._ID +
+                        " INNER JOIN " +
+                        OTSContract.Language.TABLE_NAME +
+                        " ON " + OTSContract.Language.TABLE_NAME +
+                        "." + OTSContract.Language._ID +
+                        " = " + OTSContract.RelCityLanguage.TABLE_NAME +
+                        "." + OTSContract.RelCityLanguage.COLUMN_NAME_LANGUAGE_ID);
+
+
+        Log.v(CLASS_NAME, "=== projection = ");
+        printArray(projection);
+        Log.v(CLASS_NAME, "==== selection = " + selection);
+        Log.v(CLASS_NAME, "==== selectionArgs = ");
+        printArray(selectionArgs);
+        Log.v(CLASS_NAME, "tables = " + sWeatherBySearchQueryBuilder.getTables());
+
+        return sWeatherBySearchQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
     }
 
 

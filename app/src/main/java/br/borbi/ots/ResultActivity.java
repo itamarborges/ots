@@ -25,6 +25,8 @@ public class ResultActivity extends ActionBarActivity {
         setContentView(R.layout.activity_result);
 
 
+
+
         Intent intent = getIntent();
 
         boolean foundCoordinates = intent.getBooleanExtra(SplashScreenActivity.COORDINATES_FOUND, true);
@@ -49,7 +51,7 @@ public class ResultActivity extends ActionBarActivity {
             }
         }
 
-        textView.setText(results);
+        //textView.setText(results);
 
         if(!foundCoordinates && lastLatitude==null){
             Toast.makeText(this,R.string.location_not_found,Toast.LENGTH_LONG).show();

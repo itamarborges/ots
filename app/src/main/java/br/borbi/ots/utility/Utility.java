@@ -1,9 +1,14 @@
 package br.borbi.ots.utility;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
+import android.support.annotation.IntDef;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +18,15 @@ import java.util.GregorianCalendar;
  * Created by Gabriela on 29/05/2015.
  */
 public class Utility {
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({STRING, INT, FLOAT})
+    public @interface DataType {}
+
+    public static final int STRING = 0;
+    public static final int INT = 1;
+    public static final int
+            FLOAT = 2;
 
     /*
     Converte a medida de milhas para km.
@@ -105,5 +119,36 @@ public class Utility {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
+
+    static public void setSharedPreferences(Context c, String key, String value, @DataType int dataType){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+        SharedPreferences.Editor spe = sp.edit();
+
+        switch (dataType) {
+            case INT:
+              spe.putInt(key, Integer.parseInt(value));
+            break;
+            default:
+                throw new UnsupportedOperationException("Datatype invalid!");
+        }
+        spe.apply();
+    }
+
+    static public void getSharedPreferences(Context c, String key){
+        /*
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+        SharedPreferences.Editor spe = sp.edit();
+
+        switch (dataType) {
+            case INT:
+                spe.putInt(key, Integer.parseInt(value));
+                break;
+            default:
+                throw new UnsupportedOperationException("Datatype invalid!");
+        }
+        spe.apply();
+        */
+    }
+
 
 }

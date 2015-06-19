@@ -18,6 +18,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -59,6 +60,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
         findLocation();
         Log.v(CLASS_NAME, "começou em :" + currentTime.toString());
+
+        String country = Locale.getDefault().getCountry();
 
 
         new Timer().schedule(new TimerTask() {
