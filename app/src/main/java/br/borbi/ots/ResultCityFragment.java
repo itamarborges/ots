@@ -12,27 +12,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.util.Locale;
-
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.data.OTSProvider;
 
 /**
  * Created by Itamar on 16/06/2015.
  */
-public class CitiesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ResultCityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    public static final String LOG_TAG = CitiesFragment.class.getSimpleName();
-    private CitiesAdapter mCitiesAdapter;
+    public static final String LOG_TAG = ResultCityFragment.class.getSimpleName();
+    private ResultCityAdapter mResultCityAdapter;
+
+    public int getIdRelSearchCity() {
+        return idRelSearchCity;
+    }
+
+    public void setIdRelSearchCity(int idRelSearchCity) {
+        this.idRelSearchCity = idRelSearchCity;
+    }
+
+    private int idRelSearchCity;
 
     private ListView mListView;
 
-    private static final int CITIES_LOADER = 0;
+    private static final int RESULT_CITY_LOADER = 0;
 
-    private static final String[] CITIES_COLUMNS = {
-            OTSContract.RelCityLanguage.TABLE_NAME + "." + OTSContract.RelCityLanguage.COLUMN_NAME_NAME,
-            OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID,
-            OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity._ID
+    private static final String[] RESULT_CITY_COLUMNS = {
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID
     };
 
     @Override
@@ -40,23 +49,22 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
         super.onCreate(savedInstanceState);
     }
 
-    public CitiesFragment() {}
-
+    public ResultCityFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mCitiesAdapter = new CitiesAdapter(getActivity(), null, 0);
+        mResultCityAdapter = new ResultCityAdapter(getActivity(), null, 0);
 
 
-        View rootView = inflater.inflate(R.layout.fragment_cities, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_result_city, container, false);
 
         // Get a reference to the ListView, and attach this adapter to it.
-        mListView = (ListView) rootView.findViewById(R.id.listview_cities);
-        View emptyView = rootView.findViewById(R.id.listview_cities_empty);
+        mListView = (ListView) rootView.findViewById(R.id.listview_result_city);
+        View emptyView = rootView.findViewById(R.id.listview_result_city_empty);
         mListView.setEmptyView(emptyView);
-        mListView.setAdapter(mCitiesAdapter);
+        mListView.setAdapter(mResultCityAdapter);
         // We'll call our MainActivity
 /*        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -87,14 +95,14 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
         }
 
-        mCitiesAdapter.setUseTodayLayout(mUseTodayLayout);
+        mResultCityAdapter.setUseTodayLayout(mUseTodayLayout);
 */
         return rootView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(CITIES_LOADER, null, this);
+        getLoaderManager().initLoader(RESULT_CITY_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
 
     }
@@ -102,23 +110,20 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-            String sortOrder = OTSContract.RelCityLanguage.TABLE_NAME + "." + OTSContract.RelCityLanguage.COLUMN_NAME_NAME +" ASC";
+            String sortOrder = OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE +" ASC";
 
-            //pick the language used by the device
-            String language = Locale.getDefault().getLanguage();
-            language = "por";
             //String locationSetting = Utility.getPreferredLocation(getActivity());
-            Uri uriSearchByCities = OTSContract.CONTENT_URI_LIST_CITIES_BY_SEARCH;
+            Uri uriResultCity = OTSContract.ResultSearch.CONTENT_URI;
 
             String[] selectionArgs;
             String selection;
 
-            selection = OTSProvider.FILTER_BY_LOCALE;
-            selectionArgs = new String[]{language};
+            selection = OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID + " = ? ";
+            selectionArgs = new String[]{String.valueOf(idRelSearchCity)};
 
             return new CursorLoader(getActivity(),
-                    uriSearchByCities,
-                    CITIES_COLUMNS,
+                    uriResultCity,
+                    RESULT_CITY_COLUMNS,
                     selection,
                     selectionArgs,
                     sortOrder);
@@ -126,12 +131,13 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-            mCitiesAdapter.swapCursor(data);
+            mResultCityAdapter.swapCursor(data);
 
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-            mCitiesAdapter.swapCursor(null);
+            mResultCityAdapter.swapCursor(null);
     }
+
 }

@@ -1,35 +1,39 @@
 package br.borbi.ots;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import br.borbi.ots.data.OTSContract;
 
 
-public class ResultActivity extends ActionBarActivity {
+public class ResultCitiesActivity extends ActionBarActivity {
+
+    public static final String ID_REL_SEARCH_CITY = "ID_REL_SEARCH_CITY";
+    int idRelSearchCityId;
+
+    public int getIdRelSearchCityId() {
+        return idRelSearchCityId;
+    }
+
+    public void setIdRelSearchCityId(int idRelSearchCityId) {
+        this.idRelSearchCityId = idRelSearchCityId;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
+        setContentView(R.layout.activity_result_cities);
 
         Intent intent = getIntent();
+        idRelSearchCityId = intent.getIntExtra(ID_REL_SEARCH_CITY, -1);
 
-        boolean foundCoordinates = intent.getBooleanExtra(SplashScreenActivity.COORDINATES_FOUND, true);
-        SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
-        Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
-        Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
+        ResultCityFragment resultCityFragment= (ResultCityFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_result_city);
 
-        if(!foundCoordinates && lastLatitude==null){
-            Toast.makeText(this,R.string.location_not_found,Toast.LENGTH_LONG).show();
-        }
+        resultCityFragment.setIdRelSearchCity(idRelSearchCityId);
+
     }
 
     @Override

@@ -25,6 +25,11 @@
             android:label="@string/title_activity_filtros" >
         </activity>
         <activity
+            android:name=".ResultCitiesActivity"
+            android:label="@string/result_citites_activity" >
+        </activity>
+
+        <activity
             android:name=".SplashScreenActivity"
             android:label="@string/title" >
             <intent-filter>
