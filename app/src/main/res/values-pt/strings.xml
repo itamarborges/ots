@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
 
     <string name="action_settings">Configurações</string>
     <string name="app_name">OTS 123</string>
@@ -22,7 +22,7 @@
     <string name="farenheit">F</string>
     <string name="begin_date_before_end_date">A data inicial deve ser anterior à data final.</string>
     <string name="minimum_distance">Distância mínima é de 100 km.</string>
-    <string name="minimum_days">Número de dias deve ser entre 1 e o número de dias de sua pesquisa.</string>
+    <string name="minimum_days">Número de dias deve ser entre 1 e <xliff:g>%1$s</xliff:g>.</string>
     <string name="invalid_fields">Por favor, verifique todos os campos destacados.</string>
     <string name="location_not_found">Ainda não foi possível determinar sua localização. Essa pesquisa pode não corresponder à sua localização atual.</string>
 </resources>

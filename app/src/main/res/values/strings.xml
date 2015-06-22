@@ -23,7 +23,7 @@
     <string name="title_activity_splash_screen">Where are </string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="minimum_distance">Please inform distance bigger than 60 miles.</string>
-    <string name="minimum_days">Please inform number of days between 1 and the total days of your search.</string>
+    <string name="minimum_days">Please inform number of days between 1 and <xliff:g>%1$s</xliff:g>.</string>
     <string name="hello_world">Hello world!</string>
     <string name="error_localization">Não foi possível determinar a sua localização.</string>
     <string name="title_activity_result">ResultActivity</string>
