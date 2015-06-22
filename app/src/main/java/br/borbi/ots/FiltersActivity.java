@@ -246,6 +246,7 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         editor.apply();
 
         Intent intent = new Intent(this,SearchActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         intent.putExtra(DATE_BEGIN, dateBegin);
         intent.putExtra(DATE_END, dateEnd);
         intent.putExtra(DISTANCE, distance);
