@@ -58,13 +58,12 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     private static EditText daysEditText;
     private static CheckBox daysWithoutRainCheckbox;
     private static RadioGroup temperatureType;
+    private static RadioButton radioButtonFarenheit;
+    private static RadioButton radioButtonCelsius;
     private static EditText temperatureEditText;
     private static CheckBox temperatureCheckbox;
     private static Date dateBegin;
     private static Date dateEnd;
-
-    private static double lastLongitude;
-    private static double lastLatitude;
 
     Context mContext;
 
@@ -130,7 +129,9 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus && daysEditText.getText()!=null){
-                    ValidationUtility.validateInteger(daysEditText, 1, Utility.getNumberOfDaysToShow(dateBegin, dateEnd), mContext.getString(R.string.minimum_days));
+                    Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
+
+                    ValidationUtility.validateInteger(daysEditText, 1, maxNumberOfDays, mContext.getString(R.string.minimum_days, maxNumberOfDays));
                 }
             }
         });
@@ -144,8 +145,8 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
         temperatureCheckbox = (CheckBox) findViewById(R.id.checkBoxTemperature);
 
-        final RadioButton radioButtonFarenheit = (RadioButton) findViewById(R.id.radioButtonFarenheit);
-        final RadioButton radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
+        radioButtonFarenheit = (RadioButton) findViewById(R.id.radioButtonFarenheit);
+        radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
 
         boolean usesCelsius = sharedPref.getBoolean(OTSContract.USE_CELSIUS, true);
         if ("US".equalsIgnoreCase(country) || !usesCelsius){
@@ -155,16 +156,12 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         }
 
         temperatureCheckbox.setChecked(true);
+        checkTemperature();
 
         temperatureCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isChecked = temperatureCheckbox.isChecked();
-                RadioGroup temperatureRadioGroup = (RadioGroup) findViewById(R.id.radioGroupTemperature);
-                temperatureEditText.setEnabled(!isChecked);
-                temperatureRadioGroup.setEnabled(!isChecked);
-                radioButtonCelsius.setEnabled(!isChecked);
-                radioButtonFarenheit.setEnabled(!isChecked);
+                checkTemperature();
             }
         });
 
@@ -254,8 +251,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         intent.putExtra(USE_CLOUDY_DAYS, usesCloudyDays);
         intent.putExtra(MIN_TEMPERATURE, temperature);
         intent.putExtra(DONT_USE_TEMPERATURE, dontUseTemperature);
-        intent.putExtra(LAST_LATITUDE,lastLatitude);
-        intent.putExtra(LAST_LONGITUDE, lastLongitude);
 
         startActivity(intent);
     }
@@ -359,6 +354,15 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         boolean validDays = ValidationUtility.validateInteger(daysEditText, 1, Utility.getNumberOfDaysToShow(dateBegin, dateEnd), mContext.getString(R.string.minimum_days));
 
         return (validDistance || validDays);
+    }
+
+    private void checkTemperature(){
+        boolean isChecked = temperatureCheckbox.isChecked();
+        RadioGroup temperatureRadioGroup = (RadioGroup) findViewById(R.id.radioGroupTemperature);
+        temperatureEditText.setEnabled(!isChecked);
+        temperatureRadioGroup.setEnabled(!isChecked);
+        radioButtonCelsius.setEnabled(!isChecked);
+        radioButtonFarenheit.setEnabled(!isChecked);
     }
 
 }
