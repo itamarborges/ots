@@ -51,7 +51,7 @@ public class ResultCityAdapter extends CursorAdapter {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
         int indexDate = cursor.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_DATE);
-        int date = cursor.getInt(indexDate);
+        Long date = cursor.getLong(indexDate);
 
         int indexMinTemperature = cursor.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE);
         Double minTemperature = cursor.getDouble(indexMinTemperature);

@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
+import android.util.Log;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -21,6 +22,8 @@ import br.borbi.ots.R;
  * Created by Gabriela on 29/05/2015.
  */
 public class Utility {
+
+    private static final String CLASS_NAME = Utility.class.getSimpleName();
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({STRING, INT, FLOAT})
@@ -60,9 +63,10 @@ public class Utility {
         return -1;
     }
 
-    public static String getFormattedDate(int dateInMillis ) {
-        SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/mm/yyyy");
-        return monthDayFormat.format(dateInMillis);
+    public static String getFormattedDate(Long dateInMillis ) {
+        Date date = new Date(dateInMillis);
+        SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return monthDayFormat.format(date);
     }
 
     /*
