@@ -1,6 +1,8 @@
 package br.borbi.ots;
 
 import android.app.Activity;
+import android.app.IntentService;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -30,25 +34,21 @@ import br.borbi.ots.utility.Utility;
 public class SplashScreenActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     public static final String CLASS_NAME = SplashScreenActivity.class.getName();
-    public static final int ONE_MINUTE_IN_MILISECOND = 1000 * 60;
     public static final int MAX_DISTANCE_VALID = 100;
 
-    private static GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-
-    private boolean mSearchedLocation = false;
-    private boolean mFoundLocation = false;
 
     private static Double lastLongitude;
     private static Double lastLatitude;
 
-    public static final int MIN_TIME_SPLASH = 3000;
-    public static final int MAX_TIME_SPLASH = 13000;
-    public static final int TIME_SPLASH = 3000;
+    public static final int TIME_SPLASH = 10000;
     public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
 
     private Long initialTime;
     private Long currentTime;
+
+    private PendingResult pendingResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
         findLocation();
         Log.v(CLASS_NAME, "começou em :" + currentTime.toString());
+
 
 
         new Timer().schedule(new TimerTask() {
@@ -138,6 +139,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         }, TIME_SPLASH);
 
 
+
         Log.v(CLASS_NAME, "terminou em: " + currentTime.toString());
 
     }
@@ -147,6 +149,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         Log.v(CLASS_NAME, "entrou no onConnected, tempo = " + System.currentTimeMillis());
 
         try {
+
             Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
 
@@ -155,11 +158,15 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 Log.v(CLASS_NAME, "mLastLocation e null");
 
 
-                lastLatitude = Double.valueOf(OTSContract.INDETERMINATED_VALUE);
-                lastLongitude = Double.valueOf(OTSContract.INDETERMINATED_VALUE);
+                //lastLatitude = Double.valueOf(OTSContract.INDETERMINATED_VALUE);
+                //lastLongitude = Double.valueOf(OTSContract.INDETERMINATED_VALUE);
 
                 //createLocationRequest();
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+          //      PendingIntent pendingIntent = PendingIntent.getService(this, 0,new Intent(this, MyLocationHandler.class),PendingIntent.FLAG_UPDATE_CURRENT);
+          //      LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
+
 
             } else {
                 Log.i(CLASS_NAME, "mLastLocation  nao e null");
@@ -171,15 +178,12 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
                 saveCoordinates();
 
-                mSearchedLocation = true;
-                mFoundLocation = true;
-
                 disconnectFromLocationServices();
             }
 
         } catch (Exception e) {
             Log.v(CLASS_NAME, getString(R.string.error_localization));
-            mGoogleApiClient.disconnect();
+            disconnectFromLocationServices();
             finish();
         }
     }
@@ -203,9 +207,9 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.e(CLASS_NAME, "falhou na conexao, erro = " + connectionResult.getErrorCode());
 
+
         Toast.makeText(getApplication(), getString(R.string.error_localization), Toast.LENGTH_LONG).show();
-        mGoogleApiClient.disconnect();
-        mSearchedLocation = true;
+        disconnectFromLocationServices();
     }
 
     @Override
@@ -236,23 +240,6 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
             setContentView(R.layout.activity_failure);
         }
-        /*
-          int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-            //The device has access to googlePlayService
-            if (resultCode == ConnectionResult.SUCCESS) {
-
-                mGoogleApiClient = new GoogleApiClient.Builder(this)
-                        .addConnectionCallbacks(this)
-                        .addOnConnectionFailedListener(this)
-                        .addApi(LocationServices.API)
-                        .build();
-                mGoogleApiClient.connect();
-                mFoundLocation = true;
-                mSearchedLocation = true;
-            } else {
-
-            };
-            */
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -275,9 +262,27 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         startActivity(intent);
     }
 
+    private void createLocationRequest() {
+        // Create the LocationRequest object
+
+        Log.v(CLASS_NAME, "entrou no createLocationRequest, tempo = " + System.currentTimeMillis());
+
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                .setInterval(5 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+    }
+
+    private void disconnectFromLocationServices() {
+        Log.v(CLASS_NAME,"entrou no disconnectFromLocationServices");
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+    }
+
     @Override
     public void onLocationChanged(Location location) {
-
         Log.v(CLASS_NAME, "entrou no onLocationChanged, tempo = " + System.currentTimeMillis());
 
         location.getLatitude();
@@ -289,26 +294,24 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
         saveCoordinates();
 
-        mSearchedLocation = true;
-        mFoundLocation = true;
         disconnectFromLocationServices();
     }
 
-    private void createLocationRequest() {
-        // Create the LocationRequest object
+    private class MyLocationHandler extends IntentService{
+        public MyLocationHandler(){
+            super("");
+        }
 
-        Log.v(CLASS_NAME, "entrou no createLocationRequest, tempo = " + System.currentTimeMillis());
+        @Override
+        protected void onHandleIntent(Intent intent) {
+            Location location = intent.getParcelableExtra(FusedLocationProviderApi.KEY_LOCATION_CHANGED);
+            lastLatitude = location.getLatitude();
+            lastLongitude = location.getLongitude();
 
-        mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_LOW_POWER)
-                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
-                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
-    }
+            Log.i(CLASS_NAME, "latitude, onHandleIntent= " + lastLatitude);
+            Log.i(CLASS_NAME, "longitude, onHandleIntent= " + lastLongitude);
 
-    private void disconnectFromLocationServices() {
-        if (mGoogleApiClient.isConnected()) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-            mGoogleApiClient.disconnect();
+
         }
     }
 }
