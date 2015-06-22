@@ -63,8 +63,8 @@ public class ResultCityAdapter extends CursorAdapter {
         final int idWeatherType = cursor.getInt(indexIdWeatherType);
 
         viewHolder.dateTextView.setText(Utility.getFormattedDate(date));
-        viewHolder.minTemperatureTextiView.setText(Double.toString(minTemperature));
-        viewHolder.maxTemperatureTextView.setText(Double.toString(maxTemperature));
+        viewHolder.minTemperatureTextiView.setText(context.getString(R.string.display_temperature, Integer.toString(Utility.roundCeil(minTemperature))));
+        viewHolder.maxTemperatureTextView.setText(context.getString(R.string.display_temperature, Integer.toString(Utility.roundCeil(maxTemperature))));
         viewHolder.weatherImageView.setImageResource(Utility.getArtResourceForWeatherCondition(idWeatherType));
 
     }

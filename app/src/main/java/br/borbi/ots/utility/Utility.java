@@ -187,5 +187,8 @@ public class Utility {
         */
     }
 
+    static public int roundCeil(Double num) {
+        return (int) Math.ceil(num);
+    }
 
 }
