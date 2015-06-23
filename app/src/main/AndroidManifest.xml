@@ -46,7 +46,7 @@
             android:label="@string/title_activity_search"  android:parentActivityName=".FiltersActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.borbi.ots.FiltersActivity" />>
+                android:value="br.borbi.ots.FiltersActivity" />
         </activity>
         <activity
             android:name=".ResultActivity"
