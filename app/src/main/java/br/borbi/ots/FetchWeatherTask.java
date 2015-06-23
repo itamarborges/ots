@@ -82,7 +82,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             final String UNITS_PARAM = "units";
             final String DAYS_PARAM = "cnt";
 
-
             Iterator<City> it = citiesToSearch.iterator();
             while(it.hasNext()){
                 City cityToSearch = (City) it.next();
@@ -160,6 +159,9 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
         final String OWM_TEMPERATURE = "temp";
         final String OWM_MAX = "max";
         final String OWM_MIN = "min";
+        final String OWM_TEMPERATURE_MORNING = "morn";
+        final String OWM_TEMPERATURE_EVENING = "eve";
+        final String OWM_TEMPERATURE_NIGHT = "night";
 
         final String OWM_WEATHER = "weather";
         final String OWM_DESCRIPTION = "main";
@@ -211,8 +213,11 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                 // Temperatures are in a child object called "temp".  Try not to name variables
                 // "temp" when working with temperature.  It confuses everybody.
                 JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
-                double high = temperatureObject.getDouble(OWM_MAX);
-                double low = temperatureObject.getDouble(OWM_MIN);
+                Double high = temperatureObject.getDouble(OWM_MAX);
+                Double low = temperatureObject.getDouble(OWM_MIN);
+                Double morningTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_MORNING);
+                Double eveningTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_EVENING);
+                Double nightTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_NIGHT);
 
                 Double humidity = dayForecast.getDouble(OWM_HUMIDITY);
                 Double precipitation = null;
@@ -220,7 +225,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                     precipitation = dayForecast.getDouble(OWM_PRECIPITATION);
                 }
 
-                DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high, WeatherType.getWeatherType(weatherId),precipitation,humidity);
+                DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high,morningTemperature,eveningTemperature,nightTemperature, WeatherType.getWeatherType(weatherId),precipitation,humidity);
                 daysForecast.add(forecastForTheDay);
             }
 

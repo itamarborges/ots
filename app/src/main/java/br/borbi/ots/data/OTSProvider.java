@@ -625,6 +625,9 @@ public class OTSProvider extends ContentProvider {
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_DATE, dayForecast.getDate().getTime());
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE, dayForecast.getMinTemperature());
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE, dayForecast.getMaxTemperature());
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_MORNING_TEMPERATURE, dayForecast.getMorningTemperature());
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_EVENING_TEMPERATURE, dayForecast.getEveningTemperature());
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_NIGHT_TEMPERATURE, dayForecast.getNightTemperature());
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE, WeatherType.getId(dayForecast.getWeatherType()));
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID, relSearchCityId);
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_HUMIDITY, dayForecast.getHumidity());

@@ -271,6 +271,11 @@ public final class OTSContract {
         public static final String COLUMN_NAME_WEATHER_TYPE = "weather_type";
         public static final String COLUMN_NAME_HUMIDITY = "humidity";
         public static final String COLUMN_NAME_PRECIPITATION = "precipitation";
+        public static final String COLUMN_NAME_MORNING_TEMPERATURE = "morning_temperature";
+        public static final String COLUMN_NAME_EVENING_TEMPERATURE = "evening_temperature";
+        public static final String COLUMN_NAME_NIGHT_TEMPERATURE = "night_temperature";
+
+
 
         public static Uri buildResultSearchUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

@@ -15,14 +15,20 @@ public class DayForecast implements Serializable{
     private Date date;
     private Double minTemperature;
     private Double maxTemperature;
+    private Double morningTemperature;
+    private Double eveningTemperature;
+    private Double nightTemperature;
     private WeatherType weatherType;
     private Double precipitation;
     private Double humidity;
 
-    public DayForecast(Date date, Double minTemperature, Double maxTemperature, WeatherType weatherType, Double precipitation, Double humidity) {
+    public DayForecast(Date date, Double minTemperature, Double maxTemperature, Double morningTemperature, Double eveningTemperature, Double nightTemperature, WeatherType weatherType, Double precipitation, Double humidity) {
         this.date = date;
         this.minTemperature = minTemperature;
         this.maxTemperature = maxTemperature;
+        this.morningTemperature = morningTemperature;
+        this.eveningTemperature = eveningTemperature;
+        this.nightTemperature = nightTemperature;
         this.weatherType = weatherType;
         this.precipitation = precipitation;
         this.humidity = humidity;
@@ -76,12 +82,39 @@ public class DayForecast implements Serializable{
         this.humidity = humidity;
     }
 
+    public Double getMorningTemperature() {
+        return morningTemperature;
+    }
+
+    public void setMorningTemperature(Double morningTemperature) {
+        this.morningTemperature = morningTemperature;
+    }
+
+    public Double getEveningTemperature() {
+        return eveningTemperature;
+    }
+
+    public void setEveningTemperature(Double eveningTemperature) {
+        this.eveningTemperature = eveningTemperature;
+    }
+
+    public Double getNightTemperature() {
+        return nightTemperature;
+    }
+
+    public void setNightTemperature(Double nightTemperature) {
+        this.nightTemperature = nightTemperature;
+    }
+
     @Override
     public String toString() {
         return "DayForecast{" +
                 "date=" + date +
                 ", minTemperature=" + minTemperature +
                 ", maxTemperature=" + maxTemperature +
+                ", morningTemperature=" + morningTemperature +
+                ", eveningTemperature=" + eveningTemperature +
+                ", nightTemperature=" + nightTemperature +
                 ", weatherType=" + weatherType +
                 ", precipitation=" + precipitation +
                 ", humidity=" + humidity +
