@@ -124,7 +124,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             }
 
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error ", e);
+            Log.e(LOG_TAG, e.getMessage(), e);
             // If the code didn't successfully get the weather data, there's no point in attempting
             // to parse it.
         } catch (JSONException e) {
@@ -152,12 +152,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
         // Location information
         final String OWM_CITY = "city";
-        final String OWM_CITY_NAME = "name";
-        final String OWM_COORD = "coord";
-
-        // Location coordinate
-        final String OWM_LATITUDE = "lat";
-        final String OWM_LONGITUDE = "lon";
 
         // Weather information.  Each day's forecast info is an element of the "list" array.
         final String OWM_LIST = "list";
@@ -171,6 +165,8 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
         final String OWM_DESCRIPTION = "main";
         final String OWM_WEATHER_ID = "id";
 
+        final String OWM_PRECIPITATION = "rain";
+        final String OWM_HUMIDITY = "humidity";
 
         LinkedList<DayForecast> daysForecast = new LinkedList<DayForecast>();
         City city = null;
@@ -180,11 +176,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
 
             JSONObject cityJson = forecastJson.getJSONObject(OWM_CITY);
-            String cityName = cityJson.getString(OWM_CITY_NAME);
-
-            JSONObject cityCoord = cityJson.getJSONObject(OWM_COORD);
-            double cityLatitude = cityCoord.getDouble(OWM_LATITUDE);
-            double cityLongitude = cityCoord.getDouble(OWM_LONGITUDE);
 
             // OWM returns daily forecasts based upon the local time of the city that is being
             // asked for, which means that we need to know the GMT offset to translate this data
@@ -223,7 +214,13 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                 double high = temperatureObject.getDouble(OWM_MAX);
                 double low = temperatureObject.getDouble(OWM_MIN);
 
-                DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high, WeatherType.getWeatherType(weatherId));
+                Double humidity = dayForecast.getDouble(OWM_HUMIDITY);
+                Double precipitation = null;
+                if(dayForecast.has(OWM_PRECIPITATION)) {
+                    precipitation = dayForecast.getDouble(OWM_PRECIPITATION);
+                }
+
+                DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high, WeatherType.getWeatherType(weatherId),precipitation,humidity);
                 daysForecast.add(forecastForTheDay);
             }
 

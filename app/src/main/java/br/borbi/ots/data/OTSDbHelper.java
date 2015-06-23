@@ -22,7 +22,7 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 33;
+    private static final int DATABASE_VERSION = 34;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
@@ -128,6 +128,8 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
                 ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
                 ResultSearch.COLUMN_NAME_WEATHER_TYPE + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
+                ResultSearch.COLUMN_NAME_HUMIDITY + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
+                ResultSearch.COLUMN_NAME_PRECIPITATION + OTSContract.TYPE_REAL + ", " +
                 " FOREIGN KEY (" + ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID+ ") REFERENCES " +
                 RelSearchCity.TABLE_NAME + " (" + RelSearchCity._ID + ") ON DELETE CASCADE);";
 

@@ -16,13 +16,16 @@ public class DayForecast implements Serializable{
     private Double minTemperature;
     private Double maxTemperature;
     private WeatherType weatherType;
+    private Double precipitation;
+    private Double humidity;
 
-
-    public DayForecast(Date date, Double minTemperature, Double maxTemperature, WeatherType weatherType) {
+    public DayForecast(Date date, Double minTemperature, Double maxTemperature, WeatherType weatherType, Double precipitation, Double humidity) {
         this.date = date;
         this.minTemperature = minTemperature;
         this.maxTemperature = maxTemperature;
         this.weatherType = weatherType;
+        this.precipitation = precipitation;
+        this.humidity = humidity;
     }
 
     public Date getDate() {
@@ -57,6 +60,22 @@ public class DayForecast implements Serializable{
         this.maxTemperature = maxTemperature;
     }
 
+    public Double getPrecipitation() {
+        return precipitation;
+    }
+
+    public void setPrecipitation(Double precipitation) {
+        this.precipitation = precipitation;
+    }
+
+    public Double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
+    }
+
     @Override
     public String toString() {
         return "DayForecast{" +
@@ -64,6 +83,8 @@ public class DayForecast implements Serializable{
                 ", minTemperature=" + minTemperature +
                 ", maxTemperature=" + maxTemperature +
                 ", weatherType=" + weatherType +
+                ", precipitation=" + precipitation +
+                ", humidity=" + humidity +
                 '}';
     }
 }

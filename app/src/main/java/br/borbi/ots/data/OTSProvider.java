@@ -627,7 +627,8 @@ public class OTSProvider extends ContentProvider {
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE, dayForecast.getMaxTemperature());
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE, WeatherType.getId(dayForecast.getWeatherType()));
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID, relSearchCityId);
-
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_HUMIDITY, dayForecast.getHumidity());
+                    resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_PRECIPITATION, dayForecast.getPrecipitation());
                     db.insert(OTSContract.ResultSearch.TABLE_NAME, null, resultSearchValues);
                 }
             }
