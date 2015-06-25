@@ -32,6 +32,16 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
 
     private int idRelSearchCity;
 
+    public String getStrCityName() {
+        return strCityName;
+    }
+
+    public void setStrCityName(String strCityName) {
+        this.strCityName = strCityName;
+    }
+
+    private String strCityName;
+
     private ListView mListView;
 
     private static final int RESULT_CITY_LOADER = 0;
@@ -56,7 +66,7 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
                              Bundle savedInstanceState) {
 
         mResultCityAdapter = new ResultCityAdapter(getActivity(), null, 0);
-
+        mResultCityAdapter.setStrCityName(strCityName);
 
         View rootView = inflater.inflate(R.layout.fragment_result_city, container, false);
 

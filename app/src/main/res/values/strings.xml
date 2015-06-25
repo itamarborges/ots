@@ -36,4 +36,10 @@
     <string name="result_citites_activity">ResultCitiesActivity</string>
 
     <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
+    <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
+
+    <string name="detail_city">City: <xliff:g>%1$s</xliff:g>.</string>
+    <string name="detail_date">Date: <xliff:g>%1$s</xliff:g>.</string>
+    <string name="detail_humidity">Humidity: <xliff:g>%1$s</xliff:g>%</string>
+    <string name="title_activity_detail">detail_activity</string>
 </resources>

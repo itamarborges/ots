@@ -7,44 +7,45 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class ResultCitiesActivity extends ActionBarActivity {
+public class DetailCityActivity extends ActionBarActivity {
 
-    public static final String ID_REL_SEARCH_CITY = "ID_REL_SEARCH_CITY";
+    public static final String ID_RESULT_SEARCH = "ID_RESULT_SEARCH";
     public static final String CITY_NAME = "CITY_NAME";
 
-    int idRelSearchCityId;
-    String strNameCity;
+    private int idResultSearch;
+    private String strCityName;
 
-    public String getStrNameCity() {
-        return strNameCity;
+    public String getStrCityName() {
+        return strCityName;
     }
 
-    public void setStrNameCity(String strNameCity) {
-        this.strNameCity = strNameCity;
+    public void setStrCityName(String strCityName) {
+        this.strCityName = strCityName;
     }
 
-    public int getIdRelSearchCityId() {
-        return idRelSearchCityId;
+    public int getidResultSearch() {
+        return idResultSearch;
     }
 
-    public void setIdRelSearchCityId(int idRelSearchCityId) {
-        this.idRelSearchCityId = idRelSearchCityId;
+    public void setidResultSearch(int idResultSearch) {
+        this.idResultSearch = idResultSearch;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_cities);
+        setContentView(R.layout.activity_detail_city);
 
         Intent intent = getIntent();
-        idRelSearchCityId = intent.getIntExtra(ID_REL_SEARCH_CITY, -1);
-        strNameCity = intent.getStringExtra(CITY_NAME);
+        idResultSearch = intent.getIntExtra(ID_RESULT_SEARCH, -1);
+        strCityName = intent.getStringExtra(CITY_NAME);
 
-        ResultCityFragment resultCityFragment= (ResultCityFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_result_city);
+        DetailCityFragment detailCityFragment = (DetailCityFragment)
+              getSupportFragmentManager().findFragmentById(R.id.fragment_detail_city);
 
-        resultCityFragment.setIdRelSearchCity(idRelSearchCityId);
-        resultCityFragment.setStrCityName(strNameCity);
+        detailCityFragment.setidResultSearch(idResultSearch);
+        detailCityFragment.setStrCityName(strCityName);
+
     }
 
     @Override

@@ -63,6 +63,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.borbi.ots.FiltersActivity" />
         </activity>
+        <activity
+            android:name=".DetailCityActivity"
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".ResultCitiesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.borbi.ots.ResultCitiesActivity" />
+        </activity>
     </application>
 
 </manifest>

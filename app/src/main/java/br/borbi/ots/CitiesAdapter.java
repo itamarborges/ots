@@ -47,7 +47,7 @@ public class CitiesAdapter extends CursorAdapter {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
         int indexCityName = cursor.getColumnIndex(OTSContract.RelCityLanguage.COLUMN_NAME_NAME);
-        String strCityName = cursor.getString(indexCityName);
+        final String strCityName = cursor.getString(indexCityName);
 
         int indexIdResultSearchCity = cursor.getColumnIndex(OTSContract.RelSearchCity._ID);
         final int idResultSearchCity = cursor.getInt(indexIdResultSearchCity);
@@ -61,6 +61,7 @@ public class CitiesAdapter extends CursorAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ResultCitiesActivity.class);
                 intent.putExtra(ResultCitiesActivity.ID_REL_SEARCH_CITY, idResultSearchCity);
+                intent.putExtra(ResultCitiesActivity.CITY_NAME, strCityName);
 
                 context.startActivity(intent);
             }
