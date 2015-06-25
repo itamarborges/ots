@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.TaskStackBuilder;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
@@ -90,19 +91,11 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
                     if (c.moveToFirst()) {
                         Log.v(CLASS_NAME, "Possui dados");
-                        Intent intent = new Intent();
-
-                        intent.setClass(SplashScreenActivity.this, ResultActivity.class);
-                        intent.putExtra(COORDINATES_FOUND,false);
-
-                        startActivity(intent);
+                        goToResults(false);
                     } else {
                         Log.v(CLASS_NAME, "Nao possui dados");
-                        Intent intent = new Intent();
-                        intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
-                        startActivity(intent);
+                        goToFilters();
                     }
-
 
                 }else{
                     Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, MAX_DISTANCE_VALID);
@@ -125,14 +118,10 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
                     if (c.moveToFirst()) {
                         Log.v(CLASS_NAME, "Possui dados");
-                        Intent intent = new Intent();
-                        intent.setClass(SplashScreenActivity.this, ResultActivity.class);
-                        startActivity(intent);
+                        goToResults(true);
                     } else {
                         Log.v(CLASS_NAME, "Nao possui dados");
-                        Intent intent = new Intent();
-                        intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
-                        startActivity(intent);
+                        goToFilters();
                     }
                 }
             }
@@ -142,6 +131,19 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
         Log.v(CLASS_NAME, "terminou em: " + currentTime.toString());
 
+    }
+
+    private void goToResults(boolean foundCoordinates){
+        Intent intent = new Intent();
+        intent.setClass(SplashScreenActivity.this, ResultActivity.class);
+        intent.putExtra(COORDINATES_FOUND, foundCoordinates);
+        TaskStackBuilder.create(this).addNextIntentWithParentStack(intent).startActivities();
+    }
+
+    private void goToFilters(){
+        Intent intent = new Intent();
+        intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
+        startActivity(intent);
     }
 
     @Override
