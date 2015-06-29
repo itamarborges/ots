@@ -68,8 +68,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     private static Date dateBegin;
     private static Date dateEnd;
 
-    private AdView mAdView;
-
     Context mContext;
 
 
@@ -81,7 +79,8 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
 
         mContext = this;
 
-        initializeAd();
+        AdView mAdView = null;
+        Utility.initializeAd(mAdView, this);
 
         String country = Locale.getDefault().getCountry();
 
@@ -371,11 +370,4 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         radioButtonCelsius.setEnabled(!isChecked);
         radioButtonFarenheit.setEnabled(!isChecked);
     }
-
-    private void initializeAd(){
-        mAdView = (AdView)findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
-
 }

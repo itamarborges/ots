@@ -6,6 +6,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdView;
+
+import br.borbi.ots.utility.Utility;
+
 
 public class ResultCitiesActivity extends ActionBarActivity {
 
@@ -36,6 +40,9 @@ public class ResultCitiesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_result_cities);
+
+        AdView mAdView = null;
+        Utility.initializeAd(mAdView, this);
 
         Intent intent = getIntent();
         idRelSearchCityId = intent.getIntExtra(ID_REL_SEARCH_CITY, -1);

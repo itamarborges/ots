@@ -1,5 +1,6 @@
 package br.borbi.ots.utility;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -7,6 +8,9 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.util.Log;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -193,6 +197,12 @@ public class Utility {
 
     static public int roundCeil(Double num) {
         return (int) Math.ceil(num);
+    }
+
+    public static void initializeAd(AdView adView,Activity activity){
+        adView = (AdView)activity.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
 }

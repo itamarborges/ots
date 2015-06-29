@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -48,7 +50,6 @@ public class SearchActivity extends ActionBarActivity {
     private Double lastLatitude = 0d;
     private Double lastLongitude = 0d;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,8 @@ public class SearchActivity extends ActionBarActivity {
 
         mContext = this;
 
+        AdView mAdView = null;
+        Utility.initializeAd(mAdView, this);
         Intent intent = getIntent();
 
         if (intent != null) {
