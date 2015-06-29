@@ -34,6 +34,7 @@ public class ResultCitiesActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_result_cities);
 
         Intent intent = getIntent();

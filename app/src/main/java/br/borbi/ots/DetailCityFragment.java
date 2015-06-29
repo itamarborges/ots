@@ -132,6 +132,10 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
 
     public void setStrCityName(String strCityName) {
         this.strCityName = strCityName;
+
+        if (mCityNameDetail != null) {
+            mCityNameDetail.setText(strCityName);
+        }
     }
 
 }

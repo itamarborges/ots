@@ -38,6 +38,11 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
 
     public void setStrCityName(String strCityName) {
         this.strCityName = strCityName;
+        if (mResultCityAdapter != null) {
+            mResultCityAdapter.setStrCityName(strCityName);
+        }
+
+
     }
 
     private String strCityName;
