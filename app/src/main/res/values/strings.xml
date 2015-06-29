@@ -42,4 +42,5 @@
     <string name="detail_date">Date: <xliff:g>%1$s</xliff:g>.</string>
     <string name="detail_humidity">Humidity: <xliff:g>%1$s</xliff:g>%</string>
     <string name="title_activity_detail">detail_activity</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>
