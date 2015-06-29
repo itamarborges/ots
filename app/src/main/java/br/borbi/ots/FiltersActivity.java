@@ -18,6 +18,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,6 +68,8 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     private static Date dateBegin;
     private static Date dateEnd;
 
+    private AdView mAdView;
+
     Context mContext;
 
 
@@ -75,6 +80,8 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         setContentView(R.layout.activity_filters);
 
         mContext = this;
+
+        initializeAd();
 
         String country = Locale.getDefault().getCountry();
 
@@ -363,6 +370,12 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         temperatureRadioGroup.setEnabled(!isChecked);
         radioButtonCelsius.setEnabled(!isChecked);
         radioButtonFarenheit.setEnabled(!isChecked);
+    }
+
+    private void initializeAd(){
+        mAdView = (AdView)findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 }
