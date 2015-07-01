@@ -46,22 +46,12 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     public static final int TIME_SPLASH = 10000;
     public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
 
-    private Long initialTime;
-    private Long currentTime;
-
-    private PendingResult pendingResult;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        initialTime = currentTime = System.currentTimeMillis();
-
         findLocation();
-        Log.v(CLASS_NAME, "começou em :" + currentTime.toString());
-
-
 
         new Timer().schedule(new TimerTask() {
 
@@ -77,7 +67,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
                 int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
 
-                if(lastLongitude == null || lastLatitude == null){
+                if (lastLongitude == null || lastLatitude == null) {
 
                     String[] selectionArgs = new String[1];
                     selectionArgs[0] = Long.toString(dayTime.setJulianDay(julianToday));
@@ -97,7 +87,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                         goToFilters();
                     }
 
-                }else{
+                } else {
                     Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, MAX_DISTANCE_VALID);
 
                     Log.v(CLASS_NAME, "latitude = " + lastLatitude + ", long = " + lastLongitude);
@@ -127,10 +117,6 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
             }
         }, TIME_SPLASH);
 
-
-
-        Log.v(CLASS_NAME, "terminou em: " + currentTime.toString());
-
     }
 
     private void goToResults(boolean foundCoordinates){
@@ -151,35 +137,21 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         Log.v(CLASS_NAME, "entrou no onConnected, tempo = " + System.currentTimeMillis());
 
         try {
-
             Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
-
             if (mLastLocation == null) {
-
                 Log.v(CLASS_NAME, "mLastLocation e null");
 
-
-                //lastLatitude = Double.valueOf(OTSContract.INDETERMINATED_VALUE);
-                //lastLongitude = Double.valueOf(OTSContract.INDETERMINATED_VALUE);
-
-                //createLocationRequest();
+                createLocationRequest();
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
-          //      PendingIntent pendingIntent = PendingIntent.getService(this, 0,new Intent(this, MyLocationHandler.class),PendingIntent.FLAG_UPDATE_CURRENT);
-          //      LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
-
-
             } else {
-                Log.i(CLASS_NAME, "mLastLocation  nao e null");
                 lastLatitude = mLastLocation.getLatitude();
                 lastLongitude = mLastLocation.getLongitude();
 
-                Log.i(CLASS_NAME, "latitude = " + lastLatitude);
-                Log.i(CLASS_NAME, "longitude = " + lastLongitude);
+                Log.i(CLASS_NAME, "mLastLocation  nao e null, latitude = " + lastLatitude + "longitude = " + lastLongitude);
 
                 saveCoordinates();
-
                 disconnectFromLocationServices();
             }
 
@@ -221,6 +193,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     }
 
     protected void onStop() {
+        disconnectFromLocationServices();
         super.onStop();
     }
 
@@ -228,18 +201,14 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
      * Method to verify google play services on the device
      */
     private void findLocation() {
-
         Log.v(CLASS_NAME, "entrou em findLocation");
 
         if (Utility.isNetworkAvailable(this)) {
-
             Log.v(CLASS_NAME, "tem internet");
-
             buildGoogleApiClient();
 
         } else {
             Log.v(CLASS_NAME, "nao tem internet");
-
             setContentView(R.layout.activity_failure);
         }
     }
@@ -252,9 +221,6 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 .build();
 
         mGoogleApiClient.connect();
-
-        createLocationRequest();
-
     }
 
     public void continueWithoutMyLocation(View v) {
@@ -266,7 +232,6 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
     private void createLocationRequest() {
         // Create the LocationRequest object
-
         Log.v(CLASS_NAME, "entrou no createLocationRequest, tempo = " + System.currentTimeMillis());
 
         mLocationRequest = LocationRequest.create()
@@ -297,23 +262,5 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         saveCoordinates();
 
         disconnectFromLocationServices();
-    }
-
-    private class MyLocationHandler extends IntentService{
-        public MyLocationHandler(){
-            super("");
-        }
-
-        @Override
-        protected void onHandleIntent(Intent intent) {
-            Location location = intent.getParcelableExtra(FusedLocationProviderApi.KEY_LOCATION_CHANGED);
-            lastLatitude = location.getLatitude();
-            lastLongitude = location.getLongitude();
-
-            Log.i(CLASS_NAME, "latitude, onHandleIntent= " + lastLatitude);
-            Log.i(CLASS_NAME, "longitude, onHandleIntent= " + lastLongitude);
-
-
-        }
     }
 }
