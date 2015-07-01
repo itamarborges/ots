@@ -24,7 +24,7 @@ public class ResultActivity extends ActionBarActivity {
 
         AdView mAdView = null;
         Utility.initializeAd(mAdView, this);
-        
+
         Intent intent = getIntent();
 
         boolean foundCoordinates = intent.getBooleanExtra(SplashScreenActivity.COORDINATES_FOUND, true);
