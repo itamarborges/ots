@@ -25,4 +25,7 @@
     <string name="minimum_days">Número de dias deve ser entre 1 e <xliff:g>%1$s</xliff:g>.</string>
     <string name="invalid_fields">Por favor, verifique todos os campos destacados.</string>
     <string name="location_not_found">Ainda não foi possível determinar sua localização. Essa pesquisa pode não corresponder à sua localização atual.</string>
+    <string name="title_activity_detail">Informações detalhadas</string>
+    <string name="title_activity_result">Lista de Cidades</string>
+    <string name="result_citites_activity">Previsões para a cidade</string>
 </resources>

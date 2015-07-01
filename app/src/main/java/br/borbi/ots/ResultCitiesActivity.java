@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 
@@ -18,6 +19,8 @@ public class ResultCitiesActivity extends ActionBarActivity {
 
     int idRelSearchCityId;
     String strNameCity;
+
+    private TextView mCityName;
 
     public String getStrNameCity() {
         return strNameCity;
@@ -40,6 +43,7 @@ public class ResultCitiesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_result_cities);
+        mCityName = (TextView) findViewById(R.id.cityNameTextView);
 
         AdView mAdView = null;
         Utility.initializeAd(mAdView, this);
@@ -53,6 +57,8 @@ public class ResultCitiesActivity extends ActionBarActivity {
 
         resultCityFragment.setIdRelSearchCity(idRelSearchCityId);
         resultCityFragment.setStrCityName(strNameCity);
+
+        mCityName.setText(strNameCity);
     }
 
     @Override
