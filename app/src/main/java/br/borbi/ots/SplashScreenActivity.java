@@ -137,23 +137,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         Log.v(CLASS_NAME, "entrou no onConnected, tempo = " + System.currentTimeMillis());
 
         try {
-            Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
-            if (mLastLocation == null) {
-                Log.v(CLASS_NAME, "mLastLocation e null");
-
-                createLocationRequest();
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-
-            } else {
-                lastLatitude = mLastLocation.getLatitude();
-                lastLongitude = mLastLocation.getLongitude();
-
-                Log.i(CLASS_NAME, "mLastLocation  nao e null, latitude = " + lastLatitude + "longitude = " + lastLongitude);
-
-                saveCoordinates();
-                disconnectFromLocationServices();
-            }
+            createLocationRequest();
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
         } catch (Exception e) {
             Log.v(CLASS_NAME, getString(R.string.error_localization));
@@ -181,14 +166,12 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.e(CLASS_NAME, "falhou na conexao, erro = " + connectionResult.getErrorCode());
 
-
         Toast.makeText(getApplication(), getString(R.string.error_localization), Toast.LENGTH_LONG).show();
         disconnectFromLocationServices();
     }
 
     @Override
     protected void onStart() {
-        //mGoogleApiClient.connect();
         super.onStart();
     }
 

@@ -76,8 +76,8 @@ public class SearchActivity extends ActionBarActivity {
         lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        lastLatitude = -30.033333;
-        lastLongitude = -51.216667;
+        //lastLatitude = -30.033333;
+        //lastLongitude = -51.216667;
 
         if(lastLatitude == null || lastLongitude == null){
             Intent failureIntent = new Intent();
