@@ -167,7 +167,7 @@ public class SearchActivity extends ActionBarActivity {
             List<DayForecast> dayForecasts = new LinkedList<DayForecast>();
 
             for (DayForecast dayForecast : city.getDayForecasts()) {
-                if (dayForecast.getDate().after(dateBegin)) {
+                if (dayForecast.getDate().after(dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateBegin)) {
 
                     if (!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature) {
                         validCity = false;

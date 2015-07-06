@@ -95,7 +95,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
         dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
         dateEndView.setText(dateFormat.format(dateEnd));
 
-
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 
         //Distancia

@@ -119,6 +119,7 @@ public class Utility {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
 
@@ -202,6 +203,15 @@ public class Utility {
         adView = (AdView)activity.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         adView.loadAd(adRequest);
+    }
+
+    public static boolean isSameDay(Date date1, Date date2){
+        date1 = setDateToInitialHours(date1);
+        date2 = setDateToInitialHours(date2);
+        if(date1.getTime() == date2.getTime()){
+            return true;
+        }
+        return false;
     }
 
 }
