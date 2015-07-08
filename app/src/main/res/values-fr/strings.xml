@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">OTS</string>
     <string name="action_settings">Paramètres</string>
-    <string name="title_activity_filtros">FiltrosActivity</string>
     <string name="title">Où est ensoleillée?</string>
     <string name="datePeriod">Date: </string>
     <string name="dateFormat">mm/dd/yyyy</string>
@@ -17,7 +16,6 @@
     <string name="days_without_rain">Considérez jours nuageux (sans pluie) aussi ensoleillé</string>
     <string name="min_temperature">Température minimale: </string>
     <string name="celsius">C</string>
-    <string name="farenheit">F</string>
     <string name="dont_care">Ça ne fait rien</string>
 
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
@@ -25,5 +23,18 @@
     <string name="title_activity_detail">Informations détaillées</string>
     <string name="title_activity_result">Liste des Villes</string>
     <string name="result_citites_activity">Prévoir pour la ville</string>
+    <string name="begin_date_before_end_date">Please set begin date before end date.</string>
+    <string name="detail_city">City: <xliff:g>%1$s</xliff:g>.</string>
+    <string name="detail_date">Date: <xliff:g>%1$s</xliff:g>.</string>
+    <string name="detail_humidity">Humidity: </string>
+    <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
+    <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
+    <string name="failure_message">Ops ...It was not possible determine your location. Set the location on in your device and press \"Try to find me\" button.</string>
+    <string name="invalid_fields">Please verify all red fields.</string>
+    <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
+    <string name="max_temperature">Maximum temperature:</string>
+    <string name="minimum_days">Please inform number of days between 1 and <xliff:g>%1$s</xliff:g>.</string>
+    <string name="minimum_distance">Distância mínima é de 100 km.</string>
+    <string name="no_data_available">No data available.</string>
 
 </resources>
