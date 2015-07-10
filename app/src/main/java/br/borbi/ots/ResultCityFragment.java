@@ -7,9 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import br.borbi.ots.data.OTSContract;
@@ -20,17 +23,23 @@ import br.borbi.ots.data.OTSContract;
 public class ResultCityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String LOG_TAG = ResultCityFragment.class.getSimpleName();
+    private static final int RESULT_CITY_LOADER = 0;
+
+    private static final String[] RESULT_CITY_COLUMNS = {
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID
+    };
+
     private ResultCityAdapter mResultCityAdapter;
 
-    public int getIdRelSearchCity() {
-        return idRelSearchCity;
-    }
-
-    public void setIdRelSearchCity(int idRelSearchCity) {
-        this.idRelSearchCity = idRelSearchCity;
-    }
-
     private int idRelSearchCity;
+
+    private String strCityName;
+
+    private ListView mListView;
 
     public String getStrCityName() {
         return strCityName;
@@ -41,23 +50,15 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
         if (mResultCityAdapter != null) {
             mResultCityAdapter.setStrCityName(strCityName);
         }
-
-
     }
 
-    private String strCityName;
+    public int getIdRelSearchCity() {
+        return idRelSearchCity;
+    }
 
-    private ListView mListView;
-
-    private static final int RESULT_CITY_LOADER = 0;
-
-    private static final String[] RESULT_CITY_COLUMNS = {
-            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE,
-            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE,
-            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE,
-            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE,
-            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID
-    };
+    public void setIdRelSearchCity(int idRelSearchCity) {
+        this.idRelSearchCity = idRelSearchCity;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,12 +75,21 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
         mResultCityAdapter.setStrCityName(strCityName);
 
         View rootView = inflater.inflate(R.layout.fragment_result_city, container, false);
+        View emptyView = rootView.findViewById(R.id.listview_result_city_empty);
+
+        GridView gridview = (GridView) rootView.findViewById(R.id.gridview);
+        gridview.setAdapter(mResultCityAdapter);
+        gridview.setEmptyView(emptyView);
+
 
         // Get a reference to the ListView, and attach this adapter to it.
+        /*
         mListView = (ListView) rootView.findViewById(R.id.listview_result_city);
-        View emptyView = rootView.findViewById(R.id.listview_result_city_empty);
         mListView.setEmptyView(emptyView);
         mListView.setAdapter(mResultCityAdapter);
+*/
+
+
         // We'll call our MainActivity
 /*        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

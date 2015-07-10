@@ -35,4 +35,5 @@
     <string name="failure_message">Ops ... Não foi possível determinar sua localização. Habilite a localização em seu dispositivo e pressione o botão \"Tente me achar\".</string>
     <string name="max_temperature">Temperatura máxima:</string>
     <string name="no_data_available">Nenhum dado disponível.</string>
+    <string name="display_min_max_temperature"><xliff:g>%1$s</xliff:g> º a <xliff:g>%2$s</xliff:g> º</string>
 </resources>

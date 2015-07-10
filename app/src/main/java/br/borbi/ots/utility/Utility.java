@@ -66,9 +66,44 @@ public class Utility {
         return -1;
     }
 
+    public static int getSmallArtResourceForWeatherCondition(int idWeatherType) {
+        // Based on weather code data found at:
+        // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
+        if (idWeatherType >= 200 && idWeatherType <= 232) {
+            return R.drawable.rain_small;
+        } else if (idWeatherType >= 300 && idWeatherType <= 321) {
+            return R.drawable.rain_small;
+        } else if (idWeatherType >= 500 && idWeatherType <= 504) {
+            return R.drawable.rain_small;
+        } else if (idWeatherType == 511) {
+            return R.drawable.rain_small;
+        } else if (idWeatherType >= 520 && idWeatherType <= 531) {
+            return R.drawable.rain_small;
+        } else if (idWeatherType >= 600 && idWeatherType <= 622) {
+            return R.drawable.snow_small;
+        } else if (idWeatherType >= 701 && idWeatherType <= 761) {
+            return R.drawable.rain_small;
+        } else if (idWeatherType == 761 || idWeatherType == 781) {
+            return R.drawable.rain_small;
+        } else if (idWeatherType == 800) {
+            return R.drawable.sunny_small;
+        } else if (idWeatherType == 801) {
+            return R.drawable.sunny_small;
+        } else if (idWeatherType >= 802 && idWeatherType <= 804) {
+            return R.drawable.clouds_small;
+        }
+        return -1;
+    }
+
     public static String getFormattedDate(Long dateInMillis ) {
         Date date = new Date(dateInMillis);
         SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return monthDayFormat.format(date);
+    }
+
+    public static String getFormattedDateMonth(Long dateInMillis ) {
+        Date date = new Date(dateInMillis);
+        SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM");
         return monthDayFormat.format(date);
     }
 

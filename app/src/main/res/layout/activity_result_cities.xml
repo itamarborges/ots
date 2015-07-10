@@ -8,12 +8,13 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="br.borbi.ots.ResultActivity"
     android:orientation="vertical">
-    
+
     <TextView
         android:id="@+id/cityNameTextView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -23,7 +24,8 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         tools:context="br.borbi.ots.ResultCityFragment"
-        tools:layout="@android:layout/list_content" />
+        tools:layout="@android:layout/list_content"
+        />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
