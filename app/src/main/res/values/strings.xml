@@ -17,18 +17,18 @@
     <string name="days_without_rain">Consider cloudy days (without rain) as sunny</string>
     <string name="min_temperature">Minimum Temperature: </string>
     <string name="celsius">C</string>
-    <string name="farenheit">F</string>
+    <string name="farenheit" translatable="false">F</string>
     <string name="dont_care">Don\'t care</string>
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
     <string name="title_activity_splash_screen">Where are </string>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_search" translatable="false">SearchActivity</string>
     <string name="minimum_distance">Please inform distance bigger than 60 miles.</string>
     <string name="minimum_days">Please inform number of days between 1 and <xliff:g>%1$s</xliff:g>.</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
     <string name="error_localization">Não foi possível determinar a sua localização.</string>
     <string name="title_activity_result">Cities List</string>
     <string name="invalid_fields">Please verify all red fields.</string>
-    <string name="title_activity_failure">FailureActivity</string>
+    <string name="title_activity_failure" translatable="false">FailureActivity</string>
     <string name="failure_message">Ops ...It was not possible determine your location. Set the location on in your device and press \"Try to find me\" button.</string>
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
     <string name="no_data_available">No data avaiable</string>
@@ -47,4 +47,7 @@
     <string name="beach">Beach</string>
     <string name="snow">Snow</string>
     <string name="historic">Historic</string>
+    <string name="display_min_max_temperature"><xliff:g>%1$s</xliff:g> º to <xliff:g>%2$s</xliff:g> º</string>
+    <string translatable="false" name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="more_details">+</string>
 </resources>

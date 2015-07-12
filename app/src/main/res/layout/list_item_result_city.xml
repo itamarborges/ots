@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_result_search_city"
     android:padding="4dp" >
@@ -9,41 +9,29 @@
         android:id="@+id/list_item_date_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:fontFamily="sans-serif-condensed"
         android:text="10/10/2010"
-        android:textColor="@color/material_blue_grey_800"
         android:padding="4dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/weather_imageview"
-        android:background="@drawable/common_signin_btn_icon_pressed_light"
-        android:padding="4dp" />
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="4dp">
+        android:layout_below="@+id/list_item_date_textview"
+        />
 
     <TextView
         android:id="@+id/list_item_min_temperature_textview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:fontFamily="sans-serif-condensed"
         android:text="@string/min_temperature"
-        android:textColor="@color/material_blue_grey_800" />
+        android:layout_below="@+id/weather_imageview"
+        />
 
-        <TextView
-        android:id="@+id/list_item_max_temperature_textview"
-        android:layout_width="match_parent"
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/max_temperature"
-        android:textColor="@color/material_blue_grey_800" />
-</LinearLayout>
-
+        android:layout_below="@+id/list_item_min_temperature_textview"
+        android:text="@string/more_details"
+        android:id="@+id/list_item_details_button" />
 </LinearLayout>

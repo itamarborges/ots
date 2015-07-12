@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ public class ResultCityAdapter extends CursorAdapter {
     public static class ViewHolder {
         public final TextView dateTextView;
         public final TextView minTemperatureTextiView;
-        public final TextView maxTemperatureTextView;
+      ///  public final TextView maxTemperatureTextView;
         public final ImageView weatherImageView;
 
         public final LinearLayout layoutResultCityLinearLayout;
@@ -44,7 +45,7 @@ public class ResultCityAdapter extends CursorAdapter {
         public ViewHolder(View view) {
             dateTextView = (TextView) view.findViewById(R.id.list_item_date_textview);
             minTemperatureTextiView = (TextView) view.findViewById(R.id.list_item_min_temperature_textview);
-            maxTemperatureTextView = (TextView) view.findViewById(R.id.list_item_max_temperature_textview);
+            //maxTemperatureTextView = (TextView) view.findViewById(R.id.list_item_max_temperature_textview);
             weatherImageView = (ImageView) view.findViewById(R.id.weather_imageview);
             layoutResultCityLinearLayout = (LinearLayout) view.findViewById(R.id.layout_result_search_city);
         }
@@ -80,10 +81,11 @@ public class ResultCityAdapter extends CursorAdapter {
         int indexIdResultSearch = cursor.getColumnIndex(OTSContract.ResultSearch._ID);
         final int idResultSearch = cursor.getInt(indexIdResultSearch);
 
-        viewHolder.dateTextView.setText(Utility.getFormattedDate(date));
+        viewHolder.dateTextView.setText(Utility.getFormattedDateMonth(date));
         viewHolder.minTemperatureTextiView.setText(context.getString(R.string.display_temperature, Integer.toString(Utility.roundCeil(minTemperature))));
-        viewHolder.maxTemperatureTextView.setText(context.getString(R.string.display_temperature, Integer.toString(Utility.roundCeil(maxTemperature))));
-        viewHolder.weatherImageView.setImageResource(Utility.getArtResourceForWeatherCondition(idWeatherType));
+        viewHolder.minTemperatureTextiView.setText(context.getString(R.string.display_min_max_temperature, Integer.toString(Utility.roundCeil(minTemperature)), Integer.toString(Utility.roundCeil(maxTemperature))));
+    //    viewHolder.maxTemperatureTextView.setText(context.getString(R.string.display_temperature, Integer.toString(Utility.roundCeil(maxTemperature))));
+        viewHolder.weatherImageView.setImageResource(Utility.getSmallArtResourceForWeatherCondition(idWeatherType));
 
         viewHolder.layoutResultCityLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +97,5 @@ public class ResultCityAdapter extends CursorAdapter {
                 context.startActivity(intent);
             }
         });
-
     }
 }

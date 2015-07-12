@@ -10,9 +10,15 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.GridView;
+
+import java.util.Date;
+import java.util.LinkedList;
 
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.enums.WeatherType;
+import br.borbi.ots.pojo.DayForecast;
+import br.borbi.ots.utility.DateUtility;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -20,35 +26,6 @@ import br.borbi.ots.data.OTSContract;
 public class ResultCityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String LOG_TAG = ResultCityFragment.class.getSimpleName();
-    private ResultCityAdapter mResultCityAdapter;
-
-    public int getIdRelSearchCity() {
-        return idRelSearchCity;
-    }
-
-    public void setIdRelSearchCity(int idRelSearchCity) {
-        this.idRelSearchCity = idRelSearchCity;
-    }
-
-    private int idRelSearchCity;
-
-    public String getStrCityName() {
-        return strCityName;
-    }
-
-    public void setStrCityName(String strCityName) {
-        this.strCityName = strCityName;
-        if (mResultCityAdapter != null) {
-            mResultCityAdapter.setStrCityName(strCityName);
-        }
-
-
-    }
-
-    private String strCityName;
-
-    private ListView mListView;
-
     private static final int RESULT_CITY_LOADER = 0;
 
     private static final String[] RESULT_CITY_COLUMNS = {
@@ -58,6 +35,36 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE,
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID
     };
+
+    private int idRelSearchCity;
+
+    private String strCityName;
+
+    private ResultCityDayForecastAdapter mResultCityDayForecastAdapter;
+
+    private LinkedList<DayForecast> forecasts;
+
+    private View mRootView;
+    private View mEmptyView;
+
+    public String getStrCityName() {
+        return strCityName;
+    }
+
+    public void setStrCityName(String strCityName) {
+        this.strCityName = strCityName;
+        if (mResultCityDayForecastAdapter != null) {
+            mResultCityDayForecastAdapter.setStrCityName(strCityName);
+        }
+    }
+
+    public int getIdRelSearchCity() {
+        return idRelSearchCity;
+    }
+
+    public void setIdRelSearchCity(int idRelSearchCity) {
+        this.idRelSearchCity = idRelSearchCity;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,89 +77,82 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mResultCityAdapter = new ResultCityAdapter(getActivity(), null, 0);
-        mResultCityAdapter.setStrCityName(strCityName);
+        mRootView = inflater.inflate(R.layout.fragment_result_city, container, false);
+        mEmptyView = mRootView.findViewById(R.id.listview_result_city_empty);
 
-        View rootView = inflater.inflate(R.layout.fragment_result_city, container, false);
-
-        // Get a reference to the ListView, and attach this adapter to it.
-        mListView = (ListView) rootView.findViewById(R.id.listview_result_city);
-        View emptyView = rootView.findViewById(R.id.listview_result_city_empty);
-        mListView.setEmptyView(emptyView);
-        mListView.setAdapter(mResultCityAdapter);
-        // We'll call our MainActivity
-/*        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // CursorAdapter returns a cursor at the correct position for getItem(), or null
-                // if it cannot seek to that position.
-                Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
-                if (cursor != null) {
-                    String locationSetting = Utility.getPreferredLocation(getActivity());
-                    ((Callback) getActivity())
-                            .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
-                                    locationSetting, cursor.getLong(COL_WEATHER_DATE)
-                            ));
-                }
-                mPosition = position;
-            }
-        });
-
-        // If there's instance state, mine it for useful information.
-        // The end-goal here is that the user never knows that turning their device sideways
-        // does crazy lifecycle related things.  It should feel like some stuff stretched out,
-        // or magically appeared to take advantage of room, but data or place in the app was never
-        // actually *lost*.
-        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
-            // The listview probably hasn't even been populated yet.  Actually perform the
-            // swapout in onLoadFinished.
-            mPosition = savedInstanceState.getInt(SELECTED_KEY);
-        }
-
-        mResultCityAdapter.setUseTodayLayout(mUseTodayLayout);
-*/
-        return rootView;
+        return mRootView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         getLoaderManager().initLoader(RESULT_CITY_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
-
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-            String sortOrder = OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE +" ASC";
+        String sortOrder = OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE +" ASC";
 
-            //String locationSetting = Utility.getPreferredLocation(getActivity());
-            Uri uriResultCity = OTSContract.ResultSearch.CONTENT_URI;
+        Uri uriResultCity = OTSContract.ResultSearch.CONTENT_URI;
 
-            String[] selectionArgs;
-            String selection;
+        String[] selectionArgs;
+        String selection;
 
-            selection = OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID + " = ? ";
-            selectionArgs = new String[]{String.valueOf(idRelSearchCity)};
+        selection = OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID + " = ? ";
+        selectionArgs = new String[]{String.valueOf(idRelSearchCity)};
 
-            return new CursorLoader(getActivity(),
-                    uriResultCity,
-                    RESULT_CITY_COLUMNS,
-                    selection,
-                    selectionArgs,
-                    sortOrder);
-        }
+        return new CursorLoader(getActivity(),
+                uriResultCity,
+                RESULT_CITY_COLUMNS,
+                selection,
+                selectionArgs,
+                sortOrder);
+    }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-            mResultCityAdapter.swapCursor(data);
 
+        LinkedList<DayForecast> databaseForecasts = new LinkedList<>();
+        if (data.moveToFirst()) {
+            do {
+                int numIndexDate = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_DATE);
+                int numIndexMinimumTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE);
+                int numIndexMaximumTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE);
+                int numIndexWeatherType = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE);
+                int numIndexResultSearchID = data.getColumnIndex(OTSContract.ResultSearch._ID);
+
+                DayForecast dayForecast = new DayForecast(new Date(data.getLong(numIndexDate)), data.getDouble(numIndexMinimumTemperature), data.getDouble(numIndexMaximumTemperature), WeatherType.getWeatherType(data.getInt(numIndexWeatherType)), data.getInt(numIndexResultSearchID));
+                databaseForecasts.add(dayForecast);
+            }
+            while (data.moveToNext());
+        }
+
+
+        forecasts = new LinkedList<>();
+        DayForecast dayForecast = databaseForecasts.get(0);
+        LinkedList<Date> dates = DateUtility.listDatesFromFirstDayOfWeek(dayForecast.getDate());
+        if(dates==null){
+            forecasts.addAll(databaseForecasts);
+        }else{
+            for(Date date:dates){
+                forecasts.add(null);
+            }
+            forecasts.addAll(databaseForecasts);
+        }
+
+        fillAdapter();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-            mResultCityAdapter.swapCursor(null);
     }
 
+    private void fillAdapter(){
+        mResultCityDayForecastAdapter = new ResultCityDayForecastAdapter(forecasts,getActivity());
+        mResultCityDayForecastAdapter.setStrCityName(strCityName);
+        GridView gridview = (GridView) mRootView.findViewById(R.id.gridview);
+        gridview.setAdapter(mResultCityDayForecastAdapter);
+        gridview.setEmptyView(mEmptyView);
+    }
 }
