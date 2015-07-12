@@ -1,7 +1,8 @@
 package br.borbi.ots;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 
+import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.Utility;
 
 
@@ -20,8 +22,6 @@ public class ResultCitiesActivity extends ActionBarActivity {
 
     int idRelSearchCityId;
     String strNameCity;
-
-    private TextView mCityName;
 
     public String getStrNameCity() {
         return strNameCity;
@@ -44,23 +44,20 @@ public class ResultCitiesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_result_cities);
-        mCityName = (TextView) findViewById(R.id.cityNameTextView);
 
         AdView mAdView = null;
         Utility.initializeAd(mAdView, this);
 
-        Intent intent = getIntent();
-        idRelSearchCityId = intent.getIntExtra(ID_REL_SEARCH_CITY, -1);
-        strNameCity = intent.getStringExtra(CITY_NAME);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        idRelSearchCityId = sp.getInt(OTSContract.KEY_REL_SEARCH_CITY, -1);
+        strNameCity = sp.getString(OTSContract.KEY_CITY_NAME, "");
 
         ResultCityFragment resultCityFragment= (ResultCityFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_result_city);
 
         resultCityFragment.setIdRelSearchCity(idRelSearchCityId);
         resultCityFragment.setStrCityName(strNameCity);
-
-        mCityName.setText(strNameCity);
-    }
+}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -14,6 +14,10 @@ public final class OTSContract {
     /*
     Constantes shared preferences
      */
+    public static final String KEY_REL_SEARCH_CITY = "keyRelSearchCity";
+    public static final String KEY_CITY_NAME = "keyCityName";
+    public static final String KEY_CITY_TAGS = "keyCityTags";
+
     public static final String USE_KILOMETERS = "USE_KILOMETERS";
     public static final String USE_CELSIUS = "USE_CELSIUS";
 
@@ -53,6 +57,9 @@ public final class OTSContract {
 
     public static final String PATH_LIST_CITIES_BY_SEARCH = "list_cities_by_search";
     public static final Uri CONTENT_URI_LIST_CITIES_BY_SEARCH = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_BY_SEARCH).build();
+
+    public static final String PATH_LIST_TAGS_FROM_A_CITY = "list_tags_from_a_city";
+    public static final Uri CONTENT_URI_LIST_TAGS_FROM_A_CITY = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_TAGS_FROM_A_CITY).build();
 
     public static final String METHOD_SAVE_SEARCH = "METHOD_SAVE_SEARCH";
 

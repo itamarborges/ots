@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_search_city">
-
+    android:orientation="vertical">
     <TextView
-        android:id="@+id/list_item_city_name_textview"
+        android:id="@+id/city_name_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceLarge"
@@ -13,12 +12,10 @@
         android:textColor="@color/material_blue_grey_800" />
 
     <TextView
-        android:id="@+id/list_item_tag_textview"
+        android:id="@+id/tags_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceSmall"
         android:fontFamily="sans-serif-condensed"
         android:textColor="@color/material_blue_grey_800" />
-
-
 </LinearLayout>

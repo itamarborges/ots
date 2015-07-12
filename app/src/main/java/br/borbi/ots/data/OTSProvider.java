@@ -39,6 +39,7 @@ public class OTSProvider extends ContentProvider {
     static final int RESULT_SEARCH = 1000;
     static final int LIST_CITIES_BY_COORDINATES = 1100;
     static final int LIST_CITIES_BY_SEARCH = 1200;
+    static final int LIST_TAGS_FROM_A_CITY = 1300;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final String CLASS_NAME = OTSProvider.class.getName();
     private OTSDbHelper mOpenHelper;
@@ -46,6 +47,10 @@ public class OTSProvider extends ContentProvider {
     public static final String FILTER_BY_LOCALE=
             OTSContract.Language.TABLE_NAME+
                     "." + OTSContract.Language.COLUMN_NAME_LANGUAGE_CODE + " = ? ";
+
+    public static final String FILTER_BY_CITY=
+            OTSContract.City.TABLE_NAME+
+                    "." + OTSContract.City._ID + " = ? ";
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -64,6 +69,7 @@ public class OTSProvider extends ContentProvider {
 
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_COORDINATES, LIST_CITIES_BY_COORDINATES);
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_SEARCH, LIST_CITIES_BY_SEARCH);
+        uriMatcher.addURI(authority, OTSContract.PATH_LIST_TAGS_FROM_A_CITY, LIST_TAGS_FROM_A_CITY);
 
         return uriMatcher;
     }
@@ -205,6 +211,10 @@ public class OTSProvider extends ContentProvider {
             }
             case LIST_CITIES_BY_SEARCH: {
                 retCursor = listCitiesBySearch(projection, selection, selectionArgs);
+                break;
+            }
+            case LIST_TAGS_FROM_A_CITY: {
+                retCursor = listTagsFromACity(projection, selection, selectionArgs);
                 break;
             }
         }
@@ -482,6 +492,49 @@ public class OTSProvider extends ContentProvider {
         }
     }
 
+    public Cursor listTagsFromACity(String[] projection, String selection, String[] selectionArgs) {
+        SQLiteQueryBuilder sTagsFromACityQueryBuilder = new SQLiteQueryBuilder();
+
+        sTagsFromACityQueryBuilder.setTables(
+                OTSContract.City.TABLE_NAME + " INNER JOIN " +
+                        OTSContract.RelCityTag.TABLE_NAME +
+                        " ON " + OTSContract.City.TABLE_NAME +
+                        "." + OTSContract.City._ID +
+                        " = " + OTSContract.RelCityTag.TABLE_NAME +
+                        "." + OTSContract.RelCityTag.COLUMN_NAME_CITY_ID +
+                        " INNER JOIN " +
+                        OTSContract.Tag.TABLE_NAME +
+                        " ON " + OTSContract.Tag.TABLE_NAME +
+                        "." + OTSContract.Tag._ID +
+                        " = " + OTSContract.RelCityTag.TABLE_NAME +
+                        "." + OTSContract.RelCityTag.COLUMN_NAME_TAG_ID);
+
+
+        /*
+        Log.v(CLASS_NAME, "=== projection = ");
+        printArray(projection);
+        Log.v(CLASS_NAME, "==== selection = " + selection);
+        Log.v(CLASS_NAME, "==== selectionArgs = ");
+        printArray(selectionArgs);
+        Log.v(CLASS_NAME, "tables = " + sWeatherByLocationSettingQueryBuilder.getTables());
+        */
+
+        return sTagsFromACityQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
+
+    }
+
+
+
+
+
+
+
     public Cursor listCitiesByCoordinates(String[] projection, String selection, String[] selectionArgs) {
         SQLiteQueryBuilder sWeatherByLocationSettingQueryBuilder = new SQLiteQueryBuilder();
 
@@ -515,9 +568,14 @@ public class OTSProvider extends ContentProvider {
 
     public Cursor listCitiesBySearch(String[] projection, String selection, String[] selectionArgs) {
         SQLiteQueryBuilder sWeatherBySearchQueryBuilder = new SQLiteQueryBuilder();
+        /*
+        select rel_country_language.name, rel_city_language.name,
+rel_search_city.search_id,
+rel_search_city._id
+from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id INNER JOIN city ON city._id = rel_search_city.city_id INNER JOIN rel_city_language ON rel_city_language.city_id = city._id INNER JOIN country ON country._id = city.country_id INNER JOIN rel_country_language ON country._id = rel_country_language.country_id INNER JOIN language ON (language._id = rel_country_language.language_id AND language._id = rel_city_language.language_id) where language.language_code = 'por'
 
-        //search s inner join rel_search_city r on (s._id = r.search_id) inner join city c on (c._id = r.city_id) inner join rel_city_language rc on (rc.city_id = c._id)
-        //inner join language l on (l._id = rc.language_id)
+         */
+
 
         sWeatherBySearchQueryBuilder.setTables(
                 OTSContract.Search.TABLE_NAME + " INNER JOIN " +
@@ -539,11 +597,29 @@ public class OTSProvider extends ContentProvider {
                         " = " + OTSContract.City.TABLE_NAME +
                         "." + OTSContract.City._ID +
                         " INNER JOIN " +
+                        OTSContract.Country.TABLE_NAME +
+                        " ON " + OTSContract.Country.TABLE_NAME +
+                        "." + OTSContract.Country._ID +
+                        " = " + OTSContract.City.TABLE_NAME +
+                        "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID +
+                        " INNER JOIN " +
+                        OTSContract.RelCountryLanguage.TABLE_NAME +
+                        " ON " + OTSContract.Country.TABLE_NAME +
+                        "." + OTSContract.Country._ID +
+                        " = " + OTSContract.RelCountryLanguage.TABLE_NAME +
+                        "." + OTSContract.RelCountryLanguage.COLUMN_NAME_COUNTRY_ID +
+                        " INNER JOIN " +
                         OTSContract.Language.TABLE_NAME +
-                        " ON " + OTSContract.Language.TABLE_NAME +
+                        " ON ("
+                        + OTSContract.Language.TABLE_NAME +
+                        "." + OTSContract.Language._ID +
+                        " = " + OTSContract.RelCountryLanguage.TABLE_NAME +
+                        "." + OTSContract.RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID +
+                        " AND " +
+                        OTSContract.Language.TABLE_NAME +
                         "." + OTSContract.Language._ID +
                         " = " + OTSContract.RelCityLanguage.TABLE_NAME +
-                        "." + OTSContract.RelCityLanguage.COLUMN_NAME_LANGUAGE_ID);
+                        "." + OTSContract.RelCityLanguage.COLUMN_NAME_LANGUAGE_ID+")");
 
 
         Log.v(CLASS_NAME, "=== projection = ");

@@ -2,6 +2,7 @@
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">OTS</string>
     <string name="action_settings">Paramètres</string>
+    <string name="title_activity_filtros">FiltrosActivity</string>
     <string name="title">Où est ensoleillée?</string>
     <string name="datePeriod">Date: </string>
     <string name="dateFormat">mm/dd/yyyy</string>
@@ -16,6 +17,7 @@
     <string name="days_without_rain">Considérez jours nuageux (sans pluie) aussi ensoleillé</string>
     <string name="min_temperature">Température minimale: </string>
     <string name="celsius">C</string>
+    <string name="farenheit">F</string>
     <string name="dont_care">Ça ne fait rien</string>
 
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
@@ -23,6 +25,9 @@
     <string name="title_activity_detail">Informations détaillées</string>
     <string name="title_activity_result">Liste des Villes</string>
     <string name="result_citites_activity">Prévoir pour la ville</string>
+    <string name="beach">Plage</string>
+    <string name="snow">Niege</string>
+    <string name="historic">Historique</string>
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
     <string name="detail_city">City: <xliff:g>%1$s</xliff:g>.</string>
     <string name="detail_date">Date: <xliff:g>%1$s</xliff:g>.</string>

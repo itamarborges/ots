@@ -51,7 +51,7 @@ public class DetailCityActivity extends ActionBarActivity {
               getSupportFragmentManager().findFragmentById(R.id.fragment_detail_city);
 
         detailCityFragment.setidResultSearch(idResultSearch);
-        detailCityFragment.setStrCityName(strCityName);
+
 
     }
 

@@ -27,6 +27,9 @@
     <string name="title_activity_detail">Informações detalhadas</string>
     <string name="title_activity_result">Lista de Cidades</string>
     <string name="result_citites_activity">Previsões para a cidade</string>
+    <string name="beach">Praia</string>
+    <string name="snow">Neve</string>
+    <string name="historic">Histórica</string>
     <string name="detail_city">Cidade: <xliff:g>%1$s</xliff:g>.</string>
     <string name="detail_date">Data: <xliff:g>%1$s</xliff:g>.</string>
     <string name="detail_humidity">Umidade: <xliff:g>%1$s</xliff:g>%</string>
