@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.LinkedList;
 
 import br.borbi.ots.enums.WeatherType;
@@ -83,7 +85,7 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
             viewHolder.dateTextView.setText("");
             viewHolder.minTemperatureTextiView.setText("");
             viewHolder.weatherImageView.setImageResource(-1);
-            viewHolder.detailsButton.setVisibility(View.INVISIBLE);
+            viewHolder.moreDetailsTextView.setText("");
         }else{
             viewHolder.dateTextView.setText(Utility.getFormattedDateMonth(dayForecast.getDate()));
             viewHolder.minTemperatureTextiView.setText(mContext.getString(R.string.display_min_max_temperature, Integer.toString(Utility.roundCeil(dayForecast.getMinTemperature())), Integer.toString(Utility.roundCeil(dayForecast.getMaxTemperature()))));
@@ -97,8 +99,6 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
                     intent.putExtra(DetailCityActivity.CITY_NAME, strCityName);
 
                     mContext.startActivity(intent);
-
-                    Toast.makeText(mContext, "Clicou em" + dayForecast.getId(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -110,15 +110,15 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
         public final TextView dateTextView;
         public final TextView minTemperatureTextiView;
         public final ImageView weatherImageView;
-        public final Button detailsButton;
         public final LinearLayout layoutResultCityLinearLayout;
+        public final TextView moreDetailsTextView;
 
         public ViewHolder(View view) {
             dateTextView = (TextView) view.findViewById(R.id.list_item_date_textview);
             minTemperatureTextiView = (TextView) view.findViewById(R.id.list_item_min_temperature_textview);
             weatherImageView = (ImageView) view.findViewById(R.id.weather_imageview);
             layoutResultCityLinearLayout = (LinearLayout) view.findViewById(R.id.layout_result_search_city);
-            detailsButton = (Button) view.findViewById(R.id.list_item_details_button);
+            moreDetailsTextView = (TextView) view.findViewById(R.id.list_item_more_details);
         }
     }
 

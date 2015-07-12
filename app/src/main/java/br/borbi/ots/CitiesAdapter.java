@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import br.borbi.ots.data.OTSProvider;
  * Created by Itamar on 16/06/2015.
  */
 public class CitiesAdapter extends CursorAdapter {
+
+    private static final String LOG_TAG= CitiesAdapter.class.getSimpleName();
 
     HashMap<Integer, LinkedList> tagsCity = new HashMap<Integer, LinkedList>();
 

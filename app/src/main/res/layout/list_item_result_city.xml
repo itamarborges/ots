@@ -10,32 +10,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10/10"
-        android:padding="4dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"
+        android:textSize="10sp"
+        android:gravity="center_horizontal"
         />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/weather_imageview"
-        android:layout_below="@+id/list_item_date_textview"
+        android:gravity="center_horizontal"
         />
 
     <TextView
         android:id="@+id/list_item_min_temperature_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="fill_horizontal"
         android:text="@string/min_temperature"
         android:layout_below="@+id/weather_imageview"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="10sp"
         />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/list_item_min_temperature_textview"
+        android:id="@+id/list_item_more_details"
         android:text="@string/more_details"
-        android:id="@+id/list_item_details_button" />
+        />
 
 </LinearLayout>
