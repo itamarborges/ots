@@ -21,7 +21,6 @@ import br.borbi.ots.utility.Utility;
 public class DetailCityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String LOG_TAG = DetailCityFragment.class.getSimpleName();
-    private String strCityName;
     private int idResultSearch;
     private static final int DETAIL_CITY_LOADER = 0;
 
@@ -34,7 +33,6 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID
     };
 
-    private TextView mCityNameDetail;
     private TextView mDateDetail;
     private TextView mHumidityDetail;
     private TextView mMinTemperatureDetail;
@@ -52,13 +50,11 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_detail_city, container, false);
-        mCityNameDetail = (TextView) rootView.findViewById(R.id.detail_city_textView);
         mDateDetail = (TextView) rootView.findViewById(R.id.detail_date_textView);
         mHumidityDetail = (TextView) rootView.findViewById(R.id.detail_humidity_textView);
         mMinTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_min_temperature_textView);
         mMaxTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_max_temperature_textView);
 
-        mCityNameDetail.setText(strCityName);
 
         return rootView;
     }
@@ -124,18 +120,4 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     public void setidResultSearch(int idResultSearch) {
         this.idResultSearch = idResultSearch;
     }
-
-
-    public String getStrCityName() {
-        return strCityName;
-    }
-
-    public void setStrCityName(String strCityName) {
-        this.strCityName = strCityName;
-
-        if (mCityNameDetail != null) {
-            mCityNameDetail.setText(strCityName);
-        }
-    }
-
 }

@@ -10,7 +10,6 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.Utility;
@@ -94,8 +93,6 @@ public class ResultCityAdapter extends CursorAdapter {
                 intent.putExtra(DetailCityActivity.CITY_NAME, strCityName);
 
                 context.startActivity(intent);
-
-                Toast.makeText(context, "Clicou em" + idResultSearch, Toast.LENGTH_SHORT).show();
             }
         });
 

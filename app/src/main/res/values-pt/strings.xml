@@ -28,4 +28,7 @@
     <string name="title_activity_detail">Informações detalhadas</string>
     <string name="title_activity_result">Lista de Cidades</string>
     <string name="result_citites_activity">Previsões para a cidade</string>
+    <string name="beach">Praia</string>
+    <string name="snow">Neve</string>
+    <string name="historic">Histórica</string>
 </resources>

@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/yellow_light</item>
         <item name="colorPrimaryDark">@color/yellow_bar</item>
+
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
