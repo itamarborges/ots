@@ -46,6 +46,7 @@
             android:label="@string/title"
             android:noHistory="true"
             android:configChanges="orientation"
+            android:theme="@style/FullscreenTheme"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
