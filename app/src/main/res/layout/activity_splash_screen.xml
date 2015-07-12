@@ -9,6 +9,6 @@
         android:layout_height="match_parent"
         android:id="@+id/imageView"
         android:layout_gravity="center"
-        android:background="@drawable/logo_novo" />
+        android:background="@drawable/logo_novo_par" />
 
 </FrameLayout>

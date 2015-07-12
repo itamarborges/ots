@@ -1,8 +1,6 @@
 package br.borbi.ots;
 
 import android.app.Activity;
-import android.app.IntentService;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,12 +11,11 @@ import android.support.v4.app.TaskStackBuilder;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -37,6 +34,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     public static final String CLASS_NAME = SplashScreenActivity.class.getName();
     public static final int MAX_DISTANCE_VALID = 100;
 
+
+    private ImageView mImgSplash;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
@@ -50,6 +49,18 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        mImgSplash = (ImageView) findViewById(R.id.imageView);
+
+        int img = ((int) (Math.random() * 10)) ;
+
+        Log.v(CLASS_NAME, String.valueOf(img));
+
+        if (img % 2 == 0) {
+            mImgSplash.setBackgroundResource(R.drawable.logo_novo_par); ;
+        } else {
+            mImgSplash.setBackgroundResource(R.drawable.logo_novo_impar);
+        }
 
         findLocation();
 
