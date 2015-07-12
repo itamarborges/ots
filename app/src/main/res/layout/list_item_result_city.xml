@@ -9,8 +9,10 @@
         android:id="@+id/list_item_date_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="10/10/2010"
-        android:padding="4dp" />
+        android:text="10/10"
+        android:padding="4dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -25,6 +27,7 @@
         android:layout_height="wrap_content"
         android:text="@string/min_temperature"
         android:layout_below="@+id/weather_imageview"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         />
 
     <Button
@@ -34,4 +37,5 @@
         android:layout_below="@+id/list_item_min_temperature_textview"
         android:text="@string/more_details"
         android:id="@+id/list_item_details_button" />
+
 </LinearLayout>

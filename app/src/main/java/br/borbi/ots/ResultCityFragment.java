@@ -7,11 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -43,6 +46,8 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
     private ResultCityDayForecastAdapter mResultCityDayForecastAdapter;
 
     private LinkedList<DayForecast> forecasts;
+
+    private String[] mWeekDaysNames;
 
     private View mRootView;
     private View mEmptyView;
@@ -79,6 +84,11 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
 
         mRootView = inflater.inflate(R.layout.fragment_result_city, container, false);
         mEmptyView = mRootView.findViewById(R.id.listview_result_city_empty);
+
+        buildWeekDaysNamesArray();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, mWeekDaysNames);
+        GridView gridview = (GridView) mRootView.findViewById(R.id.nameDaysGridView);
+        gridview.setAdapter(adapter);
 
         return mRootView;
     }
@@ -128,7 +138,6 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
             while (data.moveToNext());
         }
 
-
         forecasts = new LinkedList<>();
         DayForecast dayForecast = databaseForecasts.get(0);
         LinkedList<Date> dates = DateUtility.listDatesFromFirstDayOfWeek(dayForecast.getDate());
@@ -154,5 +163,14 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
         GridView gridview = (GridView) mRootView.findViewById(R.id.gridview);
         gridview.setAdapter(mResultCityDayForecastAdapter);
         gridview.setEmptyView(mEmptyView);
+    }
+
+    private void buildWeekDaysNamesArray(){
+        Calendar calendar = DateUtility.getDateFirstDayOfWeek();
+        mWeekDaysNames = new String[7];
+        for (int i=0;i<7;i++){
+            mWeekDaysNames[i] = DateUtility.getFormattedDayOfWeek(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH,1);
+        }
     }
 }

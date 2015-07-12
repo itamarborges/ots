@@ -2,6 +2,7 @@ package br.borbi.ots.utility;
 
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +20,16 @@ public class DateUtility {
     public static int getFirstDayOfWeek(){
         Calendar cal = new GregorianCalendar();
         return cal.getFirstDayOfWeek();
+    }
+
+    public static Calendar getDateFirstDayOfWeek(){
+        Calendar calendar = new GregorianCalendar();
+        if(isFirstDayOfWeek(calendar.getTime())){
+            return calendar;
+        }
+        int diff= calendar.get(Calendar.DAY_OF_WEEK)-getFirstDayOfWeek();
+        calendar.add(Calendar.DAY_OF_MONTH, -diff);
+        return calendar;
     }
 
     public static boolean isFirstDayOfWeek(Date date){
@@ -52,5 +63,10 @@ public class DateUtility {
         }
 
         return dates;
+    }
+
+    public static String getFormattedDayOfWeek(Date date) {
+        SimpleDateFormat monthDayFormat = new SimpleDateFormat("E");
+        return monthDayFormat.format(date).substring(0,1).toUpperCase();
     }
 }
