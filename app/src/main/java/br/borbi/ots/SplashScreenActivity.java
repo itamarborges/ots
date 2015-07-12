@@ -42,7 +42,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     private static Double lastLongitude;
     private static Double lastLatitude;
 
-    public static final int TIME_SPLASH = 10000;
+    public static final int TIME_SPLASH = 1000;
     public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
 
     @Override
