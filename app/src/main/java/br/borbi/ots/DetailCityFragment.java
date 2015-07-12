@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,21 +74,22 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-            Uri uriResultSearch = OTSContract.ResultSearch.CONTENT_URI;
+        Uri uriResultSearch = OTSContract.ResultSearch.CONTENT_URI;
 
-            String[] selectionArgs;
-            String selection;
+        String[] selectionArgs;
+        String selection;
 
-            selection = OTSContract.ResultSearch._ID + " = ? ";
-            selectionArgs = new String[]{String.valueOf(idResultSearch)};
+        selection = OTSContract.ResultSearch._ID + " = ? ";
+        selectionArgs = new String[]{String.valueOf(idResultSearch)};
 
-            return new CursorLoader(getActivity(),
-                    uriResultSearch,
-                    RESULT_SEARCH_COLUMNS,
-                    selection,
-                    selectionArgs,
-                    null);
-        }
+        Log.v(LOG_TAG,"id pesquisado = " + idResultSearch);
+        return new CursorLoader(getActivity(),
+                uriResultSearch,
+                RESULT_SEARCH_COLUMNS,
+                selection,
+                selectionArgs,
+                null);
+    }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {

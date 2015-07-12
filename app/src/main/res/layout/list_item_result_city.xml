@@ -26,4 +26,12 @@
         android:text="@string/min_temperature"
         android:layout_below="@+id/weather_imageview"
         />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_item_min_temperature_textview"
+        android:text="@string/more_details"
+        android:id="@+id/list_item_details_button" />
 </LinearLayout>
