@@ -86,6 +86,7 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
             viewHolder.minTemperatureTextiView.setText("");
             viewHolder.weatherImageView.setImageResource(-1);
             viewHolder.moreDetailsTextView.setText("");
+            viewHolder.layoutResultCityLinearLayout.setBackground(null);
         }else{
             viewHolder.dateTextView.setText(Utility.getFormattedDateMonth(dayForecast.getDate()));
             viewHolder.minTemperatureTextiView.setText(mContext.getString(R.string.display_min_max_temperature, Integer.toString(Utility.roundCeil(dayForecast.getMinTemperature())), Integer.toString(Utility.roundCeil(dayForecast.getMaxTemperature()))));
