@@ -1,4 +1,4 @@
-package br.borbi.ots;
+package br.borbi.ots.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.Set;
 
+import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
 
 /**

@@ -1,4 +1,4 @@
-package br.borbi.ots;
+package br.borbi.ots.fragment;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.Utility;
 

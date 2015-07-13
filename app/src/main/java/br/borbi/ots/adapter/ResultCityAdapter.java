@@ -1,4 +1,4 @@
-package br.borbi.ots;
+package br.borbi.ots.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import br.borbi.ots.DetailCityActivity;
+import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.Utility;
 

@@ -6,12 +6,11 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.fragment.ResultCityFragment;
 import br.borbi.ots.utility.Utility;
 
 

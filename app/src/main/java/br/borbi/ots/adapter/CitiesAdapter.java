@@ -1,11 +1,10 @@
-package br.borbi.ots;
+package br.borbi.ots.adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
+import br.borbi.ots.fragment.CitiesFragment;
+import br.borbi.ots.R;
+import br.borbi.ots.ResultCitiesActivity;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 

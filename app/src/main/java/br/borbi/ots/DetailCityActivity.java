@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.google.android.gms.ads.AdView;
 
+import br.borbi.ots.fragment.DetailCityFragment;
 import br.borbi.ots.utility.Utility;
 
 

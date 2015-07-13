@@ -11,10 +11,10 @@
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/fragment_detail_city"
-        android:name="br.borbi.ots.DetailCityFragment"
+        android:name="br.borbi.ots.fragment.DetailCityFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="br.borbi.ots.DetailCityFragment"
+        tools:context="br.borbi.ots.fragment.DetailCityFragment"
         tools:layout="@android:layout/list_content" />
 
     <com.google.android.gms.ads.AdView

@@ -1,4 +1,4 @@
-package br.borbi.ots;
+package br.borbi.ots.fragment;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 
+import br.borbi.ots.R;
+import br.borbi.ots.adapter.ResultCityDayForecastAdapter;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.DayForecast;

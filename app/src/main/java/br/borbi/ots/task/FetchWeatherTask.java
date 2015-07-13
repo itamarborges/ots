@@ -1,4 +1,4 @@
-package br.borbi.ots;
+package br.borbi.ots.task;
 
 import android.content.Context;
 import android.net.Uri;
@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.borbi.ots.SearchActivity;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.DayForecast;

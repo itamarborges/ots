@@ -6,11 +6,11 @@
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/fragment_title_city"
-        android:name="br.borbi.ots.TitleCityFragment"
+        android:name="br.borbi.ots.fragment.TitleCityFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        tools:context="br.borbi.ots.TitleCityFragment" />
+        tools:context="br.borbi.ots.fragment.TitleCityFragment" />
 
     <LinearLayout
         android:layout_width="match_parent"

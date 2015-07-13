@@ -19,12 +19,6 @@
             android:authorities="br.borbi.ots.app" />
 
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".FiltersActivity"
             android:label="@string/title_activity_filtros"
             android:configChanges="orientation|keyboardHidden"

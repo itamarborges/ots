@@ -22,6 +22,7 @@ import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.pojo.SearchParameters;
+import br.borbi.ots.task.FetchWeatherTask;
 import br.borbi.ots.utility.Utility;
 
 interface TaskFinished {

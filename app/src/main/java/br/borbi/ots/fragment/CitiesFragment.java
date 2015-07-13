@@ -1,4 +1,4 @@
-package br.borbi.ots;
+package br.borbi.ots.fragment;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -14,6 +14,8 @@ import android.widget.ListView;
 
 import java.util.Locale;
 
+import br.borbi.ots.R;
+import br.borbi.ots.adapter.CitiesAdapter;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 
