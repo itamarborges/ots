@@ -82,7 +82,7 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
         if(dayForecast == null){
             viewHolder.dateTextView.setText("");
             viewHolder.minTemperatureTextiView.setText("");
-            viewHolder.weatherImageView.setImageResource(-1);
+            viewHolder.weatherImageView.setImageResource(R.drawable.no_border);
             viewHolder.moreDetailsTextView.setText("");
             viewHolder.layoutResultCityLinearLayout.setBackgroundResource(R.drawable.no_border);
         }else{
