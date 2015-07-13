@@ -79,7 +79,6 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
         selection = OTSContract.ResultSearch._ID + " = ? ";
         selectionArgs = new String[]{String.valueOf(idResultSearch)};
 
-        Log.v(LOG_TAG,"id pesquisado = " + idResultSearch);
         return new CursorLoader(getActivity(),
                 uriResultSearch,
                 RESULT_SEARCH_COLUMNS,
@@ -99,16 +98,20 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             Double humidity = data.getDouble(indexHumidity);
 
             int indexMaxTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE);
-            Double maxTemperature = data.getDouble(indexMaxTemperature);
+            Integer maxTemperature = Utility.roundCeil(data.getDouble(indexMaxTemperature));
 
             int indexMinTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE);
-            Double minTemperature = data.getDouble(indexMinTemperature);
+            Integer minTemperature = Utility.roundCeil(data.getDouble(indexMinTemperature));
+
+            if(minTemperature.intValue() == maxTemperature.intValue()){
+                maxTemperature++;
+            }
 
             mDateDetail.setText(Utility.getFormattedDate(date));
 
             mHumidityDetail.setText(getString(R.string.display_per_cent, Double.toString(humidity)));
-            mMinTemperatureDetail.setText(getString(R.string.display_temperature, Double.toString(Utility.roundCeil(minTemperature))));
-            mMaxTemperatureDetail.setText(getString(R.string.display_temperature, Double.toString(Utility.roundCeil(maxTemperature))));
+            mMinTemperatureDetail.setText(getString(R.string.display_temperature, Integer.toString(minTemperature)));
+            mMaxTemperatureDetail.setText(getString(R.string.display_temperature, Integer.toString(maxTemperature)));
 
         }
     }

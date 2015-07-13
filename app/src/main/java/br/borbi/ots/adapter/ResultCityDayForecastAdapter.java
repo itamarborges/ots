@@ -84,10 +84,17 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
             viewHolder.minTemperatureTextiView.setText("");
             viewHolder.weatherImageView.setImageResource(-1);
             viewHolder.moreDetailsTextView.setText("");
-            viewHolder.layoutResultCityLinearLayout.setBackground(null);
+            viewHolder.layoutResultCityLinearLayout.setBackgroundResource(R.drawable.no_border);
         }else{
+
+            Integer minTemperature = Utility.roundCeil(dayForecast.getMinTemperature());
+            Integer maxTemperature = Utility.roundCeil(dayForecast.getMaxTemperature());
+            if(minTemperature.intValue() == maxTemperature.intValue()){
+                maxTemperature++;
+            }
+
             viewHolder.dateTextView.setText(Utility.getFormattedDateMonth(dayForecast.getDate()));
-            viewHolder.minTemperatureTextiView.setText(mContext.getString(R.string.display_min_max_temperature, Integer.toString(Utility.roundCeil(dayForecast.getMinTemperature())), Integer.toString(Utility.roundCeil(dayForecast.getMaxTemperature()))));
+            viewHolder.minTemperatureTextiView.setText(mContext.getString(R.string.display_min_max_temperature, Integer.toString(minTemperature), Integer.toString(maxTemperature)));
             viewHolder.weatherImageView.setImageResource(Utility.getSmallArtResourceForWeatherCondition(WeatherType.getId(dayForecast.getWeatherType())));
 
             viewHolder.layoutResultCityLinearLayout.setOnClickListener(new View.OnClickListener() {
