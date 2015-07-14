@@ -21,7 +21,6 @@
     <string name="dont_care">Don\'t care</string>
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
     <string name="title_activity_splash_screen">Where are </string>
-    <string name="title_activity_search" translatable="false">SearchActivity</string>
     <string name="minimum_distance">Please inform distance bigger than 60 miles.</string>
     <string name="minimum_days">Please inform number of days between 1 and <xliff:g>%1$s</xliff:g>.</string>
     <string name="hello_world" translatable="false">Hello world!</string>

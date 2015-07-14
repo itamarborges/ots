@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -37,7 +38,7 @@ interface ClickFragment {
 }
 
 
-public class FiltersActivity extends Activity implements ClickFragment, android.app.LoaderManager.LoaderCallbacks<Cursor>{
+public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
     public static final String CLASS_NAME = FiltersActivity.class.getName();
     public static final int CITY_LOADER = 1;
@@ -48,8 +49,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
     public static final String NUMBER_SUNNY_DAYS = "NUMBER_SUNNY_DAYS";
     public static final String USE_CLOUDY_DAYS = "USE_CLOUDY_DAYS";
     public static final String MIN_TEMPERATURE = "MIN_TEMPERATURE";
-    public static final String LAST_LATITUDE = "LAST_LATITUDE";
-    public static final String LAST_LONGITUDE = "LAST_LONGITUDE";
     public static final String DONT_USE_TEMPERATURE = "DONT_USE_TEMPERATURE";
     public static final int MAX_NUMBER_OF_DAYS = 15;
 
@@ -170,7 +169,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
             }
         });
 
-        getLoaderManager().initLoader(CITY_LOADER, null, this);
     }
 
     public void showCalendar(View view) {
@@ -259,23 +257,6 @@ public class FiltersActivity extends Activity implements ClickFragment, android.
 
         startActivity(intent);
     }
-
-
-    @Override
-    public android.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(android.content.Loader<Cursor> loader) {
-
-    }
-
 
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {

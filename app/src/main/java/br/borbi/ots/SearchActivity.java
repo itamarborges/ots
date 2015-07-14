@@ -146,10 +146,9 @@ public class SearchActivity extends ActionBarActivity {
     }
 
     private void searchWeatherData(List<City> cities, int numberOfDays) {
-
-        Log.i(CLASS_NAME, "number of days = " + numberOfDays);
-
         SearchParameters searchParameters = new SearchParameters(numberOfDays, cities);
+
+        getContentResolver().delete(OTSContract.Search.CONTENT_URI,null,null);
 
         FetchWeatherTask weatherTask = new FetchWeatherTask(this, new TaskFinishedListener());
         weatherTask.execute(searchParameters);

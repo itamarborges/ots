@@ -86,7 +86,6 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
             viewHolder.moreDetailsTextView.setText("");
             viewHolder.layoutResultCityLinearLayout.setBackgroundResource(R.drawable.no_border);
         }else{
-
             Integer minTemperature = Utility.roundCeil(dayForecast.getMinTemperature());
             Integer maxTemperature = Utility.roundCeil(dayForecast.getMaxTemperature());
             if(minTemperature.intValue() == maxTemperature.intValue()){
