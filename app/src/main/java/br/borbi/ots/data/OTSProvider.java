@@ -655,9 +655,6 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
     }
 
     private Bundle insertSearch(Search search) {
-
-        Log.v(CLASS_NAME, "ENTROU EM insertSearch");
-
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
         // Apaga pesquisas ja existentes
@@ -722,8 +719,6 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
 
         Bundle bundle = new Bundle();
         bundle.putLong(SearchActivity.SEARCH, searchId);
-
-        Log.v(CLASS_NAME, "SAIU DE insertSearch");
 
         return bundle;
     }

@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,57 +22,69 @@ import br.borbi.ots.R;
 import br.borbi.ots.ResultCitiesActivity;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
+import br.borbi.ots.pojo.CityResultSearch;
 
 /**
  * Created by Itamar on 16/06/2015.
  */
-public class CitiesAdapter extends CursorAdapter {
+public class CitiesAdapter extends BaseAdapter{
 
     private static final String LOG_TAG= CitiesAdapter.class.getSimpleName();
 
-    HashMap<Integer, LinkedList> tagsCity = new HashMap<Integer, LinkedList>();
+    HashMap<Long, LinkedList> tagsCity = new HashMap<Long, LinkedList>();
 
-    public CitiesAdapter(Context context, Cursor c, int flags) {
-        super(context, c, flags);
+    private LinkedList<CityResultSearch> mCities;
+    private final Context mContext;
+
+    public CitiesAdapter(LinkedList<CityResultSearch> cities, Context context) {
+        mCities = cities;
+        mContext = context;
     }
 
-    public static class ViewHolder {
-        public final TextView cityNameTextView;
-        public final TextView tagTextView;
-        public final LinearLayout layoutCities;
-
-        public ViewHolder(View view) {
-            cityNameTextView = (TextView) view.findViewById(R.id.list_item_city_name_textview);
-            tagTextView = (TextView) view.findViewById(R.id.list_item_tag_textview);
-            layoutCities = (LinearLayout) view.findViewById(R.id.layout_search_city);
+    @Override
+    public int getCount() {
+        if(mCities == null){
+            return 0;
         }
+        return mCities.size();
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_city, parent, false);
-
-        ViewHolder viewHolder = new ViewHolder(view);
-        view.setTag(viewHolder);
-
-        return view;
+    public CityResultSearch getItem(int position) {
+        if(mCities == null){
+            return null;
+        }
+        return mCities.get(position);
     }
 
     @Override
-    public void bindView(View view, final Context context, Cursor cursor) {
+    public long getItemId(int position) {
+        return 0;
+    }
 
-        ViewHolder viewHolder = (ViewHolder) view.getTag();
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-        final String strCountryName = cursor.getString(CitiesFragment.INDEX_COUNTRY_NAME);
-        final String strCityName = cursor.getString(CitiesFragment.INDEX_CITY_NAME);
-        final int idResultSearchCity = cursor.getInt(CitiesFragment.INDEX_REL_SEARCH_CITY_ID);
-        final int idCity = cursor.getInt(CitiesFragment.INDEX_CITY_ID);
+        ViewHolder viewHolder;
 
-        final String strLabelLocal = strCityName + " - " + strCountryName;
+        if(convertView == null){
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item_city, parent, false);
+
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        }else{
+            viewHolder = (ViewHolder)convertView.getTag();
+        }
+
+        final CityResultSearch cityResultSearch = getItem(position);
+
+        final Integer distance  = cityResultSearch.getDistance();
+        final String strLabelLocal = cityResultSearch.getCity().getName() + " - " + cityResultSearch.getCity().getCountryName();
 
         // Find TextView and set the city name on it
         viewHolder.cityNameTextView.setText(strLabelLocal);
 
+        Long idCity = cityResultSearch.getCity().getId();
         if (!tagsCity.containsKey(idCity)) {
 
             String selection = OTSProvider.FILTER_BY_CITY;
@@ -81,7 +93,7 @@ public class CitiesAdapter extends CursorAdapter {
             String sortOrder = OTSContract.RelCityLanguage.TABLE_NAME + "." + OTSContract.RelCityLanguage.COLUMN_NAME_NAME + " ASC";
 
             //Recupera as tags
-            Cursor c = context.getContentResolver().query(
+            Cursor c = mContext.getContentResolver().query(
                     OTSContract.CONTENT_URI_LIST_TAGS_FROM_A_CITY,
                     CitiesFragment.TAG_COLUMNS,
                     selection,
@@ -94,7 +106,7 @@ public class CitiesAdapter extends CursorAdapter {
             while (c.moveToNext()) {
                 resourceName = c.getString(CitiesFragment.INDEX_RESOURCE_NAME);
 
-                tag = context.getString(context.getResources().getIdentifier(resourceName, "string", context.getPackageName()));
+                tag = mContext.getString(mContext.getResources().getIdentifier(resourceName, "string", mContext.getPackageName()));
 
                 if (!tag.isEmpty()) {
                     tagNames.add(tag);
@@ -102,7 +114,6 @@ public class CitiesAdapter extends CursorAdapter {
             }
             tagsCity.put(idCity, tagNames);
         }
-
 
         final LinkedList<String> tags = tagsCity.get(idCity);
         String tagsItem = "";
@@ -113,19 +124,20 @@ public class CitiesAdapter extends CursorAdapter {
             separador = " - ";
         }
 
+        viewHolder.distanceTextView.setText(Double.toString(distance));
         viewHolder.tagTextView.setText(tagsItem);
 
         viewHolder.layoutCities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ResultCitiesActivity.class);
+                Intent intent = new Intent(mContext, ResultCitiesActivity.class);
 
                 //Vai gravar no SharedPreferences as informações do elemento clicado
-                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
                 SharedPreferences.Editor spe = sp.edit();
 
                 spe.putString(OTSContract.KEY_CITY_NAME, strLabelLocal);
-                spe.putInt(OTSContract.KEY_REL_SEARCH_CITY, idResultSearchCity);
+                spe.putInt(OTSContract.KEY_REL_SEARCH_CITY, cityResultSearch.getIdResultSearch());
 
                 Set<String> tagsSetString = new HashSet<String>(tags);
 
@@ -133,8 +145,24 @@ public class CitiesAdapter extends CursorAdapter {
 
                 spe.apply();
 
-                context.startActivity(intent);
+                mContext.startActivity(intent);
             }
         });
+
+        return convertView;
+    }
+
+    public static class ViewHolder {
+        public final TextView cityNameTextView;
+        public final TextView tagTextView;
+        public final TextView distanceTextView;
+        public final LinearLayout layoutCities;
+
+        public ViewHolder(View view) {
+            cityNameTextView = (TextView) view.findViewById(R.id.list_item_city_name_textview);
+            tagTextView = (TextView) view.findViewById(R.id.list_item_tag_textview);
+            distanceTextView = (TextView) view.findViewById(R.id.list_item_distance_textview);
+            layoutCities = (LinearLayout) view.findViewById(R.id.layout_search_city);
+        }
     }
 }

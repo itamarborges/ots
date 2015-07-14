@@ -14,7 +14,10 @@ public class City implements Serializable{
     private long id;
     private String name;
     private String countryCode;
+    private String countryName;
     private List<DayForecast> dayForecasts;
+    private Double latitude;
+    private Double longitude;
 
     public City(long id, String name, String countryCode, List<DayForecast> dayForecasts) {
         this.id = id;
@@ -27,6 +30,15 @@ public class City implements Serializable{
         this.id = id;
         this.name = name;
         this.countryCode = countryCode;
+    }
+
+    public City(long id, String name, String countryCode, String countryName, Double latitude, Double longitude) {
+        this.id = id;
+        this.name = name;
+        this.countryCode = countryCode;
+        this.countryName = countryName;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getName() {
@@ -59,6 +71,30 @@ public class City implements Serializable{
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     @Override
