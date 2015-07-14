@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +51,11 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_detail_city, container, false);
+
         mDateDetail = (TextView) rootView.findViewById(R.id.detail_date_textView);
         mHumidityDetail = (TextView) rootView.findViewById(R.id.detail_humidity_textView);
         mMinTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_min_temperature_textView);
         mMaxTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_max_temperature_textView);
-
 
         return rootView;
     }
