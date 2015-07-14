@@ -28,7 +28,6 @@
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
     <string name="detail_city">City: <xliff:g>%1$s</xliff:g>.</string>
     <string name="detail_date">Date: <xliff:g>%1$s</xliff:g>.</string>
-    <string name="detail_humidity">Humidité: <xliff:g>%1$s</xliff:g> \%</string>
     <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
     <string name="failure_message">Ops ...It was not possible determine your location. Set the location on in your device and press \"Try to find me\" button.</string>
@@ -45,6 +44,7 @@
     <string name="morning">Matin</string>
     <string name="afternoon">Après-midi</string>
     <string name="night">Soir</string>
-    <string name="source">Source:</string>
+    <string name="source">Source de prévision de météo:</string>
+    <string name="detail_humidity">Humidité: <xliff:g>%1$s</xliff:g> \%</string>
 
 </resources>

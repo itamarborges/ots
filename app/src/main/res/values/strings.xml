@@ -53,5 +53,5 @@
     <string name="morning">Morning</string>
     <string name="afternoon">Afternoon</string>
     <string name="night">Night</string>
-    <string name="source">Source:</string>
+    <string name="source">Forecast Weather Source:</string>
 </resources>
