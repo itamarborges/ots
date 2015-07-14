@@ -10,6 +10,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.borbi.ots.R;
@@ -31,13 +32,20 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE,
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE,
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_HUMIDITY,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MORNING_TEMPERATURE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_EVENING_TEMPERATURE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_NIGHT_TEMPERATURE,
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_PRECIPITATION,
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID
     };
 
     private TextView mDateDetail;
-    private TextView mHumidityDetail;
-    private TextView mMinTemperatureDetail;
-    private TextView mMaxTemperatureDetail;
+    private TextView mMinMaxTemperatureDetail;
+    private TextView mAverageMorning;
+    private TextView mAverageAfternoon;
+    private TextView mAverageNight;
+    private ImageView mWeatherImageView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,9 +61,12 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
         View rootView = inflater.inflate(R.layout.fragment_detail_city, container, false);
 
         mDateDetail = (TextView) rootView.findViewById(R.id.detail_date_textView);
-        mHumidityDetail = (TextView) rootView.findViewById(R.id.detail_humidity_textView);
-        mMinTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_min_temperature_textView);
-        mMaxTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_max_temperature_textView);
+        mMinMaxTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_min_max_temperature_textView);
+        mAverageMorning = (TextView) rootView.findViewById(R.id.morning_temperature_textView);
+        mAverageAfternoon = (TextView) rootView.findViewById(R.id.afternoon_temperature_textView);
+        mAverageNight = (TextView) rootView.findViewById(R.id.night_temperature_textView);
+        mWeatherImageView = (ImageView) rootView.findViewById(R.id.imageWeatherDetail);
+
 
         return rootView;
     }
@@ -93,24 +104,36 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             int indexDate = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_DATE);
             Long date = data.getLong(indexDate);
 
-            int indexHumidity = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_HUMIDITY);
-            Double humidity = data.getDouble(indexHumidity);
-
             int indexMaxTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE);
             Integer maxTemperature = Utility.roundCeil(data.getDouble(indexMaxTemperature));
 
             int indexMinTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE);
             Integer minTemperature = Utility.roundCeil(data.getDouble(indexMinTemperature));
 
+            int indexMorningTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MORNING_TEMPERATURE);
+            Integer morningTemperature = Utility.roundCeil(data.getDouble(indexMorningTemperature));
+
+            int indexEveningTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_EVENING_TEMPERATURE);
+            Integer eveningTemperature = Utility.roundCeil(data.getDouble(indexEveningTemperature));
+
+            int indexNightTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_NIGHT_TEMPERATURE);
+            Integer nightTemperature = Utility.roundCeil(data.getDouble(indexNightTemperature));
+
+            int indexIdWeatherType = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE);
+            final int idWeatherType = data.getInt(indexIdWeatherType);
+
+            
             if(minTemperature.intValue() == maxTemperature.intValue()){
                 maxTemperature++;
             }
 
             mDateDetail.setText(Utility.getFormattedDate(date));
+            mMinMaxTemperatureDetail.setText(getString(R.string.display_min_max_temperature, Integer.toString(minTemperature), Integer.toString(maxTemperature)));
+            mAverageMorning.setText(getString(R.string.display_temperature, Integer.toString(morningTemperature)));
+            mAverageAfternoon.setText(getString(R.string.display_temperature, Integer.toString(eveningTemperature)));
+            mAverageNight.setText(getString(R.string.display_temperature, Integer.toString(nightTemperature)));
 
-            mHumidityDetail.setText(getString(R.string.display_per_cent, Double.toString(humidity)));
-            mMinTemperatureDetail.setText(getString(R.string.display_temperature, Integer.toString(minTemperature)));
-            mMaxTemperatureDetail.setText(getString(R.string.display_temperature, Integer.toString(maxTemperature)));
+            mWeatherImageView.setImageResource(Utility.getSmallArtResourceForWeatherCondition(idWeatherType));
 
         }
     }

@@ -20,6 +20,7 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"
+    android:id="@+id/imageWeatherDetail"
     />
 
         <LinearLayout
@@ -29,20 +30,10 @@
             android:orientation="vertical"
             >
         <TextView
-            android:id="@+id/detail_min_temperature_textView"
+            android:id="@+id/detail_min_max_temperature_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/detail_humidity"/>
-        <TextView
-            android:id="@+id/detail_max_temperature_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/detail_humidity"/>
-            <TextView
-                android:id="@+id/detail_humidity_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detail_humidity"/>
+            android:text="@string/display_min_max_temperature"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -55,6 +46,7 @@
         android:textAppearance="?android:textAppearanceLarge"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center_horizontal"
+        android:padding="5dp"
         android:text="@string/average_temperature"/>
 
     <LinearLayout
@@ -65,7 +57,8 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/morning_textView"
@@ -85,17 +78,18 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/afternoon_textView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/afternoon"/>
             <TextView
                 android:id="@+id/afternoon_temperature_textView"
                 android:layout_below="@id/afternoon_textView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/display_temperature"/>
         </RelativeLayout>
@@ -104,26 +98,43 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/night_textView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/night"/>
             <TextView
                 android:id="@+id/night_temperature_textView"
                 android:layout_below="@id/night_textView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/display_temperature"/>
         </RelativeLayout>
 
-
-
-
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/data_source_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp"
+        android:text="@string/source"/>
 
+    <TextView
+        android:id="@+id/url_source_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:linksClickable="true"
+        android:autoLink="web"
+        android:text="http://openweathermap.org/"/>
 
 </LinearLayout>

@@ -39,7 +39,9 @@
 
     <string name="detail_city">City: <xliff:g>%1$s</xliff:g>.</string>
     <string name="detail_date">Date: <xliff:g>%1$s</xliff:g>.</string>
-    <string name="detail_humidity">Humidity: <xliff:g>%1$s</xliff:g>%</string>
+
+    <string name="detail_humidity">Humidity: <xliff:g>%1$s</xliff:g> \%</string>
+
     <string name="title_activity_detail">Detailed Information</string>
     <string name="beach">Beach</string>
     <string name="snow">Snow</string>
@@ -51,4 +53,5 @@
     <string name="morning">Morning</string>
     <string name="afternoon">Afternoon</string>
     <string name="night">Night</string>
+    <string name="source">Source:</string>
 </resources>
