@@ -132,6 +132,10 @@ public class Utility {
         return Double.valueOf((temperatureInFarenheit-32)/1.8).intValue();
     }
 
+    public static int convertCelsiusToFarenheit(int temperatureInCelsius){
+        return Double.valueOf((temperatureInCelsius *1.8)+32).intValue();
+    }
+
     public static int getDifferenceInDays(Date dateBegin, Date dateEnd){
         Long difference = dateEnd.getTime() - dateBegin.getTime();
         difference = (difference/1000)/60/60/24;
@@ -266,6 +270,18 @@ public class Utility {
 
         String country = Locale.getDefault().getCountry();
         if ("US".equalsIgnoreCase(country) || !usesKilometers) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    public static boolean usesFahrenheit(Context c){
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(c);
+        boolean usesCelsius = sharedPref.getBoolean(OTSContract.USE_CELSIUS, true);
+
+        String country = Locale.getDefault().getCountry();
+        if ("US".equalsIgnoreCase(country) || !usesCelsius) {
             return true;
         }
 
