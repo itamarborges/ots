@@ -18,8 +18,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import br.borbi.ots.R;
+import br.borbi.ots.data.OTSContract;
 
 /**
  * Created by Gabriela on 29/05/2015.
@@ -117,6 +119,10 @@ public class Utility {
      */
     public static int convertMilesToKilometers(int distanceInMiles){
         return Double.valueOf(distanceInMiles * 1.609344).intValue();
+    }
+
+    public static int convertKilometersToMiles(int distanceInKilometers){
+        return Double.valueOf(distanceInKilometers * 0.621371192).intValue();
     }
 
     /*
@@ -251,6 +257,18 @@ public class Utility {
         if(date1.getTime() == date2.getTime()){
             return true;
         }
+        return false;
+    }
+
+    public static boolean usesMiles(Context c){
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(c);
+        boolean usesKilometers = sharedPref.getBoolean(OTSContract.USE_KILOMETERS, true);
+
+        String country = Locale.getDefault().getCountry();
+        if ("US".equalsIgnoreCase(country) || !usesKilometers) {
+            return true;
+        }
+
         return false;
     }
 

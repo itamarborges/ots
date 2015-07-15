@@ -24,6 +24,7 @@ import br.borbi.ots.ResultCitiesActivity;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.CityResultSearch;
+import br.borbi.ots.utility.Utility;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -79,7 +80,10 @@ public class CitiesAdapter extends BaseAdapter{
 
         final CityResultSearch cityResultSearch = getItem(position);
 
-        final Integer distance  = cityResultSearch.getDistance();
+        Integer distance  = cityResultSearch.getDistance();
+        if(Utility.usesMiles(mContext)){
+            distance = Utility.convertKilometersToMiles(distance);
+        }
         final String strLabelLocal = cityResultSearch.getCity().getName() + " - " + cityResultSearch.getCity().getCountryName();
 
         // Find TextView and set the city name on it
@@ -166,4 +170,6 @@ public class CitiesAdapter extends BaseAdapter{
             layoutCities = (LinearLayout) view.findViewById(R.id.layout_search_city);
         }
     }
+
+
 }
