@@ -49,6 +49,8 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     private Double lastLatitude;
     private Double lastLongitude;
 
+    private Integer mininumDistance;
+
     private View mRootView;
     private View mEmptyView;
 
@@ -112,6 +114,14 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
         this.lastLongitude = lastLongitude;
     }
 
+    public Integer getMininumDistance() {
+        return mininumDistance;
+    }
+
+    public void setMininumDistance(Integer mininumDistance) {
+        this.mininumDistance = mininumDistance;
+    }
+
     private void setCoordinates(){
         SharedPreferences sharedPreferences = getActivity().getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -150,11 +160,8 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
         //String locationSetting = Utility.getPreferredLocation(getActivity());
         Uri uriSearchByCities = OTSContract.CONTENT_URI_LIST_CITIES_BY_SEARCH;
 
-        String[] selectionArgs;
-        String selection;
-
-        selection = OTSProvider.FILTER_BY_LOCALE;
-        selectionArgs = new String[]{language};
+        String[] selectionArgs = new String[]{language};
+        String selection = OTSProvider.FILTER_BY_LOCALE;
 
         return new CursorLoader(getActivity(),
                 uriSearchByCities,
@@ -180,7 +187,9 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
 
                 Integer distance  = Utility.roundCeil(CoordinatesUtillity.getDistance(getLastLatitude(), getLastLongitude(), cityLatitude, cityLongitude));
 
-                cities.add(new CityResultSearch(new City(idCity, strCityName,null,strCountryName,cityLatitude,cityLongitude),distance,idResultSearchCity));
+                if(isDistanceSmallerThanMinimumDistance(distance)) {
+                    cities.add(new CityResultSearch(new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude), distance, idResultSearchCity));
+                }
             }
             while (data.moveToNext());
         }
@@ -198,5 +207,12 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
         mListView = (ListView) mRootView.findViewById(R.id.listview_cities);
         mListView.setEmptyView(mEmptyView);
         mListView.setAdapter(mCitiesAdapter);
+    }
+
+    private boolean isDistanceSmallerThanMinimumDistance(Integer distance){
+        if(getMininumDistance() == null || getMininumDistance().intValue() == 0 || (getMininumDistance().compareTo(distance) >=0)){
+            return true;
+        }
+        return false;
     }
 }

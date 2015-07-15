@@ -46,5 +46,6 @@
     <string name="night">Soir</string>
     <string name="source">Source de prévision de météo:</string>
     <string name="detail_humidity">Humidité: <xliff:g>%1$s</xliff:g> \%</string>
+    <string name="distance"><xliff:g>%1$s</xliff:g></string>
 
 </resources>

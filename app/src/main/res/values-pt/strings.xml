@@ -45,4 +45,5 @@
     <string name="afternoon">Tarde</string>
     <string name="night">Noite</string>
     <string name="source">Fonte da previsão do tempo:</string>
+    <string name="distance"><xliff:g>%1$s</xliff:g> km</string>
 </resources>

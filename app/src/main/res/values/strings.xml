@@ -54,4 +54,5 @@
     <string name="afternoon">Afternoon</string>
     <string name="night">Night</string>
     <string name="source">Forecast Weather Source:</string>
+    <string name="distance"><xliff:g>%1$s</xliff:g> mi</string>
 </resources>

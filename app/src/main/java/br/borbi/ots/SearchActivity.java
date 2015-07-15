@@ -32,9 +32,9 @@ interface TaskFinished {
 
 public class SearchActivity extends ActionBarActivity {
 
-    private static final String CLASS_NAME = SearchActivity.class.getName();
+    private static final String LOG_TAG = SearchActivity.class.getName();
 
-    public static final String CITY_LIST = "CITY_LIST";
+    public static final String MINIMUM_DISTANCE = "MINIMUM_DISTANCE";
 
     public static final String SEARCH = "SEARCH";
 
@@ -107,14 +107,11 @@ public class SearchActivity extends ActionBarActivity {
                 .append(" AND ")
                 .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" <= ?");
 
-
         String[] selectionArgs = new String[4];
         selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
         selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
         selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
         selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
-
-        Log.i(CLASS_NAME, whereClause.toString());
 
         Cursor c = getContentResolver().query(
                 OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES,
@@ -123,11 +120,8 @@ public class SearchActivity extends ActionBarActivity {
                 selectionArgs,
                 null);
 
-
         List<City> cities = new ArrayList<City>();
 
-        Log.i(CLASS_NAME, " vai iterar nos retornos");
-        Log.i(CLASS_NAME, " total de retornos = " + c.getCount());
         if (c.moveToFirst()) {
             do {
                 int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
@@ -137,8 +131,6 @@ public class SearchActivity extends ActionBarActivity {
                 City city = new City(c.getLong(numIndexCityId), c.getString(numIndexName), c.getString(numIndexCountryCode));
 
                 cities.add(city);
-
-                Log.i(CLASS_NAME, city.toString());
             }
             while (c.moveToNext());
         }
@@ -202,22 +194,13 @@ public class SearchActivity extends ActionBarActivity {
         search.setOriginLongitude(lastLongitude);
         search.setCites(mCities);
 
-        Log.i(CLASS_NAME, search.toString());
-
-
-        Log.i(CLASS_NAME, "============= CIDADES VALIDAS");
-        for (City city : mCities) {
-            Log.i(CLASS_NAME, city.toString());
-        }
-
         Long searchId = null;
         if (mCities.size() > 0) {
             searchId = saveSearch(search);
         }
 
         Intent intent = new Intent(this, ResultActivity.class);
-        //TODO verificar se segue enviando a lista de cidades aqui ou o id da search
-        intent.putExtra(CITY_LIST, new ArrayList(mCities));
+        intent.putExtra(MINIMUM_DISTANCE, distance);
         startActivity(intent);
     }
 
@@ -259,7 +242,7 @@ public class SearchActivity extends ActionBarActivity {
             Iterator<City> itCity = cities.iterator();
             while (itCity.hasNext()) {
                 City city = (City) itCity.next();
-                Log.i(CLASS_NAME, city.toString());
+                Log.i(LOG_TAG, city.toString());
             }
 
             validateCities(cities);

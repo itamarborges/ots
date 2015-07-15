@@ -33,7 +33,10 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
     public static final String CLASS_NAME = SplashScreenActivity.class.getName();
     public static final int MAX_DISTANCE_VALID = 100;
+    public static final String SEARCH_ID = "SEARCH_ID";
+    public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
 
+    private static final int TIME_SPLASH = 1000;
 
     private ImageView mImgSplash;
     private GoogleApiClient mGoogleApiClient;
@@ -41,9 +44,6 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
     private static Double lastLongitude;
     private static Double lastLatitude;
-
-    public static final int TIME_SPLASH = 1000;
-    public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +91,9 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                             null);
 
                     if (c.moveToFirst()) {
+                        Integer searchId = c.getInt(c.getColumnIndex(OTSContract.Search._ID));
                         Log.v(CLASS_NAME, "Possui dados");
-                        goToResults(false);
+                        goToResults(true, searchId);
                     } else {
                         Log.v(CLASS_NAME, "Nao possui dados");
                         goToFilters();
@@ -118,8 +119,9 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                             null);
 
                     if (c.moveToFirst()) {
+                        Integer searchId = c.getInt(c.getColumnIndex(OTSContract.Search._ID));
                         Log.v(CLASS_NAME, "Possui dados");
-                        goToResults(true);
+                        goToResults(true, searchId);
                     } else {
                         Log.v(CLASS_NAME, "Nao possui dados");
                         goToFilters();
@@ -130,10 +132,11 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
     }
 
-    private void goToResults(boolean foundCoordinates){
+    private void goToResults(boolean foundCoordinates, Integer searchId){
         Intent intent = new Intent();
         intent.setClass(SplashScreenActivity.this, ResultActivity.class);
         intent.putExtra(COORDINATES_FOUND, foundCoordinates);
+        intent.putExtra(SEARCH_ID, searchId);
         TaskStackBuilder.create(this).addNextIntentWithParentStack(intent).startActivities();
     }
 

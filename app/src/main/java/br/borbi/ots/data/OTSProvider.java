@@ -52,6 +52,11 @@ public class OTSProvider extends ContentProvider {
             OTSContract.City.TABLE_NAME+
                     "." + OTSContract.City._ID + " = ? ";
 
+    public static final String FILTER_BY_SEARCH_ID=
+            OTSContract.Search.TABLE_NAME+
+                    "." + OTSContract.Search._ID + " = ? ";
+
+
     private static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = OTSContract.CONTENT_AUTHORITY;
