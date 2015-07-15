@@ -180,7 +180,8 @@
             android:text="@string/qty_sunny_days"
             android:id="@+id/textViewQtySunnyDays"
             android:layout_below="@+id/linearLayoutDistance"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="bottom" />
 
         <EditText
             android:layout_width="0dp"
@@ -240,7 +241,7 @@
             android:id="@+id/textViewMinTemperature"
             android:layout_below="@+id/checkBoxDaysWithoutRain"
             android:layout_alignParentLeft="true"
-             />
+            android:layout_gravity="bottom" />
 
         <EditText
             android:layout_width="0dp"
