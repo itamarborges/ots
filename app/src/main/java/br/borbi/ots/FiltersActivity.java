@@ -81,8 +81,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         AdView mAdView = null;
         Utility.initializeAd(mAdView, this);
 
-        String country = Locale.getDefault().getCountry();
-
         //Datas
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
@@ -93,8 +91,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
         dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
         dateEndView.setText(dateFormat.format(dateEnd));
-
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 
         //Distancia
         distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
@@ -115,9 +111,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         distanceType = (RadioGroup) findViewById(R.id.radioGroupDistance);
 
-        boolean usesKilometers = sharedPref.getBoolean(OTSContract.USE_KILOMETERS, true);
-
-        if ("US".equalsIgnoreCase(country) || !usesKilometers){
+        if(Utility.usesMiles(this)){
             RadioButton radioButtonMiles = (RadioButton) findViewById(R.id.radioButtonMiles);
             radioButtonMiles.setChecked(true);
         }else {
@@ -143,7 +137,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         //Dias nublados
         daysWithoutRainCheckbox = (CheckBox) findViewById(R.id.checkBoxDaysWithoutRain);
 
-
         //Temperatura
         temperatureType = (RadioGroup) findViewById(R.id.radioGroupTemperature);
         temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
@@ -152,8 +145,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         radioButtonFarenheit = (RadioButton) findViewById(R.id.radioButtonFarenheit);
         radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
 
-        boolean usesCelsius = sharedPref.getBoolean(OTSContract.USE_CELSIUS, true);
-        if ("US".equalsIgnoreCase(country) || !usesCelsius){
+        if (Utility.usesFahrenheit(this)){
             radioButtonFarenheit.setChecked(true);
         }else {
             radioButtonCelsius.setChecked(true);
