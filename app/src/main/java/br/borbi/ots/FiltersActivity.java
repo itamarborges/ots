@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
@@ -50,6 +49,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     public static final String MIN_TEMPERATURE = "MIN_TEMPERATURE";
     public static final String DONT_USE_TEMPERATURE = "DONT_USE_TEMPERATURE";
     public static final int MAX_NUMBER_OF_DAYS = 15;
+    public static final String DISTANCE_DEFAULT = "500";
 
     private static DateFormat dateFormat;
     private static TextView dateBeginView;
@@ -173,7 +173,9 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             }
         });
 
-        distanceEditText.requestFocus();
+        distanceEditText.setText(DISTANCE_DEFAULT);
+        Utility.positioningCursorInTheEnd(distanceEditText);
+
     }
 
     public void showCalendar(View view) {

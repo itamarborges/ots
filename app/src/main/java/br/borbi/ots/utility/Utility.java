@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.text.format.Time;
-import android.util.Log;
+import android.widget.EditText;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -343,4 +343,7 @@ public class Utility {
         return null;
     }
 
+    public static void positioningCursorInTheEnd(EditText et) {
+        et.setSelection(et.getText().length());
+    }
 }
