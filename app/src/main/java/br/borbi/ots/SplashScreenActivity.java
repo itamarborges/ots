@@ -3,12 +3,8 @@ package br.borbi.ots;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.TaskStackBuilder;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,11 +20,8 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.LocationUtility;
-import br.borbi.ots.utility.QueryUtility;
 import br.borbi.ots.utility.Utility;
 
 
@@ -78,15 +71,11 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 //- the table search is not empty and
                 //- the date_end is before than today
                 //- the current location is not too far from the place where the seach was originally made
-                Time dayTime = new Time();
-                dayTime.setToNow();
-
-                int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
 
                 if (lastLongitude == null || lastLatitude == null) {
                     Log.v(LOG_TAG, "nao achou coordenadas");
 
-                    Integer searchId = Utility.findSearchByDate(julianToday, dayTime, mContext);
+                    Integer searchId = Utility.findSearchByDate(mContext);
 
                     if (searchId == null) {
                         Log.v(LOG_TAG, "Nao possui dados");
@@ -97,7 +86,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                     }
 
                 } else {
-                    Integer searchId = Utility.findSearchByDateAndCoordinates(julianToday, dayTime, lastLatitude, lastLongitude,mContext);
+                    Integer searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude,mContext);
 
                     if (searchId == null) {
                         Log.v(LOG_TAG, "Nao possui dados");

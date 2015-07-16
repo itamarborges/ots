@@ -293,7 +293,12 @@ public class Utility {
         return false;
     }
 
-    public static Integer findSearchByDate(int julianToday,Time dayTime, Context context){
+    public static Integer findSearchByDate(Context context){
+        Time dayTime = new Time();
+        dayTime.setToNow();
+
+        int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
+
         String[] selectionArgs = new String[1];
         selectionArgs[0] = Long.toString(dayTime.setJulianDay(julianToday));
 
@@ -310,7 +315,12 @@ public class Utility {
         return  null;
     }
 
-    public static Integer findSearchByDateAndCoordinates(int julianToday,Time dayTime, double lastLatitude, double lastLongitude, Context context){
+    public static Integer findSearchByDateAndCoordinates(double lastLatitude, double lastLongitude, Context context){
+        Time dayTime = new Time();
+        dayTime.setToNow();
+
+        int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
+
         Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, SplashScreenActivity.MAX_DISTANCE_VALID);
 
         String[] selectionArgs = new String[5];

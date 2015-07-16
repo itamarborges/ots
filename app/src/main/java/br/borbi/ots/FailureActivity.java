@@ -1,54 +1,45 @@
 package br.borbi.ots;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
-import android.text.format.Time;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.ads.AdView;
 
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.utility.ForwardUtility;
-import br.borbi.ots.utility.LocationUtility;
-import br.borbi.ots.utility.QueryUtility;
 import br.borbi.ots.utility.Utility;
 
 
 public class FailureActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    public static final String LOG_TAG = FailureActivity.class.getName();
+    private static final String LOG_TAG = FailureActivity.class.getName();
 
     private static final int WAIT_TIME = 5000;
 
     private Double lastLongitude;
     private Double lastLatitude;
 
-    private boolean bTriedToConnect = false;
-    private boolean bTryingToFindTheLocation = false;
-    private boolean bLocalizationDetermined = false;
+    AlphaAnimation inAnimation;
+    AlphaAnimation outAnimation;
+
+    FrameLayout progressBarHolder;
+
+    private Button tryToFindMeButton;
+    private Button continueWithouLocationButton;
 
     private Context mContext;
+
+    private Boolean mHasSearch;
 
 
     @Override
@@ -58,38 +49,52 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
 
         mContext = this;
 
+        AdView mAdView = null;
+        Utility.initializeAd(mAdView, this);
+
+
+        progressBarHolder = (FrameLayout) findViewById(R.id.progressBarHolder);
+        tryToFindMeButton = (Button) findViewById(R.id.btnTryToFindMe);
+        continueWithouLocationButton = (Button) findViewById(R.id.buttonContinueWithoutLocation);
+        if(hasSearch()){
+            continueWithouLocationButton.setVisibility(View.VISIBLE);
+        }
+
         getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE).registerOnSharedPreferenceChangeListener(this);
     }
 
     public void tryToFindMeClick(View v) {
 
-        bTriedToConnect = false;
-        bTryingToFindTheLocation = false;
-        bLocalizationDetermined = false;
-
         if(lastLatitude == null || lastLongitude == null){
-            //iniciar thread para aguardar uns 5 s
+            tryToFindMeButton.setEnabled(false);
+            if(hasSearch()){
+                continueWithouLocationButton.setEnabled(false);
+            }
+
+            inAnimation = new AlphaAnimation(0f, 1f);
+            inAnimation.setDuration(200);
+            progressBarHolder.setAnimation(inAnimation);
+            progressBarHolder.setVisibility(View.VISIBLE);
+
             Timer timer = new Timer();
             timer.schedule(new MyTimerTask(), WAIT_TIME);
 
         }else{
-            //vai para filtros ou resultado
-            //mostrar pesquisa com localizacao
-            Log.v(LOG_TAG, "achou coord ");
             forwardActivity();
         }
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.v(LOG_TAG, "onSharedPreferenceChanged, key = " + key);
         if(OTSContract.SHARED_LATITUDE.equals(key)){
-            Log.v(LOG_TAG, "lat = " + sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
             this.lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         }else if(OTSContract.SHARED_LONGITUDE.equals(key)){
-            Log.v(LOG_TAG, "long = " + sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
             this.lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
         }
+    }
+
+    public void continueWithoutMyLocation(View view) {
+        forwardActivity();
     }
 
     private class MyTimerTask extends TimerTask{
@@ -100,12 +105,19 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
                 @Override
                 public void run() {
                     if(lastLatitude == null || lastLongitude == null) {
-                        Log.v(LOG_TAG, "coord vazias");
+                        outAnimation = new AlphaAnimation(1f, 0f);
+                        outAnimation.setDuration(200);
+                        progressBarHolder.setAnimation(outAnimation);
+                        progressBarHolder.setVisibility(View.GONE);
+
+                        tryToFindMeButton.setEnabled(true);
+                        if(hasSearch()){
+                            continueWithouLocationButton.setEnabled(true);
+                        }
 
                         Toast.makeText(getApplicationContext(),R.string.location_not_found_yet, Toast.LENGTH_LONG).show();
 
                     }else{
-                        Log.v(LOG_TAG, "achou coord ");
                         forwardActivity();
                     }
                 }
@@ -114,22 +126,26 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
     }
 
     private void forwardActivity(){
-
         Toast.makeText(getApplicationContext(),R.string.location_found, Toast.LENGTH_LONG).show();
 
-        Time dayTime = new Time();
-        dayTime.setToNow();
-
-        int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-
-        Integer searchId = Utility.findSearchByDateAndCoordinates(julianToday, dayTime, lastLatitude, lastLongitude,mContext);
+        Integer searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude,mContext);
 
         if (searchId == null) {
-            Log.v(LOG_TAG, "Nao possui dados");
             ForwardUtility.goToFilters(mContext);
         } else {
-            Log.v(LOG_TAG, "Possui dados");
             ForwardUtility.goToResults(false, searchId,mContext);
         }
+    }
+
+    private boolean hasSearch(){
+        if(mHasSearch == null){
+            Integer searchId = Utility.findSearchByDate(mContext);
+            if (searchId == null) {
+                mHasSearch = false;
+            }else{
+                mHasSearch = true;
+            }
+        }
+        return mHasSearch;
     }
 }
