@@ -46,4 +46,6 @@
     <string name="night">Noite</string>
     <string name="source">Fonte da previsão do tempo:</string>
     <string name="distance"><xliff:g>%1$s</xliff:g> km</string>
+    <string name="location_found">Localização encontrada com sucesso.</string>
+    <string name="location_not_found_yet">Ainda não foi possível determinar sua localização. Por favor, tente novamente.</string>
 </resources>

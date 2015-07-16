@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -29,6 +30,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.Utility;
 import br.borbi.ots.utility.ValidationUtility;
 
@@ -172,12 +174,22 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     }
 
     public void onSaveButtonClicked(View view) {
+        SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
-        boolean allFieldsValid = validateFields();
-        if (allFieldsValid) {
-            callSearch();
-        } else {
-            Toast.makeText(this,R.string.invalid_fields, Toast.LENGTH_LONG).show();
+        Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
+        Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
+
+        if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
+            ForwardUtility.goToFailure(mContext);
+
+        }else {
+
+            boolean allFieldsValid = validateFields();
+            if (allFieldsValid) {
+                callSearch();
+            } else {
+                Toast.makeText(this, R.string.invalid_fields, Toast.LENGTH_LONG).show();
+            }
         }
     }
 

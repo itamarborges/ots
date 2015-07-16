@@ -534,12 +534,6 @@ public class OTSProvider extends ContentProvider {
 
     }
 
-
-
-
-
-
-
     public Cursor listCitiesByCoordinates(String[] projection, String selection, String[] selectionArgs) {
         SQLiteQueryBuilder sWeatherByLocationSettingQueryBuilder = new SQLiteQueryBuilder();
 

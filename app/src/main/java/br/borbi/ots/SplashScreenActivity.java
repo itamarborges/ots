@@ -20,23 +20,24 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.pojo.Coordinates;
+import br.borbi.ots.utility.ForwardUtility;
+import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.QueryUtility;
 import br.borbi.ots.utility.Utility;
 
 
 public class SplashScreenActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    public static final String CLASS_NAME = SplashScreenActivity.class.getName();
+    private static final String LOG_TAG = SplashScreenActivity.class.getName();
     public static final int MAX_DISTANCE_VALID = 100;
-    public static final String SEARCH_ID = "SEARCH_ID";
-    public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
 
-    private static final int TIME_SPLASH = 1000;
+    private static final int TIME_SPLASH = 3000;
 
     private ImageView mImgSplash;
     private GoogleApiClient mGoogleApiClient;
@@ -45,16 +46,20 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
     private static Double lastLongitude;
     private static Double lastLatitude;
 
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        mContext = this;
+
         mImgSplash = (ImageView) findViewById(R.id.imageView);
 
         int img = ((int) (Math.random() * 10)) ;
 
-        Log.v(CLASS_NAME, String.valueOf(img));
+        Log.v(LOG_TAG, String.valueOf(img));
 
         if (img % 2 == 0) {
             mImgSplash.setBackgroundResource(R.drawable.logo_novo_par); ;
@@ -79,68 +84,35 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
 
                 if (lastLongitude == null || lastLatitude == null) {
+                    Log.v(LOG_TAG, "nao achou coordenadas");
 
-                    String[] selectionArgs = new String[1];
-                    selectionArgs[0] = Long.toString(dayTime.setJulianDay(julianToday));
+                    Integer searchId = Utility.findSearchByDate(julianToday, dayTime, mContext);
 
-                    Cursor c = getContentResolver().query(
-                            OTSContract.Search.CONTENT_URI,
-                            new String[]{OTSContract.Search._ID},
-                            QueryUtility.buildQuerySelectSearchByDate(),
-                            selectionArgs,
-                            null);
-
-                    if (c.moveToFirst()) {
-                        Integer searchId = c.getInt(c.getColumnIndex(OTSContract.Search._ID));
-                        Log.v(CLASS_NAME, "Possui dados");
-                        goToResults(true, searchId);
+                    if (searchId == null) {
+                        Log.v(LOG_TAG, "Nao possui dados");
+                        ForwardUtility.goToFilters(mContext);
                     } else {
-                        Log.v(CLASS_NAME, "Nao possui dados");
-                        goToFilters();
+                        Log.v(LOG_TAG, "Possui dados");
+                        ForwardUtility.goToResults(false, searchId,mContext);
                     }
 
                 } else {
-                    Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, MAX_DISTANCE_VALID);
+                    Integer searchId = Utility.findSearchByDateAndCoordinates(julianToday, dayTime, lastLatitude, lastLongitude,mContext);
 
-                    Log.v(CLASS_NAME, "latitude = " + lastLatitude + ", long = " + lastLongitude);
-
-                    String[] selectionArgs = new String[5];
-                    selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
-                    selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
-                    selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
-                    selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
-                    selectionArgs[4] = Long.toString(dayTime.setJulianDay(julianToday));
-
-                    Cursor c = getContentResolver().query(
-                            OTSContract.Search.CONTENT_URI,
-                            new String[]{OTSContract.Search._ID},
-                            QueryUtility.buildQuerySelectSearchByCoordinatesAndDate(),
-                            selectionArgs,
-                            null);
-
-                    if (c.moveToFirst()) {
-                        Integer searchId = c.getInt(c.getColumnIndex(OTSContract.Search._ID));
-                        Log.v(CLASS_NAME, "Possui dados");
-                        goToResults(true, searchId);
+                    if (searchId == null) {
+                        Log.v(LOG_TAG, "Nao possui dados");
+                        ForwardUtility.goToFilters(mContext);
                     } else {
-                        Log.v(CLASS_NAME, "Nao possui dados");
-                        goToFilters();
+                        Log.v(LOG_TAG, "Possui dados");
+                        ForwardUtility.goToResults(true, searchId,mContext);
                     }
                 }
             }
         }, TIME_SPLASH);
-
     }
 
-    private void goToResults(boolean foundCoordinates, Integer searchId){
-        Intent intent = new Intent();
-        intent.setClass(SplashScreenActivity.this, ResultActivity.class);
-        intent.putExtra(COORDINATES_FOUND, foundCoordinates);
-        intent.putExtra(SEARCH_ID, searchId);
-        TaskStackBuilder.create(this).addNextIntentWithParentStack(intent).startActivities();
-    }
-
-    private void goToFilters(){
+    public void continueWithoutMyLocation(View v) {
+        Log.v("Debug", "Não possui localização");
         Intent intent = new Intent();
         intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
         startActivity(intent);
@@ -148,64 +120,44 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.v(CLASS_NAME, "entrou no onConnected, tempo = " + System.currentTimeMillis());
+        Log.v(LOG_TAG, "entrou no onConnected, tempo = " + System.currentTimeMillis());
 
         try {
-            createLocationRequest();
+            mLocationRequest = LocationUtility.createLocationRequest();
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
         } catch (Exception e) {
-            Log.v(CLASS_NAME, getString(R.string.error_localization));
-            disconnectFromLocationServices();
+            Log.v(LOG_TAG, getString(R.string.error_localization));
+            LocationUtility.disconnectFromLocationServices(mGoogleApiClient,this);
             finish();
         }
     }
 
-    private void saveCoordinates() {
-        SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putLong(OTSContract.SHARED_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
-        editor.putLong(OTSContract.SHARED_LONGITUDE, Double.doubleToRawLongBits(lastLongitude));
-
-        editor.apply();
-    }
-
     @Override
     public void onConnectionSuspended(int i) {
-        Log.e(CLASS_NAME, "conexao suspensa, erro = " + i);
+        Log.e(LOG_TAG, "conexao suspensa, erro = " + i);
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e(CLASS_NAME, "falhou na conexao, erro = " + connectionResult.getErrorCode());
+        Log.e(LOG_TAG, "falhou na conexao, erro = " + connectionResult.getErrorCode());
 
         Toast.makeText(getApplication(), getString(R.string.error_localization), Toast.LENGTH_LONG).show();
-        disconnectFromLocationServices();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    protected void onStop() {
-        disconnectFromLocationServices();
-        super.onStop();
+        LocationUtility.disconnectFromLocationServices(mGoogleApiClient, this);
     }
 
     /**
      * Method to verify google play services on the device
      */
     private void findLocation() {
-        Log.v(CLASS_NAME, "entrou em findLocation");
+        Log.v(LOG_TAG, "entrou em findLocation, " + new Date());
 
         if (Utility.isNetworkAvailable(this)) {
-            Log.v(CLASS_NAME, "tem internet");
+            Log.v(LOG_TAG, "tem internet");
             buildGoogleApiClient();
 
         } else {
-            Log.v(CLASS_NAME, "nao tem internet");
+            Log.v(LOG_TAG, "nao tem internet");
             setContentView(R.layout.activity_failure);
         }
     }
@@ -220,44 +172,18 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         mGoogleApiClient.connect();
     }
 
-    public void continueWithoutMyLocation(View v) {
-        Log.v("Debug", "Não possui localização");
-        Intent intent = new Intent();
-        intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
-        startActivity(intent);
-    }
-
-    private void createLocationRequest() {
-        // Create the LocationRequest object
-        Log.v(CLASS_NAME, "entrou no createLocationRequest, tempo = " + System.currentTimeMillis());
-
-        mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                .setInterval(5 * 1000)        // 10 seconds, in milliseconds
-                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
-    }
-
-    private void disconnectFromLocationServices() {
-        Log.v(CLASS_NAME,"entrou no disconnectFromLocationServices");
-        if (mGoogleApiClient.isConnected()) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-            mGoogleApiClient.disconnect();
-        }
-    }
-
     @Override
     public void onLocationChanged(Location location) {
-        Log.v(CLASS_NAME, "entrou no onLocationChanged, tempo = " + System.currentTimeMillis());
+        Log.v(LOG_TAG, "entrou no onLocationChanged, tempo = " + System.currentTimeMillis() + ", dt = " + new Date());
 
-        location.getLatitude();
         lastLatitude = location.getLatitude();
         lastLongitude = location.getLongitude();
 
-        Log.i(CLASS_NAME, "latitude, onLocationChanged = " + lastLatitude);
-        Log.i(CLASS_NAME, "longitude, onLocationChanged = " + lastLongitude);
+        Log.i(LOG_TAG, "latitude, onLocationChanged = " + lastLatitude);
+        Log.i(LOG_TAG, "longitude, onLocationChanged = " + lastLongitude);
 
-        saveCoordinates();
+        LocationUtility.saveCoordinates(lastLatitude,lastLongitude, this);
 
-        disconnectFromLocationServices();
+        LocationUtility.disconnectFromLocationServices(mGoogleApiClient, this);
     }
 }
