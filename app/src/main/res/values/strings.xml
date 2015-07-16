@@ -61,4 +61,5 @@
     <string name="explanation_why">Why is this important?</string>
     <string name="explanation">If the app can\'t find where you are, it won\'t be possible to determine which cities are in distance radius informed. It\'s essential that the location is set on your device so you can use this app.</string>
     <string name="continue_without_my_location">Continue without my location</string>
+    <string name="degree_symbol" translatable="false">º</string>
 </resources>
