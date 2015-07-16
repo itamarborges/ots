@@ -3,10 +3,13 @@ package br.borbi.ots.utility;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
+import android.text.format.Time;
+import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -21,7 +24,9 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.borbi.ots.R;
+import br.borbi.ots.SplashScreenActivity;
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.pojo.Coordinates;
 
 /**
  * Created by Gabriela on 29/05/2015.
@@ -286,6 +291,56 @@ public class Utility {
         }
 
         return false;
+    }
+
+    public static Integer findSearchByDate(Context context){
+        Time dayTime = new Time();
+        dayTime.setToNow();
+
+        int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
+
+        String[] selectionArgs = new String[1];
+        selectionArgs[0] = Long.toString(dayTime.setJulianDay(julianToday));
+
+        Cursor c = context.getContentResolver().query(
+                OTSContract.Search.CONTENT_URI,
+                new String[]{OTSContract.Search._ID},
+                QueryUtility.buildQuerySelectSearchByDate(),
+                selectionArgs,
+                null);
+
+        if (c.moveToFirst()) {
+            return c.getInt(c.getColumnIndex(OTSContract.Search._ID));
+        }
+        return  null;
+    }
+
+    public static Integer findSearchByDateAndCoordinates(double lastLatitude, double lastLongitude, Context context){
+        Time dayTime = new Time();
+        dayTime.setToNow();
+
+        int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
+
+        Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, SplashScreenActivity.MAX_DISTANCE_VALID);
+
+        String[] selectionArgs = new String[5];
+        selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
+        selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
+        selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
+        selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
+        selectionArgs[4] = Long.toString(dayTime.setJulianDay(julianToday));
+
+        Cursor c = context.getContentResolver().query(
+                OTSContract.Search.CONTENT_URI,
+                new String[]{OTSContract.Search._ID},
+                QueryUtility.buildQuerySelectSearchByCoordinatesAndDate(),
+                selectionArgs,
+                null);
+
+        if (c.moveToFirst()) {
+            return c.getInt(c.getColumnIndex(OTSContract.Search._ID));
+        }
+        return null;
     }
 
 }

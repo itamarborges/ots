@@ -46,4 +46,10 @@
     <string name="night">Noite</string>
     <string name="source">Fonte da previsão do tempo:</string>
     <string name="distance"><xliff:g>%1$s</xliff:g> km</string>
+    <string name="location_found">Localização encontrada com sucesso.</string>
+    <string name="location_not_found_yet">Ainda não foi possível determinar sua localização. Por favor, tente novamente.</string>
+    <string name="try_to_find_me">Tente me achar</string>
+    <string name="explanation">Se o aplicativo não souber onde você está, não será possível determinar quais cidades estão dentro do raio informado. É essencial que a localização esteja habilitada para utilizar este aplicativo.</string>
+    <string name="explanation_why">Por que isso é importante?</string>
+    <string name="continue_without_my_location">Continuar sem minha localização</string>
 </resources>

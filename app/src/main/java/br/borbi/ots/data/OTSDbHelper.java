@@ -22,7 +22,7 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 37;
+    private static final int DATABASE_VERSION = 38;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
@@ -221,7 +221,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100019,100000,-28.63333333,-0.4997459425,-49.13333333,-0.8575384391,'Gramado');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100020,100000,-27.15,-0.4738568919,-50.73333333,-0.8854637072,'Antonio Prado');");
         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100021,100000,-27.5,-0.4799655443,-49.06666667,-0.8563748863,'Vacaria');");
-        db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100022,100000,-26.41666667,-0.4610578107,-47.46666667,-0.8284496183,'Florianopolis');");
+        db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LATITUDE_RAD + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_LONGITUDE_RAD + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (100022,100000,-27.596670,-0.4610578107,-48.549171,-0.8284496183,'Florianopolis');");
 
 
         //Inicializations Scripts - REL_CITY_TAG

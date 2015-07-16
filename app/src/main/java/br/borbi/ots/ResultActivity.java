@@ -16,6 +16,7 @@ import br.borbi.ots.adapter.CitiesAdapter;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.fragment.CitiesFragment;
+import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.QueryUtility;
 import br.borbi.ots.utility.Utility;
 
@@ -32,7 +33,7 @@ public class ResultActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
 
-        boolean foundCoordinates = intent.getBooleanExtra(SplashScreenActivity.COORDINATES_FOUND, true);
+        boolean foundCoordinates = intent.getBooleanExtra(ForwardUtility.COORDINATES_FOUND, true);
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
@@ -44,7 +45,7 @@ public class ResultActivity extends ActionBarActivity {
 
         Integer minimumDistance = intent.getIntExtra(SearchActivity.MINIMUM_DISTANCE,0);
         if(minimumDistance.intValue() == 0){
-            Integer searchId = intent.getIntExtra(SplashScreenActivity.SEARCH_ID,0);
+            Integer searchId = intent.getIntExtra(ForwardUtility.SEARCH_ID,0);
 
             String[] selectionArgs = new String[]{searchId.toString()};
             Cursor c = getContentResolver().query(
