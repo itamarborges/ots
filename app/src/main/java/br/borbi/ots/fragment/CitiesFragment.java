@@ -135,7 +135,6 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        setCoordinates();
         mRootView = inflater.inflate(R.layout.fragment_cities, container, false);
         mEmptyView = mRootView.findViewById(R.id.listview_cities_empty);
 
