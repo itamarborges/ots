@@ -45,4 +45,14 @@ public class LocationUtility {
 
         editor.apply();
     }
+
+    public static void cleanSavedCoordinates(Activity activity){
+        SharedPreferences sharedPreferences = activity.getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.remove(OTSContract.SHARED_LATITUDE);
+        editor.remove(OTSContract.SHARED_LONGITUDE);
+
+        editor.apply();
+    }
 }

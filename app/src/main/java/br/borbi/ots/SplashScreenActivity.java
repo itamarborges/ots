@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.Utility;
@@ -48,6 +49,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
         mContext = this;
 
+        LocationUtility.cleanSavedCoordinates(this);
+
         mImgSplash = (ImageView) findViewById(R.id.imageView);
 
         int img = ((int) (Math.random() * 10)) ;
@@ -73,44 +76,29 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 //- the current location is not too far from the place where the seach was originally made
 
                 if (lastLongitude == null || lastLatitude == null) {
-                    Log.v(LOG_TAG, "nao achou coordenadas");
-
                     Integer searchId = Utility.findSearchByDate(mContext);
 
                     if (searchId == null) {
-                        Log.v(LOG_TAG, "Nao possui dados");
                         ForwardUtility.goToFilters(mContext);
                     } else {
-                        Log.v(LOG_TAG, "Possui dados");
-                        ForwardUtility.goToResults(false, searchId,mContext);
+                        ForwardUtility.goToResults(false, searchId, mContext);
                     }
 
                 } else {
-                    Integer searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude,mContext);
+                    Integer searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude, mContext);
 
                     if (searchId == null) {
-                        Log.v(LOG_TAG, "Nao possui dados");
                         ForwardUtility.goToFilters(mContext);
                     } else {
-                        Log.v(LOG_TAG, "Possui dados");
-                        ForwardUtility.goToResults(true, searchId,mContext);
+                        ForwardUtility.goToResults(true, searchId, mContext);
                     }
                 }
             }
         }, TIME_SPLASH);
     }
 
-    public void continueWithoutMyLocation(View v) {
-        Log.v("Debug", "Não possui localização");
-        Intent intent = new Intent();
-        intent.setClass(SplashScreenActivity.this, FiltersActivity.class);
-        startActivity(intent);
-    }
-
     @Override
     public void onConnected(Bundle bundle) {
-        Log.v(LOG_TAG, "entrou no onConnected, tempo = " + System.currentTimeMillis());
-
         try {
             mLocationRequest = LocationUtility.createLocationRequest();
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
@@ -139,14 +127,10 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
      * Method to verify google play services on the device
      */
     private void findLocation() {
-        Log.v(LOG_TAG, "entrou em findLocation, " + new Date());
 
         if (Utility.isNetworkAvailable(this)) {
-            Log.v(LOG_TAG, "tem internet");
             buildGoogleApiClient();
-
         } else {
-            Log.v(LOG_TAG, "nao tem internet");
             setContentView(R.layout.activity_failure);
         }
     }
@@ -163,16 +147,10 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.v(LOG_TAG, "entrou no onLocationChanged, tempo = " + System.currentTimeMillis() + ", dt = " + new Date());
-
         lastLatitude = location.getLatitude();
         lastLongitude = location.getLongitude();
 
-        Log.i(LOG_TAG, "latitude, onLocationChanged = " + lastLatitude);
-        Log.i(LOG_TAG, "longitude, onLocationChanged = " + lastLongitude);
-
         LocationUtility.saveCoordinates(lastLatitude,lastLongitude, this);
-
         LocationUtility.disconnectFromLocationServices(mGoogleApiClient, this);
     }
 }
