@@ -65,7 +65,9 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
 
     public void tryToFindMeClick(View v) {
 
-        if(lastLatitude == null || lastLongitude == null){
+        if(hasFoundCoordinates()){
+            forwardActivity();
+        }else {
             tryToFindMeButton.setEnabled(false);
             if(hasSearch()){
                 continueWithouLocationButton.setEnabled(false);
@@ -78,9 +80,6 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
 
             Timer timer = new Timer();
             timer.schedule(new MyTimerTask(), WAIT_TIME);
-
-        }else{
-            forwardActivity();
         }
     }
 
@@ -104,7 +103,9 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(lastLatitude == null || lastLongitude == null) {
+                    if(hasFoundCoordinates()){
+                        forwardActivity();
+                    }else{
                         outAnimation = new AlphaAnimation(1f, 0f);
                         outAnimation.setDuration(200);
                         progressBarHolder.setAnimation(outAnimation);
@@ -116,9 +117,6 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
                         }
 
                         Toast.makeText(getApplicationContext(),R.string.location_not_found_yet, Toast.LENGTH_LONG).show();
-
-                    }else{
-                        forwardActivity();
                     }
                 }
             });
@@ -133,7 +131,7 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
         if (searchId == null) {
             ForwardUtility.goToFilters(mContext);
         } else {
-            ForwardUtility.goToResults(false, searchId,mContext);
+            ForwardUtility.goToResults(hasFoundCoordinates(), searchId,mContext);
         }
     }
 
@@ -147,5 +145,13 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
             }
         }
         return mHasSearch;
+    }
+
+    private boolean hasFoundCoordinates(){
+        if(lastLatitude == null || lastLongitude == null) {
+            return false;
+        }
+
+        return true;
     }
 }
