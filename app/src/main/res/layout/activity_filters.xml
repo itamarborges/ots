@@ -219,7 +219,8 @@
             android:text="@string/days_without_rain"
             android:id="@+id/checkBoxDaysWithoutRain"
             android:layout_alignParentLeft="true"
-            />
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
     </LinearLayout>
 
     <!-- Temperatura -->
@@ -253,6 +254,7 @@
             android:layout_below="@+id/checkBoxDaysWithoutRain"
             android:layout_alignTop="@+id/textViewMinTemperature"
             android:layout_alignRight="@+id/textViewMinTemperature"
+            android:imeOptions="actionDone"
             />
 
         <RadioGroup

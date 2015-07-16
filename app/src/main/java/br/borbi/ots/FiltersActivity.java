@@ -1,16 +1,15 @@
 package br.borbi.ots;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -19,14 +18,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.Utility;
@@ -98,10 +95,10 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         distanceEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus && distanceEditText.getText()!=null){
-                    if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles){
+                if (!hasFocus && distanceEditText.getText() != null) {
+                    if (distanceType.getCheckedRadioButtonId() == R.id.radioButtonMiles) {
                         ValidationUtility.validateInteger(distanceEditText, 60, null, mContext.getString(R.string.minimum_distance));
-                    }else{
+                    } else {
                         ValidationUtility.validateInteger(distanceEditText, 100, null, mContext.getString(R.string.minimum_distance));
                     }
                 }
@@ -126,16 +123,29 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         daysEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus && daysEditText.getText()!=null){
+                if (!hasFocus && daysEditText.getText() != null) {
+
                     Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
 
                     ValidationUtility.validateInteger(daysEditText, 1, maxNumberOfDays, mContext.getString(R.string.minimum_days, maxNumberOfDays));
+
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                } else {
+                    daysEditText.setSelection(daysEditText.getText().length());
                 }
             }
         });
 
         //Dias nublados
         daysWithoutRainCheckbox = (CheckBox) findViewById(R.id.checkBoxDaysWithoutRain);
+        daysWithoutRainCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+        });
 
         //Temperatura
         temperatureType = (RadioGroup) findViewById(R.id.radioGroupTemperature);
@@ -161,6 +171,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             }
         });
 
+        distanceEditText.requestFocus();
     }
 
     public void showCalendar(View view) {
@@ -334,12 +345,22 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         return (validDistance || validDays);
     }
 
-    private void checkTemperature(){
+    private void checkTemperature() {
         boolean isChecked = temperatureCheckbox.isChecked();
         RadioGroup temperatureRadioGroup = (RadioGroup) findViewById(R.id.radioGroupTemperature);
         temperatureEditText.setEnabled(!isChecked);
         temperatureRadioGroup.setEnabled(!isChecked);
         radioButtonCelsius.setEnabled(!isChecked);
         radioButtonFarenheit.setEnabled(!isChecked);
+
+        if (!isChecked) {
+            temperatureEditText.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(temperatureEditText, InputMethodManager.SHOW_IMPLICIT);
+        } else {
+            temperatureEditText.setText("");
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(temperatureCheckbox.getWindowToken(), 0);
+        }
     }
 }
