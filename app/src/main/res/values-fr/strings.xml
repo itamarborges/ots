@@ -46,7 +46,6 @@
     <string name="night">Soir</string>
     <string name="source">Source de prévision de météo:</string>
     <string name="detail_humidity">Humidité: <xliff:g>%1$s</xliff:g> \%</string>
-    <string name="distance"><xliff:g>%1$s</xliff:g></string>
     <string name="location_found">Votre emplacement a été déterminé avec succès.</string>
     <string name="location_not_found_yet">Votre emplacement n\'a pas encore été trouvé.</string>
     <string name="try_to_find_me">Try to find me</string>

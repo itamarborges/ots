@@ -211,7 +211,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     }
 
     private void callSearch(){
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
         /*

@@ -92,6 +92,11 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
                 maxTemperature++;
             }
 
+            if(Utility.usesFahrenheit(mContext)){
+                minTemperature = Utility.convertCelsiusToFarenheit(minTemperature);
+                maxTemperature = Utility.convertCelsiusToFarenheit(maxTemperature);
+            }
+
             viewHolder.dateTextView.setText(Utility.getFormattedDateMonth(dayForecast.getDate()));
             viewHolder.minTemperatureTextiView.setText(mContext.getString(R.string.display_min_max_temperature, Integer.toString(minTemperature), Integer.toString(maxTemperature)));
             viewHolder.weatherImageView.setImageResource(Utility.getSmallArtResourceForWeatherCondition(WeatherType.getId(dayForecast.getWeatherType())));

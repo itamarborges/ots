@@ -54,7 +54,8 @@
     <string name="afternoon">Afternoon</string>
     <string name="night">Night</string>
     <string name="source">Forecast Weather Source:</string>
-    <string name="distance"><xliff:g>%1$s</xliff:g> mi</string>
+    <string name="distance_miles" translatable="false"><xliff:g>%1$s</xliff:g> mi</string>
+    <string name="distance_kilometers" translatable="false"><xliff:g>%1$s</xliff:g> km</string>
     <string name="location_found">Your location was determined successfully.</string>
     <string name="location_not_found_yet">Your location wasn\'t found yet. Please, try again.</string>
     <string name="try_to_find_me">Try to find me</string>

@@ -129,7 +129,12 @@ public class CitiesAdapter extends BaseAdapter{
             separador = " - ";
         }
 
-        viewHolder.distanceTextView.setText(mContext.getString(R.string.distance, Integer.toString(distance)));
+        if(Utility.usesMiles(mContext)){
+            viewHolder.distanceTextView.setText(mContext.getString(R.string.distance_miles, Integer.toString(distance)));
+        }else{
+            viewHolder.distanceTextView.setText(mContext.getString(R.string.distance_kilometers, Integer.toString(distance)));
+        }
+
         viewHolder.tagTextView.setText(tagsItem);
 
         viewHolder.layoutCities.setOnClickListener(new View.OnClickListener() {

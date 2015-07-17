@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.text.format.Time;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.google.android.gms.ads.AdRequest;
@@ -270,7 +271,7 @@ public class Utility {
     }
 
     public static boolean usesMiles(Context c){
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(c);
+        SharedPreferences sharedPref = c.getApplicationContext().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         boolean usesKilometers = sharedPref.getBoolean(OTSContract.USE_KILOMETERS, true);
 
         String country = Locale.getDefault().getCountry();
@@ -282,7 +283,7 @@ public class Utility {
     }
     
     public static boolean usesFahrenheit(Context c){
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(c);
+        SharedPreferences sharedPref = c.getApplicationContext().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         boolean usesCelsius = sharedPref.getBoolean(OTSContract.USE_CELSIUS, true);
 
         String country = Locale.getDefault().getCountry();

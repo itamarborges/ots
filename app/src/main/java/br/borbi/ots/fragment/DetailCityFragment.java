@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.Utility;
 
 /**
@@ -125,6 +126,14 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             
             if(minTemperature.intValue() == maxTemperature.intValue()){
                 maxTemperature++;
+            }
+
+            if(Utility.usesFahrenheit(getActivity())){
+                minTemperature = Utility.convertCelsiusToFarenheit(minTemperature);
+                maxTemperature = Utility.convertCelsiusToFarenheit(maxTemperature);
+                morningTemperature = Utility.convertCelsiusToFarenheit(morningTemperature);
+                eveningTemperature = Utility.convertCelsiusToFarenheit(eveningTemperature);
+                nightTemperature = Utility.convertCelsiusToFarenheit(nightTemperature);
             }
 
             mDateDetail.setText(Utility.getFormattedDate(date));
