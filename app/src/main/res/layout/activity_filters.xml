@@ -257,6 +257,14 @@
             android:imeOptions="actionDone"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/degree_symbol"
+            android:id="@+id/textViewSymbolDegrees"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="bottom" />
+
         <RadioGroup
             android:id="@+id/radioGroupTemperature"
             android:layout_width="0dp"
