@@ -49,5 +49,6 @@
     <string name="location_found">Votre emplacement a été déterminé avec succès.</string>
     <string name="location_not_found_yet">Votre emplacement n\'a pas encore été trouvé.</string>
     <string name="try_to_find_me">Try to find me</string>
+    <string name="where_am_i">Où suis-je ?</string>
 
 </resources>
