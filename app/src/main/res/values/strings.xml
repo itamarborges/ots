@@ -33,8 +33,9 @@
     <string name="no_data_available">No data avaiable</string>
     <string name="max_temperature">Maximum temperature:</string>
     <string name="result_citites_activity">City Forecast</string>
-
     <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
+    <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF</string>
+    <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>
     <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
 
     <string name="detail_city">City: <xliff:g>%1$s</xliff:g>.</string>
@@ -47,6 +48,8 @@
     <string name="snow">Snow</string>
     <string name="historic">Historic</string>
     <string name="display_min_max_temperature"><xliff:g>%1$s</xliff:g> º to <xliff:g>%2$s</xliff:g> º</string>
+    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF to <xliff:g>%2$s</xliff:g> ºF</string>
+    <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC to <xliff:g>%2$s</xliff:g> ºC</string>
     <string translatable="false" name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="more_details">+</string>
     <string name="average_temperature">Average Temperature:</string>

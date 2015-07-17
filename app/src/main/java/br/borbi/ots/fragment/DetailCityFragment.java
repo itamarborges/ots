@@ -134,16 +134,20 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
                 morningTemperature = Utility.convertCelsiusToFarenheit(morningTemperature);
                 eveningTemperature = Utility.convertCelsiusToFarenheit(eveningTemperature);
                 nightTemperature = Utility.convertCelsiusToFarenheit(nightTemperature);
+
+                mMinMaxTemperatureDetail.setText(getString(R.string.display_min_max_temperature_fahrenheit, Integer.toString(minTemperature), Integer.toString(maxTemperature)));
+                mAverageMorning.setText(getString(R.string.display_temperature_fahrenheit, Integer.toString(morningTemperature)));
+                mAverageAfternoon.setText(getString(R.string.display_temperature_fahrenheit, Integer.toString(eveningTemperature)));
+                mAverageNight.setText(getString(R.string.display_temperature_fahrenheit, Integer.toString(nightTemperature)));
+            }else{
+                mMinMaxTemperatureDetail.setText(getString(R.string.display_min_max_temperature_celsius, Integer.toString(minTemperature), Integer.toString(maxTemperature)));
+                mAverageMorning.setText(getString(R.string.display_temperature_celsius, Integer.toString(morningTemperature)));
+                mAverageAfternoon.setText(getString(R.string.display_temperature_celsius, Integer.toString(eveningTemperature)));
+                mAverageNight.setText(getString(R.string.display_temperature_celsius, Integer.toString(nightTemperature)));
             }
 
             mDateDetail.setText(Utility.getFormattedDate(date));
-            mMinMaxTemperatureDetail.setText(getString(R.string.display_min_max_temperature, Integer.toString(minTemperature), Integer.toString(maxTemperature)));
-            mAverageMorning.setText(getString(R.string.display_temperature, Integer.toString(morningTemperature)));
-            mAverageAfternoon.setText(getString(R.string.display_temperature, Integer.toString(eveningTemperature)));
-            mAverageNight.setText(getString(R.string.display_temperature, Integer.toString(nightTemperature)));
-
             mWeatherImageView.setImageResource(Utility.getSmallArtResourceForWeatherCondition(idWeatherType));
-
         }
     }
 

@@ -16,12 +16,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-<ImageView
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:id="@+id/imageWeatherDetail"
-    />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/imageWeatherDetail"
+            />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -29,12 +29,11 @@
             android:layout_weight="2"
             android:orientation="vertical"
             >
-        <TextView
-            android:id="@+id/detail_min_max_temperature_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/display_min_max_temperature"/>
-
+            <TextView
+                android:id="@+id/detail_min_max_temperature_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/display_min_max_temperature_celsius"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -70,7 +69,7 @@
                 android:layout_below="@id/morning_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/display_temperature"/>
+                android:text="@string/display_temperature_celsius"/>
 
         </RelativeLayout>
 
@@ -91,7 +90,7 @@
                 android:layout_below="@id/afternoon_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/display_temperature"/>
+                android:text="@string/display_temperature_celsius"/>
         </RelativeLayout>
 
 
@@ -111,7 +110,7 @@
                 android:layout_below="@id/night_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/display_temperature"/>
+                android:text="@string/display_temperature_celsius"/>
         </RelativeLayout>
 
     </LinearLayout>
