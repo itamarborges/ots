@@ -3,9 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/yellow_light</item>
-        <item name="colorPrimaryDark">@color/yellow_bar</item>
-
+        <item name="colorPrimary">@color/ots_blue</item>
+        <item name="colorPrimaryDark">@color/ots_dark_blue</item>
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
