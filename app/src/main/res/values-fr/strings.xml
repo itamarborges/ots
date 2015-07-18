@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
-    <string name="app_name">OTS</string>
+    <string name="app_name">Où il fait beau?</string>
     <string name="action_settings">Paramètres</string>
-    <string name="title">Où est ensoleillée?</string>
+    <string name="title">Où il fait beau?</string>
     <string name="datePeriod">Date: </string>
     <string name="dateFormat">mm/dd/yyyy</string>
     <string name="to"> à </string>
@@ -50,9 +50,9 @@
     <string name="detail_humidity">Humidité: <xliff:g>%1$s</xliff:g> \%</string>
     <string name="location_found">Votre emplacement a été déterminé avec succès.</string>
     <string name="location_not_found_yet">Votre emplacement n\'a pas encore été trouvé.</string>
-    <string name="try_to_find_me">Try to find me</string>
+    <string name="try_to_find_me">Essayez de me trouver</string>
     <string name="where_am_i">Où suis-je ?</string>
-    <string name="display_min_max_temperature"><xliff:g>%1$s</xliff:g> º to <xliff:g>%2$s</xliff:g> º</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
-
+    <string name="here_the_sun_shines">Ici il fait beau</string>
+    <string name="searching_the_sun">Chercher où il fait beau</string>
 </resources>

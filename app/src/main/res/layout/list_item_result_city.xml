@@ -31,6 +31,6 @@
         android:gravity="fill_horizontal"
         android:text="@string/min_temperature"
         android:layout_below="@+id/weather_imageview"
-        android:textSize="10sp"
+        android:textSize="8sp"
         />
 </LinearLayout>

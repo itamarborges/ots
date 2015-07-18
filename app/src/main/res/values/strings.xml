@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
-    <string name="app_name">OTS</string>
+    <string name="app_name">Where will the sun shine?</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_filtros" translatable="false">FiltrosActivity</string>
-    <string name="title">Where is it sunny?</string>
+    <string name="title">Where will the sun shine?</string>
     <string name="datePeriod">Date: </string>
     <string name="dateFormat">mm/dd/yyyy</string>
     <string name="to"> to </string>
@@ -47,7 +47,7 @@
     <string name="beach">Beach</string>
     <string name="snow">Snow</string>
     <string name="historic">Historic</string>
-    <string name="display_min_max_temperature"><xliff:g>%1$s</xliff:g> º to <xliff:g>%2$s</xliff:g> º</string>
+    <string name="display_min_max_temperature" translatable="false"><xliff:g>%1$s</xliff:g>º/<xliff:g>%2$s</xliff:g>º</string>
     <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF to <xliff:g>%2$s</xliff:g> ºF</string>
     <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC to <xliff:g>%2$s</xliff:g> ºC</string>
     <string translatable="false" name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
@@ -67,4 +67,6 @@
     <string name="continue_without_my_location">Continue without my location</string>
     <string name="where_am_i">Where am I ?</string>
     <string name="degree_symbol" translatable="false">º</string>
+    <string name="here_the_sun_shines">Here the sun will shine</string>
+    <string name="searching_the_sun">Searching where the sun will shine</string>
 </resources>
