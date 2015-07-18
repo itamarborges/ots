@@ -30,7 +30,7 @@
     <string name="title_activity_failure" translatable="false">FailureActivity</string>
     <string name="failure_message">Ops ...It was not possible determine your location. Set the location on your device and press \"Try to find me\" button.</string>
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
-    <string name="no_data_available">No data avaiable</string>
+    <string name="no_data_available">No sunny city was found. Try to change the dates, the distance, the number of sunny days or the minimum temperature.</string>
     <string name="max_temperature">Maximum temperature:</string>
     <string name="result_citites_activity">City Forecast</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
