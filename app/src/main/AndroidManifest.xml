@@ -27,7 +27,7 @@
         </activity>
         <activity
             android:name=".ResultCitiesActivity"
-            android:label="@string/app_name"
+            android:label="@string/here_the_sun_shines"
             android:parentActivityName=".ResultActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
@@ -50,7 +50,7 @@
         </activity>
         <activity
             android:name=".SearchActivity"
-            android:label="@string/app_name"
+            android:label="@string/searching_the_sun"
             android:parentActivityName=".FiltersActivity"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="adjustPan"
@@ -61,7 +61,7 @@
         </activity>
         <activity
             android:name=".ResultActivity"
-            android:label="@string/app_name"
+            android:label="@string/here_the_sun_shines"
             android:parentActivityName=".FiltersActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >

@@ -1,7 +1,7 @@
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
 
     <string name="action_settings">Configurações</string>
-    <string name="app_name">OTS</string>
+    <string name="app_name">Onde tem sol?</string>
     <string name="title">Onde tem sol?</string>
     <string name="datePeriod">Período: </string>
     <string name="dateFormat">dd/mm/aaaa</string>
@@ -54,6 +54,7 @@
     <string name="where_am_i">Onde estou ?</string>
     <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF to <xliff:g>%2$s</xliff:g> ºF</string>
     <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC to <xliff:g>%2$s</xliff:g> ºC</string>
-    <string name="display_min_max_temperature"><xliff:g>%1$s</xliff:g> º a <xliff:g>%2$s</xliff:g> º</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
+    <string name="here_the_sun_shines">Aqui tem sol</string>
+    <string name="searching_the_sun">Procurando onte tem sol</string>
 </resources>

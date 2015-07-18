@@ -10,16 +10,6 @@
     android:paddingBottom="5dp"
     tools:context="br.borbi.ots.FiltersActivity">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/textViewTitulo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/title"/>
-
     <!--
     Período
     -->
@@ -29,7 +19,9 @@
         android:paddingTop="20dp"
         android:orientation="horizontal"
         android:id="@+id/datePeriod"
-        android:layout_below="@+id/textViewTitulo">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        >
 
         <TextView
             android:layout_width="0dp"

@@ -52,8 +52,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
     @Override
     protected List<City> doInBackground(SearchParameters... params) {
 
-        Log.i(LOG_TAG,"entrou no doInBackground");
-
         // If there's no zip code, there's nothing to look up.  Verify size of params.
         if (params.length == 0) {
             Log.i(LOG_TAG,"params sao vazios");
@@ -86,7 +84,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             Iterator<City> it = citiesToSearch.iterator();
             while(it.hasNext()){
                 City cityToSearch = (City) it.next();
-                Log.i(LOG_TAG, "vai procurar previsao da cidade = " + cityToSearch.toString());
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                         .appendQueryParameter(QUERY_PARAM, cityToSearch.getName()+"," + cityToSearch.getCountryCode())
@@ -115,9 +112,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
                     if (buffer.length() != 0) {
                         forecastJsonStr = buffer.toString();
-
-                        Log.i(LOG_TAG, forecastJsonStr);
-
                         cities.add(getWeatherDataFromJson(forecastJsonStr, cityToSearch));
                     }
                 }
