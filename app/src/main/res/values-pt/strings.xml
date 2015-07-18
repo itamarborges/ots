@@ -38,7 +38,7 @@
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>
     <string name="failure_message">Ops ... Não foi possível determinar sua localização. Habilite a localização em seu dispositivo e pressione o botão \"Tente me achar\".</string>
     <string name="max_temperature">Temperatura máxima:</string>
-    <string name="no_data_available">Nenhum dado disponível.</string>
+    <string name="no_data_available">Nenhuma cidade com sol encontrada. Tente alterar o período de dias, a distância, o número de dias com sol ou a temperatura mínima.</string>
     <string name="more_details">+</string>
     <string name="average_temperature">Temperaturas Médias:</string>
     <string name="morning">Manhã</string>
@@ -56,5 +56,5 @@
     <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC / <xliff:g>%2$s</xliff:g> ºC</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
     <string name="here_the_sun_shines">Aqui tem sol</string>
-    <string name="searching_the_sun">Procurando onte tem sol</string>
+    <string name="searching_the_sun">Procurando onde tem sol</string>
 </resources>

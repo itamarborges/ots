@@ -53,13 +53,13 @@ public class Utility {
         } else if (idWeatherType >= 300 && idWeatherType <= 321) {
             return R.drawable.art_light_rain;
         } else if (idWeatherType >= 500 && idWeatherType <= 504) {
-            return R.drawable.art_rain;
+            return R.drawable.rain;
         } else if (idWeatherType == 511) {
-            return R.drawable.art_snow;
+            return R.drawable.snow;
         } else if (idWeatherType >= 520 && idWeatherType <= 531) {
-            return R.drawable.art_rain;
+            return R.drawable.rain;
         } else if (idWeatherType >= 600 && idWeatherType <= 622) {
-            return R.drawable.art_snow;
+            return R.drawable.snow;
         } else if (idWeatherType >= 701 && idWeatherType <= 761) {
             return R.drawable.art_fog;
         } else if (idWeatherType == 761 || idWeatherType == 781) {
@@ -67,9 +67,9 @@ public class Utility {
         } else if (idWeatherType == 800) {
             return R.drawable.art_clear;
         } else if (idWeatherType == 801) {
-            return R.drawable.art_light_clouds;
+            return R.drawable.clouds;
         } else if (idWeatherType >= 802 && idWeatherType <= 804) {
-            return R.drawable.art_clouds;
+            return R.drawable.clouds;
         }
         return -1;
     }
@@ -78,27 +78,27 @@ public class Utility {
         // Based on weather code data found at:
         // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
         if (idWeatherType >= 200 && idWeatherType <= 232) {
-            return R.drawable.rain_small;
+            return R.drawable.ots_rain_small;
         } else if (idWeatherType >= 300 && idWeatherType <= 321) {
-            return R.drawable.rain_small;
+            return R.drawable.ots_rain_small;
         } else if (idWeatherType >= 500 && idWeatherType <= 504) {
-            return R.drawable.rain_small;
+            return R.drawable.ots_rain_small;
         } else if (idWeatherType == 511) {
-            return R.drawable.rain_small;
+            return R.drawable.ots_rain_small;
         } else if (idWeatherType >= 520 && idWeatherType <= 531) {
-            return R.drawable.rain_small;
+            return R.drawable.ots_rain_small;
         } else if (idWeatherType >= 600 && idWeatherType <= 622) {
-            return R.drawable.snow_small;
+            return R.drawable.ots_snow_small;
         } else if (idWeatherType >= 701 && idWeatherType <= 761) {
-            return R.drawable.rain_small;
+            return R.drawable.ots_rain_small;
         } else if (idWeatherType == 761 || idWeatherType == 781) {
-            return R.drawable.rain_small;
+            return R.drawable.ots_rain_small;
         } else if (idWeatherType == 800) {
-            return R.drawable.sunny_small;
+            return R.drawable.ots_sunny_small;
         } else if (idWeatherType == 801) {
-            return R.drawable.sunny_small;
+            return R.drawable.ots_sunny_small;
         } else if (idWeatherType >= 802 && idWeatherType <= 804) {
-            return R.drawable.clouds_small;
+            return R.drawable.ots_clouds_small;
         }
         return -1;
     }
