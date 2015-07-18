@@ -24,10 +24,12 @@
         android:id="@+id/fragment_result_city"
         android:name="br.borbi.ots.fragment.ResultCityFragment"
         android:layout_below="@id/fragment_title_city"
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         tools:context="br.borbi.ots.fragment.ResultCityFragment"
-        tools:layout="@android:layout/list_content" />
+        tools:layout="@android:layout/list_content"
+        android:layout_above="@+id/adView" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

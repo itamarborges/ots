@@ -83,7 +83,6 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
             viewHolder.dateTextView.setText("");
             viewHolder.minTemperatureTextiView.setText("");
             viewHolder.weatherImageView.setImageResource(R.drawable.no_border);
-            viewHolder.moreDetailsTextView.setText("");
             viewHolder.layoutResultCityLinearLayout.setBackgroundResource(R.drawable.no_border);
         }else{
             Integer minTemperature = Utility.roundCeil(dayForecast.getMinTemperature());
@@ -121,14 +120,12 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
         public final TextView minTemperatureTextiView;
         public final ImageView weatherImageView;
         public final LinearLayout layoutResultCityLinearLayout;
-        public final TextView moreDetailsTextView;
 
         public ViewHolder(View view) {
             dateTextView = (TextView) view.findViewById(R.id.list_item_date_textview);
             minTemperatureTextiView = (TextView) view.findViewById(R.id.list_item_min_temperature_textview);
             weatherImageView = (ImageView) view.findViewById(R.id.weather_imageview);
             layoutResultCityLinearLayout = (LinearLayout) view.findViewById(R.id.layout_result_search_city);
-            moreDetailsTextView = (TextView) view.findViewById(R.id.list_item_more_details);
         }
     }
 
