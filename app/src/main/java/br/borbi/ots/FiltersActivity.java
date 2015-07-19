@@ -95,6 +95,9 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
         dateEndView.setText(dateFormat.format(dateEnd));
 
+        TextView helpDatePeriod = (TextView) findViewById(R.id.textViewHelpDatePeriod);
+        helpDatePeriod.setText(getString(R.string.help_date_period, dateFormat.format(dateEnd)));
+
         //Distancia
         distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
 
@@ -124,13 +127,12 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         //Nro dias com sol
         daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
-        daysEditText.setText(String.valueOf(Utility.getNumberOfDaysToShow(dateBegin, dateEnd)));
+        daysEditText.setText(String.valueOf(Utility.getDefaultNumberOfDaysToShow(dateBegin, dateEnd)));
 
         daysEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && daysEditText.getText() != null) {
-
                     Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
 
                     ValidationUtility.validateInteger(daysEditText, 1, maxNumberOfDays, mContext.getString(R.string.minimum_days, maxNumberOfDays));
@@ -376,7 +378,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         }
         boolean validDates = validateDates();
         if(validDates){
-            int numberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
+            int numberOfDays = Utility.getDefaultNumberOfDaysToShow(dateBegin, dateEnd);
             daysEditText.setText(String.valueOf(numberOfDays));
         }
     }

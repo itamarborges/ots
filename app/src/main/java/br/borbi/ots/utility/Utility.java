@@ -214,6 +214,15 @@ public class Utility {
         return Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
     }
 
+    public static int getDefaultNumberOfDaysToShow(Date dateBegin, Date dateEnd){
+        int difference = Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
+        difference = difference/2;
+        if(difference == 0){
+            difference = 1;
+        }
+        return difference;
+    }
+
     static public boolean isNetworkAvailable(Context c) {
         ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
 
