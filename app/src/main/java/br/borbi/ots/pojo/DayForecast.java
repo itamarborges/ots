@@ -22,6 +22,7 @@ public class DayForecast implements Serializable{
     private Double precipitation;
     private Double humidity;
     private Integer id;
+    private Integer position;
 
     public DayForecast(Date date, Double minTemperature, Double maxTemperature, Double morningTemperature, Double eveningTemperature, Double nightTemperature, WeatherType weatherType, Double precipitation, Double humidity) {
         this.date = date;
@@ -35,12 +36,13 @@ public class DayForecast implements Serializable{
         this.humidity = humidity;
     }
 
-    public DayForecast(Date date, Double minTemperature, Double maxTemperature, WeatherType weatherType, Integer id) {
+    public DayForecast(Date date, Double minTemperature, Double maxTemperature, WeatherType weatherType, Integer id, Integer position) {
         this.date = date;
         this.minTemperature = minTemperature;
         this.maxTemperature = maxTemperature;
         this.weatherType = weatherType;
         this.id = id;
+        this.position = position;
     }
 
     public Date getDate() {
@@ -121,6 +123,14 @@ public class DayForecast implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     @Override

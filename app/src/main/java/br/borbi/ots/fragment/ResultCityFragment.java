@@ -42,6 +42,8 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
 
     private int idRelSearchCity;
 
+    private int mQtyCities;
+
     private String strCityName;
 
     private ResultCityDayForecastAdapter mResultCityDayForecastAdapter;
@@ -124,6 +126,10 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
+        int position = 0;
+
+        mQtyCities = data.getCount();
+
         LinkedList<DayForecast> databaseForecasts = new LinkedList<>();
         if (data.moveToFirst()) {
             do {
@@ -133,8 +139,10 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
                 int numIndexWeatherType = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE);
                 int numIndexResultSearchID = data.getColumnIndex(OTSContract.ResultSearch._ID);
 
-                DayForecast dayForecast = new DayForecast(new Date(data.getLong(numIndexDate)), data.getDouble(numIndexMinimumTemperature), data.getDouble(numIndexMaximumTemperature), WeatherType.getWeatherType(data.getInt(numIndexWeatherType)), data.getInt(numIndexResultSearchID));
+                DayForecast dayForecast = new DayForecast(new Date(data.getLong(numIndexDate)), data.getDouble(numIndexMinimumTemperature), data.getDouble(numIndexMaximumTemperature), WeatherType.getWeatherType(data.getInt(numIndexWeatherType)), data.getInt(numIndexResultSearchID), position);
                 databaseForecasts.add(dayForecast);
+
+                ++position;
             }
             while (data.moveToNext());
         }
@@ -161,6 +169,7 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
     private void fillAdapter(){
         mResultCityDayForecastAdapter = new ResultCityDayForecastAdapter(forecasts,getActivity());
         mResultCityDayForecastAdapter.setStrCityName(strCityName);
+        mResultCityDayForecastAdapter.setQtyItens(mQtyCities);
         GridView gridview = (GridView) mRootView.findViewById(R.id.gridview);
         gridview.setAdapter(mResultCityDayForecastAdapter);
         gridview.setEmptyView(mEmptyView);

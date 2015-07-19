@@ -21,13 +21,16 @@ import br.borbi.ots.utility.Utility;
 /**
  * Created by Gabriela on 10/07/2015.
  */
-public class ResultCityDayForecastAdapter extends BaseAdapter{
+public class
+        ResultCityDayForecastAdapter extends BaseAdapter{
 
     private static final String LOG_TAG= ResultCityDayForecastAdapter.class.getSimpleName();
 
     LinkedList<DayForecast> forecasts;
 
     private String strCityName;
+
+    private int mQtyItens;
 
     private final Context mContext;
 
@@ -106,7 +109,9 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
                     Intent intent = new Intent(mContext, DetailCityActivity.class);
                     intent.putExtra(DetailCityActivity.ID_RESULT_SEARCH, dayForecast.getId());
                     intent.putExtra(DetailCityActivity.CITY_NAME, strCityName);
-
+                    intent.putExtra(DetailCityActivity.QTY_ITENS, mQtyItens);
+                    intent.putExtra(DetailCityActivity.RELATIVE_POSITION, dayForecast.getPosition());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     mContext.startActivity(intent);
                 }
             });
@@ -129,6 +134,13 @@ public class ResultCityDayForecastAdapter extends BaseAdapter{
         }
     }
 
+    public int getQtyItens() {
+        return mQtyItens;
+    }
+
+    public void setQtyItens(int mQtyItens) {
+        this.mQtyItens = mQtyItens;
+    }
 
 
 }

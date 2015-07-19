@@ -3,8 +3,6 @@ package br.borbi.ots;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.google.android.gms.ads.AdView;
 
@@ -16,17 +14,14 @@ public class DetailCityActivity extends ActionBarActivity {
 
     public static final String ID_RESULT_SEARCH = "ID_RESULT_SEARCH";
     public static final String CITY_NAME = "CITY_NAME";
+    public static final String QTY_ITENS = "QTY_ITENS";
+    public static final String RELATIVE_POSITION = "RELATIVE_POSITION";
 
     private int idResultSearch;
-    private String strCityName;
+    private int mQtyItens;
+    private int mRelativePosition;
 
-    public String getStrCityName() {
-        return strCityName;
-    }
-
-    public void setStrCityName(String strCityName) {
-        this.strCityName = strCityName;
-    }
+    private float x1, y1, x2, y2;
 
     public int getidResultSearch() {
         return idResultSearch;
@@ -46,14 +41,14 @@ public class DetailCityActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         idResultSearch = intent.getIntExtra(ID_RESULT_SEARCH, -1);
-        strCityName = intent.getStringExtra(CITY_NAME);
+        mQtyItens = intent.getIntExtra(QTY_ITENS, 0);
+        mRelativePosition = intent.getIntExtra(RELATIVE_POSITION, -1);
 
         DetailCityFragment detailCityFragment = (DetailCityFragment)
               getSupportFragmentManager().findFragmentById(R.id.fragment_detail_city);
 
-        detailCityFragment.setidResultSearch(idResultSearch);
-
-
+        detailCityFragment.setIdResultSearch(idResultSearch);
+        detailCityFragment.setQtyItens(mQtyItens);
+        detailCityFragment.setRelativePosition(mRelativePosition);
     }
-
 }

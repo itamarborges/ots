@@ -1,5 +1,6 @@
 package br.borbi.ots.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,14 +9,16 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import br.borbi.ots.DetailCityActivity;
 import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.Utility;
 
 /**
@@ -26,6 +29,28 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     public static final String LOG_TAG = DetailCityFragment.class.getSimpleName();
     private int idResultSearch;
     private static final int DETAIL_CITY_LOADER = 0;
+
+    private float x1, y1, x2, y2;
+
+    public int getQtyItens() {
+        return mQtyItens;
+    }
+
+    public void setQtyItens(int mQtyItens) {
+        this.mQtyItens = mQtyItens;
+    }
+
+    public int getRelativePosition() {
+        return mRelativePosition;
+    }
+
+    public void setRelativePosition(int mRelativePosition) {
+        this.mRelativePosition = mRelativePosition;
+    }
+
+    private int mQtyItens;
+    private int mRelativePosition;
+
 
     private static final String[] RESULT_SEARCH_COLUMNS = {
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE,
@@ -47,6 +72,9 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     private TextView mAverageNight;
     private ImageView mWeatherImageView;
 
+    private Button mNextButton;
+    private Button mPreviousButton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +95,50 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
         mAverageAfternoon = (TextView) rootView.findViewById(R.id.afternoon_temperature_textView);
         mAverageNight = (TextView) rootView.findViewById(R.id.night_temperature_textView);
         mWeatherImageView = (ImageView) rootView.findViewById(R.id.imageWeatherDetail);
+        mNextButton = (Button) rootView.findViewById(R.id.btnNext);
+        mPreviousButton = (Button) rootView.findViewById(R.id.btnPrevious);
 
+        rootView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent touchevent) {
+                switch (touchevent.getAction()) {
+                    // when user first touches the screen we get x and y coordinate
+                    case MotionEvent.ACTION_DOWN: {
+                        x1 = touchevent.getX();
+                        y1 = touchevent.getY();
+                        return true;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        x2 = touchevent.getX();
+                        y2 = touchevent.getY();
+                        // /if left to right sweep event on screen
+                        if (x1 < x2) {
+                            mPreviousButton.performClick();
+                        }
+
+                        // if right to left sweep event on screen
+                        if (x1 > x2) {
+                            mNextButton.performClick();
+                        }
+
+                        // if UP to Down sweep event on screen
+                /*if (y1 < y2)
+                {
+                    Toast.makeText(this, "UP to Down Swap Performed", Toast.LENGTH_LONG).show();
+                }
+
+                // /if Down to UP sweep event on screen
+                if (y1 > y2)
+                {
+                    Toast.makeText(this, "Down to UP Swap Performed", Toast.LENGTH_LONG).show();
+                }
+                */
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
 
         return rootView;
     }
@@ -76,6 +147,44 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     public void onActivityCreated(Bundle savedInstanceState) {
         getLoaderManager().initLoader(DETAIL_CITY_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
+
+
+
+        if (mRelativePosition == 0) {
+            mPreviousButton.setVisibility(View.INVISIBLE);
+        } else {
+            mPreviousButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), DetailCityActivity.class);
+                    intent.putExtra(DetailCityActivity.ID_RESULT_SEARCH, (idResultSearch-1));
+                    intent.putExtra(DetailCityActivity.QTY_ITENS, mQtyItens);
+                    intent.putExtra(DetailCityActivity.RELATIVE_POSITION, (mRelativePosition - 1));
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
+                }
+            });
+        }
+
+        if (mRelativePosition == (mQtyItens - 1)){
+            mNextButton.setVisibility(View.INVISIBLE);
+        } else {
+            mNextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), DetailCityActivity.class);
+                    intent.putExtra(DetailCityActivity.ID_RESULT_SEARCH, (idResultSearch+1));
+                    intent.putExtra(DetailCityActivity.QTY_ITENS, mQtyItens);
+                    intent.putExtra(DetailCityActivity.RELATIVE_POSITION, (mRelativePosition+1));
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
+                }
+            });
+
+        }
+
 
     }
 
@@ -158,7 +267,9 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
         return idResultSearch;
     }
 
-    public void setidResultSearch(int idResultSearch) {
+    public void setIdResultSearch(int idResultSearch) {
         this.idResultSearch = idResultSearch;
     }
+
+
 }

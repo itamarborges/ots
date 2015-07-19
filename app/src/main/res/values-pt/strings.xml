@@ -57,4 +57,6 @@
     <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
     <string name="here_the_sun_shines">Aqui tem sol</string>
     <string name="searching_the_sun">Procurando onde tem sol</string>
+    <string name="next">Próximo</string>
+    <string name="previous">Anterior</string>
 </resources>

@@ -69,4 +69,6 @@
     <string name="degree_symbol" translatable="false">º</string>
     <string name="here_the_sun_shines">Here the sun will shine</string>
     <string name="searching_the_sun">Searching where the sun will shine</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>
