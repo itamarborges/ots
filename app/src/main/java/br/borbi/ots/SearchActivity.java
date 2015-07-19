@@ -4,17 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.entity.Search;
@@ -50,6 +53,8 @@ public class SearchActivity extends ActionBarActivity {
     private Integer distance = null;
     private Double lastLatitude = 0d;
     private Double lastLongitude = 0d;
+    private Toast mToast;
+    private WarningTask mWarningTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,8 @@ public class SearchActivity extends ActionBarActivity {
             startActivity(failureIntent);
         }
 
+        mWarningTask = new WarningTask();
+        mWarningTask.execute();
 
         List<City> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
         int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin, dateEnd);
@@ -194,9 +201,15 @@ public class SearchActivity extends ActionBarActivity {
         search.setOriginLongitude(lastLongitude);
         search.setCites(mCities);
 
-        Long searchId = null;
         if (mCities.size() > 0) {
-            searchId = saveSearch(search);
+            saveSearch(search);
+        }
+
+        if(mWarningTask!=null) {
+            mWarningTask.cancel(true);
+        }
+        if(mToast != null){
+            mToast.cancel();
         }
 
         Intent intent = new Intent(this, ResultActivity.class);
@@ -214,40 +227,60 @@ public class SearchActivity extends ActionBarActivity {
         return bundle.getLong(SEARCH);
     }
 
-    /*
-    private void normalizeDate(ContentValues values) {
-        // normalize the date value
-        if (values.containsKey(WeatherContract.WeatherEntry.COLUMN_DATE)) {
-            long dateValue = values.getAsLong(WeatherContract.WeatherEntry.COLUMN_DATE);
-            values.put(WeatherContract.WeatherEntry.COLUMN_DATE, WeatherContract.normalizeDate(dateValue));
-        }
-    }
-
-
-    // To make it easy to query for the exact date, we normalize all dates that go into
-    // the database to the start of the the Julian day at UTC.
-    public static long normalizeDate(long startDate) {
-        // normalize the start date to the beginning of the (UTC) day
-        Time time = new Time();
-        time.set(startDate);
-        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
-        return time.setJulianDay(julianDay);
-    }
-*/
-
     public class TaskFinishedListener implements TaskFinished {
         @Override
         public void OnTaskFinished(List<City> cities) {
+            validateCities(cities);
+        }
+    }
 
-            Iterator<City> itCity = cities.iterator();
-            while (itCity.hasNext()) {
-                City city = (City) itCity.next();
-                Log.i(LOG_TAG, city.toString());
+    private class WarningTask extends AsyncTask<String, Integer, Void> {
+        protected Void doInBackground(String... params) {
+
+            long delay = 3000;
+            long difference =3000;
+
+            if(!isCancelled()) {
+                Timer timer = new Timer();
+                timer.schedule(new MyTimerTask(mContext.getString(R.string.searching_sunny_cities_message1)), delay);
+
+                delay += difference;
             }
 
-            validateCities(cities);
+            if(!isCancelled()) {
+                Timer timer = new Timer();
+                timer.schedule(new MyTimerTask(mContext.getString(R.string.searching_sunny_cities_message2)), delay);
 
+                delay += difference;
+            }
+
+            if(!isCancelled()) {
+                Timer timer = new Timer();
+                timer.schedule(new MyTimerTask(mContext.getString(R.string.searching_sunny_cities_message3)), delay);
+            }
+
+            return null;
         }
 
+        private class MyTimerTask extends TimerTask{
+
+            private String message;
+            public MyTimerTask(String message) {
+                this.message = message;
+            }
+
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!mWarningTask.isCancelled()) {
+                            mToast = Toast.makeText(mContext, message, Toast.LENGTH_LONG);
+                            mToast.show();
+                        }
+                    }
+                });
+            }
+        }
     }
 }

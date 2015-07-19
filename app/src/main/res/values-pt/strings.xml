@@ -57,4 +57,7 @@
     <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
     <string name="here_the_sun_shines">Aqui tem sol</string>
     <string name="searching_the_sun">Procurando onde tem sol</string>
+    <string name="searching_sunny_cities_message1">Estamos buscando cidades com sol.</string>
+    <string name="searching_sunny_cities_message2">Logo mostraremos todas as cidades com sol encontradas.</string>
+    <string name="searching_sunny_cities_message3">Se estiver demorando muito, pense em diminuir o raio.</string>
 </resources>

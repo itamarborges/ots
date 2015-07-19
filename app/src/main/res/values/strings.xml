@@ -69,4 +69,7 @@
     <string name="degree_symbol" translatable="false">º</string>
     <string name="here_the_sun_shines">Here the sun will shine</string>
     <string name="searching_the_sun">Searching where the sun will shine</string>
+    <string name="searching_sunny_cities_message1">We\'re searching for the cities where the sun will shine.</string>
+    <string name="searching_sunny_cities_message2">Soon we\'re going to show you all the cities where the sun will shine.</string>
+    <string name="searching_sunny_cities_message3">If it\'s taking too long, think about decreasing the distance.</string>
 </resources>
