@@ -59,4 +59,7 @@
     <string name="searching_the_sun">Procurando onde tem sol</string>
     <string name="next">Próximo</string>
     <string name="previous">Anterior</string>
+    <string name="searching_sunny_cities_message1">Estamos buscando cidades com sol.</string>
+    <string name="searching_sunny_cities_message2">Logo mostraremos todas as cidades com sol encontradas.</string>
+    <string name="searching_sunny_cities_message3">Se estiver demorando muito, pense em diminuir o raio.</string>
 </resources>
