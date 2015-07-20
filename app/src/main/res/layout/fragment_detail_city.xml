@@ -154,6 +154,6 @@
         android:layout_height="wrap_content"
         android:text="@string/next"
         android:id="@+id/btnNext"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true" />
     </RelativeLayout>
 </LinearLayout>
