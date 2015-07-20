@@ -44,5 +44,14 @@
         android:layout_toRightOf="@+id/list_item_linearlayout"
         android:gravity="center" />
 
-
+    <ImageView
+        android:id="@+id/image_view_you_are_here"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_toRightOf="@+id/list_item_linearlayout"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:src="@android:drawable/btn_dialog"
+        />
 </LinearLayout>

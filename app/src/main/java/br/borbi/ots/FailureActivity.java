@@ -1,6 +1,7 @@
 package br.borbi.ots;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
@@ -40,6 +42,7 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
     private Context mContext;
 
     private Boolean mHasSearch;
+    private Boolean mHasInternet;
 
 
     @Override
@@ -52,7 +55,6 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
         AdView mAdView = null;
         Utility.initializeAd(mAdView, this);
 
-
         progressBarHolder = (FrameLayout) findViewById(R.id.progressBarHolder);
         tryToFindMeButton = (Button) findViewById(R.id.btnTryToFindMe);
         continueWithouLocationButton = (Button) findViewById(R.id.buttonContinueWithoutLocation);
@@ -60,26 +62,51 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
             continueWithouLocationButton.setVisibility(View.VISIBLE);
         }
 
+        Intent intent = getIntent();
+        boolean errorInternetConnection = intent.getBooleanExtra(ForwardUtility.ERROR_INTERNET_CONNECTION,true);
+        mHasInternet = !errorInternetConnection;
+        if(errorInternetConnection){
+            TextView failureMessageTextView = (TextView)findViewById(R.id.txtFailureMessage);
+            TextView explanationTextView = (TextView)findViewById(R.id.textViewExplanation);
+            Button tryAgainButton = (Button) findViewById(R.id.btnTryToFindMe);
+            Button continueWithoutLocationButton = (Button)findViewById(R.id.buttonContinueWithoutLocation);
+
+            //setar msgs sem internet
+            failureMessageTextView.setText(getString(R.string.failure_message_internet));
+            explanationTextView.setText(getString(R.string.explanation_internet));
+            tryAgainButton.setText(getString(R.string.try_again));
+            continueWithoutLocationButton.setText(getString(R.string.continue_anyway));
+        }
+
         getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE).registerOnSharedPreferenceChangeListener(this);
     }
 
     public void tryToFindMeClick(View v) {
 
-        if(hasFoundCoordinates()){
+        if(hasFoundCoordinates() && mHasInternet){
+            Toast.makeText(getApplicationContext(),R.string.location_found, Toast.LENGTH_LONG).show();
             forwardActivity();
         }else {
-            tryToFindMeButton.setEnabled(false);
-            if(hasSearch()){
-                continueWithouLocationButton.setEnabled(false);
+            startAnimation();
+
+            if(mHasInternet){
+                Timer timer = new Timer();
+                timer.schedule(new MyTimerTask(), WAIT_TIME);
+            }else{
+                mHasInternet = Utility.isNetworkAvailable(this);
+                if(mHasInternet){
+                    if(hasFoundCoordinates()) {
+                        forwardActivity();
+                    }else{
+                        Intent intent = new Intent();
+                        intent.setClass(this, SplashScreenActivity.class);
+                        this.startActivity(intent);
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(),R.string.internet_is_down, Toast.LENGTH_LONG).show();
+                    stopAnimation();
+                }
             }
-
-            inAnimation = new AlphaAnimation(0f, 1f);
-            inAnimation.setDuration(200);
-            progressBarHolder.setAnimation(inAnimation);
-            progressBarHolder.setVisibility(View.VISIBLE);
-
-            Timer timer = new Timer();
-            timer.schedule(new MyTimerTask(), WAIT_TIME);
         }
     }
 
@@ -104,18 +131,10 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
                 @Override
                 public void run() {
                     if(hasFoundCoordinates()){
+                        Toast.makeText(getApplicationContext(),R.string.location_found, Toast.LENGTH_LONG).show();
                         forwardActivity();
                     }else{
-                        outAnimation = new AlphaAnimation(1f, 0f);
-                        outAnimation.setDuration(200);
-                        progressBarHolder.setAnimation(outAnimation);
-                        progressBarHolder.setVisibility(View.GONE);
-
-                        tryToFindMeButton.setEnabled(true);
-                        if(hasSearch()){
-                            continueWithouLocationButton.setEnabled(true);
-                        }
-
+                        stopAnimation();
                         Toast.makeText(getApplicationContext(),R.string.location_not_found_yet, Toast.LENGTH_LONG).show();
                     }
                 }
@@ -124,9 +143,12 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
     }
 
     private void forwardActivity(){
-        Toast.makeText(getApplicationContext(),R.string.location_found, Toast.LENGTH_LONG).show();
-
-        Integer searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude,mContext);
+        Integer searchId = null;
+        if(lastLatitude == null || lastLongitude == null){
+            searchId = Utility.findSearchByDate(mContext);
+        }else {
+            searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude, mContext);
+        }
 
         if (searchId == null) {
             ForwardUtility.goToFilters(mContext);
@@ -153,5 +175,31 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
         }
 
         return true;
+    }
+
+    private void startAnimation(){
+        tryToFindMeButton.setEnabled(false);
+        if(hasSearch()){
+            continueWithouLocationButton.setEnabled(false);
+        }
+
+        inAnimation = new AlphaAnimation(0f, 1f);
+        inAnimation.setDuration(200);
+        progressBarHolder.setAnimation(inAnimation);
+        progressBarHolder.setVisibility(View.VISIBLE);
+
+    }
+
+    private void stopAnimation(){
+        outAnimation = new AlphaAnimation(1f, 0f);
+        outAnimation.setDuration(200);
+        progressBarHolder.setAnimation(outAnimation);
+        progressBarHolder.setVisibility(View.GONE);
+
+        tryToFindMeButton.setEnabled(true);
+        if(hasSearch()){
+            continueWithouLocationButton.setEnabled(true);
+        }
+
     }
 }

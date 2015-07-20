@@ -199,7 +199,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
-            ForwardUtility.goToFailure(mContext);
+            ForwardUtility.goToFailure(mContext, false);
 
         }else {
 
@@ -348,7 +348,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
             if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
-                ForwardUtility.goToFailure(mContext);
+                ForwardUtility.goToFailure(mContext,false);
             } else {
                 Uri geoLocation = Uri.parse("geo:" + lastLatitude + "," + lastLongitude);
 

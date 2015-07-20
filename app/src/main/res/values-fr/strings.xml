@@ -60,4 +60,7 @@
     <string name="searching_sunny_cities_message1">Nous sommes à la recherche pour les villes où il fait beau.</string>
     <string name="searching_sunny_cities_message2">Bientôt, nous allons vous montrer toutes les villes où il fait beau.</string>
     <string name="searching_sunny_cities_message3">Si cela prend trop de temps, pensez à réduire la distance.</string>
+    <string name="explanation_why">Pourquoi est-ce important?</string>
+    <string name="try_again">Essayer à nouveau</string>
+    <string name="continue_anyway">Continuer malgré tout</string>
 </resources>

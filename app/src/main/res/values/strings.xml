@@ -28,7 +28,8 @@
     <string name="title_activity_result">Cities List</string>
     <string name="invalid_fields">Please verify all red fields.</string>
     <string name="title_activity_failure" translatable="false">FailureActivity</string>
-    <string name="failure_message">Ops ...It was not possible determine your location. Set the location on your device and press \"Try to find me\" button.</string>
+    <string name="failure_message_localization">Oops... It was not possible determine your location. Set the location on your device and press \"Try to find me\" button.</string>
+    <string name="failure_message_internet">Oops... Your internet connection seems to be down. Check your internet connection and press \"Try again\" button.</string>
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
     <string name="no_data_available">No sunny city was found. Try to change the dates, the distance, the number of sunny days or the minimum temperature.</string>
     <string name="max_temperature">Maximum temperature:</string>
@@ -61,10 +62,14 @@
     <string name="distance_kilometers" translatable="false"><xliff:g>%1$s</xliff:g> km</string>
     <string name="location_found">Your location was determined successfully.</string>
     <string name="location_not_found_yet">Your location wasn\'t found yet. Please, try again.</string>
+    <string name="internet_is_down">Your internet connection still seems to be down. Please, try again.</string>
     <string name="try_to_find_me">Try to find me</string>
+    <string name="try_again">Try again</string>
     <string name="explanation_why">Why is this important?</string>
-    <string name="explanation">If the app can\'t find where you are, it won\'t be possible to determine which cities are in distance radius informed. It\'s essential that the location is set on your device so you can use this app.</string>
+    <string name="explanation_localization">If the app can\'t find where you are, it won\'t be possible to determine which cities are in distance radius informed. It\'s essential that the location is set on your device so you can use this app.</string>
+    <string name="explanation_internet">If you don\'t have an internet connection, it won\'t be possible to search for the weather forecast. It\'s essential that the internet connection is active in your device so you can use this app</string>
     <string name="continue_without_my_location">Continue without my location</string>
+    <string name="continue_anyway">Continue anyway</string>
     <string name="where_am_i">Where am I ?</string>
     <string name="degree_symbol" translatable="false">º</string>
     <string name="here_the_sun_shines">Here the sun will shine</string>

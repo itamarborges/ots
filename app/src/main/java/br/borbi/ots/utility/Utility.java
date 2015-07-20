@@ -45,31 +45,31 @@ public class Utility {
     public static final int
             FLOAT = 2;
 
-    public static int getArtResourceForWeatherCondition(int idWeatherType) {
+    public static int getMediumArtResourceForWeatherCondition(int idWeatherType) {
         // Based on weather code data found at:
         // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
         if (idWeatherType >= 200 && idWeatherType <= 232) {
-            return R.drawable.art_storm;
+            return R.drawable.ots_rain_medium;
         } else if (idWeatherType >= 300 && idWeatherType <= 321) {
-            return R.drawable.art_light_rain;
+            return R.drawable.ots_rain_medium;
         } else if (idWeatherType >= 500 && idWeatherType <= 504) {
-            return R.drawable.rain;
+            return R.drawable.ots_rain_medium;
         } else if (idWeatherType == 511) {
-            return R.drawable.snow;
+            return R.drawable.ots_snow_medium;
         } else if (idWeatherType >= 520 && idWeatherType <= 531) {
-            return R.drawable.rain;
+            return R.drawable.ots_rain_medium;
         } else if (idWeatherType >= 600 && idWeatherType <= 622) {
-            return R.drawable.snow;
+            return R.drawable.ots_snow_medium;
         } else if (idWeatherType >= 701 && idWeatherType <= 761) {
-            return R.drawable.art_fog;
+            return R.drawable.ots_clouds_medium;
         } else if (idWeatherType == 761 || idWeatherType == 781) {
-            return R.drawable.art_storm;
+            return R.drawable.ots_rain_medium;
         } else if (idWeatherType == 800) {
-            return R.drawable.art_clear;
+            return R.drawable.ots_sunny_medium;
         } else if (idWeatherType == 801) {
-            return R.drawable.clouds;
+            return R.drawable.ots_sunny_medium;
         } else if (idWeatherType >= 802 && idWeatherType <= 804) {
-            return R.drawable.clouds;
+            return R.drawable.ots_clouds_medium;
         }
         return -1;
     }

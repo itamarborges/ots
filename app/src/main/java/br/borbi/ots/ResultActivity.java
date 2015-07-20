@@ -92,7 +92,7 @@ public class ResultActivity extends ActionBarActivity {
             Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
             if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
-                ForwardUtility.goToFailure(getApplicationContext());
+                ForwardUtility.goToFailure(getApplicationContext(),false);
             } else {
                 Uri geoLocation = Uri.parse("geo:" + lastLatitude + "," + lastLongitude);
 

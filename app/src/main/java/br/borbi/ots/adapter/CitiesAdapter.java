@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -135,6 +136,11 @@ public class CitiesAdapter extends BaseAdapter{
             viewHolder.distanceTextView.setText(mContext.getString(R.string.distance_kilometers, Integer.toString(distance)));
         }
 
+        if(position == 0 && distance<=50){
+            viewHolder.youAreHereImageView.setVisibility(View.VISIBLE);
+            viewHolder.distanceTextView.setVisibility(View.GONE);
+        }
+
         viewHolder.tagTextView.setText(tagsItem);
 
         viewHolder.layoutCities.setOnClickListener(new View.OnClickListener() {
@@ -167,12 +173,14 @@ public class CitiesAdapter extends BaseAdapter{
         public final TextView tagTextView;
         public final TextView distanceTextView;
         public final LinearLayout layoutCities;
+        public final ImageView youAreHereImageView;
 
         public ViewHolder(View view) {
             cityNameTextView = (TextView) view.findViewById(R.id.list_item_city_name_textview);
             tagTextView = (TextView) view.findViewById(R.id.list_item_tag_textview);
             distanceTextView = (TextView) view.findViewById(R.id.list_item_distance_textview);
             layoutCities = (LinearLayout) view.findViewById(R.id.layout_search_city);
+            youAreHereImageView = (ImageView) view.findViewById(R.id.image_view_you_are_here);
         }
     }
 
