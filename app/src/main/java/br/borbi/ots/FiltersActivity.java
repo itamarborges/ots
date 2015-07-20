@@ -295,21 +295,38 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
             // Use the current date as the default date in the picker
 
+            Calendar checkedBeginDate;
+
             Calendar today = new GregorianCalendar();
             today.setTime(Utility.setDateToInitialHours(new Date()));
+            if(dateBegin == null){
+                checkedBeginDate = today;
+            }else{
+                checkedBeginDate= new GregorianCalendar();
+                checkedBeginDate.setTime(Utility.setDateToInitialHours(dateBegin));
+            }
+
+            Calendar checkedEndDate;
 
             Calendar maxDate = new GregorianCalendar();
             maxDate.setTime(Utility.setDateToFinalHours(new Date()));
             maxDate.add(Calendar.DAY_OF_MONTH, 15);
+
+            if(dateEnd==null){
+                checkedEndDate = maxDate;
+            }else{
+                checkedEndDate = new GregorianCalendar();
+                checkedEndDate .setTime(Utility.setDateToFinalHours(dateEnd));
+            }
 
             DatePickerDialog datePickerDialog = null;
 
             Bundle b = getArguments();
             int buttonClicked = b.getInt(BUTTON_CLICKED);
             if (buttonClicked == R.id.calendarDateBegin) {
-                datePickerDialog = new DatePickerDialog(getActivity(), this, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog = new DatePickerDialog(getActivity(), this, checkedBeginDate.get(Calendar.YEAR), checkedBeginDate.get(Calendar.MONTH), checkedBeginDate.get(Calendar.DAY_OF_MONTH));
             }else{
-                datePickerDialog = new DatePickerDialog(getActivity(), this, maxDate.get(Calendar.YEAR), maxDate.get(Calendar.MONTH), maxDate.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog = new DatePickerDialog(getActivity(), this, checkedEndDate.get(Calendar.YEAR), checkedEndDate.get(Calendar.MONTH), checkedEndDate.get(Calendar.DAY_OF_MONTH));
 
             }
 
