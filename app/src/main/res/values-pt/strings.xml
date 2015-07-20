@@ -16,7 +16,6 @@
     <string name="days_without_rain">Considerar dias sem chuva - nublados - como tempo bom</string>
     <string name="min_temperature">TEMPERATURA MÍNIMA</string>
     <string name="dont_care">Não importa</string>
-    <string name="title_activity_splash_screen">Onde tem sol ?</string>
     <string name="error_localization">Não foi possível determinar a sua localização.</string>
     <string name="celsius">C</string>
     <string name="begin_date_before_end_date">A data inicial deve ser anterior à data final.</string>
@@ -24,9 +23,6 @@
     <string name="minimum_days">Número de dias deve ser entre 1 e <xliff:g>%1$s</xliff:g>.</string>
     <string name="invalid_fields">Por favor, verifique todos os campos destacados.</string>
     <string name="location_not_found">Ainda não foi possível determinar sua localização. Essa pesquisa pode não corresponder à sua localização atual.</string>
-    <string name="title_activity_detail">Informações detalhadas</string>
-    <string name="title_activity_result">Lista de Cidades</string>
-    <string name="result_citites_activity">Previsões para a cidade</string>
     <string name="beach">Praia</string>
     <string name="snow">Neve</string>
     <string name="historic">Histórica</string>

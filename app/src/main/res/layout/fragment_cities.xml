@@ -6,7 +6,9 @@
         android:id="@+id/listview_cities"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null" />
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        />
     <!-- empty list -->
     <TextView
         android:id="@+id/listview_cities_empty"
