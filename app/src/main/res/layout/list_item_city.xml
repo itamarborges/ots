@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_search_city"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@drawable/border"
+    android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/list_item_linearlayout"
@@ -17,32 +19,46 @@
             android:id="@+id/list_item_city_name_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/material_blue_grey_800"
-            android:text="345" />
+            android:text="Porto Alegre - Brasil"
+            android:textSize="16sp"
+            />
 
         <TextView
             android:id="@+id/list_item_tag_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/material_blue_grey_800"
-            android:text="789" />
+            android:textSize="10sp"
+            android:text="Praia - Neve" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/list_item_distance_textview"
+    <LinearLayout
+        android:id="@+id/linear_layout_distance"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:fontFamily="sans-serif-condensed"
-        android:textColor="@color/material_blue_grey_800"
-        android:text="123"
-        android:layout_toRightOf="@+id/list_item_linearlayout"
-        android:gravity="center" />
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/image_view_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_toRightOf="@+id/list_item_linearlayout"
+            android:src="@drawable/ic_more_horiz_black_24dp"
+            />
+
+        <TextView
+            android:id="@+id/list_item_distance_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="77 km"
+            android:layout_toRightOf="@+id/list_item_linearlayout"
+            android:gravity="center" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/image_view_you_are_here"
@@ -52,6 +68,6 @@
         android:layout_toRightOf="@+id/list_item_linearlayout"
         android:layout_gravity="center"
         android:visibility="gone"
-        android:src="@android:drawable/btn_dialog"
+        android:src="@drawable/ic_place_black_24dp"
         />
 </LinearLayout>

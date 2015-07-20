@@ -136,9 +136,14 @@ public class CitiesAdapter extends BaseAdapter{
             viewHolder.distanceTextView.setText(mContext.getString(R.string.distance_kilometers, Integer.toString(distance)));
         }
 
-        if(position == 0 && distance<=50){
+        if(distance<=50){
             viewHolder.youAreHereImageView.setVisibility(View.VISIBLE);
             viewHolder.distanceTextView.setVisibility(View.GONE);
+            viewHolder.linearLayoutDistanceDistance.setVisibility(View.GONE);
+        }else{
+            viewHolder.youAreHereImageView.setVisibility(View.GONE);
+            viewHolder.distanceTextView.setVisibility(View.VISIBLE);
+            viewHolder.linearLayoutDistanceDistance.setVisibility(View.VISIBLE);
         }
 
         viewHolder.tagTextView.setText(tagsItem);
@@ -174,6 +179,7 @@ public class CitiesAdapter extends BaseAdapter{
         public final TextView distanceTextView;
         public final LinearLayout layoutCities;
         public final ImageView youAreHereImageView;
+        public final LinearLayout linearLayoutDistanceDistance;
 
         public ViewHolder(View view) {
             cityNameTextView = (TextView) view.findViewById(R.id.list_item_city_name_textview);
@@ -181,6 +187,7 @@ public class CitiesAdapter extends BaseAdapter{
             distanceTextView = (TextView) view.findViewById(R.id.list_item_distance_textview);
             layoutCities = (LinearLayout) view.findViewById(R.id.layout_search_city);
             youAreHereImageView = (ImageView) view.findViewById(R.id.image_view_you_are_here);
+            linearLayoutDistanceDistance = (LinearLayout) view.findViewById(R.id.linear_layout_distance);
         }
     }
 
