@@ -55,46 +55,48 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
 
         int img = ((int) (Math.random() * 10)) ;
 
-        Log.v(LOG_TAG, String.valueOf(img));
-
         if (img % 2 == 0) {
             mImgSplash.setBackgroundResource(R.drawable.logo_novo_par); ;
         } else {
             mImgSplash.setBackgroundResource(R.drawable.logo_novo_impar);
         }
 
-        findLocation();
+        if (Utility.isNetworkAvailable(this)) {findLocation();
 
-        new Timer().schedule(new TimerTask() {
+            new Timer().schedule(new TimerTask() {
 
-            public void run() {
+                public void run() {
 
-                //Verify if there is any data in search and/or if this is valid data.
-                //Meaning that:
-                //- the table search is not empty and
-                //- the date_end is before than today
-                //- the current location is not too far from the place where the seach was originally made
+                    //Verify if there is any data in search and/or if this is valid data.
+                    //Meaning that:
+                    //- the table search is not empty and
+                    //- the date_end is before than today
+                    //- the current location is not too far from the place where the seach was originally made
 
-                if (lastLongitude == null || lastLatitude == null) {
-                    Integer searchId = Utility.findSearchByDate(mContext);
+                    if (lastLongitude == null || lastLatitude == null) {
+                        Integer searchId = Utility.findSearchByDate(mContext);
 
-                    if (searchId == null) {
-                        ForwardUtility.goToFilters(mContext);
+                        if (searchId == null) {
+                            ForwardUtility.goToFilters(mContext);
+                        } else {
+                            ForwardUtility.goToResults(false, searchId, mContext);
+                        }
+
                     } else {
-                        ForwardUtility.goToResults(false, searchId, mContext);
-                    }
+                        Integer searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude, mContext);
 
-                } else {
-                    Integer searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude, mContext);
-
-                    if (searchId == null) {
-                        ForwardUtility.goToFilters(mContext);
-                    } else {
-                        ForwardUtility.goToResults(true, searchId, mContext);
+                        if (searchId == null) {
+                            ForwardUtility.goToFilters(mContext);
+                        } else {
+                            ForwardUtility.goToResults(true, searchId, mContext);
+                        }
                     }
                 }
-            }
-        }, TIME_SPLASH);
+            }, TIME_SPLASH);
+
+        }else{
+            ForwardUtility.goToFailure(mContext,true);
+        }
     }
 
     @Override
@@ -131,7 +133,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         if (Utility.isNetworkAvailable(this)) {
             buildGoogleApiClient();
         } else {
-            setContentView(R.layout.activity_failure);
+            // If there's no internet connection, forwards to failure screen.
+            ForwardUtility.goToFailure(mContext,true);
         }
     }
 

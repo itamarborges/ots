@@ -16,6 +16,7 @@ public class ForwardUtility {
 
     public static final String SEARCH_ID = "SEARCH_ID";
     public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
+    public static final String ERROR_INTERNET_CONNECTION = "ERROR_INTERNET_CONNECTION";
 
     public static void goToResults(boolean foundCoordinates, Integer searchId, Context context){
         Intent intent = new Intent();
@@ -31,9 +32,10 @@ public class ForwardUtility {
         context.startActivity(intent);
     }
 
-    public static void goToFailure(Context context){
+    public static void goToFailure(Context context, boolean errorInternetConnection){
         Intent intent = new Intent();
         intent.setClass(context, FailureActivity.class);
+        intent.putExtra(ERROR_INTERNET_CONNECTION, errorInternetConnection);
         context.startActivity(intent);
     }
 }

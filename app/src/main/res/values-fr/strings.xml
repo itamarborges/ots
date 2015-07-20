@@ -31,7 +31,6 @@
     <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>
-    <string name="failure_message">Ops ...It was not possible determine your location. Set the location on in your device and press \"Try to find me\" button.</string>
     <string name="invalid_fields">Please verify all red fields.</string>
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
     <string name="max_temperature">Maximum temperature:</string>
@@ -60,4 +59,7 @@
     <string name="searching_sunny_cities_message1">Nous sommes à la recherche pour les villes où il fait beau.</string>
     <string name="searching_sunny_cities_message2">Bientôt, nous allons vous montrer toutes les villes où il fait beau.</string>
     <string name="searching_sunny_cities_message3">Si cela prend trop de temps, pensez à réduire la distance.</string>
+    <string name="explanation_why">Pourquoi est-ce important?</string>
+    <string name="try_again">Essayer à nouveau</string>
+    <string name="continue_anyway">Continuer malgré tout</string>
 </resources>
