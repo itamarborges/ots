@@ -8,233 +8,222 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:paddingBottom="5dp"
-    tools:context="br.borbi.ots.FiltersActivity">
+    tools:context="br.borbi.ots.FiltersActivity"
+    android:background="@color/pure_white">
 
-    <!--
-    Período
-    -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:id="@+id/datePeriod"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        >
+        android:layout_alignParentStart="false">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:text="@string/datePeriod"
             android:id="@+id/textViewDatePeriod"
-            android:layout_below="@+id/textViewTitulo"
-             />
+            android:padding="8dp"
+            android:gravity="center"
+            android:textAppearance="@style/titleTextView" />
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:id="@+id/textViewDateBeginPeriod"
-            android:text="@string/dateFormat"
-            android:layout_below="@+id/textViewTitulo"
-            />
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="bottom"
+                android:paddingBottom="5dp"
+                android:background="@drawable/border_gray"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:id="@+id/textViewDateBeginPeriod"
+                android:text="@string/dateFormat" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/calendarDateBegin"
+                    android:src="@drawable/calendar"
+                    android:onClick="showCalendar"
+                    android:adjustViewBounds="false" />
+            </LinearLayout>
 
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/calendarDateBegin"
-            android:layout_below="@+id/textViewTitulo"
-            android:src="@drawable/calendar"
-            android:onClick="showCalendar"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_gray"
+                android:layout_marginLeft="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to"
-            android:id="@+id/textViewTo"
-            android:layout_below="@+id/textViewTitulo"
-            />
-
-        <TextView
+            <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:id="@+id/textViewDateEndPeriod"
-            android:text="@string/dateFormat"
-            android:layout_below="@+id/textViewTitulo"
-            />
-
+            android:text="@string/dateFormat" />
 
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/calendarDateEnd"
-            android:layout_below="@+id/textViewTitulo"
             android:src="@drawable/calendar"
             android:onClick="showCalendar"/>
+           </LinearLayout>
 
     </LinearLayout>
 
 
-    <TextView
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/help_date_period"
         android:id="@+id/textViewHelpDatePeriod"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_below="@+id/datePeriod"
+        android:textAppearance="@style/subtitleTextView"
         android:layout_alignParentLeft="true"
-        android:layout_centerHorizontal="true" />
-
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+            android:paddingTop="5dp" />
+    </LinearLayout>
     <!-- Distância-->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:orientation="vertical"
         android:id="@+id/linearLayoutDistance"
-        android:layout_below="@+id/textViewHelpDatePeriod"
-        >
+        android:layout_below="@+id/datePeriod">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:text="@string/max_distance"
             android:id="@+id/textViewMaxDistance"
-            android:layout_below="@+id/textViewHelpDatePeriod"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:textStyle="bold"
+            android:textAppearance="@style/titleTextView"
+            android:gravity="center_vertical|center_horizontal" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editTextMaxDistance"
-            android:layout_below="@+id/textViewHelpDatePeriod"
-            android:layout_toRightOf="@+id/textViewMaxDistance"
-            />
+            android:id="@+id/editTextMaxDistance" />
 
         <RadioGroup
             android:id="@+id/radioGroupDistance"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_below="@id/textViewHelpDatePeriod"
-            android:layout_alignEnd="@+id/editTextMaxDistance"
-            android:layout_alignRight="@+id/editTextMaxDistance"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp" >
+            android:orientation="horizontal" >
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/kilometers"
                 android:id="@+id/radioButtonKm"
-                android:layout_centerVertical="true"
-                android:layout_below="@id/textViewHelpDatePeriod"
-                android:layout_alignRight="@+id/editTextMaxDistance"
-                android:layout_alignEnd="@+id/editTextMaxDistance" />
+                android:layout_centerVertical="true" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/miles"
-                android:id="@+id/radioButtonMiles"
-                android:layout_below="@id/textViewHelpDatePeriod"
-                android:layout_alignRight="@+id/radioButtonKm"
-                android:layout_alignEnd="@+id/radioButtonKm"  />
+                android:id="@+id/radioButtonMiles" />
         </RadioGroup>
-
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Dias bons -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:orientation="vertical"
         android:id="@+id/linearLayoutSunnyDays"
-        android:layout_below="@+id/linearLayoutDistance"
-        >
+        android:layout_below="@+id/linearLayoutDistance">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:text="@string/qty_sunny_days"
             android:id="@+id/textViewQtySunnyDays"
-            android:layout_below="@+id/linearLayoutDistance"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="bottom" />
+            android:textAppearance="@style/titleTextView"
+            android:textAlignment="center"
+            android:gravity="center_vertical|center_horizontal" />
 
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editTextQtySunnyDays"
-            android:layout_below="@+id/linearLayoutDistance"
-            />
+            android:id="@+id/editTextQtySunnyDays" />
 
-        <TextView
-            android:layout_width="0dp"
+
+        <!-- Considerar apenas dias sem chuva-->
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/days"
-            android:id="@+id/textViewDays"
-            android:layout_below="@+id/linearLayoutDistance"
-            />
+            android:orientation="horizontal"
+            android:id="@+id/linearLayoutDaysWithoutRains">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/days_without_rain"
+                android:id="@+id/checkBoxDaysWithoutRain"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Considerar apenas dias sem chuva-->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayoutDaysWithoutRains"
-        android:layout_below="@+id/linearLayoutSunnyDays"
-        >
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/days_without_rain"
-            android:id="@+id/checkBoxDaysWithoutRain"
-            android:layout_alignParentLeft="true"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
-    </LinearLayout>
 
     <!-- Temperatura -->
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:orientation="vertical"
         android:id="@+id/linearLayoutTemperature"
-        android:layout_below="@+id/linearLayoutDaysWithoutRains"
-        >
+        android:layout_below="@+id/linearLayoutSunnyDays">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:text="@string/min_temperature"
             android:id="@+id/textViewMinTemperature"
-            android:layout_below="@+id/checkBoxDaysWithoutRain"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="bottom" />
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:ems="12"
+            android:textAlignment="center"
+            android:elegantTextHeight="false"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="@style/titleTextView" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
         <EditText
             android:layout_width="0dp"
@@ -243,9 +232,6 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/editTextMinTemperature"
-            android:layout_below="@+id/checkBoxDaysWithoutRain"
-            android:layout_alignTop="@+id/textViewMinTemperature"
-            android:layout_alignRight="@+id/textViewMinTemperature"
             android:imeOptions="actionDone"
             />
 
@@ -253,18 +239,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/degree_symbol"
-            android:id="@+id/textViewSymbolDegrees"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="bottom" />
+            android:id="@+id/textViewSymbolDegrees" />
 
         <RadioGroup
             android:id="@+id/radioGroupTemperature"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:layout_below="@+id/checkBoxDaysWithoutRain"
-            android:layout_alignEnd="@+id/editTextMinTemperature"
-            android:layout_alignRight="@+id/editTextMinTemperature"
             android:orientation="horizontal"
             android:layout_marginTop="12dp" >
 
@@ -272,30 +253,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/celsius"
-                android:id="@+id/radioButtonCelsius"
-                android:layout_centerVertical="true"
-                android:layout_below="@id/textViewHelpDatePeriod"
-                android:layout_alignRight="@+id/editTextMaxDistance"
-                android:layout_alignEnd="@+id/editTextMaxDistance" />
+                android:id="@+id/radioButtonCelsius" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/farenheit"
-                android:id="@+id/radioButtonFarenheit"
-                android:layout_below="@id/textViewHelpDatePeriod"
-                android:layout_alignRight="@+id/radioButtonCelsius"
-                android:layout_alignEnd="@+id/radioButtonCelsius"  />
+                android:id="@+id/radioButtonFarenheit"  />
         </RadioGroup>
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dont_care"
-            android:id="@+id/checkBoxTemperature"
-            android:layout_below="@+id/checkBoxDaysWithoutRain"
-            android:layout_alignRight="@+id/radioGroupTemperature"
-            />
+            android:id="@+id/checkBoxTemperature" />
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Botao para pesquisar-->
@@ -309,7 +281,8 @@
         android:layout_alignParentRight="true"
         android:onClick="onSaveButtonClicked"
         android:background="@drawable/button_background"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/linearLayoutTemperature" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

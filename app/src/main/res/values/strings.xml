@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
-    <string name="app_name">Where will the sun shine?</string>
+    <string name="app_name">WHERE WILL THE SUN SHINE ?</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_filtros" translatable="false">FiltrosActivity</string>
     <string name="title">Where will the sun shine?</string>
-    <string name="datePeriod">Date: </string>
+    <string name="datePeriod">DATE</string>
     <string name="dateFormat">mm/dd/yyyy</string>
     <string name="to"> to </string>
     <string name="help_date_period">Weather forecast available only from today until 16 days from now.</string>
-    <string name="max_distance">Maximum distance from your current location: </string>
+    <string name="max_distance">DISTANCE</string>
     <string name="kilometers">km</string>
     <string name="miles">mi</string>
     <string name="search">Go!</string>
-    <string name="qty_sunny_days">How many days should be sunny?</string>
+    <string name="qty_sunny_days">SUNNY DAYS</string>
     <string name="days">days</string>
     <string name="days_without_rain">Consider cloudy days (without rain) as sunny</string>
-    <string name="min_temperature">Minimum Temperature: </string>
+    <string name="min_temperature">MINIMUN TEMPERATURE</string>
     <string name="celsius">C</string>
     <string name="farenheit" translatable="false">F</string>
     <string name="dont_care">Don\'t care</string>
