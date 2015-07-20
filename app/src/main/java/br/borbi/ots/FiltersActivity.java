@@ -185,9 +185,15 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     }
 
     public void showCalendar(View view) {
+
+        int viewIdClicked = -1;
+
         DialogFragment newFragment = new DatePickerFragment();
         Bundle bundleArgument = new Bundle();
-        bundleArgument.putInt(BUTTON_CLICKED, view.getId());
+
+        viewIdClicked = (view.getId() == R.id.layoutDateBegin) ? R.id.calendarDateBegin: R.id.calendarDateEnd;
+
+        bundleArgument.putInt(BUTTON_CLICKED, viewIdClicked);
         newFragment.setArguments(bundleArgument);
         newFragment.show(getFragmentManager(), "datePicker");
     }
@@ -294,7 +300,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
             Calendar maxDate = new GregorianCalendar();
             maxDate.setTime(Utility.setDateToFinalHours(new Date()));
-            maxDate.add(Calendar.DAY_OF_MONTH, 16);
+            maxDate.add(Calendar.DAY_OF_MONTH, 15);
 
             DatePickerDialog datePickerDialog = null;
 

@@ -17,7 +17,9 @@
         android:orientation="vertical"
         android:id="@+id/datePeriod"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false">
+        android:layout_alignParentStart="false"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <TextView
             android:layout_width="fill_parent"
@@ -30,61 +32,71 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:gravity="bottom"
-                android:paddingBottom="5dp"
+                android:layout_height="fill_parent"
                 android:background="@drawable/border_gray"
-                android:layout_marginRight="10dp">
+                android:layout_marginLeft="5dp"
+                android:showDividers="middle"
+                android:id="@+id/layoutDateBegin"
+                android:onClick="showCalendar">
 
                 <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:id="@+id/textViewDateBeginPeriod"
-                android:text="@string/dateFormat" />
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:id="@+id/textViewDateBeginPeriod"
+                    android:text="@string/dateFormat"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textAppearance="@style/dateTextView" />
 
                 <ImageButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:id="@+id/calendarDateBegin"
+                    android:background="#E0E0E0"
+                    android:padding="2dp"
                     android:src="@drawable/calendar"
-                    android:onClick="showCalendar"
-                    android:adjustViewBounds="false" />
+                    android:nestedScrollingEnabled="false" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:background="@drawable/border_gray"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/layoutDateEnd"
+                android:onClick="showCalendar">
 
             <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:id="@+id/textViewDateEndPeriod"
-            android:text="@string/dateFormat" />
+            android:text="@string/dateFormat"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:textAppearance="@style/dateTextView" />
 
         <ImageButton
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
             android:id="@+id/calendarDateEnd"
+            android:background="#E0E0E0"
+            android:padding="2dp"
             android:src="@drawable/calendar"
-            android:onClick="showCalendar"/>
+            android:nestedScrollingEnabled="false" />
            </LinearLayout>
 
     </LinearLayout>
@@ -101,16 +113,24 @@
         android:gravity="center_vertical|center_horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-            android:paddingTop="5dp" />
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp" />
     </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/separator"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/datePeriod" />
     <!-- Distância-->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
+        android:paddingTop="10dp"
         android:orientation="vertical"
         android:id="@+id/linearLayoutDistance"
-        android:layout_below="@+id/datePeriod">
+        android:layout_below="@+id/separator">
 
         <TextView
             android:layout_width="fill_parent"
