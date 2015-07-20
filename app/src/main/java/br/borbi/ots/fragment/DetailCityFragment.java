@@ -256,7 +256,7 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             }
 
             mDateDetail.setText(Utility.getFormattedDate(date));
-            mWeatherImageView.setImageResource(Utility.getSmallArtResourceForWeatherCondition(idWeatherType));
+            mWeatherImageView.setImageResource(Utility.getMediumArtResourceForWeatherCondition(idWeatherType));
         }
     }
 

@@ -7,7 +7,7 @@
     <string name="datePeriod">Date: </string>
     <string name="dateFormat">mm/dd/yyyy</string>
     <string name="to"> to </string>
-    <string name="help_date_period">Weather forecast available only from today until 16 days from now.</string>
+    <string name="help_date_period">The maximum date available for the weather forecast is <xliff:g>%1$s</xliff:g>.</string>
     <string name="max_distance">Maximum distance from your current location: </string>
     <string name="kilometers">km</string>
     <string name="miles">mi</string>
