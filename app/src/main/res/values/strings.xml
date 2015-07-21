@@ -24,8 +24,8 @@
     <string name="distance_miles" translatable="false"><xliff:g>%1$s</xliff:g> mi</string>
     <string name="distance_kilometers" translatable="false"><xliff:g>%1$s</xliff:g> km</string>
     <string name="display_min_max_temperature" translatable="false"><xliff:g>%1$s</xliff:g>º/<xliff:g>%2$s</xliff:g>º</string>
-    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF / <xliff:g>%2$s</xliff:g> ºF</string>
-    <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC / <xliff:g>%2$s</xliff:g> ºC</string>
+    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F to <xliff:g>%2$s</xliff:g>º F</string>
+    <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC to <xliff:g>%2$s</xliff:g> ºC</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>

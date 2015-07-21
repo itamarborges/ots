@@ -62,4 +62,22 @@
         <item name="android:color">@color/ots_dark_grey</item>
     </style>
 
+    <style name="mediumTitleTextView">
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-bold</item>
+        <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="bigTextView">
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
+        <item name="android:textSize">@dimen/font_size_big</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="mediumTextView">
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
+        <item name="android:textSize">@dimen/font_size_medium</item>
+    </style>
+
 </resources>

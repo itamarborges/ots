@@ -48,8 +48,8 @@
     <string name="explanation_why">Por que isso é importante?</string>
     <string name="continue_without_my_location">Continuar sem minha localização</string>
     <string name="where_am_i">Onde estou ?</string>
-    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF / <xliff:g>%2$s</xliff:g> ºF</string>
-    <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC / <xliff:g>%2$s</xliff:g> ºC</string>
+    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F à <xliff:g>%2$s</xliff:g>º F</string>
+    <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g>º C à <xliff:g>%2$s</xliff:g>º C</string>
     <string name="here_the_sun_shines">Aqui tem sol</string>
     <string name="searching_the_sun">Procurando onde tem sol</string>
     <string name="next">Próximo</string>
