@@ -54,6 +54,7 @@
     <string name="help_date_period">Weather forecast available only from today until 16 days from now.</string>
     <string name="here_the_sun_shines">Here the sun will shine</string>
     <string name="historic">Historic</string>
+    <string name="help_distance">Maximum distance from your currente location.</string>
 
     <!-- I -->
     <string name="internet_is_down">Your internet connection still seems to be down. Please, try again.</string>
@@ -64,6 +65,7 @@
 
     <!-- K -->
     <string name="kilometers">km</string>
+    <string name="km" translatable="false">KM</string>
 
     <!-- L -->
     <string name="location_found">Your location was determined successfully.</string>
@@ -79,6 +81,7 @@
     <string name="max_distance">DISTANCE</string>
     <string name="miles">mi</string>
     <string name="min_temperature">MINIMUN TEMPERATURE</string>
+    <string name="mi" translatable="false">MI</string>
 
     <!-- N -->
     <string name="next">Next</string>
@@ -122,6 +125,7 @@
 
     <!-- W -->
     <string name="where_am_i">Where am I ?</string>
+
 
     <!-- X -->
 

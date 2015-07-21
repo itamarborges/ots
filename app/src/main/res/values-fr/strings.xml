@@ -59,4 +59,5 @@
     <string name="explanation_why">Pourquoi est-ce important?</string>
     <string name="try_again">Essayer à nouveau</string>
     <string name="continue_anyway">Continuer malgré tout</string>
+    <string name="help_distance">La distance maximun de votre lieu de currente.</string>
 </resources>
