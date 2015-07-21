@@ -84,9 +84,13 @@ public class
         final DayForecast dayForecast = (DayForecast)getItem(position);
         if(dayForecast == null){
             viewHolder.dateTextView.setText("");
-            viewHolder.minTemperatureTextiView.setText("");
+            viewHolder.minTemperatureTextView.setText("");
+            viewHolder.maxTemperatureTextView.setText("");
+            //viewHolder.minTemperatureLabelTextView.setText("");
+            //viewHolder.maxTemperatureLabelTextView.setText("");
             viewHolder.weatherImageView.setImageResource(R.drawable.no_border);
             viewHolder.layoutResultCityLinearLayout.setBackgroundResource(R.drawable.no_border);
+            viewHolder.moreDetailsTextView.setText("");
         }else{
             Integer minTemperature = Utility.roundCeil(dayForecast.getMinTemperature());
             Integer maxTemperature = Utility.roundCeil(dayForecast.getMaxTemperature());
@@ -100,8 +104,10 @@ public class
             }
 
             viewHolder.dateTextView.setText(Utility.getFormattedDateMonth(dayForecast.getDate()));
-            viewHolder.minTemperatureTextiView.setText(mContext.getString(R.string.display_min_max_temperature, Integer.toString(minTemperature), Integer.toString(maxTemperature)));
+            viewHolder.minTemperatureTextView.setText(mContext.getString(R.string.display_temperature, Integer.toString(minTemperature)));
+            viewHolder.maxTemperatureTextView.setText(mContext.getString(R.string.display_temperature, Integer.toString(maxTemperature)));
             viewHolder.weatherImageView.setImageResource(Utility.getSmallArtResourceForWeatherCondition(WeatherType.getId(dayForecast.getWeatherType())));
+            //viewHolder.weatherImageView.setBackgroundResource(Utility.getSmallArtResourceForWeatherCondition(WeatherType.getId(dayForecast.getWeatherType())));
 
             viewHolder.layoutResultCityLinearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,15 +128,23 @@ public class
 
     public static class ViewHolder {
         public final TextView dateTextView;
-        public final TextView minTemperatureTextiView;
+        public final TextView minTemperatureTextView;
+        public final TextView maxTemperatureTextView;
+        //public final TextView minTemperatureLabelTextView;
+        //public final TextView maxTemperatureLabelTextView;
         public final ImageView weatherImageView;
         public final LinearLayout layoutResultCityLinearLayout;
+        public final TextView moreDetailsTextView;
 
         public ViewHolder(View view) {
             dateTextView = (TextView) view.findViewById(R.id.list_item_date_textview);
-            minTemperatureTextiView = (TextView) view.findViewById(R.id.list_item_min_temperature_textview);
+            minTemperatureTextView = (TextView) view.findViewById(R.id.list_item_min_temperature_textview);
+            maxTemperatureTextView = (TextView) view.findViewById(R.id.list_item_max_temperature_textview);
+            //minTemperatureLabelTextView = (TextView) view.findViewById(R.id.list_item_min_temperature_label_textview);
+            //maxTemperatureLabelTextView = (TextView) view.findViewById(R.id.list_item_max_temperature_label_textview);
             weatherImageView = (ImageView) view.findViewById(R.id.weather_imageview);
             layoutResultCityLinearLayout = (LinearLayout) view.findViewById(R.id.layout_result_search_city);
+            moreDetailsTextView = (TextView)view.findViewById(R.id.list_item_more_details);
         }
     }
 

@@ -26,7 +26,7 @@
     <string name="display_min_max_temperature" translatable="false"><xliff:g>%1$s</xliff:g>º/<xliff:g>%2$s</xliff:g>º</string>
     <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF / <xliff:g>%2$s</xliff:g> ºF</string>
     <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC / <xliff:g>%2$s</xliff:g> ºC</string>
-    <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
+    <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>
     <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
@@ -79,6 +79,8 @@
     <string name="max_distance">DISTANCE</string>
     <string name="miles">mi</string>
     <string name="min_temperature">MINIMUN TEMPERATURE</string>
+    <string name="min_temperature_abbreviated">MIN</string>
+    <string name="max_temperature_abbreviated">MAX</string>
 
     <!-- N -->
     <string name="next">Next</string>

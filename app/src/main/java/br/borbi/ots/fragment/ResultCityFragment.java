@@ -89,7 +89,8 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
         mEmptyView = mRootView.findViewById(R.id.listview_result_city_empty);
 
         buildWeekDaysNamesArray();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, mWeekDaysNames);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, mWeekDaysNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_day_of_week, mWeekDaysNames);
         GridView gridview = (GridView) mRootView.findViewById(R.id.nameDaysGridView);
         gridview.setAdapter(adapter);
 

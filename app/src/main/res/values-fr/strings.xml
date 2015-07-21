@@ -27,7 +27,6 @@
     <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>
-    <string name="failure_message">Ops ...It was not possible determine your location. Set the location on in your device and press \"Try to find me\" button.</string>
     <string name="invalid_fields">Please verify all red fields.</string>
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
     <string name="max_temperature">Maximum temperature:</string>
@@ -48,7 +47,7 @@
     <string name="location_not_found_yet">Votre emplacement n\'a pas encore été trouvé.</string>
     <string name="try_to_find_me">Essayez de me trouver</string>
     <string name="where_am_i">Où suis-je ?</string>
-    <string name="display_temperature"><xliff:g>%1$s</xliff:g> º</string>
+    <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
     <string name="here_the_sun_shines">Ici il fait beau</string>
     <string name="searching_the_sun">Chercher où il fait beau</string>
     <string name="next">Suivant</string>

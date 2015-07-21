@@ -208,7 +208,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             ForwardUtility.goToFailure(mContext, false);
 
         }else {
-
             boolean allFieldsValid = validateFields();
             if (allFieldsValid) {
                 callSearch();

@@ -1,36 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_result_search_city"
-    android:padding="5dp"
     android:background="@drawable/border"
     >
 
-    <TextView
-        android:id="@+id/list_item_date_textview"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="10/10"
-        android:textStyle="bold"
-        android:textSize="10sp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/list_item_date_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10/10"
+            android:textAppearance="@style/smallTitleTextView"
+            android:gravity="center_horizontal"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/weather_imageview"
+            android:gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            />
+
+        <!--
+        <TextView
+            android:id="@+id/list_item_min_temperature_label_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/min_temperature_abbreviated"
+            android:layout_below="@+id/weather_imageview"
+            android:textAppearance="@style/smallTextView"
+            />
+-->
+        <TextView
+            android:id="@+id/list_item_min_temperature_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="8ºC"
+            android:textAppearance="@style/dateTextView"
+            />
+
+        <!--
+        <TextView
+            android:id="@+id/list_item_max_temperature_label_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/max_temperature_abbreviated"
+            android:textAppearance="@style/smallTextView"
+            />
+-->
+        <TextView
+            android:id="@+id/list_item_max_temperature_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="18ºC"
+            android:textAppearance="@style/dateTextView"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/list_item_more_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:text="+"
+        android:background="@drawable/background_gray"
+        android:textAppearance="@style/moreDetailsTextView"
         />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/weather_imageview"
-        android:gravity="center_horizontal"
-        />
 
-    <TextView
-        android:id="@+id/list_item_min_temperature_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="fill_horizontal"
-        android:text="@string/min_temperature"
-        android:layout_below="@+id/weather_imageview"
-        android:textSize="8sp"
-        />
-</LinearLayout>
+    <!--
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/background_gray"
+            android:src="@drawable/ots_plus_sign_small"
+            />
+    -->
+    </LinearLayout>
