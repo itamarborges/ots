@@ -103,7 +103,7 @@
 
 
         <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/help_date_period"
         android:id="@+id/textViewHelpDatePeriod"
@@ -113,9 +113,10 @@
         android:gravity="center_vertical|center_horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp" />
-    </LinearLayout>
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp" />
+
+     </LinearLayout>
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
@@ -128,9 +129,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:orientation="vertical"
         android:id="@+id/linearLayoutDistance"
-        android:layout_below="@+id/separator">
+        android:layout_below="@+id/separator"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <TextView
             android:layout_width="fill_parent"
@@ -139,24 +142,59 @@
             android:id="@+id/textViewMaxDistance"
             android:textStyle="bold"
             android:textAppearance="@style/titleTextView"
-            android:gravity="center_vertical|center_horizontal" />
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingBottom="10dp" />
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:background="@drawable/border_gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="right">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center|bottom"
+                android:gravity="bottom">
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editTextMaxDistance" />
+            android:id="@+id/editTextMaxDistance"
+            android:background="@null"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal" />
 
-        <RadioGroup
+            </LinearLayout>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="fill_parent"
+                android:text="@string/km"
+                android:id="@+id/btnKm"
+                android:background="@color/ots_green"
+                android:textColor="@color/pure_white" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="fill_parent"
+                android:text="@string/mi"
+                android:id="@+id/btnMi"
+                android:background="#E0E0E0" />
+
+            <RadioGroup
             android:id="@+id/radioGroupDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+                android:visibility="gone">
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -171,9 +209,30 @@
                 android:text="@string/miles"
                 android:id="@+id/radioButtonMiles" />
         </RadioGroup>
+
         </LinearLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/help_distance"
+            android:id="@+id/helpTextView"
+            android:textAppearance="@style/subtitleTextView"
+            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp" />
     </LinearLayout>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/separator2"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/linearLayoutDistance" />
     <!-- Dias bons -->
     <LinearLayout
         android:layout_width="fill_parent"
@@ -181,7 +240,7 @@
         android:paddingTop="8dp"
         android:orientation="vertical"
         android:id="@+id/linearLayoutSunnyDays"
-        android:layout_below="@+id/linearLayoutDistance">
+        android:layout_below="@+id/separator2">
 
         <TextView
             android:layout_width="fill_parent"
@@ -192,13 +251,26 @@
             android:textAlignment="center"
             android:gravity="center_vertical|center_horizontal" />
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="@drawable/border_gray"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:gravity="right">
+
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editTextQtySunnyDays" />
+            android:id="@+id/editTextQtySunnyDays"
+            android:background="@null"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal" />
 
+    </LinearLayout>
 
         <!-- Considerar apenas dias sem chuva-->
         <LinearLayout
@@ -213,11 +285,18 @@
                 android:text="@string/days_without_rain"
                 android:id="@+id/checkBoxDaysWithoutRain"
                 android:focusable="false"
-                android:focusableInTouchMode="false" />
+                android:focusableInTouchMode="false"
+                style="@style/subtitleTextView" />
         </LinearLayout>
     </LinearLayout>
 
-
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/separator3"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/linearLayoutSunnyDays" />
     <!-- Temperatura -->
 
     <LinearLayout
@@ -226,7 +305,7 @@
         android:paddingTop="8dp"
         android:orientation="vertical"
         android:id="@+id/linearLayoutTemperature"
-        android:layout_below="@+id/linearLayoutSunnyDays">
+        android:layout_below="@+id/separator3">
 
         <TextView
             android:layout_width="fill_parent"
@@ -240,6 +319,73 @@
             android:elegantTextHeight="false"
             android:gravity="center_vertical|center_horizontal"
             android:textAppearance="@style/titleTextView" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:background="@drawable/border_gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:gravity="right" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center|bottom"
+                android:gravity="bottom" >
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/editText"
+                    android:background="@null"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|center_horizontal" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="fill_parent"
+                android:text="@string/km"
+                android:id="@+id/button"
+                android:background="@color/ots_green"
+                android:textColor="@color/pure_white" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="fill_parent"
+                android:text="@string/mi"
+                android:id="@+id/button2"
+                android:background="#E0E0E0" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kilometers"
+                    android:id="@+id/radioButton"
+                    android:layout_centerVertical="true" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/miles"
+                    android:id="@+id/radioButton2" />
+            </RadioGroup>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -253,7 +399,7 @@
             android:ems="10"
             android:id="@+id/editTextMinTemperature"
             android:imeOptions="actionDone"
-            />
+            android:visibility="invisible" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -267,7 +413,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp" >
+            android:layout_marginTop="12dp"
+            android:visibility="gone">
 
             <RadioButton
                 android:layout_width="wrap_content"
