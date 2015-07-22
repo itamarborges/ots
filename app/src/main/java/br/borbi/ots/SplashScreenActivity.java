@@ -2,11 +2,9 @@ package br.borbi.ots;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,11 +14,9 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.Utility;

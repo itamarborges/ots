@@ -54,7 +54,7 @@
     <string name="help_date_period">Weather forecast available only from today until 16 days from now.</string>
     <string name="here_the_sun_shines">Here the sun will shine</string>
     <string name="historic">Historic</string>
-    <string name="help_distance">Maximum distance from your currente location.</string>
+    <string name="help_distance">Maximum distance from your current location.</string>
 
     <!-- I -->
     <string name="internet_is_down">Your internet connection still seems to be down. Please, try again.</string>
