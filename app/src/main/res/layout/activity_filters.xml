@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:paddingBottom="5dp"
     tools:context="br.borbi.ots.FiltersActivity"
-    android:background="@color/pure_white">
+    android:background="@color/ots_pure_white">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -179,7 +179,7 @@
                 android:text="@string/km"
                 android:id="@+id/btnKm"
                 android:background="@color/ots_green"
-                android:textColor="@color/pure_white" />
+                android:textColor="@color/ots_pure_white" />
 
             <Button
                 android:layout_width="0dp"
@@ -354,7 +354,7 @@
                 android:text="@string/km"
                 android:id="@+id/button"
                 android:background="@color/ots_green"
-                android:textColor="@color/pure_white" />
+                android:textColor="@color/ots_pure_white" />
 
             <Button
                 android:layout_width="0dp"
