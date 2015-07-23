@@ -63,4 +63,7 @@
     <string name="try_again">Tentar novamente</string>
     <string name="continue_anyway">Continuar mesmo assim</string>
     <string name="internet_is_down">Você ainda não tem conexão à internet. Por favor, tente novamente.</string>
+    <string name="min_temperature_abbreviated">MIN</string>
+    <string name="max_temperature_abbreviated">MAX</string>
+    <string name="help_distance">Maximum distance from your current location.</string>
 </resources>

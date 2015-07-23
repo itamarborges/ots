@@ -75,7 +75,6 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     private Button mNextButton;
     private Button mPreviousButton;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
