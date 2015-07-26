@@ -31,7 +31,8 @@
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
     <string name="max_temperature">Maximum temperature:</string>
     <string name="minimum_days">Please inform number of days between 1 and <xliff:g>%1$s</xliff:g>.</string>
-    <string name="minimum_distance">Distância mínima é de 100 km.</string>
+    <string name="minimum_distance_kilometers">Please inform distance bigger than <xliff:g>%1$s</xliff:g> kilometers.</string>
+    <string name="minimum_distance_miles">Please inform distance bigger than <xliff:g>%1$s</xliff:g> miles.</string>
     <string name="no_data_available">Aucune ville ensoleillée a été trouvé. Essayez de changer les dates, la distance, le nombre de jours d\'ensoleillement ou la température minimum.</string>
     <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F à <xliff:g>%2$s</xliff:g>º F</string>
     <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g>º C à <xliff:g>%2$s</xliff:g>º C</string>

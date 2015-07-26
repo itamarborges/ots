@@ -57,18 +57,21 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
             mImgSplash.setBackgroundResource(R.drawable.logo_novo_impar);
         }
 
-        if (Utility.isNetworkAvailable(this)) {findLocation();
+        if (Utility.isNetworkAvailable(this)) {
+            findLocation();
+        }
 
-            new Timer().schedule(new TimerTask() {
+        new Timer().schedule(new TimerTask() {
 
-                public void run() {
+            public void run() {
 
-                    //Verify if there is any data in search and/or if this is valid data.
-                    //Meaning that:
-                    //- the table search is not empty and
-                    //- the date_end is before than today
-                    //- the current location is not too far from the place where the seach was originally made
+                //Verify if there is any data in search and/or if this is valid data.
+                //Meaning that:
+                //- the table search is not empty and
+                //- the date_end is before than today
+                //- the current location is not too far from the place where the seach was originally made
 
+                if (Utility.isNetworkAvailable(mContext)) {
                     if (lastLongitude == null || lastLatitude == null) {
                         Integer searchId = Utility.findSearchByDate(mContext);
 
@@ -87,12 +90,11 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                             ForwardUtility.goToResults(true, searchId, mContext);
                         }
                     }
+                }else{
+                    ForwardUtility.goToFailure(mContext,true);
                 }
-            }, TIME_SPLASH);
-
-        }else{
-            ForwardUtility.goToFailure(mContext,true);
-        }
+            }
+        }, TIME_SPLASH);
     }
 
     @Override
