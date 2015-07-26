@@ -289,7 +289,8 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             style="@style/subtitleTextView"
-            android:layout_gravity="center" />
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="10dp" />
 
         <!-- Considerar apenas dias sem chuva-->
     </LinearLayout>
@@ -332,22 +333,21 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:orientation="horizontal"
             android:background="@drawable/border_gray"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
             android:gravity="right"
             android:id="@+id/fieldsTemperature"
             android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="6"
+                android:layout_weight="3"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center|bottom"
                 android:gravity="bottom" >
@@ -403,17 +403,18 @@
 
         </LinearLayout>
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/dont_care"
-                android:id="@+id/checkBoxTemperature"
-                android:layout_marginLeft="15dp"
-                android:layout_gravity="center"
-                style="@style/subtitleTextView" />
-
         </LinearLayout>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/dont_care"
+            android:id="@+id/checkBoxTemperature"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center|left"
+            style="@style/subtitleTextView" />
+
     </LinearLayout>
 
     <!-- Botao para pesquisar-->

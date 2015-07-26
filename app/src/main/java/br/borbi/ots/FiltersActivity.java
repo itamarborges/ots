@@ -171,7 +171,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
     //    temperatureCheckbox.setChecked(true);
 //        checkTemperature();
-
+/*
         temperatureCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,7 +181,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         distanceEditText.setText(DISTANCE_DEFAULT);
         Utility.positioningCursorInTheEnd(distanceEditText);
-
+*/
     }
 
     public void showCalendar(View view) {

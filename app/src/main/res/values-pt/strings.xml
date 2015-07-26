@@ -65,5 +65,5 @@
     <string name="internet_is_down">Você ainda não tem conexão à internet. Por favor, tente novamente.</string>
     <string name="min_temperature_abbreviated">MIN</string>
     <string name="max_temperature_abbreviated">MAX</string>
-    <string name="help_distance">Maximum distance from your current location.</string>
+    <string name="help_distance">Distância máxima da suaposição atual</string>
 </resources>
