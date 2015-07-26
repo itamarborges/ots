@@ -179,7 +179,8 @@
                 android:text="@string/km"
                 android:id="@+id/btnKm"
                 android:background="@color/ots_green"
-                android:textColor="@color/ots_pure_white" />
+                android:textColor="@color/ots_pure_white"
+                android:onClick="changeDistanceMeasure"/>
 
             <Button
                 android:layout_width="0dp"
@@ -187,7 +188,10 @@
                 android:layout_height="fill_parent"
                 android:text="@string/mi"
                 android:id="@+id/btnMi"
-                android:background="#E0E0E0" />
+                android:background="@color/ots_disabled_button_color"
+                android:textColor="@color/ots_pure_black"
+                android:onClick="changeDistanceMeasure"
+                />
 
             <RadioGroup
             android:id="@+id/radioGroupDistance"
@@ -351,18 +355,23 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="fill_parent"
-                android:text="@string/km"
-                android:id="@+id/button"
+                android:text="@string/celsius"
+                android:id="@+id/btnCelsius"
                 android:background="@color/ots_green"
-                android:textColor="@color/ots_pure_white" />
+                android:textColor="@color/ots_pure_white"
+                android:onClick="changeTemperatureMeasure"
+                />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="fill_parent"
-                android:text="@string/mi"
-                android:id="@+id/button2"
-                android:background="#E0E0E0" />
+                android:text="@string/farenheit"
+                android:id="@+id/btnFahrenheit"
+                android:background="@color/ots_disabled_button_color"
+                android:textColor="@color/ots_pure_black"
+                android:onClick="changeTemperatureMeasure"
+                />
 
             <RadioGroup
                 android:id="@+id/radioGroup"

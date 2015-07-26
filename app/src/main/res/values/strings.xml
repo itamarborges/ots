@@ -73,7 +73,8 @@
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
 
     <!-- M -->
-    <string name="minimum_distance">Please inform distance bigger than 60 miles.</string>
+    <string name="minimum_distance_kilometers">Please inform distance bigger than <xliff:g>%1$s</xliff:g> kilometers.</string>
+    <string name="minimum_distance_miles">Please inform distance bigger than <xliff:g>%1$s</xliff:g> miles.</string>
     <string name="minimum_days">Please inform number of days between 1 and <xliff:g>%1$s</xliff:g>.</string>
     <string name="more_details">+</string>
     <string name="morning">Morning</string>

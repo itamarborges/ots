@@ -19,7 +19,8 @@
     <string name="error_localization">Não foi possível determinar a sua localização.</string>
     <string name="celsius">C</string>
     <string name="begin_date_before_end_date">A data inicial deve ser anterior à data final.</string>
-    <string name="minimum_distance">Distância mínima é de 100 km.</string>
+    <string name="minimum_distance_kilometers">Distância mínima é de <xliff:g>%1$s</xliff:g> KM.</string>
+    <string name="minimum_distance_miles">Distância mínima é de <xliff:g>%1$s</xliff:g> milhas.</string>
     <string name="minimum_days">Número de dias deve ser entre 1 e <xliff:g>%1$s</xliff:g>.</string>
     <string name="invalid_fields">Por favor, verifique todos os campos destacados.</string>
     <string name="location_not_found">Ainda não foi possível determinar sua localização. Essa pesquisa pode não corresponder à sua localização atual.</string>

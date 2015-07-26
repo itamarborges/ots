@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
-    >
+    android:padding="5dp">
 
 
     <LinearLayout
@@ -189,7 +188,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnPrevious"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/ic_arrow_back_black_24dp"
+            android:background="@drawable/ic_navigate_before_black_24dp"
             style="?android:attr/borderlessButtonStyle"
             />
 
@@ -198,7 +197,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnNext"
             android:layout_alignParentRight="true"
-            android:background="@drawable/ic_arrow_forward_black_24dp"
+            android:background="@drawable/ic_navigate_next_black_24dp"
             style="?android:attr/borderlessButtonStyle"
             />
 
