@@ -13,7 +13,7 @@
     <string name="search">Allez!</string>
     <string name="qty_sunny_days">JOURS ENSOLEILLÉ</string>
     <string name="days">journées</string>
-    <string name="days_without_rain">Considérez jours nuageux (sans pluie) aussi ensoleillé</string>
+    <string name="days_without_rain">Considérez jours nuageux</string>
     <string name="min_temperature">TEMPÉRATURE MINIMALE</string>
     <string name="celsius">C</string>
     <string name="dont_care">Ça ne fait rien</string>

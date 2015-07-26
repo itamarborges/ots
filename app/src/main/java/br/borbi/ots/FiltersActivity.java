@@ -45,6 +45,7 @@ interface ClickFragment {
 public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
     public static final String CLASS_NAME = FiltersActivity.class.getName();
+    public static final int CITY_LOADER = 1;
     public static final String BUTTON_CLICKED = "BUTTON_CLICKED";
     public static final String DATE_BEGIN = "DATE_BEGIN";
     public static final String DATE_END = "DATE_END";
