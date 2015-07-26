@@ -156,21 +156,21 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         });
 
         //Temperatura
-        temperatureType = (RadioGroup) findViewById(R.id.radioGroupTemperature);
-        temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
-        temperatureCheckbox = (CheckBox) findViewById(R.id.checkBoxTemperature);
+        //temperatureType = (RadioGroup) findViewById(R.id.radioGroupTemperature);
+        //temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
+        //temperatureCheckbox = (CheckBox) findViewById(R.id.checkBoxTemperature);
 
-        radioButtonFarenheit = (RadioButton) findViewById(R.id.radioButtonFarenheit);
-        radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
+        //radioButtonFarenheit = (RadioButton) findViewById(R.id.radioButtonFarenheit);
+        //radioButtonCelsius = (RadioButton)findViewById(R.id.radioButtonCelsius);
 
         if (Utility.usesFahrenheit(this)){
-            radioButtonFarenheit.setChecked(true);
+  //          radioButtonFarenheit.setChecked(true);
         }else {
-            radioButtonCelsius.setChecked(true);
+//            radioButtonCelsius.setChecked(true);
         }
 
-        temperatureCheckbox.setChecked(true);
-        checkTemperature();
+    //    temperatureCheckbox.setChecked(true);
+//        checkTemperature();
 
         temperatureCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,12 +258,13 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         Integer temperature = null;
         if(temperatureString != null && !temperatureString.isEmpty()) {
             temperature = Integer.valueOf(temperatureEditText.getText().toString());
-            if (temperatureType.getCheckedRadioButtonId() == R.id.radioButtonFarenheit) {
+            /*if (temperatureType.getCheckedRadioButtonId() == R.id.radioButtonFarenheit) {
                 temperature= Utility.convertFarenheitToCelsius(temperature);
                 editor.putBoolean(OTSContract.USE_CELSIUS,false);
             }else{
                 editor.putBoolean(OTSContract.USE_CELSIUS,true);
             }
+            */
         }
 
         boolean dontUseTemperature = temperatureCheckbox.isChecked();
@@ -430,13 +431,13 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     }
 
     private void checkTemperature() {
-        boolean isChecked = temperatureCheckbox.isChecked();
-        RadioGroup temperatureRadioGroup = (RadioGroup) findViewById(R.id.radioGroupTemperature);
-        temperatureEditText.setEnabled(!isChecked);
-        temperatureRadioGroup.setEnabled(!isChecked);
-        radioButtonCelsius.setEnabled(!isChecked);
-        radioButtonFarenheit.setEnabled(!isChecked);
-
+//        boolean isChecked = temperatureCheckbox.isChecked();
+        //RadioGroup temperatureRadioGroup = (RadioGroup) findViewById(R.id.radioGroupTemperature);
+  //      temperatureEditText.setEnabled(!isChecked);
+        //temperatureRadioGroup.setEnabled(!isChecked);
+        //radioButtonCelsius.setEnabled(!isChecked);
+        //radioButtonFarenheit.setEnabled(!isChecked);
+/*
         if (!isChecked) {
             temperatureEditText.requestFocus();
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -446,5 +447,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(temperatureCheckbox.getWindowToken(), 0);
         }
+        */
     }
+
 }

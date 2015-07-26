@@ -20,7 +20,7 @@
     <string name="datePeriod">DATE</string>
     <string name="dateFormat">mm/dd/yyyy</string>
     <string name="days">days</string>
-    <string name="days_without_rain">Consider cloudy days (without rain) as sunny</string>
+    <string name="days_without_rain">Include cloudy days</string>
     <string name="distance_miles" translatable="false"><xliff:g>%1$s</xliff:g> mi</string>
     <string name="distance_kilometers" translatable="false"><xliff:g>%1$s</xliff:g> km</string>
     <string name="display_min_max_temperature" translatable="false"><xliff:g>%1$s</xliff:g>º/<xliff:g>%2$s</xliff:g>º</string>
