@@ -1,7 +1,7 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
-    <color name="pure_white">#FFFFFF</color>
+    <color name="ots_pure_white">#FFFFFF</color>
     <color name="yellow_bar">#FBC02D</color>
     <color name="yellow_light">#FFEB3B</color>
 
