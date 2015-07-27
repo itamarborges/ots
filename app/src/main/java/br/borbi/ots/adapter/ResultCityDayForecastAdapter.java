@@ -91,6 +91,7 @@ public class
             viewHolder.weatherImageView.setImageResource(R.drawable.no_border);
             viewHolder.layoutResultCityLinearLayout.setBackgroundResource(R.drawable.no_border);
             viewHolder.moreDetailsTextView.setText("");
+            viewHolder.moreDetailsTextView.setBackgroundResource(R.drawable.no_border);
         }else{
             Integer minTemperature = Utility.roundCeil(dayForecast.getMinTemperature());
             Integer maxTemperature = Utility.roundCeil(dayForecast.getMaxTemperature());
