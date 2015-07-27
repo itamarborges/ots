@@ -67,7 +67,9 @@
                     android:background="#E0E0E0"
                     android:padding="2dp"
                     android:src="@drawable/calendar"
-                    android:nestedScrollingEnabled="false" />
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="showCalendar"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +101,9 @@
             android:background="#E0E0E0"
             android:padding="2dp"
             android:src="@drawable/calendar"
-            android:nestedScrollingEnabled="false" />
+            android:nestedScrollingEnabled="false"
+            android:onClick="showCalendar"
+            />
            </LinearLayout>
 
     </LinearLayout>

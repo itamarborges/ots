@@ -186,7 +186,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         DialogFragment newFragment = new DatePickerFragment();
         Bundle bundleArgument = new Bundle();
 
-        viewIdClicked = (view.getId() == R.id.layoutDateBegin) ? R.id.calendarDateBegin: R.id.calendarDateEnd;
+        viewIdClicked = (view.getId() == R.id.layoutDateBegin || view.getId() == R.id.calendarDateBegin) ? R.id.calendarDateBegin: R.id.calendarDateEnd;
 
         bundleArgument.putInt(BUTTON_CLICKED, viewIdClicked);
         newFragment.setArguments(bundleArgument);
