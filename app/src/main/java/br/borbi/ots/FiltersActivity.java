@@ -18,13 +18,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.maps.MapsInitializer;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -45,7 +42,6 @@ interface ClickFragment {
 public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
     public static final String CLASS_NAME = FiltersActivity.class.getName();
-    public static final int CITY_LOADER = 1;
     public static final String BUTTON_CLICKED = "BUTTON_CLICKED";
     public static final String DATE_BEGIN = "DATE_BEGIN";
     public static final String DATE_END = "DATE_END";
@@ -62,13 +58,9 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     private static DateFormat dateFormat;
     private static TextView dateBeginView;
     private static TextView dateEndView;
-    private static RadioGroup distanceType;
     private static EditText distanceEditText;
     private static EditText daysEditText;
     private static CheckBox daysWithoutRainCheckbox;
-    private static RadioGroup temperatureType;
-    private static RadioButton radioButtonFarenheit;
-    private static RadioButton radioButtonCelsius;
     private static EditText temperatureEditText;
     private static CheckBox temperatureCheckbox;
     private static Date dateBegin;
@@ -83,7 +75,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     private boolean kilometersChecked = true;
 
     Context mContext;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,14 +163,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         temperatureCheckbox = (CheckBox) findViewById(R.id.checkBoxTemperature);
         celsiusButton= (Button)findViewById(R.id.btnCelsius);
         fahrenheitButton = (Button)findViewById(R.id.btnFahrenheit);
-
-        if (Utility.usesFahrenheit(this)){
-            activateButton(fahrenheitButton);
-            deactivateButton(celsiusButton);
-        }else {
-            activateButton(celsiusButton);
-            deactivateButton(fahrenheitButton);
-        }
 
         temperatureCheckbox.setChecked(true);
         checkTemperature();
@@ -474,20 +457,41 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         return (validDistance || validDays);
     }
 
+    private void activateTemperatureButtonsStatus(){
+        if (Utility.usesFahrenheit(this)){
+            activateButton(fahrenheitButton);
+            deactivateButton(celsiusButton);
+        }else {
+            activateButton(celsiusButton);
+            deactivateButton(fahrenheitButton);
+        }
+    }
+
+    private void disableTemperatureButtonsStatus(){
+        deactivateButton(fahrenheitButton);
+        deactivateButton(celsiusButton);
+        fahrenheitButton.setBackgroundResource(R.color.ots_disabled_button_color);
+        fahrenheitButton.setTextColor(getResources().getColor(R.color.ots_pure_white));
+        celsiusButton.setBackgroundResource(R.color.ots_disabled_button_color);
+        celsiusButton.setTextColor(getResources().getColor(R.color.ots_pure_white));
+    }
+
     /*
     Verifica se o checkbox "nao importa" para a temperatura minima esta marcado. Se estiver, desabilita o campo.
      */
     private void checkTemperature() {
         boolean isChecked = temperatureCheckbox.isChecked();
         temperatureEditText.setEnabled(!isChecked);
-        celsiusButton.setEnabled(!isChecked);
         fahrenheitButton.setEnabled(!isChecked);
+        celsiusButton.setEnabled(!isChecked);
 
         if (!isChecked) {
+            activateTemperatureButtonsStatus();
             temperatureEditText.requestFocus();
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(temperatureEditText, InputMethodManager.SHOW_IMPLICIT);
         } else {
+            disableTemperatureButtonsStatus();
             temperatureEditText.setText("");
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(temperatureCheckbox.getWindowToken(), 0);

@@ -373,7 +373,7 @@
                 android:layout_height="fill_parent"
                 android:text="@string/celsius"
                 android:id="@+id/btnCelsius"
-                android:background="@color/ots_green"
+                android:background="@color/ots_disabled_button_color"
                 android:textColor="@color/ots_pure_white"
                 android:onClick="changeTemperatureMeasure"
                 />
@@ -385,30 +385,10 @@
                 android:text="@string/farenheit"
                 android:id="@+id/btnFahrenheit"
                 android:background="@color/ots_disabled_button_color"
-                android:textColor="@color/ots_pure_black"
+                android:textColor="@color/ots_pure_white"
                 android:onClick="changeTemperatureMeasure"
                 />
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone" >
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kilometers"
-                    android:id="@+id/radioButton"
-                    android:layout_centerVertical="true" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/miles"
-                    android:id="@+id/radioButton2" />
-            </RadioGroup>
 
         </LinearLayout>
 
