@@ -38,6 +38,7 @@ public class CitiesAdapter extends BaseAdapter{
 
     private LinkedList<CityResultSearch> mCities;
     private final Context mContext;
+    private static boolean hasFoundCurrentCity = false;
 
     public CitiesAdapter(LinkedList<CityResultSearch> cities, Context context) {
         mCities = cities;
@@ -136,10 +137,11 @@ public class CitiesAdapter extends BaseAdapter{
             viewHolder.distanceTextView.setText(mContext.getString(R.string.distance_kilometers, Integer.toString(distance)));
         }
 
-        if(distance<=50){
+        if(distance<=50 && !hasFoundCurrentCity){
             viewHolder.youAreHereImageView.setVisibility(View.VISIBLE);
             viewHolder.distanceTextView.setVisibility(View.GONE);
             viewHolder.linearLayoutDistanceDistance.setVisibility(View.GONE);
+            hasFoundCurrentCity = true;
         }else{
             viewHolder.youAreHereImageView.setVisibility(View.GONE);
             viewHolder.distanceTextView.setVisibility(View.VISIBLE);

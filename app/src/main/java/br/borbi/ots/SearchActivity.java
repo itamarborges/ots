@@ -85,8 +85,8 @@ public class SearchActivity extends ActionBarActivity {
         //lastLatitude = -30.033333;
         //lastLongitude = -51.216667;
 
-        lastLatitude = 42.358429;
-        lastLongitude = -71.059769;
+        //lastLatitude = 42.358429;
+        //lastLongitude = -71.059769;
 
         if(lastLatitude == null || lastLongitude == null){
             Intent failureIntent = new Intent();
@@ -168,14 +168,11 @@ public class SearchActivity extends ActionBarActivity {
 
             List<DayForecast> dayForecasts = new LinkedList<DayForecast>();
 
-            Log.v(LOG_TAG,"--- cidade = " + city.getName());
-
             for (DayForecast dayForecast : city.getDayForecasts()) {
                 if (dayForecast.getDate().after(dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateBegin)) {
 
                     if (!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature) {
                         validCity = false;
-                        Log.v(LOG_TAG,"caiu fora pela temperatura");
                     }
 
                     if (dayForecast.getWeatherType().isSunnyDay(usesCloudyDays)) {
@@ -188,7 +185,6 @@ public class SearchActivity extends ActionBarActivity {
 
             if (contSunnyDays < numberSunnyDays) {
                 validCity = false;
-                Log.v(LOG_TAG,"caiu fora pelo nro dias com sol");
             }
 
             if (validCity) {

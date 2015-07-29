@@ -188,8 +188,6 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
 
                 if(isDistanceSmallerThanMinimumDistance(distance)) {
                     cities.add(new CityResultSearch(new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude), distance, idResultSearchCity));
-                }else{
-                    Log.v(LOG_TAG, strCityName + " nao vai ser exibida por distancia, dist = " + distance + ", dist min = " + getMininumDistance());
                 }
             }
             while (data.moveToNext());
