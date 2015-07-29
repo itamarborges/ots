@@ -155,7 +155,7 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
 
         //pick the language used by the device
         String language = Locale.getDefault().getLanguage();
-        language = "por";
+        //language = "por";
         //String locationSetting = Utility.getPreferredLocation(getActivity());
         Uri uriSearchByCities = OTSContract.CONTENT_URI_LIST_CITIES_BY_SEARCH;
 
@@ -188,6 +188,8 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
 
                 if(isDistanceSmallerThanMinimumDistance(distance)) {
                     cities.add(new CityResultSearch(new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude), distance, idResultSearchCity));
+                }else{
+                    Log.v(LOG_TAG, strCityName + " nao vai ser exibida por distancia, dist = " + distance + ", dist min = " + getMininumDistance());
                 }
             }
             while (data.moveToNext());

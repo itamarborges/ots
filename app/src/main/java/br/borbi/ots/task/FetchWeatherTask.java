@@ -116,6 +116,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
                     if (buffer.length() != 0) {
                         forecastJsonStr = buffer.toString();
+                        Log.v(LOG_TAG,forecastJsonStr);
                         cities.add(getWeatherDataFromJson(forecastJsonStr, cityToSearch));
                     }
                 }
@@ -229,7 +230,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             }
 
             city = new City(citySearched.getId(), citySearched.getName(), citySearched.getCountryCode(),daysForecast);
-
+            Log.v(LOG_TAG,city.toString());
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);

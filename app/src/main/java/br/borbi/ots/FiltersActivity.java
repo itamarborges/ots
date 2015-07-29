@@ -128,6 +128,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         if(Utility.usesMiles(this)){
             activateButton(milesButton);
             deactivateButton(kilometersButton);
+            kilometersChecked = false;
         }else {
             activateButton(kilometersButton);
             deactivateButton(milesButton);
@@ -203,6 +204,9 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
+
+        lastLatitude = 42.358429;
+        lastLongitude = -71.059769;
 
         if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
             ForwardUtility.goToFailure(mContext, false);
@@ -466,6 +470,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         if (Utility.usesFahrenheit(this)){
             activateButton(fahrenheitButton);
             deactivateButton(celsiusButton);
+            celsiusChecked = false;
         }else {
             activateButton(celsiusButton);
             deactivateButton(fahrenheitButton);

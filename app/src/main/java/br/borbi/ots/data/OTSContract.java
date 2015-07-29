@@ -48,7 +48,7 @@ public final class OTSContract {
     public static final int LANGUAGE_ID_POR = 100000;
 
     public static final String LANGUAGE_CODE_FRA = "fra";
-    public static final String LANGUAGE_CODE_ENG = "eng";
+    public static final String LANGUAGE_CODE_ENG = "en";
     public static final String LANGUAGE_CODE_POR = "por";
 
 
