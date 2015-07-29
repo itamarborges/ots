@@ -61,6 +61,11 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
             findLocation();
         }
 
+        //lastLatitude = 42.358429;
+        //lastLongitude = -71.059769;
+
+        //LocationUtility.saveCoordinates(lastLatitude,lastLongitude, this);
+
         new Timer().schedule(new TimerTask() {
 
             public void run() {
