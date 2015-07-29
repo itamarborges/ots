@@ -8,6 +8,7 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
     private City city;
     private Integer distance;
     private Integer idResultSearch;
+    private boolean isFirstCity;
 
     public CityResultSearch(City city, Integer distance, Integer idResultSearch) {
         this.city = city;
@@ -51,5 +52,13 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
     @Override
     public int compareTo(CityResultSearch another) {
         return this.getDistance().compareTo(another.getDistance());
+    }
+
+    public boolean isFirstCity() {
+        return isFirstCity;
+    }
+
+    public void setIsFirstCity(boolean isFirstCity) {
+        this.isFirstCity = isFirstCity;
     }
 }

@@ -187,13 +187,17 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
                 Integer distance  = Utility.roundCeil(CoordinatesUtillity.getDistance(getLastLatitude(), getLastLongitude(), cityLatitude, cityLongitude));
 
                 if(isDistanceSmallerThanMinimumDistance(distance)) {
-                    cities.add(new CityResultSearch(new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude), distance, idResultSearchCity));
+                    CityResultSearch cityResultSearch = new CityResultSearch(new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude), distance, idResultSearchCity);
+                    cities.add(cityResultSearch);
                 }
             }
             while (data.moveToNext());
         }
 
         Collections.sort(cities);
+        CityResultSearch cityResultSearch = cities.get(0);
+        cityResultSearch.setIsFirstCity(true);
+
         fillAdapter(cities);
     }
 

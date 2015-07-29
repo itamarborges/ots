@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,6 @@ public class CitiesAdapter extends BaseAdapter{
 
     private LinkedList<CityResultSearch> mCities;
     private final Context mContext;
-    private static boolean hasFoundCurrentCity = false;
 
     public CitiesAdapter(LinkedList<CityResultSearch> cities, Context context) {
         mCities = cities;
@@ -137,11 +137,10 @@ public class CitiesAdapter extends BaseAdapter{
             viewHolder.distanceTextView.setText(mContext.getString(R.string.distance_kilometers, Integer.toString(distance)));
         }
 
-        if(distance<=50 && !hasFoundCurrentCity){
+        if(distance<=50 && cityResultSearch.isFirstCity()){
             viewHolder.youAreHereImageView.setVisibility(View.VISIBLE);
             viewHolder.distanceTextView.setVisibility(View.GONE);
             viewHolder.linearLayoutDistanceDistance.setVisibility(View.GONE);
-            hasFoundCurrentCity = true;
         }else{
             viewHolder.youAreHereImageView.setVisibility(View.GONE);
             viewHolder.distanceTextView.setVisibility(View.VISIBLE);
