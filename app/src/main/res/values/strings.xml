@@ -14,7 +14,7 @@
     <!-- C -->
     <string name="continue_without_my_location">Continue without my location</string>
     <string name="continue_anyway">Continue anyway</string>
-    <string name="celsius">C</string>
+    <string name="celsius" translatable="false">C</string>
 
     <!-- D -->
     <string name="datePeriod">DATE</string>
@@ -40,7 +40,7 @@
     <string name="explanation_why">Why is this important?</string>
     <string name="explanation_localization">If the app can\'t find where you are, it won\'t be possible to determine which cities are in distance radius informed. It\'s essential that the location is set on your device so you can use this app.</string>
     <string name="explanation_internet">If you don\'t have an internet connection, it won\'t be possible to search for the weather forecast. It\'s essential that the internet connection is active in your device so you can use this app</string>
-    <string name="error_localization">Não foi possível determinar a sua localização.</string>
+    <string name="error_localization">It was not possible to determine your location.</string>
 
     <!-- F -->
     <string name="failure_message_localization">Oops... It was not possible determine your location. Set the location on your device and press \"Try to find me\" button.</string>
@@ -76,7 +76,7 @@
     <string name="minimum_distance_kilometers">Please inform distance bigger than <xliff:g>%1$s</xliff:g> kilometers.</string>
     <string name="minimum_distance_miles">Please inform distance bigger than <xliff:g>%1$s</xliff:g> miles.</string>
     <string name="minimum_days">Please inform number of days between 1 and <xliff:g>%1$s</xliff:g>.</string>
-    <string name="more_details">+</string>
+    <string name="more_details" translatable="false">+</string>
     <string name="morning">Morning</string>
     <string name="max_temperature">Maximum temperature:</string>
     <string name="max_distance">DISTANCE</string>

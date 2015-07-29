@@ -15,7 +15,6 @@
     <string name="days">journées</string>
     <string name="days_without_rain">Considérez jours nuageux</string>
     <string name="min_temperature">TEMPÉRATURE MINIMALE</string>
-    <string name="celsius">C</string>
     <string name="dont_care">Ça ne fait rien</string>
 
     <string name="error_localization">Não foi possível determinar a sua localização.</string>
@@ -36,7 +35,6 @@
     <string name="no_data_available">Aucune ville ensoleillée a été trouvé. Essayez de changer les dates, la distance, le nombre de jours d\'ensoleillement ou la température minimum.</string>
     <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F à <xliff:g>%2$s</xliff:g>º F</string>
     <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g>º C à <xliff:g>%2$s</xliff:g>º C</string>
-    <string name="more_details">+</string>
     <string name="beach">Plage</string>
     <string name="average_temperature">Température Moyenne:</string>
     <string name="morning">Matin</string>

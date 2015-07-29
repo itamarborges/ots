@@ -1,10 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/ots_blue</item>
         <item name="colorPrimaryDark">@color/ots_dark_blue</item>
+        <item name="android:actionBarStyle">@style/MyTheme</item>
+    </style>
+
+
+    <style name="MyTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="icon">@drawable/logo</item>
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">

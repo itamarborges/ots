@@ -17,7 +17,6 @@
     <string name="min_temperature">TEMPERATURA MÍNIMA</string>
     <string name="dont_care">Não importa</string>
     <string name="error_localization">Não foi possível determinar a sua localização.</string>
-    <string name="celsius">C</string>
     <string name="begin_date_before_end_date">A data inicial deve ser anterior à data final.</string>
     <string name="minimum_distance_kilometers">Distância mínima é de <xliff:g>%1$s</xliff:g> KM.</string>
     <string name="minimum_distance_miles">Distância mínima é de <xliff:g>%1$s</xliff:g> milhas.</string>
@@ -37,7 +36,6 @@
     <string name="failure_message_localization">Ops ... Não foi possível determinar sua localização. Habilite a localização em seu dispositivo e pressione o botão \"Tente me achar\".</string>
     <string name="max_temperature">Temperatura máxima:</string>
     <string name="no_data_available">Nenhuma cidade com sol encontrada. Tente alterar o período de dias, a distância, o número de dias com sol ou a temperatura mínima.</string>
-    <string name="more_details">+</string>
     <string name="average_temperature">Temperaturas Médias:</string>
     <string name="morning">Manhã</string>
     <string name="afternoon">Tarde</string>

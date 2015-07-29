@@ -80,6 +80,8 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             final String FORMAT_PARAM = "mode";
             final String UNITS_PARAM = "units";
             final String DAYS_PARAM = "cnt";
+            final String APPID_KEY = "5ed032e071b3b0d20ae075ff8f8c7215";
+            final String APPID_PARAM = "APPID";
 
             Iterator<City> it = citiesToSearch.iterator();
             while(it.hasNext()){
@@ -89,10 +91,12 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                         .appendQueryParameter(QUERY_PARAM, cityToSearch.getName()+"," + cityToSearch.getCountryCode())
                         .appendQueryParameter(FORMAT_PARAM, format)
                         .appendQueryParameter(UNITS_PARAM, units)
+                        .appendQueryParameter(APPID_PARAM, APPID_KEY)
                         .appendQueryParameter(DAYS_PARAM, String.valueOf(searchParameters.getNumberOfDays()))
                         .build();
 
                 URL url = new URL(builtUri.toString());
+                Log.v("123", url.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
