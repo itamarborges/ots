@@ -34,6 +34,7 @@ import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.CoordinatesUtillity;
+import br.borbi.ots.utility.ForecastUtility;
 import br.borbi.ots.utility.Utility;
 
 /**
@@ -48,6 +49,7 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
 
     private Double lastLatitude;
     private Double lastLongitude;
+    private String mCurrentCityName;
 
     private Integer mininumDistance;
 
@@ -122,13 +124,26 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
         this.mininumDistance = mininumDistance;
     }
 
+    public String getmCurrentCityName() {
+        if(mCurrentCityName==null){
+            setCoordinates();
+        }
+        return mCurrentCityName;
+    }
+
+    public void setmCurrentCityName(String mCurrentCityName) {
+        this.mCurrentCityName = mCurrentCityName;
+    }
+
     private void setCoordinates(){
         SharedPreferences sharedPreferences = getActivity().getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
+        String cityName = sharedPreferences.getString(OTSContract.SHARED_CITY_NAME,"");
         this.setLastLatitude(lastLatitude);
         this.setLastLongitude(lastLongitude);
+        this.setmCurrentCityName(cityName);
     }
 
     @Override
@@ -195,8 +210,12 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
         }
 
         Collections.sort(cities);
-        CityResultSearch cityResultSearch = cities.get(0);
-        cityResultSearch.setIsFirstCity(true);
+        if(cities.size() > 0){
+            CityResultSearch cityResultSearch = cities.get(0);
+            if(cityResultSearch.getCity().getName().equals(getmCurrentCityName())){
+                cityResultSearch.setIsFirstCity(true);
+            }
+        }
 
         fillAdapter(cities);
     }

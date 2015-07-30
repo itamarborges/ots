@@ -3,6 +3,7 @@ package br.borbi.ots;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.google.android.gms.location.LocationServices;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import br.borbi.ots.utility.ForecastUtility;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.Utility;
@@ -61,6 +63,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
             findLocation();
         }
 
+        //TODO EXCLUIR AS PROXIMAS 3 LINHAS AO DAR BUILD EM PRODUCAO!
         //lastLatitude = 42.358429;
         //lastLongitude = -71.059769;
 
@@ -156,7 +159,25 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         lastLatitude = location.getLatitude();
         lastLongitude = location.getLongitude();
 
-        LocationUtility.saveCoordinates(lastLatitude,lastLongitude, this);
+        LocationUtility.saveCoordinates(lastLatitude, lastLongitude, this);
         LocationUtility.disconnectFromLocationServices(mGoogleApiClient, this);
+
+        new FindCurrentLocationCityNameTask().execute(lastLatitude,lastLongitude);
     }
+
+    private class FindCurrentLocationCityNameTask extends AsyncTask<Double, Integer, String> {
+        protected String doInBackground(Double... params) {
+            Double latitude = params[0];
+            Double longitude = params[1];
+
+            String cityName = ForecastUtility.findCurrentLocationCityName(lastLatitude, lastLongitude);
+            Log.v(LOG_TAG,"cityNAme = " + cityName);
+            return cityName ;
+        }
+
+        protected void onPostExecute(String cityName) {
+            LocationUtility.saveCityName(cityName, mContext);
+        }
+    }
+
 }
