@@ -205,10 +205,8 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        //lastLatitude = 42.358429;
-        //lastLongitude = -71.059769;
-
         if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
+            //TODO MOSTRAR DIALOGO AQUI, AO INVES DE ENCAMINHAR PARA A TELA DE FALHA
             ForwardUtility.goToFailure(mContext, false);
 
         }else {

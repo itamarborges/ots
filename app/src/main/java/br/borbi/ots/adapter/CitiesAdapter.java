@@ -137,7 +137,7 @@ public class CitiesAdapter extends BaseAdapter{
             viewHolder.distanceTextView.setText(mContext.getString(R.string.distance_kilometers, Integer.toString(distance)));
         }
 
-        if(distance<=50 && cityResultSearch.isFirstCity()){
+        if(cityResultSearch.isFirstCity()){
             viewHolder.youAreHereImageView.setVisibility(View.VISIBLE);
             viewHolder.distanceTextView.setVisibility(View.GONE);
             viewHolder.linearLayoutDistanceDistance.setVisibility(View.GONE);

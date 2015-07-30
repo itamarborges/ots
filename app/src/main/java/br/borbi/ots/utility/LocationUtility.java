@@ -46,21 +46,12 @@ public class LocationUtility {
         editor.apply();
     }
 
-    public static void saveCityName(String cityName, Context context) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(OTSContract.SHARED_CITY_NAME,cityName);
-        editor.apply();
-    }
-
     public static void cleanSavedCoordinates(Activity activity){
         SharedPreferences sharedPreferences = activity.getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.remove(OTSContract.SHARED_LATITUDE);
         editor.remove(OTSContract.SHARED_LONGITUDE);
-        editor.remove(OTSContract.SHARED_CITY_NAME);
-
         editor.apply();
     }
 }
