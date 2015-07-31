@@ -82,11 +82,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
 
-        //ActionBar mActionBar = getSupportActionBar();
-
-        //mActionBar.setLogo(R.drawable.logo);
-        //mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
-
         mContext = this;
 
         AdView mAdView = null;
