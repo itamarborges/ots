@@ -1,13 +1,16 @@
 package br.borbi.ots;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -207,7 +210,29 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
             //TODO MOSTRAR DIALOGO AQUI, AO INVES DE ENCAMINHAR PARA A TELA DE FALHA
-            ForwardUtility.goToFailure(mContext, false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.location).setTitle(R.string.location_turn_on);
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(intent);
+
+                }
+            });
+            builder.setNegativeButton(R.string.not_now, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User cancelled the dialog
+                    Toast.makeText(mContext,getText(R.string.location_explanation),Toast.LENGTH_LONG).show();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+
+            //ForwardUtility.goToFailure(mContext, false);
 
         }else {
             boolean allFieldsValid = validateFields();

@@ -72,6 +72,9 @@
     <string name="location_found">Your location was determined successfully.</string>
     <string name="location_not_found_yet">Your location wasn\'t found yet. Please, try again.</string>
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
+    <string name="location">This app needs you to turn the location services on in order to determine which cities are near you. You won\'t be able to use this app if location isn\'t active.</string>
+    <string name="location_turn_on">Turn on location services?</string>
+    <string name="location_explanation">Please turn your location services on to use this app.</string>
 
     <!-- M -->
     <string name="minimum_distance_kilometers">Please inform distance bigger than <xliff:g>%1$s</xliff:g> kilometers.</string>
@@ -91,6 +94,7 @@
     <string name="next">Next</string>
     <string name="night">Night</string>
     <string name="no_data_available">No sunny city was found. Try to change the dates, the distance, the number of sunny days or the minimum temperature.</string>
+    <string name="not_now">Not now</string>
 
     <!-- O -->
 
@@ -134,7 +138,7 @@
 
 
     <!-- Y -->
-
+    <string name="yes">Yes</string>
 
     <!-- Z -->
 
