@@ -66,4 +66,9 @@
     <string name="internet_is_down">Your internet connection still seems to be down. Please, try again.</string>
     <string name="min_temperature_abbreviated">MIN</string>
     <string name="max_temperature_abbreviated">MAX</string>
+    <string name="location">This app needs you to turn the location services on in order to determine which cities are near you. You won\'t be able to use this app if location isn\'t active.</string>
+    <string name="location_explanation">Please turn your location services on to use this app.</string>
+    <string name="location_turn_on">Turn on location services?</string>
+    <string name="not_now">Pas maintenant</string>
+    <string name="yes">Oui</string>
 </resources>

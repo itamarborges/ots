@@ -149,6 +149,11 @@ public class SearchActivity extends ActionBarActivity {
 
     private void searchWeatherData(List<City> cities, int numberOfDays) {
         SearchParameters searchParameters = new SearchParameters(numberOfDays, cities);
+        Log.v(LOG_TAG,"cidades q vai procurar");
+        for (City city:cities){
+            Log.v(LOG_TAG,city.getName());
+        }
+
 
         getContentResolver().delete(OTSContract.Search.CONTENT_URI,null,null);
 
@@ -206,6 +211,10 @@ public class SearchActivity extends ActionBarActivity {
 
         if (mCities.size() > 0) {
             saveSearch(search);
+            Log.v(LOG_TAG,"cidades salvas na pesquisa");
+            for(City city:mCities){
+                Log.v(LOG_TAG,city.getName());
+            }
         }
 
         if(mWarningTask!=null) {

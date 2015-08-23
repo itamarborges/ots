@@ -58,8 +58,8 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     private static final int CITIES_LOADER = 0;
 
     private static final String[] CITIES_COLUMNS = {
-            OTSContract.RelCountryLanguage.TABLE_NAME + "." + OTSContract.RelCountryLanguage.COLUMN_NAME_NAME,
-            OTSContract.RelCityLanguage.TABLE_NAME + "." + OTSContract.RelCityLanguage.COLUMN_NAME_NAME,
+            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_NAME_ENGLISH,
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH,
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID,
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity._ID,
             OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID,
@@ -152,22 +152,15 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        String sortOrder = OTSContract.RelCityLanguage.TABLE_NAME + "." + OTSContract.RelCityLanguage.COLUMN_NAME_NAME +" ASC";
+        String sortOrder = OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH +" ASC";
 
-        //pick the language used by the device
-        String language = Locale.getDefault().getLanguage();
-        //language = "por";
-        //String locationSetting = Utility.getPreferredLocation(getActivity());
         Uri uriSearchByCities = OTSContract.CONTENT_URI_LIST_CITIES_BY_SEARCH;
-
-        String[] selectionArgs = new String[]{language};
-        String selection = OTSProvider.FILTER_BY_LOCALE;
 
         return new CursorLoader(getActivity(),
                 uriSearchByCities,
                 CITIES_COLUMNS,
-                selection,
-                selectionArgs,
+                null,
+                null,
                 sortOrder);
     }
 
@@ -175,6 +168,8 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
         LinkedList<CityResultSearch> cities = new LinkedList<>();
+
+        Log.v(LOG_TAG,"cidades q serao exibidas");
 
         if (data.moveToFirst()) {
             do {
@@ -184,6 +179,8 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
                 int idCity = data.getInt(CitiesFragment.INDEX_CITY_ID);
                 Double cityLatitude = data.getDouble(CitiesFragment.INDEX_CITY_LATITUDE);
                 Double cityLongitude = data.getDouble(CitiesFragment.INDEX_CITY_LONGITUDE);
+
+                Log.v(LOG_TAG,strCityName);
 
                 Integer distance  = Utility.roundCeil(CoordinatesUtillity.getDistance(getLastLatitude(), getLastLongitude(), cityLatitude, cityLongitude));
 
@@ -218,6 +215,7 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     private boolean isDistanceSmallerThanMinimumDistance(Integer distance){
+        Log.v(LOG_TAG,"dist minima = " + getMininumDistance());
         if(getMininumDistance() == null || getMininumDistance().intValue() == 0 || (getMininumDistance().compareTo(distance) >=0)){
             return true;
         }

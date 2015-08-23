@@ -115,6 +115,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
                     if (buffer.length() != 0) {
                         forecastJsonStr = buffer.toString();
+                        Log.v(LOG_TAG,"cidade = " + cityToSearch.getName() + ", resultado = " + forecastJsonStr);
                         cities.add(getWeatherDataFromJson(forecastJsonStr, cityToSearch));
                     }
                 }
@@ -173,61 +174,66 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
         try {
             JSONObject forecastJson = new JSONObject(forecastJsonStr);
-            JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
+            if(!forecastJson.has(OWM_LIST)){
+                Log.v(LOG_TAG,"cidade " + citySearched.getName() + " nao encontrada");
+            }else{
+                JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
 
-            JSONObject cityJson = forecastJson.getJSONObject(OWM_CITY);
+                JSONObject cityJson = forecastJson.getJSONObject(OWM_CITY);
 
-            // OWM returns daily forecasts based upon the local time of the city that is being
-            // asked for, which means that we need to know the GMT offset to translate this data
-            // properly.
+                // OWM returns daily forecasts based upon the local time of the city that is being
+                // asked for, which means that we need to know the GMT offset to translate this data
+                // properly.
 
-            // Since this data is also sent in-order and the first day is always the
-            // current day, we're going to take advantage of that to get a nice
-            // normalized UTC date for all of our weather.
+                // Since this data is also sent in-order and the first day is always the
+                // current day, we're going to take advantage of that to get a nice
+                // normalized UTC date for all of our weather.
 
-            Time dayTime = new Time();
-            dayTime.setToNow();
+                Time dayTime = new Time();
+                dayTime.setToNow();
 
-            // we start at the day returned by local time. Otherwise this is a mess.
-            int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
+                // we start at the day returned by local time. Otherwise this is a mess.
+                int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
 
-            // now we work exclusively in UTC
-            dayTime = new Time();
+                // now we work exclusively in UTC
+                dayTime = new Time();
 
-            for (int i = 0; i < weatherArray.length(); i++) {
+                for (int i = 0; i < weatherArray.length(); i++) {
 
-                // Get the JSON object representing the day
-                JSONObject dayForecast = weatherArray.getJSONObject(i);
+                    // Get the JSON object representing the day
+                    JSONObject dayForecast = weatherArray.getJSONObject(i);
 
-                // Cheating to convert this to UTC time, which is what we want anyhow
-                long dateTime = dayTime.setJulianDay(julianStartDay + i);
+                    // Cheating to convert this to UTC time, which is what we want anyhow
+                    long dateTime = dayTime.setJulianDay(julianStartDay + i);
 
-                // Description is in a child array called "weather", which is 1 element long.
-                // That element also contains a weather code.
-                JSONObject weatherObject = dayForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
-                String description = weatherObject.getString(OWM_DESCRIPTION);
-                int weatherId = weatherObject.getInt(OWM_WEATHER_ID);
+                    // Description is in a child array called "weather", which is 1 element long.
+                    // That element also contains a weather code.
+                    JSONObject weatherObject = dayForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
+                    String description = weatherObject.getString(OWM_DESCRIPTION);
+                    int weatherId = weatherObject.getInt(OWM_WEATHER_ID);
 
-                // Temperatures are in a child object called "temp".  Try not to name variables
-                // "temp" when working with temperature.  It confuses everybody.
-                JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
-                Double high = temperatureObject.getDouble(OWM_MAX);
-                Double low = temperatureObject.getDouble(OWM_MIN);
-                Double morningTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_MORNING);
-                Double eveningTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_EVENING);
-                Double nightTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_NIGHT);
+                    // Temperatures are in a child object called "temp".  Try not to name variables
+                    // "temp" when working with temperature.  It confuses everybody.
+                    JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
+                    Double high = temperatureObject.getDouble(OWM_MAX);
+                    Double low = temperatureObject.getDouble(OWM_MIN);
+                    Double morningTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_MORNING);
+                    Double eveningTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_EVENING);
+                    Double nightTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_NIGHT);
 
-                Double humidity = dayForecast.getDouble(OWM_HUMIDITY);
-                Double precipitation = null;
-                if(dayForecast.has(OWM_PRECIPITATION)) {
-                    precipitation = dayForecast.getDouble(OWM_PRECIPITATION);
+                    Double humidity = dayForecast.getDouble(OWM_HUMIDITY);
+                    Double precipitation = null;
+                    if(dayForecast.has(OWM_PRECIPITATION)) {
+                        precipitation = dayForecast.getDouble(OWM_PRECIPITATION);
+                    }
+
+                    DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high,morningTemperature,eveningTemperature,nightTemperature, WeatherType.getWeatherType(weatherId),precipitation,humidity);
+                    daysForecast.add(forecastForTheDay);
                 }
 
-                DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high,morningTemperature,eveningTemperature,nightTemperature, WeatherType.getWeatherType(weatherId),precipitation,humidity);
-                daysForecast.add(forecastForTheDay);
-            }
+                city = new City(citySearched.getId(), citySearched.getName(), citySearched.getCountryCode(),daysForecast);
 
-            city = new City(citySearched.getId(), citySearched.getName(), citySearched.getCountryCode(),daysForecast);
+            }
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, e.getMessage(), e);

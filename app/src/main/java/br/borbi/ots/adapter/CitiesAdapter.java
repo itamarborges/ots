@@ -97,7 +97,7 @@ public class CitiesAdapter extends BaseAdapter{
             String selection = OTSProvider.FILTER_BY_CITY;
             String[] selectionArgs = new String[]{String.valueOf(idCity)};
 
-            String sortOrder = OTSContract.RelCityLanguage.TABLE_NAME + "." + OTSContract.RelCityLanguage.COLUMN_NAME_NAME + " ASC";
+            String sortOrder = OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH + " ASC";
 
             //Recupera as tags
             Cursor c = mContext.getContentResolver().query(

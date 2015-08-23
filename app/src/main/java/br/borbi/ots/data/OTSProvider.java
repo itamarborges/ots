@@ -21,6 +21,7 @@ import br.borbi.ots.entity.Search;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.DayForecast;
+import br.borbi.ots.utility.LogUtility;
 
 /**
  * Created by Itamar on 08/04/2015.
@@ -30,9 +31,6 @@ public class OTSProvider extends ContentProvider {
     static final int TAG = 100;
     static final int REL_CITY_TAG = 200;
     static final int CITY = 300;
-    static final int LANGUAGE = 400;
-    static final int REL_COUNTRY_LANGUAGE = 500;
-    static final int REL_CITY_LANGUAGE = 600;
     static final int COUNTRY = 700;
     static final int SEARCH = 800;
     static final int REL_SEARCH_CITY = 900;
@@ -43,10 +41,6 @@ public class OTSProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final String CLASS_NAME = OTSProvider.class.getName();
     private OTSDbHelper mOpenHelper;
-
-    public static final String FILTER_BY_LOCALE=
-            OTSContract.Language.TABLE_NAME+
-                    "." + OTSContract.Language.COLUMN_NAME_LANGUAGE_CODE + " = ? ";
 
     public static final String FILTER_BY_CITY=
             OTSContract.City.TABLE_NAME+
@@ -64,9 +58,6 @@ public class OTSProvider extends ContentProvider {
         uriMatcher.addURI(authority, OTSContract.PATH_TAG, TAG);
         uriMatcher.addURI(authority, OTSContract.PATH_REL_CITY_TAG, REL_CITY_TAG);
         uriMatcher.addURI(authority, OTSContract.PATH_CITY, CITY);
-        uriMatcher.addURI(authority, OTSContract.PATH_LANGUAGE, LANGUAGE);
-        uriMatcher.addURI(authority, OTSContract.PATH_REL_COUNTRY_LANGUAGE, REL_COUNTRY_LANGUAGE);
-        uriMatcher.addURI(authority, OTSContract.PATH_REL_CITY_LANGUAGE, REL_CITY_LANGUAGE);
         uriMatcher.addURI(authority, OTSContract.PATH_COUNTRY, COUNTRY);
         uriMatcher.addURI(authority, OTSContract.PATH_SEARCH, SEARCH);
         uriMatcher.addURI(authority, OTSContract.PATH_REL_SEARCH_CITY, REL_SEARCH_CITY);
@@ -78,7 +69,6 @@ public class OTSProvider extends ContentProvider {
 
         return uriMatcher;
     }
-
 
     @Override
     public boolean onCreate() {
@@ -117,42 +107,6 @@ public class OTSProvider extends ContentProvider {
             case CITY: {
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         OTSContract.City.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder
-                );
-                break;
-            }
-            case LANGUAGE: {
-                retCursor = mOpenHelper.getReadableDatabase().query(
-                        OTSContract.Language.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder
-                );
-                break;
-            }
-            case REL_COUNTRY_LANGUAGE: {
-                retCursor = mOpenHelper.getReadableDatabase().query(
-                        OTSContract.RelCountryLanguage.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder
-                );
-                break;
-            }
-            case REL_CITY_LANGUAGE: {
-                retCursor = mOpenHelper.getReadableDatabase().query(
-                        OTSContract.RelCityLanguage.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -240,12 +194,6 @@ public class OTSProvider extends ContentProvider {
                 return OTSContract.RelCityTag.CONTENT_TYPE;
             case CITY:
                 return OTSContract.City.CONTENT_TYPE;
-            case LANGUAGE:
-                return OTSContract.Language.CONTENT_TYPE;
-            case REL_COUNTRY_LANGUAGE:
-                return OTSContract.RelCountryLanguage.CONTENT_TYPE;
-            case REL_CITY_LANGUAGE:
-                return OTSContract.RelCityLanguage.CONTENT_TYPE;
             case COUNTRY:
                 return OTSContract.Country.CONTENT_TYPE;
             case SEARCH:
@@ -257,7 +205,6 @@ public class OTSProvider extends ContentProvider {
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
-
     }
 
     @Override
@@ -287,30 +234,6 @@ public class OTSProvider extends ContentProvider {
                 long _id = db.insert(OTSContract.City.TABLE_NAME, null, values);
                 if (_id > 0)
                     returnUri = OTSContract.City.buildCityUri(_id);
-                else
-                    throw new android.database.SQLException("Failed to insert row into " + uri);
-                break;
-            }
-            case LANGUAGE: {
-                long _id = db.insert(OTSContract.Language.TABLE_NAME, null, values);
-                if (_id > 0)
-                    returnUri = OTSContract.Language.buildLanguageUri(_id);
-                else
-                    throw new android.database.SQLException("Failed to insert row into " + uri);
-                break;
-            }
-            case REL_COUNTRY_LANGUAGE: {
-                long _id = db.insert(OTSContract.RelCountryLanguage.TABLE_NAME, null, values);
-                if (_id > 0)
-                    returnUri = OTSContract.RelCountryLanguage.buildRelCountryLanguageUri(_id);
-                else
-                    throw new android.database.SQLException("Failed to insert row into " + uri);
-                break;
-            }
-            case REL_CITY_LANGUAGE: {
-                long _id = db.insert(OTSContract.RelCityLanguage.TABLE_NAME, null, values);
-                if (_id > 0)
-                    returnUri = OTSContract.RelCityLanguage.buildRelCityLanguageUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
@@ -375,18 +298,6 @@ public class OTSProvider extends ContentProvider {
                 rowsDeleted = db.delete(
                         OTSContract.City.TABLE_NAME, selection, selectionArgs);
                 break;
-            case LANGUAGE:
-                rowsDeleted = db.delete(
-                        OTSContract.Language.TABLE_NAME, selection, selectionArgs);
-                break;
-            case REL_COUNTRY_LANGUAGE:
-                rowsDeleted = db.delete(
-                        OTSContract.RelCountryLanguage.TABLE_NAME, selection, selectionArgs);
-                break;
-            case REL_CITY_LANGUAGE:
-                rowsDeleted = db.delete(
-                        OTSContract.RelCityLanguage.TABLE_NAME, selection, selectionArgs);
-                break;
             case COUNTRY:
                 rowsDeleted = db.delete(
                         OTSContract.Country.TABLE_NAME, selection, selectionArgs);
@@ -430,18 +341,6 @@ public class OTSProvider extends ContentProvider {
                 break;
             case CITY:
                 rowsUpdated = db.update(OTSContract.City.TABLE_NAME, values, selection,
-                        selectionArgs);
-                break;
-            case LANGUAGE:
-                rowsUpdated = db.update(OTSContract.Language.TABLE_NAME, values, selection,
-                        selectionArgs);
-                break;
-            case REL_COUNTRY_LANGUAGE:
-                rowsUpdated = db.update(OTSContract.RelCountryLanguage.TABLE_NAME, values, selection,
-                        selectionArgs);
-                break;
-            case REL_CITY_LANGUAGE:
-                rowsUpdated = db.update(OTSContract.RelCityLanguage.TABLE_NAME, values, selection,
                         selectionArgs);
                 break;
             case COUNTRY:
@@ -575,7 +474,6 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
 
          */
 
-
         sWeatherBySearchQueryBuilder.setTables(
                 OTSContract.Search.TABLE_NAME + " INNER JOIN " +
                         OTSContract.RelSearchCity.TABLE_NAME +
@@ -590,42 +488,18 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
                         " = " + OTSContract.RelSearchCity.TABLE_NAME +
                         "." + OTSContract.RelSearchCity.COLUMN_NAME_CITY_ID +
                         " INNER JOIN " +
-                        OTSContract.RelCityLanguage.TABLE_NAME +
-                        " ON " + OTSContract.RelCityLanguage.TABLE_NAME +
-                        "." + OTSContract.RelCityLanguage.COLUMN_NAME_CITY_ID +
-                        " = " + OTSContract.City.TABLE_NAME +
-                        "." + OTSContract.City._ID +
-                        " INNER JOIN " +
                         OTSContract.Country.TABLE_NAME +
                         " ON " + OTSContract.Country.TABLE_NAME +
                         "." + OTSContract.Country._ID +
                         " = " + OTSContract.City.TABLE_NAME +
-                        "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID +
-                        " INNER JOIN " +
-                        OTSContract.RelCountryLanguage.TABLE_NAME +
-                        " ON " + OTSContract.Country.TABLE_NAME +
-                        "." + OTSContract.Country._ID +
-                        " = " + OTSContract.RelCountryLanguage.TABLE_NAME +
-                        "." + OTSContract.RelCountryLanguage.COLUMN_NAME_COUNTRY_ID +
-                        " INNER JOIN " +
-                        OTSContract.Language.TABLE_NAME +
-                        " ON ("
-                        + OTSContract.Language.TABLE_NAME +
-                        "." + OTSContract.Language._ID +
-                        " = " + OTSContract.RelCountryLanguage.TABLE_NAME +
-                        "." + OTSContract.RelCountryLanguage.COLUMN_NAME_LANGUAGE_ID +
-                        " AND " +
-                        OTSContract.Language.TABLE_NAME +
-                        "." + OTSContract.Language._ID +
-                        " = " + OTSContract.RelCityLanguage.TABLE_NAME +
-                        "." + OTSContract.RelCityLanguage.COLUMN_NAME_LANGUAGE_ID+")");
+                        "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID );
 
 
         Log.v(CLASS_NAME, "=== projection = ");
-        printArray(projection);
+        LogUtility.printArray(CLASS_NAME,projection);
         Log.v(CLASS_NAME, "==== selection = " + selection);
         Log.v(CLASS_NAME, "==== selectionArgs = ");
-        printArray(selectionArgs);
+        LogUtility.printArray(CLASS_NAME, selectionArgs);
         Log.v(CLASS_NAME, "tables = " + sWeatherBySearchQueryBuilder.getTables());
 
         return sWeatherBySearchQueryBuilder.query(mOpenHelper.getReadableDatabase(),
@@ -636,7 +510,6 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
                 null,
                 null);
     }
-
 
     @Override
     public Bundle call(String method, String arg, Bundle extras) {
@@ -721,35 +594,4 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
 
         return bundle;
     }
-
-
-    private void normalizeDate(ContentValues values) {
-        // normalize the date value
-        if (values.containsKey(OTSContract.Search.COLUMN_NAME_DATE_BEGIN) || values.containsKey(OTSContract.Search.COLUMN_NAME_DATE_BEGIN)) {
-            long dateValue = values.getAsLong(OTSContract.Search.COLUMN_NAME_DATE_BEGIN);
-            values.put(OTSContract.Search.COLUMN_NAME_DATE_BEGIN, normalizeDate(dateValue));
-        }
-    }
-
-
-    // To make it easy to query for the exact date, we normalize all dates that go into
-    // the database to the start of the the Julian day at UTC.
-    private long normalizeDate(long startDate) {
-        // normalize the start date to the beginning of the (UTC) day
-        Calendar cal = new GregorianCalendar();
-        cal.setTimeInMillis(startDate);
-        Time time = new Time();
-        time.set(startDate);
-        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
-        return time.setJulianDay(julianDay);
-    }
-
-
-    private void printArray(String[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            Log.v(CLASS_NAME, arr[i]);
-        }
-    }
-
-
 }
