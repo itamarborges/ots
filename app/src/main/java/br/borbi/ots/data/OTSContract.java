@@ -124,6 +124,8 @@ public final class OTSContract {
         public static final String COLUMN_NAME_LONGITUDE = "longitude";
         public static final String COLUMN_NAME_NAME_ENGLISH = "name_english";
         public static final String COLUMN_NAME_COUNTRY_ID = "country_id";
+        public static final String COLUMN_NAME_TRANSLATION_FILE_KEY = "translation_file_key";
+
 
         public static Uri buildCityUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

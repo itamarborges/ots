@@ -193,10 +193,17 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                     Double latitude = Double.valueOf(dados[2]);
                     Double longitude = Double.valueOf(dados[3]);
                     String[] tags = dados[4].split(",");
+                    String translationFileKey = null;
+                    if(dados.length>=5){
+                        translationFileKey = dados[5];
+                    }
 
                     // Inserir cidade  OK
-                    db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (" + idInicialCity + "," + getCountryId(countryCode) + "," + latitude + ", " + longitude + ",'" + cityName + "');");
-
+                    if(translationFileKey== null || translationFileKey.isEmpty()){
+                        db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_NAME_ENGLISH + ") VALUES (" + idInicialCity + "," + getCountryId(countryCode) + "," + latitude + ", " + longitude + ",'" + cityName + "');");
+                    }else {
+                        db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_NAME_ENGLISH + ", " + City.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + idInicialCity + "," + getCountryId(countryCode) + "," + latitude + ", " + longitude + ",'" + cityName + "','" + translationFileKey + "');");
+                    }
                     // Inserir rel_tag para cada uma  OK
                     for (int i=0;i<tags.length;i++){
                         String tag = tags[i].trim();
