@@ -2,12 +2,11 @@ package br.borbi.ots;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 
-import com.google.android.gms.ads.AdView;
-
 import br.borbi.ots.fragment.DetailCityFragment;
-import br.borbi.ots.utility.Utility;
 
 
 public class DetailCityActivity extends ActionBarActivity {
@@ -17,18 +16,16 @@ public class DetailCityActivity extends ActionBarActivity {
     public static final String QTY_ITENS = "QTY_ITENS";
     public static final String RELATIVE_POSITION = "RELATIVE_POSITION";
 
-    private int idResultSearch;
+    private int mIdResultSearch;
     private int mQtyItens;
     private int mRelativePosition;
 
-    private float x1, y1, x2, y2;
-
     public int getidResultSearch() {
-        return idResultSearch;
+        return mIdResultSearch;
     }
 
     public void setidResultSearch(int idResultSearch) {
-        this.idResultSearch = idResultSearch;
+        this.mIdResultSearch = idResultSearch;
     }
 
     @Override
@@ -36,19 +33,23 @@ public class DetailCityActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_city);
 
-        AdView mAdView = null;
-        Utility.initializeAd(mAdView, this);
-
         Intent intent = getIntent();
-        idResultSearch = intent.getIntExtra(ID_RESULT_SEARCH, -1);
+        mIdResultSearch = intent.getIntExtra(ID_RESULT_SEARCH, -1);
         mQtyItens = intent.getIntExtra(QTY_ITENS, 0);
         mRelativePosition = intent.getIntExtra(RELATIVE_POSITION, -1);
 
-        DetailCityFragment detailCityFragment = (DetailCityFragment)
-              getSupportFragmentManager().findFragmentById(R.id.fragment_detail_city);
+        DetailCityFragment newDetailCityFragment = new DetailCityFragment();
 
-        detailCityFragment.setIdResultSearch(idResultSearch);
-        detailCityFragment.setQtyItens(mQtyItens);
-        detailCityFragment.setRelativePosition(mRelativePosition);
+        newDetailCityFragment.setIdResultSearch(mIdResultSearch);
+        newDetailCityFragment.setQtyItens(mQtyItens);
+        newDetailCityFragment.setRelativePosition(mRelativePosition);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.replace(R.id.fragment_layout, newDetailCityFragment);
+        fragmentTransaction.commit();
+
+
     }
 }

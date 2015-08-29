@@ -66,4 +66,5 @@
     <string name="internet_is_down">Your internet connection still seems to be down. Please, try again.</string>
     <string name="min_temperature_abbreviated">MIN</string>
     <string name="max_temperature_abbreviated">MAX</string>
+    <string name="yes">Oui</string>
 </resources>

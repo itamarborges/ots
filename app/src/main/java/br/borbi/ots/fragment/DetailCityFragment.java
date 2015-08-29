@@ -1,10 +1,11 @@
 package br.borbi.ots.fragment;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -16,10 +17,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import br.borbi.ots.DetailCityActivity;
+import com.google.android.gms.ads.AdView;
+
 import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.Utility;
+
+;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -77,7 +81,12 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        //AdView mAdView = null;
+        //Utility.initializeAd(mAdView, getActivity());
+
     }
 
     public DetailCityFragment() {}
@@ -87,6 +96,9 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_detail_city, container, false);
+
+        AdView mAdView = null;
+        Utility.initializeAdView(mAdView, rootView);
 
         mDateDetail = (TextView) rootView.findViewById(R.id.detail_date_textView);
         mMinMaxTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_min_max_temperature_textView);
@@ -147,21 +159,27 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
         getLoaderManager().initLoader(DETAIL_CITY_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
 
-
-
         if (mRelativePosition == 0) {
             mPreviousButton.setVisibility(View.INVISIBLE);
         } else {
             mPreviousButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), DetailCityActivity.class);
-                    intent.putExtra(DetailCityActivity.ID_RESULT_SEARCH, (idResultSearch-1));
-                    intent.putExtra(DetailCityActivity.QTY_ITENS, mQtyItens);
-                    intent.putExtra(DetailCityActivity.RELATIVE_POSITION, (mRelativePosition - 1));
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    getActivity().overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
+
+                    DetailCityFragment newDetailCityFragment = new DetailCityFragment();
+
+                    newDetailCityFragment.setIdResultSearch(idResultSearch - 1);
+                    newDetailCityFragment.setQtyItens(mQtyItens);
+                    newDetailCityFragment.setRelativePosition(mRelativePosition - 1);
+
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+                    fragmentTransaction.replace(R.id.fragment_layout, newDetailCityFragment);
+                    fragmentTransaction.commit();
+
                 }
             });
         }
@@ -172,13 +190,23 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             mNextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), DetailCityActivity.class);
-                    intent.putExtra(DetailCityActivity.ID_RESULT_SEARCH, (idResultSearch+1));
-                    intent.putExtra(DetailCityActivity.QTY_ITENS, mQtyItens);
-                    intent.putExtra(DetailCityActivity.RELATIVE_POSITION, (mRelativePosition+1));
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
+
+                    DetailCityFragment newDetailCityFragment = new DetailCityFragment();
+
+                    newDetailCityFragment.setIdResultSearch(idResultSearch + 1);
+                    newDetailCityFragment.setQtyItens(mQtyItens);
+                    newDetailCityFragment.setRelativePosition(mRelativePosition + 1);
+
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left );
+
+                    fragmentTransaction.replace(R.id.fragment_layout, newDetailCityFragment);
+
+                    fragmentTransaction.commit();
+
+
                 }
             });
 

@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.text.format.Time;
-import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 
 import com.google.android.gms.ads.AdRequest;
@@ -266,6 +266,12 @@ public class Utility {
 
     public static void initializeAd(AdView adView,Activity activity){
         adView = (AdView)activity.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        adView.loadAd(adRequest);
+    }
+
+    public static void initializeAdView(AdView adView, View view){
+        adView = (AdView) view.findViewById(R.id.adViewFragment);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         adView.loadAd(adRequest);
     }

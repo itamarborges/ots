@@ -65,4 +65,5 @@
     <string name="min_temperature_abbreviated">MIN</string>
     <string name="max_temperature_abbreviated">MAX</string>
     <string name="help_distance">Distância máxima da suaposição atual</string>
+    <string name="yes">Sim</string>
 </resources>

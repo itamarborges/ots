@@ -19,6 +19,16 @@
         android:layout_height="wrap_content"
         tools:context="br.borbi.ots.fragment.TitleCityFragment" />
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        />
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/fragment_result_city"
@@ -29,16 +39,6 @@
         android:layout_height="fill_parent"
         tools:context="br.borbi.ots.fragment.ResultCityFragment"
         tools:layout="@android:layout/list_content"
-        android:layout_above="@+id/adView" />
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        />
+        android:layout_above="@id/adView" />
 
 </RelativeLayout>
