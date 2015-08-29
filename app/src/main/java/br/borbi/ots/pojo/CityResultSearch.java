@@ -16,6 +16,11 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
         this.idResultSearch = idResultSearch;
     }
 
+    public CityResultSearch(City city, Integer distance) {
+        this.city = city;
+        this.distance = distance;
+    }
+
     public City getCity() {
         return city;
     }

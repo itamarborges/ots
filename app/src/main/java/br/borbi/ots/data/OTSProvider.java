@@ -20,6 +20,7 @@ import br.borbi.ots.SearchActivity;
 import br.borbi.ots.entity.Search;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
+import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.LogUtility;
 
@@ -556,16 +557,17 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
                 throw new android.database.SQLException("Failed to insert row into search");
             }
 
-            List<City> cities = search.getCites();
+            List<CityResultSearch> cities = search.getCites();
 
-            for (City city : cities) {
+            for (CityResultSearch cityResultSearch : cities) {
                 ContentValues relSearchCityValues = new ContentValues();
-                relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_CITY_ID, city.getId());
+                relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_CITY_ID, cityResultSearch.getCity().getId());
+                relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_DISTANCE, cityResultSearch.getDistance());
                 relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID, searchId);
 
                 long relSearchCityId = db.insert(OTSContract.RelSearchCity.TABLE_NAME, null, relSearchCityValues);
 
-                for (DayForecast dayForecast : city.getDayForecasts()) {
+                for (DayForecast dayForecast : cityResultSearch.getCity().getDayForecasts()) {
                     ContentValues resultSearchValues = new ContentValues();
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_DATE, dayForecast.getDate().getTime());
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE, dayForecast.getMinTemperature());

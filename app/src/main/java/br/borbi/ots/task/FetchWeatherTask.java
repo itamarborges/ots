@@ -115,7 +115,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
                     if (buffer.length() != 0) {
                         forecastJsonStr = buffer.toString();
-                        Log.v(LOG_TAG,"cidade = " + cityToSearch.getName() + ", resultado = " + forecastJsonStr);
                         cities.add(getWeatherDataFromJson(forecastJsonStr, cityToSearch));
                     }
                 }
@@ -175,6 +174,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
         try {
             JSONObject forecastJson = new JSONObject(forecastJsonStr);
             if(!forecastJson.has(OWM_LIST)){
+                //TODO tratar cidade nao encontrada
                 Log.v(LOG_TAG,"cidade " + citySearched.getName() + " nao encontrada");
             }else{
                 JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
@@ -231,7 +231,8 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                     daysForecast.add(forecastForTheDay);
                 }
 
-                city = new City(citySearched.getId(), citySearched.getName(), citySearched.getCountryCode(),daysForecast);
+                //city = new City(citySearched.getId(), citySearched.getName(), citySearched.getCountryCode(),daysForecast);
+                citySearched.setDayForecasts(daysForecast);
 
             }
 
@@ -240,7 +241,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             e.printStackTrace();
         }
 
-        return city;
+        return citySearched;
     }
 
 

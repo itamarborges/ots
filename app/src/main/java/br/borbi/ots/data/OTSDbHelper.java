@@ -87,6 +87,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 City.COLUMN_NAME_LONGITUDE + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
                 City.COLUMN_NAME_NAME_ENGLISH + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL+ ", " +
                 City.COLUMN_NAME_COUNTRY_ID + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
+                City.COLUMN_NAME_TRANSLATION_FILE_KEY + OTSContract.TYPE_TEXT + ", " +
                 " FOREIGN KEY (" + City.COLUMN_NAME_COUNTRY_ID + ") REFERENCES " +
                 Country.TABLE_NAME + " (" + Country._ID + "));" ;
 
@@ -103,6 +104,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 RelSearchCity._ID + OTSContract.PRIMARY_KEY + " ," +
                 RelSearchCity.COLUMN_NAME_CITY_ID + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 RelSearchCity.COLUMN_NAME_SEARCH_ID + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
+                RelSearchCity.COLUMN_NAME_DISTANCE + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 " FOREIGN KEY (" + RelSearchCity.COLUMN_NAME_CITY_ID + ") REFERENCES " +
                 City.TABLE_NAME + " (" + City._ID + "), " +
                 " FOREIGN KEY (" + RelSearchCity.COLUMN_NAME_SEARCH_ID + ") REFERENCES " +
@@ -194,7 +196,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                     Double longitude = Double.valueOf(dados[3]);
                     String[] tags = dados[4].split(",");
                     String translationFileKey = null;
-                    if(dados.length>=5){
+                    if(dados.length>=6){
                         translationFileKey = dados[5];
                     }
 

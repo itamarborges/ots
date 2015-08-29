@@ -187,6 +187,7 @@ public final class OTSContract {
         public static final String TABLE_NAME = "rel_search_city";
         public static final String COLUMN_NAME_SEARCH_ID = "search_id";
         public static final String COLUMN_NAME_CITY_ID = "city_id";
+        public static final String COLUMN_NAME_DISTANCE = "distance";
 
         public static Uri buildRelSearchCityUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
