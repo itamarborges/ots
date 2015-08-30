@@ -22,10 +22,12 @@ import java.util.TimerTask;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.entity.Search;
 import br.borbi.ots.pojo.City;
+import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.pojo.SearchParameters;
 import br.borbi.ots.task.FetchWeatherTask;
+import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.Utility;
 
 interface TaskFinished {
@@ -42,7 +44,7 @@ public class SearchActivity extends ActionBarActivity {
     public static final String SEARCH = "SEARCH";
 
     private Context mContext;
-    private ArrayList<City> mCities;
+    private ArrayList<CityResultSearch> mCities;
 
     private int minTemperature = 0;
     private int numberSunnyDays = 0;
@@ -50,7 +52,7 @@ public class SearchActivity extends ActionBarActivity {
     private boolean dontUseTemperature = false;
     private Date dateBegin = null;
     private Date dateEnd = null;
-    private Integer distance = null;
+    private Integer mMaxDistance = null;
     private Double lastLatitude = 0d;
     private Double lastLongitude = 0d;
     private Toast mToast;
@@ -68,7 +70,7 @@ public class SearchActivity extends ActionBarActivity {
         Intent intent = getIntent();
 
         if (intent != null) {
-            distance = intent.getIntExtra(FiltersActivity.DISTANCE, 0);
+            mMaxDistance = intent.getIntExtra(FiltersActivity.DISTANCE, 0);
             dateBegin = (Date) intent.getSerializableExtra(FiltersActivity.DATE_BEGIN);
             dateEnd = (Date) intent.getSerializableExtra(FiltersActivity.DATE_END);
             numberSunnyDays = intent.getIntExtra(FiltersActivity.NUMBER_SUNNY_DAYS, 0);
@@ -97,7 +99,7 @@ public class SearchActivity extends ActionBarActivity {
         mWarningTask = new WarningTask();
         mWarningTask.execute();
 
-        List<City> cities = searchCities(Double.valueOf(distance), lastLatitude, lastLongitude);
+        List<City> cities = searchCities(Double.valueOf(mMaxDistance), lastLatitude, lastLongitude);
         int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin, dateEnd);
         searchWeatherData(cities, numberOfDays);
     }
@@ -123,9 +125,19 @@ public class SearchActivity extends ActionBarActivity {
         selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
         selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
 
+        String[] citiesColumns = {
+                OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID,
+                OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH,
+                OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LATITUDE,
+                OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LONGITUDE,
+                OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_COUNTRY_CODE
+        };
+
+
         Cursor c = getContentResolver().query(
                 OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES,
-                new String[]{OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH, OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID, OTSContract.Country.COLUMN_NAME_COUNTRY_CODE},
+                citiesColumns,
+                //new String[]{OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH, OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID, OTSContract.Country.COLUMN_NAME_COUNTRY_CODE},
                 whereClause.toString(),
                 selectionArgs,
                 null);
@@ -137,8 +149,10 @@ public class SearchActivity extends ActionBarActivity {
                 int numIndexName = c.getColumnIndex(OTSContract.City.COLUMN_NAME_NAME_ENGLISH);
                 int numIndexCityId = c.getColumnIndex(OTSContract.City._ID);
                 int numIndexCountryCode = c.getColumnIndex(OTSContract.Country.COLUMN_NAME_COUNTRY_CODE);
+                int numIndexCityLatitude = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LATITUDE);
+                int numIndexCityLongitude = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LONGITUDE);
 
-                City city = new City(c.getLong(numIndexCityId), c.getString(numIndexName), c.getString(numIndexCountryCode));
+                City city = new City(c.getLong(numIndexCityId), c.getString(numIndexName), c.getString(numIndexCountryCode),null,c.getDouble(numIndexCityLatitude),c.getDouble(numIndexCityLongitude));
 
                 cities.add(city);
             }
@@ -159,7 +173,7 @@ public class SearchActivity extends ActionBarActivity {
 
     private void validateCities(List<City> cities) {
 
-        mCities = new ArrayList<City>();
+        mCities = new ArrayList<CityResultSearch>();
 
         for (City city : cities) {
 
@@ -168,35 +182,42 @@ public class SearchActivity extends ActionBarActivity {
 
             List<DayForecast> dayForecasts = new LinkedList<DayForecast>();
 
-            for (DayForecast dayForecast : city.getDayForecasts()) {
-                if (dayForecast.getDate().after(dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateBegin)) {
+            Integer distance = Utility.roundCeil(CoordinatesUtillity.getDistance(lastLatitude, lastLongitude, city.getLatitude(), city.getLongitude()));
 
-                    if (!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature) {
-                        validCity = false;
+            if(Utility.isDistanceSmallerThanMinimumDistance(distance, mMaxDistance)){
+
+                for (DayForecast dayForecast : city.getDayForecasts()) {
+                    if (dayForecast.getDate().after(dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateBegin)) {
+
+                        if (!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature) {
+                            validCity = false;
+                        }
+
+                        if (dayForecast.getWeatherType().isSunnyDay(usesCloudyDays)) {
+                            contSunnyDays++;
+                        }
+
+                        dayForecasts.add(dayForecast);
                     }
-
-                    if (dayForecast.getWeatherType().isSunnyDay(usesCloudyDays)) {
-                        contSunnyDays++;
-                    }
-
-                    dayForecasts.add(dayForecast);
                 }
-            }
 
-            if (contSunnyDays < numberSunnyDays) {
+                if (contSunnyDays < numberSunnyDays) {
+                    validCity = false;
+                }
+            }else{
                 validCity = false;
             }
 
             if (validCity) {
                 city.setDayForecasts(dayForecasts);
-                mCities.add(city);
+                mCities.add(new CityResultSearch(city,distance));
             }
         }
 
         Search search = new Search();
         search.setBeginDate(dateBegin);
         search.setEndDate(dateEnd);
-        search.setRadius(distance);
+        search.setRadius(mMaxDistance);
         search.setMinSunnyDays(numberSunnyDays);
         search.setMinTemperature(Double.valueOf(minTemperature));
         search.setDateTimeLastSearch(new Date());
@@ -216,7 +237,7 @@ public class SearchActivity extends ActionBarActivity {
         }
 
         Intent intent = new Intent(this, ResultActivity.class);
-        intent.putExtra(MINIMUM_DISTANCE, distance);
+        intent.putExtra(MINIMUM_DISTANCE, mMaxDistance);
         startActivity(intent);
     }
 

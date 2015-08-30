@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.borbi.ots.pojo.City;
+import br.borbi.ots.pojo.CityResultSearch;
 
 /**
  * Created by Gabriela on 08/06/2015.
@@ -20,7 +21,7 @@ public class Search implements Serializable{
     private Date dateTimeLastSearch;
     private Double originLatitude;
     private Double originLongitude;
-    private List<City> cites;
+    private List<CityResultSearch> cites;
 
     public Long getId() {
         return id;
@@ -78,11 +79,11 @@ public class Search implements Serializable{
         this.dateTimeLastSearch = dateTimeLastSearch;
     }
 
-    public List<City> getCites() {
+    public List<CityResultSearch> getCites() {
         return cites;
     }
 
-    public void setCites(List<City> cites) {
+    public void setCites(List<CityResultSearch> cites) {
         this.cites = cites;
     }
 

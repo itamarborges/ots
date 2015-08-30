@@ -35,22 +35,10 @@ public final class OTSContract {
     public static final String PATH_TAG = "tag";
     public static final String PATH_REL_CITY_TAG = "rel_city_tag";
     public static final String PATH_CITY = "city";
-    public static final String PATH_LANGUAGE = "language";
-    public static final String PATH_REL_COUNTRY_LANGUAGE = "rel_country_language";
-    public static final String PATH_REL_CITY_LANGUAGE = "rel_city_language";
     public static final String PATH_COUNTRY = "country";
     public static final String PATH_SEARCH = "search";
     public static final String PATH_REL_SEARCH_CITY = "rel_search_city";
     public static final String PATH_RESULT_SEARCH = "result_search";
-
-    public static final int LANGUAGE_ID_FRA = 100002;
-    public static final int LANGUAGE_ID_ENG = 100001;
-    public static final int LANGUAGE_ID_POR = 100000;
-
-    public static final String LANGUAGE_CODE_FRA = "fra";
-    public static final String LANGUAGE_CODE_ENG = "en";
-    public static final String LANGUAGE_CODE_POR = "pt";
-
 
     public static final String PATH_LIST_CITIES_BY_COORDINATES = "list_cities_by_coordinates";
     public static final Uri CONTENT_URI_LIST_CITIES_BY_COORDINATES = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_BY_COORDINATES).build();
@@ -134,71 +122,15 @@ public final class OTSContract {
         public static final String TABLE_NAME = "city";
         public static final String COLUMN_NAME_LATITUDE = "latitude";
         public static final String COLUMN_NAME_LONGITUDE = "longitude";
-        public static final String COLUMN_NAME_LATITUDE_RAD = "latitude_rad";
-        public static final String COLUMN_NAME_LONGITUDE_RAD = "longitude_rad";
         public static final String COLUMN_NAME_NAME_ENGLISH = "name_english";
         public static final String COLUMN_NAME_COUNTRY_ID = "country_id";
+        public static final String COLUMN_NAME_TRANSLATION_FILE_KEY = "translation_file_key";
+
 
         public static Uri buildCityUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-    }
-
-    public static abstract class Language implements BaseColumns {
-
-        public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_LANGUAGE).build();
-        public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LANGUAGE;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LANGUAGE;
-
-        public static final String TABLE_NAME = "language";
-        public static final String COLUMN_NAME_NAME = "name";
-        public static final String COLUMN_NAME_LANGUAGE_CODE = "language_code";
-
-        public static Uri buildLanguageUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
-    }
-
-    public static abstract class RelCountryLanguage implements BaseColumns {
-
-        public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_REL_COUNTRY_LANGUAGE).build();
-        public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REL_COUNTRY_LANGUAGE;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REL_COUNTRY_LANGUAGE;
-
-        public static final String TABLE_NAME = "rel_country_language";
-        public static final String COLUMN_NAME_LANGUAGE_ID = "language_id";
-        public static final String COLUMN_NAME_NAME = "name";
-        public static final String COLUMN_NAME_COUNTRY_ID = "country_id";
-
-        public static Uri buildRelCountryLanguageUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
-    }
-
-    public static abstract class RelCityLanguage implements BaseColumns {
-
-        public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_REL_CITY_LANGUAGE).build();
-        public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REL_CITY_LANGUAGE;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REL_CITY_LANGUAGE;
-
-        public static final String TABLE_NAME = "rel_city_language";
-        public static final String COLUMN_NAME_LANGUAGE_ID = "language_id";
-        public static final String COLUMN_NAME_CITY_ID = "city_id";
-        public static final String COLUMN_NAME_NAME = "name";
-
-        public static Uri buildRelCityLanguageUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
     }
 
     public static abstract class Country implements BaseColumns {
@@ -255,6 +187,7 @@ public final class OTSContract {
         public static final String TABLE_NAME = "rel_search_city";
         public static final String COLUMN_NAME_SEARCH_ID = "search_id";
         public static final String COLUMN_NAME_CITY_ID = "city_id";
+        public static final String COLUMN_NAME_DISTANCE = "distance";
 
         public static Uri buildRelSearchCityUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
@@ -281,8 +214,6 @@ public final class OTSContract {
         public static final String COLUMN_NAME_MORNING_TEMPERATURE = "morning_temperature";
         public static final String COLUMN_NAME_EVENING_TEMPERATURE = "evening_temperature";
         public static final String COLUMN_NAME_NIGHT_TEMPERATURE = "night_temperature";
-
-
 
         public static Uri buildResultSearchUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

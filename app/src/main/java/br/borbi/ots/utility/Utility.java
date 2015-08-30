@@ -362,4 +362,11 @@ public class Utility {
     public static void positioningCursorInTheEnd(EditText et) {
         et.setSelection(et.getText().length());
     }
+
+    public static boolean isDistanceSmallerThanMinimumDistance(Integer distance, Integer minimumDistance){
+        if(minimumDistance == null || minimumDistance.intValue() == 0 || (minimumDistance.compareTo(distance) >=0)){
+            return true;
+        }
+        return false;
+    }
 }

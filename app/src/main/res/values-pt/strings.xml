@@ -65,5 +65,9 @@
     <string name="min_temperature_abbreviated">MIN</string>
     <string name="max_temperature_abbreviated">MAX</string>
     <string name="help_distance">Distância máxima da suaposição atual</string>
+    <string name="location">Este aplicativo precisa que você ligue a localização em seu dispositivo para determinar quais cidades estão perto de você. Você não conseguirá utilizar este aplicativo com a localização desativada.</string>
+    <string name="location_explanation">Por favor, ative a localização para utilizar este aplicativo.</string>
+    <string name="location_turn_on">Ligar serviços de localização?</string>
+    <string name="not_now">Agora não</string>
     <string name="yes">Sim</string>
 </resources>

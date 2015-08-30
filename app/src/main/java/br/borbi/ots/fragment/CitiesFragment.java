@@ -58,10 +58,11 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     private static final int CITIES_LOADER = 0;
 
     private static final String[] CITIES_COLUMNS = {
-            OTSContract.RelCountryLanguage.TABLE_NAME + "." + OTSContract.RelCountryLanguage.COLUMN_NAME_NAME,
-            OTSContract.RelCityLanguage.TABLE_NAME + "." + OTSContract.RelCityLanguage.COLUMN_NAME_NAME,
+            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_NAME_ENGLISH,
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH,
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID,
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity._ID,
+            OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_DISTANCE,
             OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID,
             OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LATITUDE,
             OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LONGITUDE
@@ -72,9 +73,10 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     public static final int INDEX_CITY_NAME = 1;
     public static final int INDEX_SEARCH_ID = 2;
     public static final int INDEX_REL_SEARCH_CITY_ID = 3;
-    public static final int INDEX_CITY_ID = 4;
-    public static final int INDEX_CITY_LATITUDE = 5;
-    public static final int INDEX_CITY_LONGITUDE = 6;
+    public static final int INDEX_REL_SEARCH_CITY_DISTANCE = 4;
+    public static final int INDEX_CITY_ID = 5;
+    public static final int INDEX_CITY_LATITUDE = 6;
+    public static final int INDEX_CITY_LONGITUDE = 7;
 
     public static final String[] TAG_COLUMNS = {
             OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag._ID,
@@ -152,22 +154,15 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        String sortOrder = OTSContract.RelCityLanguage.TABLE_NAME + "." + OTSContract.RelCityLanguage.COLUMN_NAME_NAME +" ASC";
+        String sortOrder = OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH +" ASC";
 
-        //pick the language used by the device
-        String language = Locale.getDefault().getLanguage();
-        //language = "por";
-        //String locationSetting = Utility.getPreferredLocation(getActivity());
         Uri uriSearchByCities = OTSContract.CONTENT_URI_LIST_CITIES_BY_SEARCH;
-
-        String[] selectionArgs = new String[]{language};
-        String selection = OTSProvider.FILTER_BY_LOCALE;
 
         return new CursorLoader(getActivity(),
                 uriSearchByCities,
                 CITIES_COLUMNS,
-                selection,
-                selectionArgs,
+                null,
+                null,
                 sortOrder);
     }
 
@@ -184,13 +179,10 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
                 int idCity = data.getInt(CitiesFragment.INDEX_CITY_ID);
                 Double cityLatitude = data.getDouble(CitiesFragment.INDEX_CITY_LATITUDE);
                 Double cityLongitude = data.getDouble(CitiesFragment.INDEX_CITY_LONGITUDE);
+                Integer distance = data.getInt(CitiesFragment.INDEX_REL_SEARCH_CITY_DISTANCE);
 
-                Integer distance  = Utility.roundCeil(CoordinatesUtillity.getDistance(getLastLatitude(), getLastLongitude(), cityLatitude, cityLongitude));
-
-                if(isDistanceSmallerThanMinimumDistance(distance)) {
-                    CityResultSearch cityResultSearch = new CityResultSearch(new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude), distance, idResultSearchCity);
-                    cities.add(cityResultSearch);
-                }
+                CityResultSearch cityResultSearch = new CityResultSearch(new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude), distance, idResultSearchCity);
+                cities.add(cityResultSearch);
             }
             while (data.moveToNext());
         }
@@ -215,12 +207,5 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
         mListView = (ListView) mRootView.findViewById(R.id.listview_cities);
         mListView.setEmptyView(mEmptyView);
         mListView.setAdapter(mCitiesAdapter);
-    }
-
-    private boolean isDistanceSmallerThanMinimumDistance(Integer distance){
-        if(getMininumDistance() == null || getMininumDistance().intValue() == 0 || (getMininumDistance().compareTo(distance) >=0)){
-            return true;
-        }
-        return false;
     }
 }

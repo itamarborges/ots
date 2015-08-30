@@ -29,6 +29,7 @@ public class ResultActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        Log.v(LOG_TAG, "entrou na resultActivity");
 
         AdView mAdView = null;
         Utility.initializeAd(mAdView, this);
