@@ -8,18 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Log;
 
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import br.borbi.ots.SearchActivity;
 import br.borbi.ots.entity.Search;
 import br.borbi.ots.enums.WeatherType;
-import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.LogUtility;
@@ -39,6 +34,8 @@ public class OTSProvider extends ContentProvider {
     static final int LIST_CITIES_BY_COORDINATES = 1100;
     static final int LIST_CITIES_BY_SEARCH = 1200;
     static final int LIST_TAGS_FROM_A_CITY = 1300;
+    static final int LIST_CITIES_WITH_TAGS = 1400;
+
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final String CLASS_NAME = OTSProvider.class.getName();
     private OTSDbHelper mOpenHelper;
@@ -67,6 +64,7 @@ public class OTSProvider extends ContentProvider {
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_COORDINATES, LIST_CITIES_BY_COORDINATES);
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_SEARCH, LIST_CITIES_BY_SEARCH);
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_TAGS_FROM_A_CITY, LIST_TAGS_FROM_A_CITY);
+        uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_WITH_TAGS, LIST_CITIES_WITH_TAGS);
 
         return uriMatcher;
     }
@@ -175,6 +173,11 @@ public class OTSProvider extends ContentProvider {
             }
             case LIST_TAGS_FROM_A_CITY: {
                 retCursor = listTagsFromACity(projection, selection, selectionArgs);
+                break;
+            }
+
+            case LIST_CITIES_WITH_TAGS: {
+                retCursor = listCitiesWithTags(projection, selection, selectionArgs);
                 break;
             }
         }
@@ -511,6 +514,49 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
                 null,
                 null);
     }
+
+
+    public Cursor listCitiesWithTags(String[] projection, String selection, String[] selectionArgs) {
+        SQLiteQueryBuilder sCitiesWithTagsQueryBuilder = new SQLiteQueryBuilder();
+        /*
+        select rel_country_language.name, rel_city_language.name,
+rel_search_city.search_id,
+rel_search_city._id
+from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id INNER JOIN city ON city._id = rel_search_city.city_id INNER JOIN rel_city_language ON rel_city_language.city_id = city._id INNER JOIN country ON country._id = city.country_id INNER JOIN rel_country_language ON country._id = rel_country_language.country_id INNER JOIN language ON (language._id = rel_country_language.language_id AND language._id = rel_city_language.language_id) where language.language_code = 'por'
+
+         */
+
+        sCitiesWithTagsQueryBuilder.setTables(
+                OTSContract.City.TABLE_NAME + " INNER JOIN " +
+                        OTSContract.RelCityTag.TABLE_NAME +
+                        " ON " + OTSContract.City.TABLE_NAME +
+                        "." + OTSContract.City._ID +
+                        " = " + OTSContract.RelCityTag.TABLE_NAME +
+                        "." + OTSContract.RelCityTag.COLUMN_NAME_CITY_ID+
+                        " INNER JOIN " +
+                        OTSContract.City.TABLE_NAME +
+                        " ON " + OTSContract.City.TABLE_NAME +
+                        "." + OTSContract.City._ID +
+                        " = " + OTSContract.RelCityTag.TABLE_NAME +
+                        "." + OTSContract.RelCityTag.COLUMN_NAME_CITY_ID );
+
+
+        Log.v(CLASS_NAME, "=== projection = ");
+        LogUtility.printArray(CLASS_NAME,projection);
+        Log.v(CLASS_NAME, "==== selection = " + selection);
+        Log.v(CLASS_NAME, "==== selectionArgs = ");
+        LogUtility.printArray(CLASS_NAME, selectionArgs);
+        Log.v(CLASS_NAME, "tables = " + sCitiesWithTagsQueryBuilder.getTables());
+
+        return sCitiesWithTagsQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
+    }
+
 
     @Override
     public Bundle call(String method, String arg, Bundle extras) {

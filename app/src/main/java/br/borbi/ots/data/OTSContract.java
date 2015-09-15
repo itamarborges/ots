@@ -49,6 +49,9 @@ public final class OTSContract {
     public static final String PATH_LIST_TAGS_FROM_A_CITY = "list_tags_from_a_city";
     public static final Uri CONTENT_URI_LIST_TAGS_FROM_A_CITY = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_TAGS_FROM_A_CITY).build();
 
+    public static final String PATH_LIST_CITIES_WITH_TAGS = "list_cities_with_tags";
+    public static final Uri CONTENT_URI_LIST_CITIES_WITH_TAGS = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_WITH_TAGS).build();
+
     public static final String METHOD_SAVE_SEARCH = "METHOD_SAVE_SEARCH";
 
 

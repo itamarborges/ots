@@ -70,4 +70,6 @@
     <string name="location_turn_on">Ligar serviços de localização?</string>
     <string name="not_now">Agora não</string>
     <string name="yes">Sim</string>
+    <string name="action_cities_list">Lista de Cidades</string>
+    <string name="country_textview">País:</string>
 </resources>

@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name="br.borbi.ots.MainApp"
+        android:name=".MainApp"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/title"
@@ -21,30 +21,40 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <!-- Optionally, register AnalyticsReceiver and AnalyticsService to support background
-             dispatching on non-Google Play devices -->
-        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
+        <!--
+             Optionally, register AnalyticsReceiver and AnalyticsService to support background
+             dispatching on non-Google Play devices
+        -->
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true" >
             <intent-filter>
                 <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
             </intent-filter>
         </receiver>
-        <service android:name="com.google.android.gms.analytics.AnalyticsService"
-            android:enabled="true"
-            android:exported="false"/>
 
-        <!-- Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
-             installation campaign reporting -->
-        <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
-            android:exported="true">
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!--
+             Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
+             installation campaign reporting
+        -->
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
+
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
-
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <provider
             android:name=".data.OTSProvider"
@@ -52,50 +62,50 @@
 
         <activity
             android:name=".FiltersActivity"
-            android:label="@string/app_name"
             android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".ResultCitiesActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/here_the_sun_shines"
             android:parentActivityName=".ResultActivity"
-            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.borbi.ots.ResultActivity" />
         </activity>
-
         <activity
             android:name=".SplashScreenActivity"
+            android:configChanges="orientation"
             android:label="@string/title"
             android:noHistory="true"
-            android:configChanges="orientation"
-            android:theme="@style/FullscreenTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SearchActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/searching_the_sun"
             android:parentActivityName=".FiltersActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.borbi.ots.FiltersActivity" />
         </activity>
         <activity
             android:name=".ResultActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/here_the_sun_shines"
             android:parentActivityName=".FiltersActivity"
-            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -103,9 +113,9 @@
         </activity>
         <activity
             android:name=".FailureActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:parentActivityName=".FiltersActivity"
-            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -113,20 +123,26 @@
         </activity>
         <activity
             android:name=".DetailCityActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".ResultCitiesActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
             android:noHistory="true"
+            android:parentActivityName=".ResultCitiesActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.borbi.ots.ResultCitiesActivity" />
         </activity>
-
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
-
+        <activity
+            android:name=".CitiesListActivity"
+            android:label="@string/action_cities_list"
+            android:parentActivityName=".FiltersActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.borbi.ots.FiltersActivity" />
+        </activity>
     </application>
 
 </manifest>

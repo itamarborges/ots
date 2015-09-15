@@ -71,4 +71,6 @@
     <string name="location_turn_on">Turn on location services?</string>
     <string name="not_now">Pas maintenant</string>
     <string name="yes">Oui</string>
+    <string name="action_cities_list">Liste des Villes</string>
+    <string name="country_textview">Pays:</string>
 </resources>

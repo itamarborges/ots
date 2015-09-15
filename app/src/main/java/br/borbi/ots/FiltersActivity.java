@@ -416,9 +416,8 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_where_am_I) {
+        switch (id) {
+        case R.id.action_where_am_I:
             SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
             Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
@@ -436,10 +435,14 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                     startActivity(intent);
                 } else {
                     Log.d(FiltersActivity.CLASS_NAME, "Couldn't call " + geoLocation.toString() + ", no receiving apps installed!");
+                    return true;
                 }
             }
-
-            return true;
+            break;
+            case R.id.action_cities_list:
+                Intent intent = new Intent(this, CitiesListActivity.class);
+                startActivity(intent);
+            break;
         }
 
         return super.onOptionsItemSelected(item);

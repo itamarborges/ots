@@ -139,6 +139,11 @@
 
     <!-- Y -->
     <string name="yes">Yes</string>
+    <string name="action_cities_list">Cities List</string>
+    <string name="title_activity_cities_list">Cities List</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="country_textview">Country:</string>
 
     <!-- Z -->
 
