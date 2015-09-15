@@ -63,11 +63,11 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         }
 
         //TODO EXCLUIR AS PROXIMAS 3 LINHAS AO DAR BUILD EM PRODUCAO!
-        //lastLatitude = 42.358429;
+        lastLatitude = -30.03306;
 
-        //lastLongitude = -71.059769;
+        lastLongitude = -51.23;
 
-        //LocationUtility.saveCoordinates(lastLatitude,lastLongitude, this);
+        LocationUtility.saveCoordinates(lastLatitude,lastLongitude, this);
 
         new Timer().schedule(new TimerTask() {
 

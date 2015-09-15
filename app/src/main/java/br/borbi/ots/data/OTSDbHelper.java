@@ -210,7 +210,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                     for (int i=0;i<tags.length;i++){
                         String tag = tags[i].trim();
                         if(!tag.isEmpty()){
-                            db.execSQL("INSERT INTO " + RelCityTag.TABLE_NAME + "(" + RelCityTag._ID + ", " + RelCityTag.COLUMN_NAME_CITY_ID + ", " + RelCityTag.COLUMN_NAME_TAG_ID + ") VALUES (" + idInicialRelTagCity + ", " + idInicialCity + "," + getTagId(tags[i],db) + ");");
+                            db.execSQL("INSERT INTO " + RelCityTag.TABLE_NAME + "(" + RelCityTag._ID + ", " + RelCityTag.COLUMN_NAME_CITY_ID + ", " + RelCityTag.COLUMN_NAME_TAG_ID + ") VALUES (" + idInicialRelTagCity + ", " + idInicialCity + "," + getTagId(tag,db) + ");");
                             idInicialRelTagCity++;
                         }
                     }
