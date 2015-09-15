@@ -115,6 +115,8 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
                     if (buffer.length() != 0) {
                         forecastJsonStr = buffer.toString();
+                        Log.v(LOG_TAG,"cidade: " + cityToSearch.getName() + ", retorno: " + forecastJsonStr);
+
                         cities.add(getWeatherDataFromJson(forecastJsonStr, cityToSearch));
                     }
                 }

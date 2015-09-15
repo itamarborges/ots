@@ -449,14 +449,14 @@ public class OTSProvider extends ContentProvider {
                         "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID);
 
 
-        /*
-        Log.v(CLASS_NAME, "=== projection = ");
-        printArray(projection);
+
+        Log.v(CLASS_NAME, "busca por coord === projection = ");
+        LogUtility.printArray(CLASS_NAME,projection);
         Log.v(CLASS_NAME, "==== selection = " + selection);
         Log.v(CLASS_NAME, "==== selectionArgs = ");
-        printArray(selectionArgs);
+        LogUtility.printArray(CLASS_NAME,selectionArgs);
         Log.v(CLASS_NAME, "tables = " + sWeatherByLocationSettingQueryBuilder.getTables());
-        */
+
 
         return sWeatherByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,

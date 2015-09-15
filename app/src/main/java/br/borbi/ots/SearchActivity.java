@@ -84,12 +84,6 @@ public class SearchActivity extends ActionBarActivity {
         lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        //lastLatitude = -30.033333;
-        //lastLongitude = -51.216667;
-
-        //lastLatitude = 42.358429;
-        //lastLongitude = -71.059769;
-
         if(lastLatitude == null || lastLongitude == null){
             Intent failureIntent = new Intent();
             failureIntent.setClass(SearchActivity.this, FailureActivity.class);
@@ -154,10 +148,15 @@ public class SearchActivity extends ActionBarActivity {
 
                 City city = new City(c.getLong(numIndexCityId), c.getString(numIndexName), c.getString(numIndexCountryCode),null,c.getDouble(numIndexCityLatitude),c.getDouble(numIndexCityLongitude));
 
-                cities.add(city);
+                Integer distanceBetweenCities = Utility.roundCeil(CoordinatesUtillity.getDistance(lastLatitude, lastLongitude, city.getLatitude(), city.getLongitude()));
+
+                if(Utility.isDistanceSmallerThanMinimumDistance(distanceBetweenCities, mMaxDistance)){
+                    cities.add(city);
+                }
             }
             while (c.moveToNext());
         }
+
         return cities;
     }
 
@@ -184,7 +183,7 @@ public class SearchActivity extends ActionBarActivity {
 
             Integer distance = Utility.roundCeil(CoordinatesUtillity.getDistance(lastLatitude, lastLongitude, city.getLatitude(), city.getLongitude()));
 
-            if(Utility.isDistanceSmallerThanMinimumDistance(distance, mMaxDistance)){
+            if(Utility.isDistanceSmallerThanMinimumDistance(distance, mMaxDistance) && city.getDayForecasts()!=null){
 
                 for (DayForecast dayForecast : city.getDayForecasts()) {
                     if (dayForecast.getDate().after(dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateBegin)) {

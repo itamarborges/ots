@@ -1,51 +1,188 @@
-Washington, D. C.;US;38.895111;-77.036369;snow,historic
-Baltimore;US;39.290379;-76.61219;snow,
-Atlantic City;US;39.364281;-74.422928;snow,
-Philadelphia;US;39.952339;-75.163788;snow,historic,praia
-Hartford;US;41.76371;-72.685089;snow,
-Springfield;US;42.101479;-72.589813;snow,
-Worcester;US;42.262589;-71.802292;snow,historic
-Portland;US;43.661469;-70.255333;snow,
-Detroit;US;42.331429;-83.045753;snow,
-Salem;US;42.788422;-71.20089;snow,historic
-Albany;US;42.65258;-73.756233;snow,
-Buffalo;US;42.886452;-78.878372;snow,
-Ithaca;US;42.440632;-76.496613;snow,
-Kingston;US;41.92704;-73.99736;snow,
-New York City;US;40.714272;-74.005966;snow,historic
-Saratoga Springs;US;43.08313;-73.784569;snow,
-Syracuse;US;43.048119;-76.147423;snow,
-Harrisburg;US;40.273701;-76.884422;snow,
-Lancaster;US;40.03788;-76.305511;snow,
-Scranton;US;41.40897;-75.662407;snow,
-Providence;US;41.82399;-71.412827;snow,historic,beach
-Manchester;US;39.661209;-76.884979;snow,
-Rochester;US;41.73177;-70.820038;snow,
-New Haven;US;42.729481;-82.801308;snow,
-Hershey;US;40.285919;-76.650253;snow,
-Montreal;CA;45.508839;-73.587807;snow,
-Ottawa;CA;45.411171;-75.69812;snow,
-Sherbrooke;CA;45.400082;-71.899078;snow,
-Cornwall;CA;45.018089;-74.728149;snow,
-Belleville;CA;44.178761;-77.370529;snow,
-Boston;US;42.358429;-71.059769;snow,historic
-Belem;BR;-1.450000;-48.483333;beach,historic
-Belo Horizonte;BR;-19.933333;-43.950000;historic
-Brasilia;BR;-15.866667;-47.916667;historic
-Curitiba;BR;-25.416667;-49.283333;historic
-Fortaleza;BR;-3.766667;-38.550000;beach,historic
-Porto Alegre;BR;-30.033333;-51.216667;historic
-Recife;BR;-8.066667;-34.883333;beach,historic
-Rio De Janeiro;BR;-22.916667;-43.200000;beach,historic
-Salvador;BR;-13.000000;-38.500000;beach,historic
-Sao Paulo;BR;-23.550000;-46.633333;historic
-Torres;BR;-28.66666667;-48.28333333;beach
-Capão da Canoa;BR;-28.26666667;-50;beach
-Santa Maria;BR;-28.31666667;-52.2;historic
-Pelotas;BR;-30.23333333;-51.66666667;historic
-Rio Grande;BR;-31.96666667;-51.91666667;beach,historic
-Santo Ângelo;BR;-27.71666667;-53.75;historic
-Gramado;BR;-28.63333333;-49.13333333;historic
-Antônio Prado;BR;-27.15;-50.73333333;historic
-Vacaria;BR;-27.5;-49.06666667;historic
-Florianópolis;BR;-26.41666667;-47.46666667;beach,historic
+Brasilia;BR;-15.77972;-47.929722;culture,history;brasilia
+Bento Goncalves;BR;-29.171391;-51.519169;adventures,food;bento_goncalves
+Canela;BR;-29.365561;-50.815559;adventures,culture,theme_park;canela
+Capao da Canoa;BR;-29.74556;-50.00972;beach,theme_park;capao_da_canoa
+Caxias do Sul;BR;-29.16806;-51.17944;adventures,food,history;caxias_do_sul
+Flores da Cunha;BR;-29.028891;-51.181671;adventures,food,relax;flores_da_cunha
+Garibaldi;BR;-29.256109;-51.533611;adventures,food,history;garibaldi
+Gramado;BR;-29.378611;-50.87389;culture,food,theme_park;gramado
+Nova Petropolis;BR;-29.37639;-51.114441;adventures,culture,food;nova_petropolis
+Pelotas;BR;-31.77194;-52.342499;food,history,water_sports;pelotas
+Porto Alegre;BR;-30.03306;-51.23;culture,food;porto_alegre
+Sao Francisco de Paula;BR;-29.448059;-50.583611;adventures,relax;sao_francisco_de_paula
+Torres;BR;-29.335279;-49.72694;adventures,beach,water_sports;torres
+Tramandai;BR;-29.98472;-50.13361;beach,food,water_sports;tramandai
+Balneario Camboriu;BR;-26.990561;-48.63472;adventures,beach,food;balneario_camboriu
+Blumenau;BR;-26.919439;-49.066109;culture,food;blumenau
+Bombas;BR;-27.14222;-48.509441;adventures,beach;bombas
+Florianopolis;BR;-27.59667;-48.549171;adventures,beach,water_sports;florianopolis
+Gaspar;BR;-26.931391;-48.958889;adventures,culture,food;gaspar
+Imbituba;BR;-28.24;-48.67028;adventures,beach;imbituba
+Itajai;BR;-26.90778;-48.661942;beach,food;itajai
+Itapema;BR;-27.090281;-48.611389;beach;itapema
+Laguna;BR;-28.4825;-48.78083;beach,history,water_sports;laguna
+Palhoca;BR;-27.645281;-48.667782;adventures,beach;palhoca
+Penha;BR;-26.76944;-48.645828;beach,theme_park,water_sports;penha
+Porto Belo;BR;-27.15778;-48.553059;adventures,beach,boat_trip;porto_belo
+Sao Francisco do Sul;BR;-26.24333;-48.638062;beach,boat_trip,history;sao_francisco_do_sul
+Sao Joaquim;BR;-28.29389;-49.931671;adventures,food,relax;sao_joaquim
+Curitiba;BR;-25.42778;-49.27306;culture,food;curitiba
+Foz do Iguacu;BR;-25.547779;-54.588058;adventures;foz_do_iguacu
+Londrina;BR;-23.31028;-51.162781;adventures,culture,food;londrina
+Maringa;BR;-23.42528;-51.93861;adventures,theme_park;maringa
+Paranagua;BR;-25.52;-48.509171;adventures,beach,boat_trip;paranagua
+Ponta Grossa;BR;-25.094999;-50.161942;adventures,culture,relax;ponta_grossa
+Aquidauana;BR;-20.471109;-55.78722;beach,water_sports;aquidauana
+Bonito;BR;-21.121111;-56.481941;adventures;bonito
+Campo Grande;BR;-20.44278;-54.646389;adventures,culture,food;campo_grande
+Corumba;BR;-19.009171;-57.653332;adventures,history;corumba
+Miranda;BR;-20.240561;-56.37833;adventures;miranda
+Dourados;BR;-22.221109;-54.805561;culture,history;dourados
+Ponta Pora;BR;-22.53611;-55.725559;adventures;ponta_pora
+Porto Murtinho;BR;-21.698891;-57.8825;adventures,beach,boat_trip;porto_murtinho
+Tres Lagoas;BR;-20.75111;-51.678329;adventures,water_sports;tres_lagoas
+Chapada Dos Guimaraes;BR;-15.46056;-55.749722;adventures;chapada_dos_guimaraes
+Cuiaba;BR;-15.59611;-56.096668;food,history;cuiaba
+Jaciara;BR;-15.96528;-54.96833;adventures,history,relax;jaciara
+Barra do Garcas;BR;-15.89;-52.256672;adventures,beach,water_sports;barra_do_garcas
+Pocone;BR;-16.25667;-56.62278;adventures,boat_trip,culture;pocone
+Rondonopolis;BR;-16.470831;-54.635559;adventures;rondonopolis
+Caldas Novas;BR;-17.741671;-48.625;adventures,relax,theme_park;caldas_novas
+Cavalcante;BR;-13.7975;-47.458328;adventures;cavalcante
+Goiania;BR;-16.67861;-49.253891;culture,food;goiania
+Pirenopolis;BR;-15.8525;-48.959171;adventures,culture,history;pirenopolis
+Trindade;BR;-16.649441;-49.488892;culture;trindade
+Altamira;BR;-3.20333;-52.20639;adventures,beach;altamira
+Belem;BR;-1.45583;-48.50444;food,history;belem
+Breves;BR;-1.68222;-50.480282;adventures,beach,culture;breves
+Maracana;BR;-0.76667;-47.450001;beach,water_sports;maracana
+Salinopolis;BR;-0.61361;-47.35611;beach,boat_trip,relax;salinopolis
+Santarem;BR;-2.44306;-54.708328;beach,boat_trip;santarem
+Borba;BR;-4.38778;-59.593891;beach;borba
+Manaus;BR;-3.10194;-60.025002;adventures,boat_trip,history;manaus
+Parintins;BR;-2.62833;-56.735828;beach,culture,water_sports;parintins
+Rio Preto da Eva;BR;-2.69944;-59.699718;adventures,beach,culture;rio_preto_da_eva
+Sao Gabriel da Cachoeira;BR;-0.13028;-67.089172;adventures,beach;sao_gabriel_da_cachoeira
+Rio Branco;BR;-9.97472;-67.809998;adventures,culture,food;rio_branco
+Macapa;BR;0.03889;-51.066391;adventures,culture,history;macapa
+Boa Vista;BR;2.81972;-60.673328;boat_trip,food,water_sports;boa_vista
+Porto Velho;BR;-8.76194;-63.903889;adventures,boat_trip;porto_velho
+Palmas;BR;-10.21278;-48.360279;adventures,beach,culture;palmas
+Angra Dos Reis;BR;-23.00667;-44.318062;adventures,beach,boat_trip;angra_dos_reis
+Arraial do Cabo;BR;-22.96611;-42.027779;beach,boat_trip,water_sports;arraial_do_cabo
+Armacao de Buzios;BR;-22.746941;-41.881672;beach,food,water_sports;armacao_de_buzios
+Cabo Frio;BR;-22.87944;-42.018608;beach,food,water_sports;cabo_frio
+Itatiaia;BR;-22.496111;-44.563332;adventures,relax;itatiaia
+Mangaratiba;BR;-22.959721;-44.040562;adventures,beach;mangaratiba
+Niteroi;BR;-22.883329;-43.103611;beach,culture;niteroi
+Nova Friburgo;BR;-22.28194;-42.531109;adventures;nova_friburgo
+Parati;BR;-23.217779;-44.713058;adventures,boat_trip,history;parati
+Petropolis;BR;-22.504999;-43.178612;adventures,food,relax;petropolis
+Resende;BR;-22.468889;-44.446671;adventures,food,relax;resende
+Rio Das Ostras;BR;-22.526939;-41945.0;adventures,beach,culture;rio_das_ostras
+Rio de Janeiro;BR;-22.902781;-43.2075;beach,culture,history;rio_de_janeiro
+Sao Pedro da Aldeia;BR;-22.83917;-42.102779;beach,history,water_sports;sao_pedro_da_aldeia
+Saquarema;BR;-22.92;-42.510281;adventures,beach,culture;saquarema
+Teresopolis;BR;-22.41222;-42.965561;adventures,food;teresopolis
+Valenca;BR;-22.24556;-43.700279;culture,history;valenca
+Aguas de Lindoia;BR;-22.476391;-46.632778;food,relax;aguas_de_lindoia
+Aparecida;BR;-22.846939;-45.229721;culture;aparecida
+Atibaia;BR;-23.11694;-46.550282;adventures,food;atibaia
+Barretos;BR;-20.55722;-48.56778;culture;barretos
+Bertioga;BR;-23.854441;-46.138611;adventures,beach,boat_trip;bertioga
+Brotas;BR;-22.28417;-48.126671;adventures;brotas
+Campinas;BR;-22.90556;-47.060829;adventures,culture;campinas
+Campos do Jordao;BR;-22.739441;-45.591389;adventures,culture,food;campos_do_jordao
+Cananeia;BR;-25.014721;-47.92667;boat_trip,history,food;cananeia
+Caraguatatuba;BR;-23.620279;-45.413059;adventures,beach,food;caraguatatuba
+Guaruja;BR;-23.993059;-46.25639;adventures,beach,theme_park;guaruja
+Ilhabela;BR;-23.778061;-45.358059;adventures,beach,water_sports;ilhabela
+Itanhaem;BR;-24.18306;-46.788891;beach,food,water_sports;itanhaem
+Mogi Das Cruzes;BR;-23.522779;-46.188332;adventures,history;mogi_das_cruzes
+Peruibe;BR;-24.32;-46.998329;adventures,beach,food;peruibe
+Piracaia;BR;-23.05389;-46.358059;adventures,history,food;piracaia
+Praia Grande;BR;-24.005831;-46.402779;beach,history;praia_grande
+Ribeirao Preto;BR;-21.1775;-47.81028;culture,food;ribeirao_preto
+Santos;BR;-23.960831;-46.333611;beach,boat_trip,history;santos
+Sao Paulo;BR;-23.547501;-46.636108;culture,food;sao_paulo
+Sao Roque;BR;-23.529169;-47.135281;food,history,theme_park;sao_roque
+Sao Sebastiao;BR;-23.76;-45.409721;adventures,beach,water_sports;sao_sebastiao
+Serra Negra;BR;-22.612221;-46.700562;adventures,culture,food;serra_negra
+Sorocaba;BR;-23.501671;-47.458061;adventures,history,theme_park;sorocaba
+Ubatuba;BR;-23.433889;-45.07111;adventures,beach;ubatuba
+Barbacena;BR;-21.22583;-43.773609;culture;barbacena
+Belo Horizonte;BR;-19.92083;-43.937778;culture,food;belo_horizonte
+Brumadinho;BR;-20.14333;-44.199718;adventures,culture;brumadinho
+Camanducaia;BR;-22.75528;-46.144718;adventures,food;camanducaia
+Caxambu;BR;-21.977221;-44.932499;food,theme_park;caxambu
+Congonhas;BR;-20.49972;-43.85778;culture,history;congonhas
+Diamantina;BR;-18.249439;-43.600281;adventures,culture,history;diamantina
+Esmeraldas;BR;-19.762501;-44.313889;adventures,culture,food;esmeraldas
+Itapeva;BR;-23.98222;-48.875561;adventures,culture,food;itapeva
+Juiz de Fora;BR;-21.76417;-43.350281;culture,food,history;juiz_de_fora
+Lambari;BR;-21.975559;-45.350281;adventures,theme_park;lambari
+Mariana;BR;-20.377781;-43.416111;adventures,culture,history;mariana
+Ouro Preto;BR;-20.39484;-43.505169;adventures,culture,history;ouro_preto
+Pocos de Caldas;BR;-21.787781;-46.56139;adventures,culture,food;pocos_de_caldas
+Sao Joao Del Rei;BR;-21.135559;-44.261669;adventures,history;sao_joao_del_rei
+Sao Lourenco;BR;-22.11639;-45.05444;adventures,food,theme_park;sao_lourenco
+Tiradentes;BR;-21.110279;-44.178059;adventures,culture,history;tiradentes
+Uberlandia;BR;-18.91861;-48.277222;adventures,food;uberlandia
+Conceicao da Barra;BR;-18.59333;-39.73222;beach,boat_trip,culture;conceicao_da_barra
+Domingos Martins;BR;-20.363331;-40.659168;adventures,food;domingos_martins
+Guarapari;BR;-20.66667;-40.497501;adventures,beach,food;guarapari
+Marataizes;BR;-21.043329;-40.82444;adventures,beach,food;marataizes
+Vargem Alta;BR;-20.671391;-41.006939;adventures,food;vargem_alta
+Vila Velha;BR;-20.32972;-40.2925;beach,food,history;vila_velha
+Vitoria;BR;-20.319441;-40.33778;beach,food,history;vitoria
+Barra de Santo Antonio;BR;-9.40472;-35.507221;beach,culture;barra_de_santo_antonio
+Coruripe;BR;-10.12556;-36.17556;beach;coruripe
+Maceio;BR;-9.66583;-35.735279;beach,boat_trip,history;maceio
+Maragogi;BR;-9.01222;-35.2225;adventures,beach,boat_trip;maragogi
+Marechal Deodoro;BR;-9.71028;-35895.0;beach,boat_trip,water_sports;marechal_deodoro
+Penedo;BR;-10.29028;-36.586391;beach,boat_trip,history;penedo
+Camacari;BR;-12.6975;-38.324169;beach;camacari
+Canavieiras;BR;-15.675;-38.94722;beach,boat_trip,food;canavieiras
+Ilheus;BR;-14.78889;-39.049438;beach,food,history;ilheus
+Itacare;BR;-14.2775;-38.99667;adventures,beach;itacare
+Itaparica;BR;-12.88833;-38.678612;beach,boat_trip,history;itaparica
+Marau;BR;-14.10306;-39.014721;adventures,beach,boat_trip;marau
+Mata de Sao Joao;BR;-12.53028;-38.299171;beach,history;mata_de_sao_joao
+Porto Seguro;BR;-16.44972;-39.06472;beach,history;porto_seguro
+Prado;BR;-17.34111;-39.220829;beach,boat_trip,history;prado
+Santa Cruz Cabralia;BR;-16.278061;-39.024719;beach,boat_trip,history;santa_cruz_cabralia
+Salvador;BR;-12.97111;-38.51083;beach,culture,history;salvador
+Aquiraz;BR;-3.90139;-38.391109;beach,history,theme_park;aquiraz
+Aracati;BR;-4.56167;-37.769718;adventures,beach,history;aracati
+Beberibe;BR;-4.17972;-38.130562;adventures,beach;beberibe
+Caucaia;BR;-3.73611;-38.653061;adventures,beach,water_sports;caucaia
+Fortaleza;BR;-3.71722;-38.54306;beach,food,water_sports;fortaleza
+Juazeiro do Norte;BR;-7.21306;-39.315281;culture,food;juazeiro_do_norte
+Sao Goncalo do Amarante;BR;-3.60722;-38.96833;adventures,beach,water_sports;sao_goncalo_do_amarante
+Ubajara;BR;-3.85444;-40.921108;adventures;ubajara
+Alcantara;BR;-2.40889;-44.414719;culture,history;alcantara
+Barreirinhas;BR;-2.74694;-42.826389;adventures,beach;barreirinhas
+Carolina;BR;-7.33278;-47.46944;adventures;carolina
+Imperatriz;BR;-5.52639;-47.491669;beach;imperatriz
+Sao Luis;BR;-2.52972;-44.30278;beach,culture,history;sao_luis
+Aracaju;BR;-10.91111;-37.071671;adventures,beach,culture;aracaju
+Laranjeiras;BR;-10.80639;-37.169998;culture,history;laranjeiras
+Sao Cristovao;BR;-11.01472;-37.20639;culture,food,history;sao_cristovao
+Natal;BR;-5.795;-35.209438;adventures,beach,history;natal
+Parnamirim;BR;-5.91556;-35.262779;beach,culture,water_sports;parnamirim
+Bezerros;BR;-8.23333;-35.79694;culture;bezerros
+Fernando de Noronha (Distrito Estadual);BR;-3.84028;-32.410831;adventures,beach,water_sports;fernando_de_noronha_(distrito_estadual)
+Paulista;BR;-7.94083;-34.873058;beach,boat_trip,history;paulista
+Ipojuca;BR;-8.39889;-35.063889;beach,food,water_sports;ipojuca
+Recife;BR;-8.05389;-34.881111;beach,culture,history;recife
+Olinda;BR;-8.00889;-34.855282;beach,culture,history;olinda
+Tamandare;BR;-8.75972;-35.104721;beach,boat_trip,food;tamandare
+Caruaru;BR;-8.28333;-35.976109;culture,food;caruaru
+Itamaraca;BR;-7.74778;-34.825562;beach,food,history;itamaraca
+Cabedelo;BR;-6.98111;-34.833889;beach,culture,history;cabedelo
+Campina Grande;BR;-7.23056;-35.881111;culture,food,history;campina_grande
+Conde;BR;-7.25972;-34.907501;beach;conde
+Joao Pessoa;BR;-7.115;-34.86306;beach,boat_trip,history;joao_pessoa
+Parnaiba;BR;-2.90472;-41.776669;beach,boat_trip,history;parnaiba
+Piripiri;BR;-4.27333;-41.776939;adventures,history;piripiri
+Teresina;BR;-5.08917;-42.801941;boat_trip,food,history;teresina
