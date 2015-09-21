@@ -11,59 +11,76 @@ public class City implements Serializable{
 
     private static final long serialVersionUID = 42L;
 
-    private long id;
+    private int id;
+    private Double latitude;
+    private Double longitude;
+    private String nameEnglish;
+    private int countryId;
+    private String translationFileKey;
+    //Name in the mobile's language
     private String name;
+
     private String countryCode;
     private String countryName;
     private List<DayForecast> dayForecasts;
-    private Double latitude;
-    private Double longitude;
+    private List<String> tags;
 
-    public City(long id, String name, String countryCode, List<DayForecast> dayForecasts) {
+    public City(int id, Double latitude, Double longitude, String nameEnglish, int countryId, String translationFileKey) {
         this.id = id;
-        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.nameEnglish = nameEnglish;
+        this.countryId = countryId;
+        this.translationFileKey = translationFileKey;
+    }
+
+    public City(int id, String nameEnglish, String countryCode, List<DayForecast> dayForecasts) {
+        this.id = id;
+        this.nameEnglish = nameEnglish;
         this.countryCode = countryCode;
         this.dayForecasts = dayForecasts;
     }
 
-    public City(long id, String name, String countryCode) {
+    public City(int id, String nameEnglish, String countryCode) {
         this.id = id;
-        this.name = name;
+        this.nameEnglish = nameEnglish;
         this.countryCode = countryCode;
     }
 
-    public City(long id, String name, String countryCode, String countryName, Double latitude, Double longitude) {
+    public City(int id, String nameEnglish, String countryCode, String countryName, Double latitude, Double longitude) {
         this.id = id;
-        this.name = name;
+        this.nameEnglish = nameEnglish;
         this.countryCode = countryCode;
         this.countryName = countryName;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public String getName() {
-        return name;
-    }
+    public City() { }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name;}
+
+    public int getCountryId() { return countryId;}
+
+    public void setCountryId(int countryId) { this.countryId = countryId;}
+
+    public String getNameEnglish() { return nameEnglish; }
+
+    public void setNameEnglish(String nameEnglish) { this.nameEnglish = nameEnglish; }
 
     public List<DayForecast> getDayForecasts() {
         return dayForecasts;
     }
 
-    public void setDayForecasts(List<DayForecast> dayForecasts) {
-        this.dayForecasts = dayForecasts;
-    }
+    public void setDayForecasts(List<DayForecast> dayForecasts) { this.dayForecasts = dayForecasts; }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
     public String getCountryCode() {
         return countryCode;
@@ -97,12 +114,20 @@ public class City implements Serializable{
         this.countryName = countryName;
     }
 
+    public List<String> getTags() { return tags; }
+
+    public void setTags(List<String> tags) {this.tags = tags; }
+
+    public String getTranslationFileKey() { return translationFileKey; }
+
+    public void setTranslationFileKey(String translationFileKey) { this.translationFileKey = translationFileKey;}
+
     @Override
     public String toString() {
 
         String retorno = "City{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", nameEnglish='" + nameEnglish + '\'' +
                 ", countryCode='" + countryCode + '\'' +
                 ", dayForecasts=";
 

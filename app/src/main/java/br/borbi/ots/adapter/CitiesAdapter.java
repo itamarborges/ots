@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -94,11 +93,12 @@ public class CitiesAdapter extends BaseAdapter{
         //final String strLabelLocal = cityDisplayName + " - " + cityResultSearch.getCity().getCountryName();
 
 
+        final String strLabelLocal = cityResultSearch.getCity().getNameEnglish() + " - " + cityResultSearch.getCity().getCountryName();
 
         // Find TextView and set the city name on it
         viewHolder.cityNameTextView.setText(strLabelLocal);
 
-        Long idCity = cityResultSearch.getCity().getId();
+        int idCity = cityResultSearch.getCity().getId();
         if (!tagsCity.containsKey(idCity)) {
 
             String selection = OTSProvider.FILTER_BY_CITY;
@@ -126,7 +126,7 @@ public class CitiesAdapter extends BaseAdapter{
                     tagNames.add(tag);
                 }
             }
-            tagsCity.put(idCity, tagNames);
+            tagsCity.put((long) idCity, tagNames);
         }
 
         final LinkedList<String> tags = tagsCity.get(idCity);

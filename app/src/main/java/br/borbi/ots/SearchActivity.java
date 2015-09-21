@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
@@ -146,7 +145,7 @@ public class SearchActivity extends ActionBarActivity {
                 int numIndexCityLatitude = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LATITUDE);
                 int numIndexCityLongitude = c.getColumnIndex(OTSContract.City.COLUMN_NAME_LONGITUDE);
 
-                City city = new City(c.getLong(numIndexCityId), c.getString(numIndexName), c.getString(numIndexCountryCode),null,c.getDouble(numIndexCityLatitude),c.getDouble(numIndexCityLongitude));
+                City city = new City(c.getInt(numIndexCityId), c.getString(numIndexName), c.getString(numIndexCountryCode),null,c.getDouble(numIndexCityLatitude),c.getDouble(numIndexCityLongitude));
 
                 Integer distanceBetweenCities = Utility.roundCeil(CoordinatesUtillity.getDistance(lastLatitude, lastLongitude, city.getLatitude(), city.getLongitude()));
 
