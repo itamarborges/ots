@@ -80,7 +80,8 @@ public class CityModel {
 
             city = new City(id, latitude, longitude, nameEnglish, countryId, translationFileKey);
 
-            //Log.v("teste", "nameEnglish " + nameEnglish + " translation " + translationFileKey + " id " + id);
+            //
+            // Log.v("teste", "nameEnglish " + nameEnglish + " translation " + translationFileKey + " id " + id);
 
             String selectionTags = OTSProvider.FILTER_BY_CITY;
             String[] selectionArgsTags = new String[]{String.valueOf(id)};
@@ -105,6 +106,7 @@ public class CityModel {
                     tagNames.add(tag);
                 }
             }
+            cTags.close();
 
             city.setTags(tagNames);
 

@@ -129,6 +129,7 @@ public class City implements Serializable{
                 "id=" + id +
                 ", nameEnglish='" + nameEnglish + '\'' +
                 ", countryCode='" + countryCode + '\'' +
+                ", name='" + name + '\'' +
                 ", dayForecasts=";
 
         if (dayForecasts == null) {

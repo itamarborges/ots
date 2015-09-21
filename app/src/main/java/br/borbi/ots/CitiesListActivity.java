@@ -4,11 +4,13 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 
@@ -67,7 +69,6 @@ public class CitiesListActivity extends ActionBarActivity {
         // Create the list view and bind the adapter
         mCountrySpinner.setAdapter(adapter);
 
-        /*
         mCountrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -77,17 +78,19 @@ public class CitiesListActivity extends ActionBarActivity {
 
                 LinkedList<City> listCities = CityModel.listCitiesWithTags(cityQuery, getApplication());
 
-//                Toast.makeText(getParent(), "pesquisou" + listCities.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(), "pesquisou", Toast.LENGTH_SHORT).show();
+
+                Log.v("listagem", "Lista de cidades: " +listCities.toString());
 
 
 
             }
 
-           // @Override
-          //  public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-            //}
-        );*/
+            }
+        });
     }
 
     @Override
