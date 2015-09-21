@@ -40,14 +40,26 @@ public class OTSProvider extends ContentProvider {
     private static final String CLASS_NAME = OTSProvider.class.getName();
     private OTSDbHelper mOpenHelper;
 
-    public static final String FILTER_BY_CITY=
-            OTSContract.City.TABLE_NAME+
-                    "." + OTSContract.City._ID + " = ? ";
-
     public static final String FILTER_BY_SEARCH_ID=
             OTSContract.Search.TABLE_NAME+
                     "." + OTSContract.Search._ID + " = ? ";
 
+    public static final String FILTER_BY_CITY = OTSContract.City.TABLE_NAME+"." + OTSContract.City._ID + " = ? ";
+    public static final String FILTER_BY_COUNTRY = OTSContract.City.TABLE_NAME+"." + OTSContract.City.COLUMN_NAME_COUNTRY_ID + " = ? ";
+
+    public static final String[] TAG_COLUMNS = {
+            OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag._ID,
+            OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag.COLUMN_NAME_RESOURCE_NAME
+    };
+
+    public static final String[] CITIES_COLUMNS = {
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID,
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LATITUDE,
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LONGITUDE,
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH,
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID,
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_TRANSLATION_FILE_KEY
+    };
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);

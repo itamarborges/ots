@@ -1,9 +1,7 @@
 package br.borbi.ots;
 
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -11,14 +9,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 
+import java.util.LinkedList;
+
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.model.CityModel;
+import br.borbi.ots.pojo.City;
 import br.borbi.ots.utility.Utility;
 
 public class CitiesListActivity extends ActionBarActivity {
+
+
+
+    // these indices must match the projection
+    public static final int INDEX_CITY_ID = 0;
+    public static final int INDEX_CITY_TRANSLATION_FILE_KEY = 1;
 
     Spinner mCountrySpinner;
 
@@ -40,8 +47,8 @@ public class CitiesListActivity extends ActionBarActivity {
                 null,
                 null,
                 OTSContract.Country.COLUMN_NAME_COUNTRY_CODE);
-
-
+        
+        
 // View IDs to map the columns (fetched above) into
         int[] toViews = {
                 android.R.id.text1
@@ -64,14 +71,15 @@ public class CitiesListActivity extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                Cursor c = getContentResolver().query(
-                        OTSContract.City.CONTENT_URI,
-                        new String[]{OTSContract.Country.COLUMN_NAME_COUNTRY_CODE, OTSContract.Country._ID},
-                        null,
-                        null,
-                        OTSContract.Country.COLUMN_NAME_COUNTRY_CODE);
+                City cityQuery = new City();
+                cityQuery.setCountryId((int) id);
 
-            }
+                LinkedList<City> listCities = CityModel.listCitiesWithTags(cityQuery, getApplication());
+
+//                Toast.makeText(getParent(), "pesquisou" + listCities.toString(), Toast.LENGTH_SHORT).show();
+
+
+
             }
 
             @Override

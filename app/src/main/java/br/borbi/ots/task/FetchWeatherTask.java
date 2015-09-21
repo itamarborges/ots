@@ -88,7 +88,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                 City cityToSearch = (City) it.next();
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                        .appendQueryParameter(QUERY_PARAM, cityToSearch.getName()+"," + cityToSearch.getCountryCode())
+                        .appendQueryParameter(QUERY_PARAM, cityToSearch.getNameEnglish()+"," + cityToSearch.getCountryCode())
                         .appendQueryParameter(FORMAT_PARAM, format)
                         .appendQueryParameter(UNITS_PARAM, units)
                         .appendQueryParameter(APPID_PARAM, APPID_KEY)
@@ -115,7 +115,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
                     if (buffer.length() != 0) {
                         forecastJsonStr = buffer.toString();
-                        Log.v(LOG_TAG,"cidade: " + cityToSearch.getName() + ", retorno: " + forecastJsonStr);
+                        Log.v(LOG_TAG,"cidade: " + cityToSearch.getNameEnglish() + ", retorno: " + forecastJsonStr);
 
                         cities.add(getWeatherDataFromJson(forecastJsonStr, cityToSearch));
                     }
@@ -177,7 +177,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             JSONObject forecastJson = new JSONObject(forecastJsonStr);
             if(!forecastJson.has(OWM_LIST)){
                 //TODO tratar cidade nao encontrada
-                Log.v(LOG_TAG,"cidade " + citySearched.getName() + " nao encontrada");
+                Log.v(LOG_TAG,"cidade " + citySearched.getNameEnglish() + " nao encontrada");
             }else{
                 JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
 
@@ -233,7 +233,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                     daysForecast.add(forecastForTheDay);
                 }
 
-                //city = new City(citySearched.getId(), citySearched.getName(), citySearched.getCountryCode(),daysForecast);
+                //city = new City(citySearched.getId(), citySearched.getNameEnglish(), citySearched.getCountryCode(),daysForecast);
                 citySearched.setDayForecasts(daysForecast);
 
             }
