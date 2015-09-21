@@ -67,6 +67,7 @@ public class CitiesListActivity extends ActionBarActivity {
         // Create the list view and bind the adapter
         mCountrySpinner.setAdapter(adapter);
 
+        /*
         mCountrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -82,11 +83,11 @@ public class CitiesListActivity extends ActionBarActivity {
 
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+           // @Override
+          //  public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
+            //}
+        );*/
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import br.borbi.ots.ResultCitiesActivity;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.CityResultSearch;
+import br.borbi.ots.utility.CityUtility;
 import br.borbi.ots.utility.Utility;
 
 /**
@@ -84,6 +86,13 @@ public class CitiesAdapter extends BaseAdapter{
         if(Utility.usesMiles(mContext)){
             distance = Utility.convertKilometersToMiles(distance);
         }
+
+        //String cityDisplayName = CityUtility.getCityDisplayName(cityResultSearch.getCity().getName(),mContext);
+
+        //final String strLabelLocal = cityResultSearch.getCity().getName() + " - " + cityResultSearch.getCity().getCountryName();
+        //final String strLabelLocal = cityDisplayName + " - " + cityResultSearch.getCity().getCountryName();
+
+
         final String strLabelLocal = cityResultSearch.getCity().getNameEnglish() + " - " + cityResultSearch.getCity().getCountryName();
 
         // Find TextView and set the city name on it
