@@ -3,7 +3,6 @@ package br.borbi.ots.model;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import java.util.LinkedList;
 
@@ -51,7 +50,7 @@ public class CityModel {
 
     public static LinkedList<City> listCitiesWithTags(City cityParam, Context contextParam) {
 
-        LinkedList<City> listCities = null;
+        LinkedList<City> listCities = new LinkedList<City>();
 
         City city = null;
 
@@ -81,15 +80,7 @@ public class CityModel {
 
             city = new City(id, latitude, longitude, nameEnglish, countryId, translationFileKey);
 
-            Log.v("teste", "nameEnglish " + nameEnglish + " translation " + translationFileKey + " id " + id);
-
-            try {
-                city.setName(contextParam.getString(contextParam.getResources().getIdentifier(translationFileKey, "string", contextParam.getPackageName())));
-            } catch (Exception e) {
-                Log.v("teste", "Não achou a chave para a cidade de " + nameEnglish);
-            }
-
-
+            //Log.v("teste", "nameEnglish " + nameEnglish + " translation " + translationFileKey + " id " + id);
 
             String selectionTags = OTSProvider.FILTER_BY_CITY;
             String[] selectionArgsTags = new String[]{String.valueOf(id)};
