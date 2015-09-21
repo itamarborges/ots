@@ -26,6 +26,7 @@ import br.borbi.ots.ResultCitiesActivity;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.pojo.CityResultSearch;
+import br.borbi.ots.utility.CityUtility;
 import br.borbi.ots.utility.Utility;
 
 /**
@@ -86,7 +87,13 @@ public class CitiesAdapter extends BaseAdapter{
         if(Utility.usesMiles(mContext)){
             distance = Utility.convertKilometersToMiles(distance);
         }
+
+        //String cityDisplayName = CityUtility.getCityDisplayName(cityResultSearch.getCity().getName(),mContext);
+
         final String strLabelLocal = cityResultSearch.getCity().getName() + " - " + cityResultSearch.getCity().getCountryName();
+        //final String strLabelLocal = cityDisplayName + " - " + cityResultSearch.getCity().getCountryName();
+
+
 
         // Find TextView and set the city name on it
         viewHolder.cityNameTextView.setText(strLabelLocal);
