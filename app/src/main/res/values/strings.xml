@@ -143,6 +143,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="country_textview">Country:</string>
+    <string name="no_list_cities_found">No cities found for the selected country.</string>
 
     <!-- Z -->
 

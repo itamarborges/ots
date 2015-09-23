@@ -80,8 +80,7 @@ public class CityModel {
 
             city = new City(id, latitude, longitude, nameEnglish, countryId, translationFileKey);
 
-            //
-            // Log.v("teste", "nameEnglish " + nameEnglish + " translation " + translationFileKey + " id " + id);
+            city.setName(contextParam.getString(contextParam.getResources().getIdentifier(translationFileKey, "string", contextParam.getPackageName())));
 
             String selectionTags = OTSProvider.FILTER_BY_CITY;
             String[] selectionArgsTags = new String[]{String.valueOf(id)};

@@ -4,18 +4,19 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 
 import java.util.LinkedList;
 
+import br.borbi.ots.adapter.CitiesListAdapter;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.model.CityModel;
 import br.borbi.ots.pojo.City;
@@ -23,7 +24,9 @@ import br.borbi.ots.utility.Utility;
 
 public class CitiesListActivity extends ActionBarActivity {
 
-
+    private CitiesListAdapter mCitiesListAdapter;
+    private ListView mListView;
+    private View mEmptyView;
 
     // these indices must match the projection
     public static final int INDEX_CITY_ID = 0;
@@ -40,6 +43,9 @@ public class CitiesListActivity extends ActionBarActivity {
         Utility.initializeAd(mAdView, this);
 
         mCountrySpinner = (Spinner) findViewById(R.id.countrySpinner);
+        mListView = (ListView) findViewById(R.id.listView);
+        mEmptyView = (TextView) findViewById(R.id.listview_list_cities_empty);
+
 
         String[] fromColumns = {OTSContract.Country.COLUMN_NAME_COUNTRY_CODE};
 
@@ -78,11 +84,7 @@ public class CitiesListActivity extends ActionBarActivity {
 
                 LinkedList<City> listCities = CityModel.listCitiesWithTags(cityQuery, getApplication());
 
-                Toast.makeText(getApplication(), "pesquisou", Toast.LENGTH_SHORT).show();
-
-                Log.v("listagem", "Lista de cidades: " +listCities.toString());
-
-
+                fillAdapter(listCities);
 
             }
 
@@ -91,6 +93,12 @@ public class CitiesListActivity extends ActionBarActivity {
 
             }
         });
+    }
+
+    private void fillAdapter(LinkedList<City> listCities) {
+        mCitiesListAdapter = new CitiesListAdapter(listCities, getApplicationContext());
+        mListView.setEmptyView(mEmptyView);
+        mListView.setAdapter(mCitiesListAdapter);
     }
 
     @Override

@@ -37,6 +37,18 @@
         android:layout_above="@+id/adView"
         android:layout_marginBottom="5dp" />
 
+    <!-- empty list -->
+    <TextView
+        android:id="@+id/listview_list_cities_empty"
+        android:text="@string/no_list_cities_found"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

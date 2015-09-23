@@ -138,7 +138,8 @@
         <activity
             android:name=".CitiesListActivity"
             android:label="@string/action_cities_list"
-            android:parentActivityName=".FiltersActivity" >
+            android:parentActivityName=".FiltersActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.borbi.ots.FiltersActivity" />
