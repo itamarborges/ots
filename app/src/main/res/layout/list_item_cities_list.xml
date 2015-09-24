@@ -10,24 +10,29 @@
     <LinearLayout
         android:id="@+id/list_item_linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:measureWithLargestChild="false"
+        android:showDividers="beginning|middle|end">
 
         <TextView
             android:id="@+id/list_item_city_list_name_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Porto Alegre - Brasil"
-            android:textAppearance="@style/titleTextView"
-            />
+            android:textAppearance="?android:textAppearanceLarge"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/material_blue_grey_800" />
 
         <TextView
             android:id="@+id/list_item_city_list_tags_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="Praia - Neve" />
+            android:text="Praia - Neve"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/material_blue_grey_800" />
     </LinearLayout>
 
 </LinearLayout>

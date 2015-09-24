@@ -1,13 +1,15 @@
 package br.borbi.ots.pojo;
 
 import java.io.Serializable;
+import java.text.Collator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Gabriela on 28/05/2015.
  */
-public class City implements Serializable{
+public class City implements Serializable, Comparable<City>{
 
     private static final long serialVersionUID = 42L;
 
@@ -145,5 +147,13 @@ public class City implements Serializable{
         retorno += "}";
 
         return retorno;
+    }
+
+
+    @Override
+    public int compareTo(City another) {
+        Collator cot = Collator.getInstance(new Locale("pt", "BR"));
+        cot.setStrength(Collator.PRIMARY);
+        return cot.compare(this.getName(), another.getName());
     }
 }

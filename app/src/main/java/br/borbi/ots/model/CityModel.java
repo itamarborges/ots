@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.Collections;
 import java.util.LinkedList;
 
 import br.borbi.ots.data.OTSContract;
@@ -111,6 +112,9 @@ public class CityModel {
 
             listCities.add(city);
         }
+
+        Collections.sort(listCities);
+
         return listCities;
     }
 
@@ -127,9 +131,6 @@ public class CityModel {
 
         return listCity;
     }
-
-
-
 
 /*
     public LinkedList<City> getCitiesWithTags(City cityParam) {
