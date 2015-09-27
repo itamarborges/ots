@@ -24,7 +24,6 @@ public class City implements Serializable, Comparable<City>{
 
     private String countryCode;
     private String countryName;
-    private List<DayForecast> dayForecasts;
     private List<String> tags;
 
     public City(int id, Double latitude, Double longitude, String nameEnglish, int countryId, String translationFileKey) {
@@ -34,13 +33,6 @@ public class City implements Serializable, Comparable<City>{
         this.nameEnglish = nameEnglish;
         this.countryId = countryId;
         this.translationFileKey = translationFileKey;
-    }
-
-    public City(int id, String nameEnglish, String countryCode, List<DayForecast> dayForecasts) {
-        this.id = id;
-        this.nameEnglish = nameEnglish;
-        this.countryCode = countryCode;
-        this.dayForecasts = dayForecasts;
     }
 
     public City(int id, String nameEnglish, String countryCode) {
@@ -72,11 +64,6 @@ public class City implements Serializable, Comparable<City>{
 
     public void setNameEnglish(String nameEnglish) { this.nameEnglish = nameEnglish; }
 
-    public List<DayForecast> getDayForecasts() {
-        return dayForecasts;
-    }
-
-    public void setDayForecasts(List<DayForecast> dayForecasts) { this.dayForecasts = dayForecasts; }
 
     public int getId() {
         return id;
@@ -126,27 +113,18 @@ public class City implements Serializable, Comparable<City>{
 
     @Override
     public String toString() {
-
-        String retorno = "City{" +
+        return "City{" +
                 "id=" + id +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 ", nameEnglish='" + nameEnglish + '\'' +
-                ", countryCode='" + countryCode + '\'' +
+                ", countryId=" + countryId +
+                ", translationFileKey='" + translationFileKey + '\'' +
                 ", name='" + name + '\'' +
-                ", dayForecasts=";
-
-        if (dayForecasts == null) {
-            retorno += " vazio";
-        } else {
-            Iterator<DayForecast> it = dayForecasts.iterator();
-            while (it.hasNext()) {
-                DayForecast dayForecast = (DayForecast) it.next();
-                retorno += dayForecast.toString();
-            }
-        }
-
-        retorno += "}";
-
-        return retorno;
+                ", countryCode='" + countryCode + '\'' +
+                ", countryName='" + countryName + '\'' +
+                ", tags=" + tags +
+                '}';
     }
 
 

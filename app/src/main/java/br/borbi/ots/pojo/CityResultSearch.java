@@ -1,5 +1,7 @@
 package br.borbi.ots.pojo;
 
+import java.util.List;
+
 /**
  * Created by Gabriela on 14/07/2015.
  */
@@ -9,6 +11,7 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
     private Integer distance;
     private Integer idResultSearch;
     private boolean isFirstCity;
+    private List<DayForecast> dayForecasts;
 
     public CityResultSearch(City city, Integer distance, Integer idResultSearch) {
         this.city = city;
@@ -19,6 +22,11 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
     public CityResultSearch(City city, Integer distance) {
         this.city = city;
         this.distance = distance;
+    }
+
+    public CityResultSearch(City city, List<DayForecast> dayForecasts) {
+        this.city = city;
+        this.dayForecasts = dayForecasts;
     }
 
     public City getCity() {
@@ -66,4 +74,11 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
     public void setIsFirstCity(boolean isFirstCity) {
         this.isFirstCity = isFirstCity;
     }
+
+    public List<DayForecast> getDayForecasts() {
+        return dayForecasts;
+    }
+
+    public void setDayForecasts(List<DayForecast> dayForecasts) { this.dayForecasts = dayForecasts; }
+
 }

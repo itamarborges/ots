@@ -31,7 +31,7 @@ import br.borbi.ots.utility.Utility;
 
 interface TaskFinished {
 
-    public void OnTaskFinished(List<City> cities);
+    public void OnTaskFinished(List<CityResultSearch> cities);
 }
 
 public class SearchActivity extends ActionBarActivity {
@@ -169,22 +169,22 @@ public class SearchActivity extends ActionBarActivity {
 
     }
 
-    private void validateCities(List<City> cities) {
+    private void validateCities(List<CityResultSearch> cities) {
 
         mCities = new ArrayList<CityResultSearch>();
 
-        for (City city : cities) {
+        for (CityResultSearch cityResultSearch: cities) {
 
             int contSunnyDays = 0;
             boolean validCity = true;
 
             List<DayForecast> dayForecasts = new LinkedList<DayForecast>();
 
-            Integer distance = Utility.roundCeil(CoordinatesUtillity.getDistance(lastLatitude, lastLongitude, city.getLatitude(), city.getLongitude()));
+            Integer distance = Utility.roundCeil(CoordinatesUtillity.getDistance(lastLatitude, lastLongitude, cityResultSearch.getCity().getLatitude(), cityResultSearch.getCity().getLongitude()));
 
-            if(Utility.isDistanceSmallerThanMinimumDistance(distance, mMaxDistance) && city.getDayForecasts()!=null){
+            if(Utility.isDistanceSmallerThanMinimumDistance(distance, mMaxDistance) && cityResultSearch.getDayForecasts()!=null){
 
-                for (DayForecast dayForecast : city.getDayForecasts()) {
+                for (DayForecast dayForecast : cityResultSearch.getDayForecasts()) {
                     if (dayForecast.getDate().after(dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateBegin)) {
 
                         if (!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature) {
@@ -207,8 +207,9 @@ public class SearchActivity extends ActionBarActivity {
             }
 
             if (validCity) {
-                city.setDayForecasts(dayForecasts);
-                mCities.add(new CityResultSearch(city,distance));
+                cityResultSearch.setDayForecasts(dayForecasts);
+                cityResultSearch.setDistance(distance);
+                mCities.add(cityResultSearch);
             }
         }
 
@@ -251,7 +252,7 @@ public class SearchActivity extends ActionBarActivity {
 
     public class TaskFinishedListener implements TaskFinished {
         @Override
-        public void OnTaskFinished(List<City> cities) {
+        public void OnTaskFinished(List<CityResultSearch> cities) {
             validateCities(cities);
         }
     }

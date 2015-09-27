@@ -52,7 +52,8 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_DISTANCE,
             OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID,
             OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LATITUDE,
-            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LONGITUDE
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LONGITUDE,
+            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_TRANSLATION_FILE_KEY
     };
 
     // these indices must match the projection
@@ -64,6 +65,7 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
     public static final int INDEX_CITY_ID = 5;
     public static final int INDEX_CITY_LATITUDE = 6;
     public static final int INDEX_CITY_LONGITUDE = 7;
+    public static final int INDEX_CITY_TRANSLATION_FILE_KEY = 8;
 
     public static final String[] TAG_COLUMNS = {
             OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag._ID,
@@ -167,8 +169,11 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
                 Double cityLatitude = data.getDouble(CitiesFragment.INDEX_CITY_LATITUDE);
                 Double cityLongitude = data.getDouble(CitiesFragment.INDEX_CITY_LONGITUDE);
                 Integer distance = data.getInt(CitiesFragment.INDEX_REL_SEARCH_CITY_DISTANCE);
+                String translationFileKey = data.getString(CitiesFragment.INDEX_CITY_TRANSLATION_FILE_KEY);
 
-                CityResultSearch cityResultSearch = new CityResultSearch(new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude), distance, idResultSearchCity);
+                City city = new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude);
+                city.setName(getActivity().getString(getActivity().getResources().getIdentifier(translationFileKey, "string", getActivity().getPackageName())));
+                CityResultSearch cityResultSearch = new CityResultSearch(city, distance, idResultSearchCity);
                 cities.add(cityResultSearch);
             }
             while (data.moveToNext());

@@ -85,13 +85,13 @@ public class CitiesAdapter extends BaseAdapter{
             distance = Utility.convertKilometersToMiles(distance);
         }
 
-        //String cityDisplayName = CityUtility.getCityDisplayName(cityResultSearch.getCity().getName(),mContext);
+        final String strLabelLocal = cityResultSearch.getCity().getName() + " - " + cityResultSearch.getCity().getCountryName();
 
-        //final String strLabelLocal = cityResultSearch.getCity().getName() + " - " + cityResultSearch.getCity().getCountryName();
-        //final String strLabelLocal = cityDisplayName + " - " + cityResultSearch.getCity().getCountryName();
+        Log.v(LOG_TAG,"city = " + cityResultSearch.getCity().getTranslationFileKey());
 
+      //  String cityDisplayName = mContext.getString(mContext.getResources().getIdentifier(cityResultSearch.getCity().getTranslationFileKey(), "string", mContext.getPackageName()));
 
-        final String strLabelLocal = cityResultSearch.getCity().getNameEnglish() + " - " + cityResultSearch.getCity().getCountryName();
+       // final String strLabelLocal = cityDisplayName  + " - " + cityResultSearch.getCity().getCountryName();
 
         // Find TextView and set the city name on it
         viewHolder.cityNameTextView.setText(strLabelLocal);

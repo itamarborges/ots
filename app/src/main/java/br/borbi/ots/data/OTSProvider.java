@@ -633,7 +633,7 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
 
                 long relSearchCityId = db.insert(OTSContract.RelSearchCity.TABLE_NAME, null, relSearchCityValues);
 
-                for (DayForecast dayForecast : cityResultSearch.getCity().getDayForecasts()) {
+                for (DayForecast dayForecast : cityResultSearch.getDayForecasts()) {
                     ContentValues resultSearchValues = new ContentValues();
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_DATE, dayForecast.getDate().getTime());
                     resultSearchValues.put(OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE, dayForecast.getMinTemperature());

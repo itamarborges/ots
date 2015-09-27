@@ -25,6 +25,7 @@ import java.util.List;
 import br.borbi.ots.SearchActivity;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
+import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.pojo.SearchParameters;
 
@@ -32,7 +33,7 @@ import br.borbi.ots.pojo.SearchParameters;
 /**
  * Created by Gabriela on 26/05/2015.
  */
-public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<City>> {
+public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<CityResultSearch>> {
 
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
@@ -50,7 +51,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
     }
 
     @Override
-    protected List<City> doInBackground(SearchParameters... params) {
+    protected List<CityResultSearch> doInBackground(SearchParameters... params) {
 
         // If there's no zip code, there's nothing to look up.  Verify size of params.
         if (params.length == 0) {
@@ -71,7 +72,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
         SearchParameters searchParameters = params[0];
 
-        List<City> cities = new ArrayList<City>();
+        List<CityResultSearch> cities = new ArrayList<CityResultSearch>();
         List<City> citiesToSearch = searchParameters.getCities();
 
         try {
@@ -144,7 +145,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
         return cities;
     }
 
-    private City getWeatherDataFromJson(String forecastJsonStr, City citySearched)
+    private CityResultSearch getWeatherDataFromJson(String forecastJsonStr, City citySearched)
             throws JSONException {
 
         // These are the names of the JSON objects that need to be extracted.
@@ -171,7 +172,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
         final String OWM_HUMIDITY = "humidity";
 
         LinkedList<DayForecast> daysForecast = new LinkedList<DayForecast>();
-        City city = null;
+        CityResultSearch cityResultSearch = null;
 
         try {
             JSONObject forecastJson = new JSONObject(forecastJsonStr);
@@ -232,10 +233,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                     DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high,morningTemperature,eveningTemperature,nightTemperature, WeatherType.getWeatherType(weatherId),precipitation,humidity);
                     daysForecast.add(forecastForTheDay);
                 }
-
-                //city = new City(citySearched.getId(), citySearched.getNameEnglish(), citySearched.getCountryCode(),daysForecast);
-                citySearched.setDayForecasts(daysForecast);
-
+                cityResultSearch = new CityResultSearch(citySearched,daysForecast);
             }
 
         } catch (JSONException e) {
@@ -243,12 +241,12 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             e.printStackTrace();
         }
 
-        return citySearched;
+        return cityResultSearch;
     }
 
 
     @Override
-    protected void onPostExecute(List<City> cities) {
+    protected void onPostExecute(List<CityResultSearch> cities) {
         super.onPostExecute(cities);
         this.taskFinishedListener.OnTaskFinished(cities);
     }
