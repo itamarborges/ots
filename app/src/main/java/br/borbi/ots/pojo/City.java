@@ -125,21 +125,6 @@ public class City implements Serializable, Comparable<City>{
                 ", countryName='" + countryName + '\'' +
                 ", tags=" + tags +
                 '}';
-                ", dayForecasts=";
-
-        if (dayForecasts == null) {
-            retorno += " vazio";
-        } else {
-            Iterator<DayForecast> it = dayForecasts.iterator();
-            while (it.hasNext()) {
-                DayForecast dayForecast = (DayForecast) it.next();
-                retorno += dayForecast.toString();
-            }
-        }
-
-        retorno += "}";
-
-        return retorno;
     }
 
 
