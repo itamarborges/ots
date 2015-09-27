@@ -146,8 +146,8 @@ public final class OTSContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
 
         public static final String TABLE_NAME = "country";
-        public static final String COLUMN_NAME_NAME_ENGLISH = "name_english";
         public static final String COLUMN_NAME_COUNTRY_CODE = "country_code";
+        public static final String COLUMN_NAME_TRANSLATION_FILE_KEY = "translation_file_key";
 
         public static Uri buildCountryUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

@@ -79,7 +79,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_COUNTRY_TABLE = OTSContract.CREATE_TABLE + Country.TABLE_NAME + " (" +
                 Country._ID + OTSContract.PRIMARY_KEY + " ," +
                 Country.COLUMN_NAME_COUNTRY_CODE + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + ", " +
-                Country.COLUMN_NAME_NAME_ENGLISH + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + OTSContract.UNIQUE_ON_CONFLICT_REPLACE + ");, ";
+                Country.COLUMN_NAME_TRANSLATION_FILE_KEY + OTSContract.TYPE_TEXT + OTSContract.NOT_NULL + ");, ";
 
         final String SQL_CREATE_CITY_TABLE = OTSContract.CREATE_TABLE + City.TABLE_NAME + " (" +
                 City._ID + OTSContract.PRIMARY_KEY + " ," +
@@ -143,10 +143,10 @@ public class OTSDbHelper extends SQLiteOpenHelper {
 
         //Inicializations Scripts - COUNTRY
 
-        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (" + COUNTRY_ID_BRAZIL + ", 'BR', 'Brazil');");
-        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (" + COUNTRY_ID_USA + ", 'US', 'United States of America');");
-        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (" + COUNTRY_ID_FRANCE + ", 'FR', 'France');");
-        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_NAME_ENGLISH + ") VALUES (" + COUNTRY_ID_CANADA + ", 'CA', 'Canada');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_BRAZIL + ", 'BR', 'brazil');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_USA + ", 'US', 'united_states');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_FRANCE + ", 'FR', 'france');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_CANADA + ", 'CA', 'canada');");
 
         Log.v(LOG_TAG, "primeiros inserts executaram");
 
