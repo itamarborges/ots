@@ -79,8 +79,8 @@ public class CitiesListAdapter extends BaseAdapter{
             separador = " - ";
         }
 
-        //viewHolder.tagTextView.setText(tagsItem);
-        //viewHolder.tagTextView.setText("1111111111111111111 - 22222222222");
+        viewHolder.tagTextView.setText(tagsItem);
+
 
         return convertView;
     }

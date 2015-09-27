@@ -10,9 +10,11 @@
     <LinearLayout
         android:id="@+id/list_item_linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:measureWithLargestChild="false"
+        android:showDividers="beginning|middle|end">
 
         <TextView
             android:id="@+id/list_item_city_list_name_textview"
@@ -20,14 +22,16 @@
             android:layout_height="wrap_content"
             android:text="Porto Alegre - Brasil"
             android:textAppearance="@style/titleTextView"
-            />
+            android:fontFamily="sans-serif-condensed" />
 
         <TextView
             android:id="@+id/list_item_city_list_tags_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Praia - Neve"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="10sp"
-            android:text="Praia - Neve" />
+            android:textColor="#010000" />
     </LinearLayout>
 
 </LinearLayout>
