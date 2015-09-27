@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +18,12 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-import br.borbi.ots.fragment.CitiesFragment;
 import br.borbi.ots.R;
 import br.borbi.ots.ResultCitiesActivity;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
+import br.borbi.ots.fragment.CitiesFragment;
 import br.borbi.ots.pojo.CityResultSearch;
-import br.borbi.ots.utility.CityUtility;
 import br.borbi.ots.utility.Utility;
 
 /**
@@ -129,7 +127,7 @@ public class CitiesAdapter extends BaseAdapter{
             tagsCity.put((long) idCity, tagNames);
         }
 
-        final LinkedList<String> tags = tagsCity.get(idCity);
+        final LinkedList<String> tags = tagsCity.get((long) idCity);
         String tagsItem = "";
         String separador = "";
 
