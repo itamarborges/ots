@@ -57,6 +57,8 @@ public class CitiesListActivity extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                mEmptyView.setVisibility(View.INVISIBLE);
+
                 City cityQuery = new City();
                 cityQuery.setCountryId((int) id);
 
