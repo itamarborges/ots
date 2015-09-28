@@ -30,6 +30,7 @@ import br.borbi.ots.adapter.ResultCityDayForecastAdapter;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.enums.WeatherType;
+import br.borbi.ots.model.CityResultSearchModel;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.pojo.DayForecast;
@@ -39,7 +40,7 @@ import br.borbi.ots.utility.Utility;
 /**
  * Created by Itamar on 16/06/2015.
  */
-public class CitiesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class CitiesFragment extends Fragment {
 
     public static final String LOG_TAG = CitiesFragment.class.getSimpleName();
     private CitiesAdapter mCitiesAdapter;
@@ -143,56 +144,8 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
         mRootView = inflater.inflate(R.layout.fragment_cities, container, false);
         mEmptyView = mRootView.findViewById(R.id.listview_cities_empty);
 
-        return mRootView;
-    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(CITIES_LOADER, null, this);
-        super.onActivityCreated(savedInstanceState);
-
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
-        String sortOrder = OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH +" ASC";
-
-        Uri uriSearchByCities = OTSContract.CONTENT_URI_LIST_CITIES_BY_SEARCH;
-
-        return new CursorLoader(getActivity(),
-                uriSearchByCities,
-                CITIES_COLUMNS,
-                null,
-                null,
-                sortOrder);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-        LinkedList<CityResultSearch> cities = new LinkedList<>();
-
-        if (data.moveToFirst()) {
-            do {
-                String strCountryName = data.getString(CitiesFragment.INDEX_COUNTRY_NAME);
-                String strCityName = data.getString(CitiesFragment.INDEX_CITY_NAME);
-                int idResultSearchCity = data.getInt(CitiesFragment.INDEX_REL_SEARCH_CITY_ID);
-                int idCity = data.getInt(CitiesFragment.INDEX_CITY_ID);
-                Double cityLatitude = data.getDouble(CitiesFragment.INDEX_CITY_LATITUDE);
-                Double cityLongitude = data.getDouble(CitiesFragment.INDEX_CITY_LONGITUDE);
-                Integer distance = data.getInt(CitiesFragment.INDEX_REL_SEARCH_CITY_DISTANCE);
-                String translationFileKey = data.getString(CitiesFragment.INDEX_CITY_TRANSLATION_FILE_KEY);
-
-                City city = new City(idCity, strCityName, null, strCountryName, cityLatitude, cityLongitude);
-                city.setName(getActivity().getString(getActivity().getResources().getIdentifier(translationFileKey, "string", getActivity().getPackageName())));
-                CityResultSearch cityResultSearch = new CityResultSearch(city, distance, idResultSearchCity);
-                cities.add(cityResultSearch);
-            }
-            while (data.moveToNext());
-        }
-
-        Collections.sort(cities);
+        LinkedList<CityResultSearch> cities = CityResultSearchModel.list(getActivity());
         if(cities.size() > 0){
             CityResultSearch cityResultSearch = cities.get(0);
             if(cityResultSearch.getDistance() <=50){
@@ -201,10 +154,16 @@ public class CitiesFragment extends Fragment implements LoaderManager.LoaderCall
         }
 
         fillAdapter(cities);
+
+
+        return mRootView;
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onActivityCreated(Bundle savedInstanceState) {
+        //getLoaderManager().initLoader(CITIES_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     private void fillAdapter(LinkedList<CityResultSearch> cities ){

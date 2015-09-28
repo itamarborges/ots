@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,12 +87,6 @@ public class CitiesAdapter extends BaseAdapter{
         }
 
         final String strLabelLocal = cityResultSearch.getCity().getName() + " - " + cityResultSearch.getCity().getCountryName();
-
-        Log.v(LOG_TAG,"city = " + cityResultSearch.getCity().getTranslationFileKey());
-
-      //  String cityDisplayName = mContext.getString(mContext.getResources().getIdentifier(cityResultSearch.getCity().getTranslationFileKey(), "string", mContext.getPackageName()));
-
-       // final String strLabelLocal = cityDisplayName  + " - " + cityResultSearch.getCity().getCountryName();
 
         // Find TextView and set the city name on it
         viewHolder.cityNameTextView.setText(strLabelLocal);
