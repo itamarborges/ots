@@ -87,6 +87,8 @@ public class CitiesAdapter extends BaseAdapter{
 
         final String strLabelLocal = cityResultSearch.getCity().getName() + " - " + cityResultSearch.getCity().getCountryName();
 
+        Log.v(LOG_TAG,"city = " + cityResultSearch.getCity().getTranslationFileKey());
+
       //  String cityDisplayName = mContext.getString(mContext.getResources().getIdentifier(cityResultSearch.getCity().getTranslationFileKey(), "string", mContext.getPackageName()));
 
        // final String strLabelLocal = cityDisplayName  + " - " + cityResultSearch.getCity().getCountryName();
