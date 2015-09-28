@@ -18,7 +18,7 @@ import android.database.Cursor;
 public class CityResultSearchModel {
 
     private static final String[] RESULT_CITIES_COLUMNS = {
-            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_NAME_ENGLISH,
+            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_TRANSLATION_FILE_KEY,
             OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH,
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID,
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity._ID,
@@ -30,7 +30,7 @@ public class CityResultSearchModel {
     };
 
     // these indices must match the projection
-    public static final int INDEX_COUNTRY_NAME = 0;
+    public static final int INDEX_COUNTRY_TRANSLATION_FILE_KEY = 0;
     public static final int INDEX_CITY_NAME = 1;
     public static final int INDEX_SEARCH_ID = 2;
     public static final int INDEX_REL_SEARCH_CITY_ID = 3;
@@ -58,7 +58,7 @@ public class CityResultSearchModel {
 
         if (cursor.moveToFirst()) {
             do {
-                String strCountryName = cursor.getString(INDEX_COUNTRY_NAME);
+                String strCountryName = contextParam.getString(contextParam.getResources().getIdentifier(cursor.getString(INDEX_COUNTRY_TRANSLATION_FILE_KEY), "string", contextParam.getPackageName()));
                 String strCityName = cursor.getString(INDEX_CITY_NAME);
                 int idResultSearchCity = cursor.getInt(INDEX_REL_SEARCH_CITY_ID);
                 int idCity = cursor.getInt(INDEX_CITY_ID);

@@ -38,37 +38,11 @@ public class CitiesFragment extends Fragment {
 
     private Double lastLatitude;
     private Double lastLongitude;
-    private String mCurrentCityName;
 
     private Integer mininumDistance;
 
     private View mRootView;
     private View mEmptyView;
-
-    private static final int CITIES_LOADER = 0;
-
-    private static final String[] CITIES_COLUMNS = {
-            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_TRANSLATION_FILE_KEY,
-            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH,
-            OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID,
-            OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity._ID,
-            OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_DISTANCE,
-            OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID,
-            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LATITUDE,
-            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_LONGITUDE,
-            OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_TRANSLATION_FILE_KEY
-    };
-
-    // these indices must match the projection
-    public static final int INDEX_COUNTRY_TRANSLATION_FILE_KEY = 0;
-    public static final int INDEX_CITY_NAME = 1;
-    public static final int INDEX_SEARCH_ID = 2;
-    public static final int INDEX_REL_SEARCH_CITY_ID = 3;
-    public static final int INDEX_REL_SEARCH_CITY_DISTANCE = 4;
-    public static final int INDEX_CITY_ID = 5;
-    public static final int INDEX_CITY_LATITUDE = 6;
-    public static final int INDEX_CITY_LONGITUDE = 7;
-    public static final int INDEX_CITY_TRANSLATION_FILE_KEY = 8;
 
     public static final String[] TAG_COLUMNS = {
             OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag._ID,
