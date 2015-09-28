@@ -1,11 +1,10 @@
 package br.borbi.ots;
 
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,9 +14,10 @@ import com.google.android.gms.ads.AdView;
 import java.util.LinkedList;
 
 import br.borbi.ots.adapter.CitiesListAdapter;
-import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.model.CityModel;
+import br.borbi.ots.model.CountryModel;
 import br.borbi.ots.pojo.City;
+import br.borbi.ots.pojo.Country;
 import br.borbi.ots.utility.Utility;
 
 public class CitiesListActivity extends ActionBarActivity {
@@ -44,34 +44,14 @@ public class CitiesListActivity extends ActionBarActivity {
         mListView = (ListView) findViewById(R.id.listView);
         mEmptyView = (TextView) findViewById(R.id.listview_list_cities_empty);
 
+        LinkedList<Country> listCountries = CountryModel.listCountries(getApplication());
 
-        String[] fromColumns = {OTSContract.Country.COLUMN_NAME_COUNTRY_CODE};
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listCountries);
 
-        Cursor c = getContentResolver().query(
-                OTSContract.Country.CONTENT_URI,
-                new String[]{OTSContract.Country.COLUMN_NAME_COUNTRY_CODE, OTSContract.Country._ID},
-                null,
-                null,
-                OTSContract.Country.COLUMN_NAME_COUNTRY_CODE);
-        
-        
-// View IDs to map the columns (fetched above) into
-        int[] toViews = {
-                android.R.id.text1
-        };
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-                this, // context
-                android.R.layout.simple_spinner_item, // layout file
-                c, // DB cursor
-                fromColumns, // data to bind to the UI
-                toViews, // views that'll represent the data from `fromColumns`
-                0
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Create the list view and bind the adapter
-        mCountrySpinner.setAdapter(adapter);
+        mCountrySpinner.setAdapter(arrayAdapter);
 
         mCountrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

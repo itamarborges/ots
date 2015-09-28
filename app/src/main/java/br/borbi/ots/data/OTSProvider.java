@@ -45,7 +45,15 @@ public class OTSProvider extends ContentProvider {
                     "." + OTSContract.Search._ID + " = ? ";
 
     public static final String FILTER_BY_CITY = OTSContract.City.TABLE_NAME+"." + OTSContract.City._ID + " = ? ";
-    public static final String FILTER_BY_COUNTRY = OTSContract.City.TABLE_NAME+"." + OTSContract.City.COLUMN_NAME_COUNTRY_ID + " = ? ";
+    public static final String FILTER_CITY_BY_COUNTRY = OTSContract.City.TABLE_NAME+"." + OTSContract.City.COLUMN_NAME_COUNTRY_ID + " = ? ";
+
+    public static final String FILTER_BY_COUNTRY = OTSContract.Country.TABLE_NAME+"." + OTSContract.Country._ID + " = ? ";
+
+    public static final String[] COUNTRY_COLUMNS = {
+            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country._ID,
+            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_COUNTRY_CODE,
+            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_TRANSLATION_FILE_KEY
+    };
 
     public static final String[] TAG_COLUMNS = {
             OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag._ID,

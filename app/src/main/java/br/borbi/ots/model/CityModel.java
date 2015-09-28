@@ -59,7 +59,7 @@ public class CityModel {
         String[] selectionArgs = null;
 
         if (cityParam.getCountryId() != 0) {
-            strFilter = OTSProvider.FILTER_BY_COUNTRY;
+            strFilter = OTSProvider.FILTER_CITY_BY_COUNTRY;
             selectionArgs = new String[]{Long.toString(cityParam.getCountryId())};
         }
 

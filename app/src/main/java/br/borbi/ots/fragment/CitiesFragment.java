@@ -9,33 +9,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
 
 import br.borbi.ots.R;
 import br.borbi.ots.adapter.CitiesAdapter;
-import br.borbi.ots.adapter.ResultCityDayForecastAdapter;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.model.CityResultSearchModel;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
-import br.borbi.ots.pojo.DayForecast;
-import br.borbi.ots.utility.CoordinatesUtillity;
-import br.borbi.ots.utility.Utility;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -59,7 +48,7 @@ public class CitiesFragment extends Fragment {
     private static final int CITIES_LOADER = 0;
 
     private static final String[] CITIES_COLUMNS = {
-            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_NAME_ENGLISH,
+            OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_TRANSLATION_FILE_KEY,
             OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH,
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID,
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity._ID,
@@ -71,7 +60,7 @@ public class CitiesFragment extends Fragment {
     };
 
     // these indices must match the projection
-    public static final int INDEX_COUNTRY_NAME = 0;
+    public static final int INDEX_COUNTRY_TRANSLATION_FILE_KEY = 0;
     public static final int INDEX_CITY_NAME = 1;
     public static final int INDEX_SEARCH_ID = 2;
     public static final int INDEX_REL_SEARCH_CITY_ID = 3;
