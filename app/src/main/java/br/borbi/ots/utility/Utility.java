@@ -264,16 +264,18 @@ public class Utility {
         return (int) Math.ceil(num);
     }
 
-    public static void initializeAd(AdView adView,Activity activity){
+    public static AdView initializeAd(AdView adView,Activity activity){
         adView = (AdView)activity.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         adView.loadAd(adRequest);
+        return adView;
     }
 
-    public static void initializeAdView(AdView adView, View view){
+    public static AdView initializeAdView(AdView adView, View view){
         adView = (AdView) view.findViewById(R.id.adViewFragment);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         adView.loadAd(adRequest);
+        return adView;
     }
 
     public static boolean isSameDay(Date date1, Date date2){

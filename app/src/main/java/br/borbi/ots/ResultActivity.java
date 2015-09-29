@@ -25,14 +25,14 @@ public class ResultActivity extends ActionBarActivity {
 
     private static String LOG_TAG = ResultActivity.class.getSimpleName();
 
+    private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        Log.v(LOG_TAG, "entrou na resultActivity");
 
-        AdView mAdView = null;
-        Utility.initializeAd(mAdView, this);
+        mAdView = Utility.initializeAd(mAdView, this);
 
         Intent intent = getIntent();
 
@@ -118,5 +118,20 @@ public class ResultActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
 
+    protected void onResume(){
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
+    }
 }

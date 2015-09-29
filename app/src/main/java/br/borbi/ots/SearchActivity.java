@@ -56,6 +56,7 @@ public class SearchActivity extends ActionBarActivity {
     private Double lastLongitude = 0d;
     private Toast mToast;
     private WarningTask mWarningTask;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +65,7 @@ public class SearchActivity extends ActionBarActivity {
 
         mContext = this;
 
-        AdView mAdView = null;
-        Utility.initializeAd(mAdView, this);
+        mAdView = Utility.initializeAd(mAdView, this);
         Intent intent = getIntent();
 
         if (intent != null) {
@@ -305,5 +305,22 @@ public class SearchActivity extends ActionBarActivity {
                 });
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
+
+    protected void onResume(){
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
     }
 }

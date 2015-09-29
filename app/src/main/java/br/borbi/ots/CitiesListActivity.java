@@ -31,14 +31,14 @@ public class CitiesListActivity extends ActionBarActivity {
     public static final int INDEX_CITY_TRANSLATION_FILE_KEY = 1;
 
     Spinner mCountrySpinner;
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities_list);
 
-        AdView mAdView = null;
-        Utility.initializeAd(mAdView, this);
+        mAdView = Utility.initializeAd(mAdView, this);
 
         mCountrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         mListView = (ListView) findViewById(R.id.listView);
@@ -79,5 +79,22 @@ public class CitiesListActivity extends ActionBarActivity {
         mCitiesListAdapter = new CitiesListAdapter(listCities, getApplicationContext());
         mListView.setEmptyView(mEmptyView);
         mListView.setAdapter(mCitiesListAdapter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
+
+    protected void onResume(){
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
     }
 }
