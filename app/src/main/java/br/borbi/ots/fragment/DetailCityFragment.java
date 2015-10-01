@@ -34,6 +34,8 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     private int idResultSearch;
     private static final int DETAIL_CITY_LOADER = 0;
 
+    private AdView mAdView;
+
     private float x1, y1, x2, y2;
 
     public int getQtyItens() {
@@ -97,8 +99,7 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
 
         View rootView = inflater.inflate(R.layout.fragment_detail_city, container, false);
 
-        AdView mAdView = null;
-        Utility.initializeAdView(mAdView, rootView);
+        mAdView = Utility.initializeAdView(mAdView, rootView);
 
         mDateDetail = (TextView) rootView.findViewById(R.id.detail_date_textView);
         mMinMaxTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_min_max_temperature_textView);
@@ -298,5 +299,25 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
         this.idResultSearch = idResultSearch;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
+
+    public void onResume(){
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
+    }
 }

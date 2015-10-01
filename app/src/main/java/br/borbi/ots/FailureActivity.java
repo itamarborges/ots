@@ -43,7 +43,7 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
 
     private Boolean mHasSearch;
     private Boolean mHasInternet;
-
+    private AdView mAdView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,7 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
 
         mContext = this;
 
-        AdView mAdView = null;
-        Utility.initializeAd(mAdView, this);
+        mAdView = Utility.initializeAd(mAdView, this);
 
         progressBarHolder = (FrameLayout) findViewById(R.id.progressBarHolder);
         tryToFindMeButton = (Button) findViewById(R.id.btnTryToFindMe);
@@ -153,7 +152,7 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
         if (searchId == null) {
             ForwardUtility.goToFilters(mContext);
         } else {
-            ForwardUtility.goToResults(hasFoundCoordinates(), searchId,mContext);
+            ForwardUtility.goToResults(hasFoundCoordinates(), searchId, mContext);
         }
     }
 
@@ -201,5 +200,21 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
             continueWithouLocationButton.setEnabled(true);
         }
 
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
+
+    protected void onResume(){
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
     }
 }

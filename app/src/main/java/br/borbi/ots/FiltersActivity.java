@@ -76,6 +76,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
     private boolean celsiusChecked = true;
     private boolean kilometersChecked = true;
+    private AdView mAdView;
 
     Context mContext;
 
@@ -87,8 +88,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         mContext = this;
 
-        AdView mAdView = null;
-        Utility.initializeAd(mAdView, this);
+        mAdView = Utility.initializeAd(mAdView, this);
 
         //Datas
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
@@ -527,5 +527,22 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(temperatureCheckbox.getWindowToken(), 0);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
+
+    protected void onResume(){
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
     }
 }
