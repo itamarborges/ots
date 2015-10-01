@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -77,6 +78,19 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     private boolean celsiusChecked = true;
     private boolean kilometersChecked = true;
     private AdView mAdView;
+
+    //Variables to compare with the current query
+    private Long mLastSearchDateTime;
+    private Double mLastSearchLongitude;
+    private Double mLastSearchLatitude;
+    private Long mLastSearchInitialDate;
+    private Long mLastSearchFinalDate;
+    private int mLastSearchSunnyDays;
+    private int mLastSearchMinTemperature;
+    private boolean mLastSearchConsiderCloudyDays;
+    private boolean mLasrSearchTemperatureDoesNotMatter;
+    private boolean mLastSearchUseCelsius;
+    private boolean mLastSearchUseKilometers;
 
     Context mContext;
 
@@ -198,12 +212,18 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     }
 
     public void onSaveButtonClicked(View view) {
+        boolean useKilometers = true;
+        boolean useCelsius = true;
+        boolean usesCloudyDays = daysWithoutRainCheckbox.isChecked();
+        boolean temperatureDoesNotMatter = temperatureCheckbox.isChecked();
+        int mMinTemperaure = 0;
+
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
+        if ((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)) {
             //TODO MOSTRAR DIALOGO AQUI, AO INVES DE ENCAMINHAR PARA A TELA DE FALHA
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.location).setTitle(R.string.location_turn_on);
@@ -219,7 +239,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             builder.setNegativeButton(R.string.not_now, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     // User cancelled the dialog
-                    Toast.makeText(mContext,getText(R.string.location_explanation),Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, getText(R.string.location_explanation), Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -229,10 +249,75 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
             //ForwardUtility.goToFailure(mContext, false);
 
-        }else {
+        } else {
             boolean allFieldsValid = validateFields();
             if (allFieldsValid) {
-                callSearch();
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                //Recovering the paremeters from the last valid search
+                mLastSearchDateTime = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, -1);
+                mLastSearchLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_LONGITUDE, Double.doubleToLongBits(-1)));
+                mLastSearchLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToLongBits(-1)));
+                mLastSearchInitialDate = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, -1);
+                mLastSearchFinalDate = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, -1);
+                mLastSearchSunnyDays = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, -1);
+                mLastSearchMinTemperature = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, -1);
+                mLastSearchConsiderCloudyDays = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, false);
+                mLasrSearchTemperatureDoesNotMatter = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, false);
+                mLastSearchUseCelsius = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, false);
+                mLastSearchUseKilometers = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, false);
+
+                //Verifying if the parameters are equals than the last ones
+                //If they are and didn´t have passed more than 2 hours, the search won't happen
+                Time time = new Time();
+                time.setToNow();
+
+                Long timeNow = time.toMillis(false);
+
+                useKilometers = (kilometersChecked) ? true : false;
+                useCelsius = (celsiusChecked) ? true : false;
+
+                //in milliseconds
+                long diff = timeNow - mLastSearchDateTime;
+                long diffHours = diff / (60 * 60 * 1000) % 24;
+
+                if ((mLastSearchDateTime.equals(-1)) ||
+                    (diffHours >= 3) ||
+                    (!mLastSearchLongitude.equals(lastLongitude)) ||
+                    (!mLastSearchLatitude.equals(lastLatitude)) ||
+                    (!mLastSearchInitialDate.equals(dateBegin.getTime())) ||
+                    (!mLastSearchFinalDate.equals(dateEnd.getTime())) ||
+                    (mLastSearchSunnyDays != Integer.valueOf(daysEditText.getText().toString())) ||
+                    (mLastSearchMinTemperature != Integer.valueOf(temperatureEditText.getText().toString())) ||
+                    (mLastSearchConsiderCloudyDays != usesCloudyDays) ||
+                    (mLasrSearchTemperatureDoesNotMatter != temperatureDoesNotMatter) ||
+                    (mLastSearchUseCelsius != useCelsius) ||
+                    (mLastSearchUseKilometers != useKilometers)) {
+
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, timeNow);
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_LONGITUDE, Double.doubleToRawLongBits(lastLongitude));
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, dateBegin.getTime());
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, dateEnd.getTime());
+                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, Integer.valueOf(daysEditText.getText().toString()));
+                    mMinTemperaure = (temperatureDoesNotMatter) ? 999 : Integer.valueOf(temperatureEditText.getText().toString());
+                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, mMinTemperaure);
+                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, usesCloudyDays);
+                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, temperatureDoesNotMatter);
+                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, useCelsius);
+                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, useKilometers);
+
+                    editor.commit();
+
+                    callSearch();
+
+                } else {
+                    //Call the last results
+                    Toast.makeText(this, "Mesmo parametros", Toast.LENGTH_SHORT).show();
+                }
+
+
             } else {
                 Toast.makeText(this, R.string.invalid_fields, Toast.LENGTH_LONG).show();
             }
@@ -476,6 +561,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         boolean validDistance = true;
         // Valida distancia.
         if(kilometersChecked){
+
             validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, null, mContext.getString(R.string.minimum_distance_kilometers,MINIMUM_DISTANCE_KILOMETERS));
         }else{
             validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, null, mContext.getString(R.string.minimum_distance_miles,MINIMUM_DISTANCE_MILES));

@@ -26,6 +26,19 @@ public final class OTSContract {
     public static final String SHARED_PREFERENCES = "br.borbi.ots.shared_preference";
     public static final String SHARED_LONGITUDE = "longitude";
     public static final String SHARED_LATITUDE = "latitude";
+    //
+    public static final String SHARED_LAST_SEARCH_DATE_TIME = "last_search_date_time";
+    public static final String SHARED_LAST_SEARCH_LONGITUDE = "last_search_longitude";
+    public static final String SHARED_LAST_SEARCH_LATITUDE = "last_search_latitude";
+    public static final String SHARED_LAST_SEARCH_INITIAL_DATE = "last_search_initial_date";
+    public static final String SHARED_LAST_SEARCH_FINAL_DATE = "last_search_final_date";
+    public static final String SHARED_LAST_SEARCH_SUNNY_DAYS = "last_search_sunny_days";
+    public static final String SHARED_LAST_SEARCH_MIN_TEMPERATURE = "last_search_min_temperature";
+    public static final String SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS = "last_search_consider_cloudy_days";
+    public static final String SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER = "last_search_temperature_does_not_matter";
+    public static final String SHARED_LAST_SEARCH_USE_KILOMETERS = "last_search_use_kilometers";
+    public static final String SHARED_LAST_SEARCH_USE_CELSIUS = "last_search_use_celsius";
+
 
     public static final int INDETERMINATED_VALUE = 99999;
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
