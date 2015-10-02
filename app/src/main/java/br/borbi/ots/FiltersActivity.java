@@ -282,6 +282,8 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                 long diff = timeNow - mLastSearchDateTime;
                 long diffHours = diff / (60 * 60 * 1000) % 24;
 
+                mMinTemperaure = (temperatureDoesNotMatter) ? 999 : Integer.valueOf(temperatureEditText.getText().toString());
+
                 if ((mLastSearchDateTime.equals(-1)) ||
                     (diffHours >= 3) ||
                     (!mLastSearchLongitude.equals(lastLongitude)) ||
@@ -289,7 +291,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                     (!mLastSearchInitialDate.equals(dateBegin.getTime())) ||
                     (!mLastSearchFinalDate.equals(dateEnd.getTime())) ||
                     (mLastSearchSunnyDays != Integer.valueOf(daysEditText.getText().toString())) ||
-                    (mLastSearchMinTemperature != Integer.valueOf(temperatureEditText.getText().toString())) ||
+                    (mLastSearchMinTemperature != mMinTemperaure) ||
                     (mLastSearchConsiderCloudyDays != usesCloudyDays) ||
                     (mLasrSearchTemperatureDoesNotMatter != temperatureDoesNotMatter) ||
                     (mLastSearchUseCelsius != useCelsius) ||
@@ -301,7 +303,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, dateBegin.getTime());
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, dateEnd.getTime());
                     editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, Integer.valueOf(daysEditText.getText().toString()));
-                    mMinTemperaure = (temperatureDoesNotMatter) ? 999 : Integer.valueOf(temperatureEditText.getText().toString());
                     editor.putInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, mMinTemperaure);
                     editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, usesCloudyDays);
                     editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, temperatureDoesNotMatter);
@@ -314,7 +315,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
                 } else {
                     //Call the last results
-                    Toast.makeText(this, "Mesmo parametros", Toast.LENGTH_SHORT).show();
+                    forwardActivity();
                 }
 
 
@@ -630,5 +631,27 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     protected void onDestroy() {
         super.onDestroy();
         mAdView.destroy();
+    }
+
+    private void forwardActivity(){
+        Integer searchId = null;
+
+        SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+
+        Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
+        Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
+
+        if(lastLatitude == null || lastLongitude == null){
+            searchId = Utility.findSearchByDate(mContext);
+        }else {
+            searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude, mContext);
+        }
+
+        if (searchId == null) {
+            callSearch();
+        } else {
+            boolean hasFoundCoordinates = (lastLatitude != null && lastLongitude != null);
+            ForwardUtility.goToResults(hasFoundCoordinates, searchId, mContext);
+        }
     }
 }
