@@ -104,6 +104,8 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         mAdView = Utility.initializeAd(mAdView, this);
 
+        getParametersLastSearch();
+
         //Datas
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
 
@@ -211,6 +213,26 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
+    /**
+     * Procura pelos parametros da ultima pesquisa realizada e salva no shared preferences.
+     */
+    private void getParametersLastSearch(){
+        SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        //Recovering the paremeters from the last valid search
+        mLastSearchDateTime = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, -1);
+        mLastSearchLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_LONGITUDE, Double.doubleToLongBits(-1)));
+        mLastSearchLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToLongBits(-1)));
+        mLastSearchInitialDate = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, -1);
+        mLastSearchFinalDate = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, -1);
+        mLastSearchSunnyDays = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, -1);
+        mLastSearchMinTemperature = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, -1);
+        mLastSearchConsiderCloudyDays = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, false);
+        mLasrSearchTemperatureDoesNotMatter = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, false);
+        mLastSearchUseCelsius = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, false);
+        mLastSearchUseKilometers = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, false);
+
+    }
+
     public void onSaveButtonClicked(View view) {
         boolean useKilometers = true;
         boolean useCelsius = true;
@@ -254,19 +276,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             if (allFieldsValid) {
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                //Recovering the paremeters from the last valid search
-                mLastSearchDateTime = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, -1);
-                mLastSearchLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_LONGITUDE, Double.doubleToLongBits(-1)));
-                mLastSearchLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToLongBits(-1)));
-                mLastSearchInitialDate = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, -1);
-                mLastSearchFinalDate = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, -1);
-                mLastSearchSunnyDays = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, -1);
-                mLastSearchMinTemperature = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, -1);
-                mLastSearchConsiderCloudyDays = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, false);
-                mLasrSearchTemperatureDoesNotMatter = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, false);
-                mLastSearchUseCelsius = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, false);
-                mLastSearchUseKilometers = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, false);
 
                 //Verifying if the parameters are equals than the last ones
                 //If they are and didn´t have passed more than 2 hours, the search won't happen
