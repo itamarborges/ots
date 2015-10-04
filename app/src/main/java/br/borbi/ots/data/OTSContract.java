@@ -38,6 +38,8 @@ public final class OTSContract {
     public static final String SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER = "last_search_temperature_does_not_matter";
     public static final String SHARED_LAST_SEARCH_USE_KILOMETERS = "last_search_use_kilometers";
     public static final String SHARED_LAST_SEARCH_USE_CELSIUS = "last_search_use_celsius";
+    public static final String SHARED_LAST_SEARCH_DISTANCE = "last_search_distance";
+    public static final String SHARED_LAST_SEARCH_ID_SEARCH = "last_search_id_search";
 
 
     public static final int INDETERMINATED_VALUE = 99999;

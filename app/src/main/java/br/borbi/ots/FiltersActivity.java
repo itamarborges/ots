@@ -58,6 +58,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     public static final String DISTANCE_DEFAULT = "500";
     public static final int MINIMUM_DISTANCE_KILOMETERS=100;
     public static final int MINIMUM_DISTANCE_MILES=60;
+    public static final int INDETERMINED_TEMPERATURE = 999;
 
     private static DateFormat dateFormat;
     private static TextView dateBeginView;
@@ -85,17 +86,22 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     private Double mLastSearchLatitude;
     private Long mLastSearchInitialDate;
     private Long mLastSearchFinalDate;
+    private int mLastSearchIdSearch;
     private int mLastSearchSunnyDays;
     private int mLastSearchMinTemperature;
+    private int mLastSearchDistance;
     private boolean mLastSearchConsiderCloudyDays;
     private boolean mLasrSearchTemperatureDoesNotMatter;
     private boolean mLastSearchUseCelsius;
     private boolean mLastSearchUseKilometers;
+    private boolean mBolRenewInformations;
 
     Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mBolRenewInformations = false;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
@@ -106,19 +112,8 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         getParametersLastSearch();
 
-        //Datas
-        dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-
         dateBeginView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
-        dateBegin  = Utility.setDateToInitialHours(new Date());
-        dateBeginView.setText(dateFormat.format(dateBegin));
-
         dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
-        dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
-        dateEndView.setText(dateFormat.format(dateEnd));
-
-        TextView helpDatePeriod = (TextView) findViewById(R.id.textViewHelpDatePeriod);
-        helpDatePeriod.setText(getString(R.string.help_date_period, dateFormat.format(dateEnd)));
 
         //Distancia
         distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
@@ -128,29 +123,21 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && distanceEditText.getText() != null) {
                     if (kilometersChecked) {
-                        ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, null, mContext.getString(R.string.minimum_distance_kilometers,MINIMUM_DISTANCE_KILOMETERS));
+                        ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, null, mContext.getString(R.string.minimum_distance_kilometers, MINIMUM_DISTANCE_KILOMETERS));
                     } else {
-                        ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, null, mContext.getString(R.string.minimum_distance_miles,MINIMUM_DISTANCE_MILES));
+                        ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, null, mContext.getString(R.string.minimum_distance_miles, MINIMUM_DISTANCE_MILES));
                     }
                 }
             }
         });
 
+        TextView helpDatePeriod = (TextView) findViewById(R.id.textViewHelpDatePeriod);
+
         kilometersButton = (Button)findViewById(R.id.btnKm);
         milesButton = (Button)findViewById(R.id.btnMi);
 
-        if(Utility.usesMiles(this)){
-            activateButton(milesButton);
-            deactivateButton(kilometersButton);
-            kilometersChecked = false;
-        }else {
-            activateButton(kilometersButton);
-            deactivateButton(milesButton);
-        }
-
         //Nro dias com sol
         daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
-        daysEditText.setText(String.valueOf(Utility.getDefaultNumberOfDaysToShow(dateBegin, dateEnd)));
 
         daysEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -170,12 +157,13 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         //Dias nublados
         daysWithoutRainCheckbox = (CheckBox) findViewById(R.id.checkBoxDaysWithoutRain);
+
         daysWithoutRainCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
         });
 
         //Temperatura
@@ -184,8 +172,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         celsiusButton= (Button)findViewById(R.id.btnCelsius);
         fahrenheitButton = (Button)findViewById(R.id.btnFahrenheit);
 
-        temperatureCheckbox.setChecked(true);
-        checkTemperature();
 
         temperatureCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,7 +180,64 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             }
         });
 
-        distanceEditText.setText(DISTANCE_DEFAULT);
+        if (mLastSearchDateTime.equals(-1l)) {
+
+            dateBegin  = Utility.setDateToInitialHours(new Date());
+            dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
+
+
+            if(Utility.usesMiles(this)){
+                activateButton(milesButton);
+                deactivateButton(kilometersButton);
+                kilometersChecked = false;
+            }else {
+                activateButton(kilometersButton);
+                deactivateButton(milesButton);
+            }
+
+            daysEditText.setText(String.valueOf(Utility.getDefaultNumberOfDaysToShow(dateBegin, dateEnd)));
+
+            temperatureCheckbox.setChecked(true);
+
+            distanceEditText.setText(DISTANCE_DEFAULT);
+
+        } else {
+            dateBegin  = new Date(mLastSearchInitialDate);
+            dateEnd = new Date(mLastSearchFinalDate);
+
+            if(!mLastSearchUseKilometers){
+                activateButton(milesButton);
+                deactivateButton(kilometersButton);
+                kilometersChecked = false;
+            }else {
+                activateButton(kilometersButton);
+                deactivateButton(milesButton);
+            }
+
+            daysEditText.setText(String.valueOf(mLastSearchSunnyDays));
+
+            daysWithoutRainCheckbox.setChecked(mLastSearchConsiderCloudyDays);
+
+            temperatureCheckbox.setChecked(mLasrSearchTemperatureDoesNotMatter);
+
+            if (mLastSearchMinTemperature != INDETERMINED_TEMPERATURE) {
+                temperatureEditText.setText(String.valueOf(mLastSearchMinTemperature));
+            }
+
+            distanceEditText.setText(String.valueOf(mLastSearchDistance));
+
+        }
+
+        //Datas
+        dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+
+        dateBeginView.setText(dateFormat.format(dateBegin));
+        dateEndView.setText(dateFormat.format(dateEnd));
+
+        helpDatePeriod.setText(getString(R.string.help_date_period, dateFormat.format(dateEnd)));
+
+        checkTemperature();
+
         Utility.positioningCursorInTheEnd(distanceEditText);
 
     }
@@ -230,7 +273,10 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         mLasrSearchTemperatureDoesNotMatter = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, false);
         mLastSearchUseCelsius = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, false);
         mLastSearchUseKilometers = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, false);
+        mLastSearchDistance = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_DISTANCE, -1);
+        mLastSearchIdSearch = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
 
+        mBolRenewInformations = true;
     }
 
     public void onSaveButtonClicked(View view) {
@@ -291,9 +337,14 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                 long diff = timeNow - mLastSearchDateTime;
                 long diffHours = diff / (60 * 60 * 1000) % 24;
 
-                mMinTemperaure = (temperatureDoesNotMatter) ? 999 : Integer.valueOf(temperatureEditText.getText().toString());
+                mMinTemperaure = (temperatureDoesNotMatter) ? INDETERMINED_TEMPERATURE : Integer.valueOf(temperatureEditText.getText().toString());
 
-                if ((mLastSearchDateTime.equals(-1)) ||
+                if (!mBolRenewInformations) {
+                    getParametersLastSearch();
+                }
+
+                if ((mLastSearchDateTime.equals(-1l)) ||
+                    (mLastSearchIdSearch == -1) ||
                     (diffHours >= 3) ||
                     (!mLastSearchLongitude.equals(lastLongitude)) ||
                     (!mLastSearchLatitude.equals(lastLatitude)) ||
@@ -304,24 +355,32 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                     (mLastSearchConsiderCloudyDays != usesCloudyDays) ||
                     (mLasrSearchTemperatureDoesNotMatter != temperatureDoesNotMatter) ||
                     (mLastSearchUseCelsius != useCelsius) ||
+                    (mLastSearchDistance != Integer.valueOf(distanceEditText.getText().toString())) ||
                     (mLastSearchUseKilometers != useKilometers)) {
 
-                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, timeNow);
-                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_LONGITUDE, Double.doubleToRawLongBits(lastLongitude));
-                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
-                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, dateBegin.getTime());
-                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, dateEnd.getTime());
-                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, Integer.valueOf(daysEditText.getText().toString()));
-                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, mMinTemperaure);
-                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, usesCloudyDays);
-                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, temperatureDoesNotMatter);
-                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, useCelsius);
-                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, useKilometers);
+                    if (!Utility.isNetworkAvailable(this)) {
+                        ForwardUtility.goToFailure(this,true, false);
+                    } else {
+                        editor.putInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
+                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, timeNow);
+                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_LONGITUDE, Double.doubleToRawLongBits(lastLongitude));
+                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
+                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, dateBegin.getTime());
+                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, dateEnd.getTime());
+                        editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, Integer.valueOf(daysEditText.getText().toString()));
+                        editor.putInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, mMinTemperaure);
+                        editor.putInt(OTSContract.SHARED_LAST_SEARCH_DISTANCE, Integer.valueOf(distanceEditText.getText().toString()));
+                        editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, usesCloudyDays);
+                        editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, temperatureDoesNotMatter);
+                        editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, useCelsius);
+                        editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, useKilometers);
 
-                    editor.commit();
+                        editor.apply();
 
-                    callSearch();
+                        mBolRenewInformations = false;
 
+                        callSearch();
+                    }
                 } else {
                     //Call the last results
                     forwardActivity();
@@ -551,11 +610,13 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             dateEndView.setText(dateFormat.format(date));
             dateEnd = Utility.setDateToFinalHours(date);
         }
+        /*
         boolean validDates = validateDates();
         if(validDates){
             int numberOfDays = Utility.getDefaultNumberOfDaysToShow(dateBegin, dateEnd);
             daysEditText.setText(String.valueOf(numberOfDays));
         }
+        */
     }
 
     private boolean validateDates(){

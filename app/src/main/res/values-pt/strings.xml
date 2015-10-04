@@ -71,4 +71,6 @@
     <string name="yes">Sim</string>
     <string name="action_cities_list">Lista de Cidades</string>
     <string name="country_textview">País:</string>
+    <string name="no_list_cities_found">Nenhuma cidade cadastrada para esse país.</string>
+    <string name="title_activity_cities_list">Lista de Cidades</string>
 </resources>

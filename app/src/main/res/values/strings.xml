@@ -141,7 +141,7 @@
     <string name="action_cities_list">Cities List</string>
     <string name="title_activity_cities_list">Cities List</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
     <string name="country_textview">Country:</string>
     <string name="no_list_cities_found">No cities found for the selected country.</string>
 

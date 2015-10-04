@@ -3,7 +3,6 @@ package br.borbi.ots;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -63,11 +62,11 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         }
 
         //TODO EXCLUIR AS PROXIMAS 3 LINHAS AO DAR BUILD EM PRODUCAO!
-        lastLatitude = -30.03306;
+        //lastLatitude = -30.03306;
 
-        lastLongitude = -51.23;
+        //lastLongitude = -51.23;
 
-        LocationUtility.saveCoordinates(lastLatitude,lastLongitude, this);
+        //LocationUtility.saveCoordinates(lastLatitude,lastLongitude, this);
 
         new Timer().schedule(new TimerTask() {
 
@@ -79,8 +78,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                 //- the date_end is before than today
                 //- the current location is not too far from the place where the seach was originally made
 
-                if (Utility.isNetworkAvailable(mContext)) {
                     if (lastLongitude == null || lastLatitude == null) {
+
                         Integer searchId = Utility.findSearchByDate(mContext);
 
                         if (searchId == null) {
@@ -98,9 +97,6 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
                             ForwardUtility.goToResults(true, searchId, mContext);
                         }
                     }
-                }else{
-                    ForwardUtility.goToFailure(mContext,true);
-                }
             }
         }, TIME_SPLASH);
     }

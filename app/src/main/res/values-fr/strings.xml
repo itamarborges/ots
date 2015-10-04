@@ -72,4 +72,6 @@
     <string name="yes">Oui</string>
     <string name="action_cities_list">Liste des Villes</string>
     <string name="country_textview">Pays:</string>
+    <string name="title_activity_cities_list">Liste de Ville</string>
+    <string name="no_list_cities_found">Aucune ville a été trouvé.</string>
 </resources>

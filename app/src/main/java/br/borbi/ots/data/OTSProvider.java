@@ -2,6 +2,8 @@ package br.borbi.ots.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -600,7 +602,7 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
 
         delete(OTSContract.Search.CONTENT_URI,null,null);
 
-        long searchId = 0;
+        int searchId = 0;
 
         try {
             //Insere search;
@@ -617,11 +619,19 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
 
 
             db.beginTransaction();
-            searchId = db.insert(OTSContract.Search.TABLE_NAME, null, searchValues);
+            searchId = (int) db.insert(OTSContract.Search.TABLE_NAME, null, searchValues);
 
             if (searchId <= 0) {
                 throw new android.database.SQLException("Failed to insert row into search");
             }
+
+
+            SharedPreferences sharedPref = getContext().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            editor.putInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, searchId);
+
+            editor.apply();
 
             List<CityResultSearch> cities = search.getCites();
 

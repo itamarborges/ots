@@ -54,14 +54,17 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
 
         mAdView = Utility.initializeAd(mAdView, this);
 
+        Intent intent = getIntent();
+
         progressBarHolder = (FrameLayout) findViewById(R.id.progressBarHolder);
         tryToFindMeButton = (Button) findViewById(R.id.btnTryToFindMe);
         continueWithouLocationButton = (Button) findViewById(R.id.buttonContinueWithoutLocation);
-        if(hasSearch()){
+        boolean bolFollowingActivity = intent.getBooleanExtra(ForwardUtility.SHOW_FOLLOWING_BUTTON,true);
+
+        if((hasSearch()) && (bolFollowingActivity)){
             continueWithouLocationButton.setVisibility(View.VISIBLE);
         }
 
-        Intent intent = getIntent();
         boolean errorInternetConnection = intent.getBooleanExtra(ForwardUtility.ERROR_INTERNET_CONNECTION,true);
         mHasInternet = !errorInternetConnection;
         if(errorInternetConnection){
