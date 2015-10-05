@@ -112,6 +112,8 @@
     <string name="searching_sunny_cities_message1">We\'re searching for the cities where the sun will shine.</string>
     <string name="searching_sunny_cities_message2">Soon we\'re going to show you all the cities where the sun will shine.</string>
     <string name="searching_sunny_cities_message3">If it\'s taking too long, think about decreasing the distance.</string>
+    <string name="searching_sunny_cities_message4" > Take this time and start to pack your bags.</string>
+    <string name="searching_sunny_cities_message5" > Soon we are going to show wonderful places to go.</string>
     <string name="snow">Snow</string>
     <string name="source">Forecast Weather Source:</string>
     <string name="search">Go!</string>
@@ -144,6 +146,7 @@
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="country_textview">Country:</string>
     <string name="no_list_cities_found">No cities found for the selected country.</string>
+
 
     <!-- Z -->
 

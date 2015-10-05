@@ -48,6 +48,12 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
     public FetchWeatherTask(Context context,SearchActivity.TaskFinishedListener taskFinishedListener) {
         mContext = context;
         this.taskFinishedListener = taskFinishedListener;
+
+    }
+
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
     }
 
     @Override
@@ -85,7 +91,11 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
             final String APPID_PARAM = "APPID";
 
             Iterator<City> it = citiesToSearch.iterator();
-            while(it.hasNext()){
+
+            while((it.hasNext())) {
+
+                if (isCancelled()) break;
+
                 City cityToSearch = (City) it.next();
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
@@ -110,7 +120,8 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                     reader = new BufferedReader(new InputStreamReader(inputStream));
 
                     String line;
-                    while ((line = reader.readLine()) != null) {
+                    while ((!isCancelled()) && (line = reader.readLine()) != null) {
+
                         buffer.append(line + "\n");
                     }
 

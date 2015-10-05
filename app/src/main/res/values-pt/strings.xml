@@ -73,4 +73,6 @@
     <string name="country_textview">País:</string>
     <string name="no_list_cities_found">Nenhuma cidade cadastrada para esse país.</string>
     <string name="title_activity_cities_list">Lista de Cidades</string>
+    <string name="searching_sunny_cities_message4" >Aproveite esse tempo para começar a arrumar as malas.</string>
+    <string name="searching_sunny_cities_message5">Logo iremos lhe mostrar lugares maravilhosos para ir.</string>
 </resources>
