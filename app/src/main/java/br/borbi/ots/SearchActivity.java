@@ -58,6 +58,8 @@ public class SearchActivity extends ActionBarActivity {
     private WarningTask mWarningTask;
     private AdView mAdView;
 
+    private FetchWeatherTask weatherTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,7 +166,7 @@ public class SearchActivity extends ActionBarActivity {
 
         getContentResolver().delete(OTSContract.Search.CONTENT_URI,null,null);
 
-        FetchWeatherTask weatherTask = new FetchWeatherTask(this, new TaskFinishedListener());
+        weatherTask = new FetchWeatherTask(this, new TaskFinishedListener());
         weatherTask.execute(searchParameters);
 
     }
@@ -251,17 +253,17 @@ public class SearchActivity extends ActionBarActivity {
     }
 
     public class TaskFinishedListener implements TaskFinished {
-        @Override
         public void OnTaskFinished(List<CityResultSearch> cities) {
             validateCities(cities);
         }
+
     }
 
     private class WarningTask extends AsyncTask<String, Integer, Void> {
         protected Void doInBackground(String... params) {
 
-            long delay = 10000;
-            long difference = 10000;
+            long delay = 8000;
+            long difference = 8000;
 
             if(!isCancelled()) {
                 Timer timer = new Timer();
@@ -328,6 +330,13 @@ public class SearchActivity extends ActionBarActivity {
     protected void onPause() {
         super.onPause();
         mAdView.pause();
+
+        if (weatherTask != null) {
+            weatherTask.cancel(true);
+        }
+        if (mWarningTask != null) {
+            mWarningTask.cancel(true);
+        }
     }
 
     protected void onResume(){
