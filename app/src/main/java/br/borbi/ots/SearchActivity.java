@@ -260,8 +260,8 @@ public class SearchActivity extends ActionBarActivity {
     private class WarningTask extends AsyncTask<String, Integer, Void> {
         protected Void doInBackground(String... params) {
 
-            long delay = 6000;
-            long difference = 6000;
+            long delay = 10000;
+            long difference = 10000;
 
             if(!isCancelled()) {
                 Timer timer = new Timer();
@@ -280,8 +280,25 @@ public class SearchActivity extends ActionBarActivity {
             if(!isCancelled()) {
                 Timer timer = new Timer();
                 timer.schedule(new MyTimerTask(mContext.getString(R.string.searching_sunny_cities_message3)), delay);
+
+                delay += difference;
             }
 
+
+            if(!isCancelled()) {
+                Timer timer = new Timer();
+                timer.schedule(new MyTimerTask(mContext.getString(R.string.searching_sunny_cities_message4)), delay);
+
+                delay += difference;
+            }
+
+
+            if(!isCancelled()) {
+                Timer timer = new Timer();
+                timer.schedule(new MyTimerTask(mContext.getString(R.string.searching_sunny_cities_message5)), delay);
+
+                delay += difference;
+            }
             return null;
         }
 
