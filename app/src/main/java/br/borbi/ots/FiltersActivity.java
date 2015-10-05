@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.Utility;
 import br.borbi.ots.utility.ValidationUtility;
@@ -95,6 +96,8 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     private boolean mLastSearchUseCelsius;
     private boolean mLastSearchUseKilometers;
     private boolean mBolRenewInformations;
+    private boolean mBolDifferentLatitude;
+    private boolean mBolDifferentLongitude;
 
     Context mContext;
 
@@ -343,11 +346,24 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                     getParametersLastSearch();
                 }
 
+                Coordinates coordinates = new Coordinates(mLastSearchLatitude, mLastSearchLongitude, 50);
+
+                mBolDifferentLatitude = false;
+                mBolDifferentLongitude = false;
+
+                if ((lastLatitude > coordinates.getMaxLatitude()) || (lastLatitude < coordinates.getMinLatitude())) {
+                    mBolDifferentLatitude = true;
+                }
+
+                if (lastLongitude > (coordinates.getMaxLongitude()) || (lastLongitude < coordinates.getMinLongitude())) {
+                    mBolDifferentLatitude = true;
+                }
+
                 if ((mLastSearchDateTime.equals(-1l)) ||
                     (mLastSearchIdSearch == -1) ||
                     (diffHours >= 3) ||
-                    (!mLastSearchLongitude.equals(lastLongitude)) ||
-                    (!mLastSearchLatitude.equals(lastLatitude)) ||
+                    (mBolDifferentLatitude) ||
+                    (mBolDifferentLatitude) ||
                     (!mLastSearchInitialDate.equals(dateBegin.getTime())) ||
                     (!mLastSearchFinalDate.equals(dateEnd.getTime())) ||
                     (mLastSearchSunnyDays != Integer.valueOf(daysEditText.getText().toString())) ||
