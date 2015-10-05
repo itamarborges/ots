@@ -471,14 +471,14 @@ public class OTSProvider extends ContentProvider {
                         "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID);
 
 
-
+/*
         Log.v(CLASS_NAME, "busca por coord === projection = ");
         LogUtility.printArray(CLASS_NAME,projection);
         Log.v(CLASS_NAME, "==== selection = " + selection);
         Log.v(CLASS_NAME, "==== selectionArgs = ");
         LogUtility.printArray(CLASS_NAME,selectionArgs);
         Log.v(CLASS_NAME, "tables = " + sWeatherByLocationSettingQueryBuilder.getTables());
-
+*/
 
         return sWeatherByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
@@ -520,14 +520,14 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
                         " = " + OTSContract.City.TABLE_NAME +
                         "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID );
 
-
+/*
         Log.v(CLASS_NAME, "=== projection = ");
         LogUtility.printArray(CLASS_NAME,projection);
         Log.v(CLASS_NAME, "==== selection = " + selection);
         Log.v(CLASS_NAME, "==== selectionArgs = ");
         LogUtility.printArray(CLASS_NAME, selectionArgs);
         Log.v(CLASS_NAME, "tables = " + sWeatherBySearchQueryBuilder.getTables());
-
+*/
         return sWeatherBySearchQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
                 selection,
@@ -562,14 +562,14 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
                         " = " + OTSContract.RelCityTag.TABLE_NAME +
                         "." + OTSContract.RelCityTag.COLUMN_NAME_CITY_ID );
 
-
+/*
         Log.v(CLASS_NAME, "=== projection = ");
         LogUtility.printArray(CLASS_NAME,projection);
         Log.v(CLASS_NAME, "==== selection = " + selection);
         Log.v(CLASS_NAME, "==== selectionArgs = ");
         LogUtility.printArray(CLASS_NAME, selectionArgs);
         Log.v(CLASS_NAME, "tables = " + sCitiesWithTagsQueryBuilder.getTables());
-
+*/
         return sCitiesWithTagsQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
                 selection,
@@ -585,7 +585,6 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
 
         Bundle bundle = null;
 
-        Log.v(CLASS_NAME, "entrou no call, method = " + method);
         if (OTSContract.METHOD_SAVE_SEARCH.equals(method)) {
             Search search = (Search) extras.getSerializable(SearchActivity.SEARCH);
             bundle = insertSearch(search);

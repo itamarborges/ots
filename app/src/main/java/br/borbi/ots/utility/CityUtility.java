@@ -11,7 +11,6 @@ public class CityUtility {
     public static String LOG_TAG = CityUtility.class.getSimpleName();
 
     public static String getCityDisplayName(String cityName,Context context){
-        Log.v(LOG_TAG,"city name = " + cityName);
         return context.getString(context.getResources().getIdentifier(cityName, "cities", context.getPackageName()));
     }
 }

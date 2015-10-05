@@ -108,7 +108,7 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
         } catch (Exception e) {
-            Log.v(LOG_TAG, getString(R.string.error_localization));
+            Log.e(LOG_TAG, getString(R.string.error_localization));
             LocationUtility.disconnectFromLocationServices(mGoogleApiClient,this);
             finish();
         }

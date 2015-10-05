@@ -124,7 +124,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 ResultSearch.COLUMN_NAME_PRECIPITATION + OTSContract.TYPE_REAL + ", " +
                 " FOREIGN KEY (" + ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID+ ") REFERENCES " +
                 RelSearchCity.TABLE_NAME + " (" + RelSearchCity._ID + ") ON DELETE CASCADE);";
-
+/*
         Log.v(LOG_TAG, SQL_CREATE_TAG_TABLE);
         Log.v(LOG_TAG, SQL_CREATE_SEARCH_TABLE);
         Log.v(LOG_TAG, SQL_CREATE_COUNTRY_TABLE);
@@ -132,7 +132,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         Log.v(LOG_TAG, SQL_CREATE_REL_CITY_TAG_TABLE);
         Log.v(LOG_TAG, SQL_CREATE_REL_SEARCH_CITY_TABLE);
         Log.v(LOG_TAG, SQL_CREATE_RESULT_SEARCH_TABLE);
-        
+  */
         db.execSQL(SQL_CREATE_TAG_TABLE);
         db.execSQL(SQL_CREATE_SEARCH_TABLE);
         db.execSQL(SQL_CREATE_COUNTRY_TABLE);
@@ -148,18 +148,18 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         //db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_FRANCE + ", 'FR', 'france');");
         //db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_CANADA + ", 'CA', 'canada');");
 
-        Log.v(LOG_TAG, "primeiros inserts executaram");
+        //Log.v(LOG_TAG, "primeiros inserts executaram");
 
         readCitiesFile(db);
 
-        Log.v(LOG_TAG, "leu bd");
+        //Log.v(LOG_TAG, "leu bd");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        Log.v(LOG_TAG, "vai entrar no onUpgrade");
+        //Log.v(LOG_TAG, "vai entrar no onUpgrade");
 
         db.execSQL(DROP_TABLE_IF_EXISTS + ResultSearch.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + RelSearchCity.TABLE_NAME);
@@ -169,11 +169,11 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE_IF_EXISTS + City.TABLE_NAME);
         db.execSQL(DROP_TABLE_IF_EXISTS + Country.TABLE_NAME);
 
-        Log.v(LOG_TAG, "vai entrar no oncreate");
+        //Log.v(LOG_TAG, "vai entrar no oncreate");
 
         onCreate(db);
 
-        Log.v(LOG_TAG, "encerrou o create");
+        //Log.v(LOG_TAG, "encerrou o create");
 
     }
 
