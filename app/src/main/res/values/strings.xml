@@ -7,8 +7,8 @@
     <string name="afternoon">Afternoon</string>
 
     <!-- B -->
-    <string translatable="false" name="banner_ad_unit_id_producao">ca-app-pub-3940256099942544/6300978111</string>
-    <string translatable="false" name="banner_ad_unit_id">ca-app-pub-7723898994387347/6641662118</string>
+    <string translatable="false" name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string translatable="false" name="banner_ad_unit_id_producao">ca-app-pub-7723898994387347/6641662118</string>
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
 
     <!-- C -->
