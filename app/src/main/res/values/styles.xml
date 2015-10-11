@@ -46,7 +46,7 @@
 
     <style name="smallTitleTextView">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-black</item>
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">8sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -58,7 +58,7 @@
 
     <style name="moreDetailsTextView">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-black</item>
-        <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:textSize">@dimen/font_size_small</item>
         <item name="android:textStyle">bold</item>
         <item name="android:color">@color/ots_dark_grey</item>
     </style>
