@@ -76,4 +76,6 @@
     <string name="no_list_cities_found">Aucune ville a été trouvé.</string>
     <string name="searching_sunny_cities_message4" >Take this time and start to pack your bags.</string>
     <string name="searching_sunny_cities_message5">Soon we are going to show wonderful places to go.</string>
+    <string name="searching_sunny_cities_message0">Cliquez dans toutes les villes dans l\'écran ci-dessous pour obtenir plus de détails sur la météo.</string>
+    <string name="searching_sunny_cities_message6">Quand vous voyez des prévisions météorologiques de quelque ville, cliquez sur les jours pour voir plus de détails.</string>
 </resources>

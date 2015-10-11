@@ -17,6 +17,8 @@
     <dimen name="sizeSeparator">1dp</dimen>
     <dimen name="paddingCalendar">2dp</dimen>
     <dimen name="distanceCalendar">5dp</dimen>
+    <dimen name="layoutLeftRight">16dp</dimen>
+    <dimen name="marginFragmentLeftRight">4dp</dimen>
 
     <dimen name="title_fragment_horizontal_margin">16dp</dimen>
     <dimen name="title_fragment_vertical_margin">16dp</dimen>

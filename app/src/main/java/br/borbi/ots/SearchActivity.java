@@ -267,6 +267,20 @@ public class SearchActivity extends ActionBarActivity {
 
             if(!isCancelled()) {
                 Timer timer = new Timer();
+                timer.schedule(new MyTimerTask(mContext.getString(R.string.searching_sunny_cities_message0)), delay);
+
+                delay += difference;
+            }
+
+            if(!isCancelled()) {
+                Timer timer = new Timer();
+                timer.schedule(new MyTimerTask(mContext.getString(R.string.searching_sunny_cities_message6)), delay);
+
+                delay += difference;
+            }
+
+            if(!isCancelled()) {
+                Timer timer = new Timer();
                 timer.schedule(new MyTimerTask(mContext.getString(R.string.searching_sunny_cities_message1)), delay);
 
                 delay += difference;

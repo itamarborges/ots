@@ -37,6 +37,8 @@
         android:layout_above="@+id/adView"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/marginFragmentLeftRight"
+        android:layout_marginRight="@dimen/marginFragmentLeftRight"
         android:dividerHeight="5dp"
         android:divider="@android:color/transparent" />
 

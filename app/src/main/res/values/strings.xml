@@ -146,6 +146,8 @@
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="country_textview">Country:</string>
     <string name="no_list_cities_found">No cities found for the selected country.</string>
+    <string name="searching_sunny_cities_message0">Click in any city in the following screen to obtain more details about the weather.</string>
+    <string name="searching_sunny_cities_message6">When you see the forecast weather from some city, click in the days to see more details.</string>
 
 
     <!-- Z -->
