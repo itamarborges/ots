@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="transition_duration">2</integer>
-    <integer name="fontSizeEms">8</integer>
+    <integer name="fontSizeEms">10</integer>
 
 </resources>

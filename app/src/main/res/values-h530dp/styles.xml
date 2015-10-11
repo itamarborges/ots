@@ -29,13 +29,13 @@
 
     <style name="titleTextView">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-black</item>
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">@dimen/font_size_big</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="subtitleTextView">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-black</item>
-        <item name="android:textSize">9dp</item>
+        <item name="android:textSize">@dimen/font_size_small</item>
         <item name="android:textColor">?android:attr/textColorTertiary</item>
     </style>
 
