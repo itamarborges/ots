@@ -340,6 +340,13 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                 long diff = timeNow - mLastSearchDateTime;
                 long diffHours = diff / (60 * 60 * 1000) % 24;
 
+                if(temperatureEditText.getText() != null){
+                    String value = temperatureEditText.getText().toString().trim();
+                    if("".equals(value) || value.isEmpty()){
+                        temperatureDoesNotMatter = true;
+                    }
+                }
+
                 mMinTemperaure = (temperatureDoesNotMatter) ? INDETERMINED_TEMPERATURE : Integer.valueOf(temperatureEditText.getText().toString());
 
                 if (!mBolRenewInformations) {
@@ -648,7 +655,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         boolean validDistance = true;
         // Valida distancia.
         if(kilometersChecked){
-
             validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, null, mContext.getString(R.string.minimum_distance_kilometers,MINIMUM_DISTANCE_KILOMETERS));
         }else{
             validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, null, mContext.getString(R.string.minimum_distance_miles,MINIMUM_DISTANCE_MILES));
