@@ -75,4 +75,6 @@
     <string name="title_activity_cities_list">Lista de Cidades</string>
     <string name="searching_sunny_cities_message4" >Aproveite esse tempo para começar a arrumar as malas.</string>
     <string name="searching_sunny_cities_message5">Logo iremos lhe mostrar lugares fantásticos para ir.</string>
+    <string name="searching_sunny_cities_message0">Ao clicar em qualquer uma das cidades na lista a seguir, você obtêm mais detalhes sobre o tempo.</string>
+    <string name="searching_sunny_cities_message6">Ao olhar a previsão do tempo de uma cidade, clique nos dias para obter mais detalhes.</string>
 </resources>
