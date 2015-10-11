@@ -28,6 +28,7 @@
             android:id="@+id/weather_imageview"
             android:gravity="center_horizontal"
             android:adjustViewBounds="true"
+            android:src="@drawable/ots_sunny_small"
             />
 
         <!--

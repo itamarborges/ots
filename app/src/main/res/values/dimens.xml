@@ -18,4 +18,7 @@
     <dimen name="paddingCalendar">2dp</dimen>
     <dimen name="distanceCalendar">3dp</dimen>
 
+    <dimen name="title_fragment_horizontal_margin">4dp</dimen>
+    <dimen name="title_fragment_vertical_margin">4dp</dimen>
+
 </resources>

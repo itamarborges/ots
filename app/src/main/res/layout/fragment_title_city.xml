@@ -2,14 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingRight="@dimen/title_fragment_horizontal_margin"
+    android:paddingLeft="@dimen/title_fragment_horizontal_margin"
+    android:paddingTop="@dimen/title_fragment_vertical_margin"
+    >
     <TextView
         android:id="@+id/city_name_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceLarge"
         android:fontFamily="sans-serif-condensed"
-        android:textColor="@color/material_blue_grey_800" />
+        android:textColor="@color/material_blue_grey_800"
+        android:text="Porto Alegre, RS"
+        />
 
     <TextView
         android:id="@+id/tags_textview"
@@ -17,5 +23,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceSmall"
         android:fontFamily="sans-serif-condensed"
-        android:textColor="@color/material_blue_grey_800" />
+        android:textColor="@color/material_blue_grey_800"
+        android:text="abc"
+        />
 </LinearLayout>

@@ -2,10 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="5dp"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/paddingMarginBottonTop"
     tools:context="br.borbi.ots.ResultActivity"
     android:orientation="vertical">
 
@@ -17,7 +15,20 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
-        tools:context="br.borbi.ots.fragment.TitleCityFragment" />
+        tools:context="br.borbi.ots.fragment.TitleCityFragment"
+        tools:layout="@layout/fragment_title_city" />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragment_result_city"
+        android:name="br.borbi.ots.fragment.ResultCityFragment"
+        android:layout_below="@id/fragment_title_city"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        tools:context="br.borbi.ots.fragment.ResultCityFragment"
+        tools:layout="@android:layout/list_content"
+        android:layout_above="@id/adView" />
+
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -27,18 +38,8 @@
         android:layout_alignParentLeft="true"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         />
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/fragment_result_city"
-        android:name="br.borbi.ots.fragment.ResultCityFragment"
-        android:layout_below="@id/fragment_title_city"
-
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        tools:context="br.borbi.ots.fragment.ResultCityFragment"
-        tools:layout="@android:layout/list_content"
-        android:layout_above="@id/adView" />
 
 </RelativeLayout>
