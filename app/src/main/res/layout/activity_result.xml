@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/layoutLeftRight"
     android:paddingRight="@dimen/layoutLeftRight"
     android:paddingTop="@dimen/paddingMarginBottonTop"
+    android:paddingBottom="@dimen/paddingBottomScreen"
     android:orientation="vertical"
     tools:context="br.borbi.ots.ResultActivity">
 

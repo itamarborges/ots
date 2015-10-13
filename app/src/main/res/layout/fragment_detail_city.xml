@@ -4,7 +4,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,12 +55,10 @@
         android:id="@+id/temperatura_media_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:fontFamily="sans-serif-condensed"
         android:gravity="center_horizontal"
-        android:padding="5dp"
+        android:padding="@dimen/average_temperature_padding"
         android:text="@string/average_temperature"
-        android:textAllCaps="true"
+        android:textAppearance="@style/averageTemperatureTitleTextView"
         />
 
     <LinearLayout
@@ -205,6 +202,7 @@
             />
 
     </RelativeLayout>
+
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

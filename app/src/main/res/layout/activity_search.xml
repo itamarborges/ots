@@ -5,7 +5,7 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="5dp"
+    android:paddingBottom="@dimen/paddingBottomScreen"
     tools:context="br.borbi.ots.SearchActivity">
 
     <ProgressBar

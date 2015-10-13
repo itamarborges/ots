@@ -81,4 +81,11 @@
         <item name="android:textSize">@dimen/font_size_medium</item>
     </style>
 
+    <style name="averageTemperatureTitleTextView">
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-bold</item>
+        <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
 </resources>
