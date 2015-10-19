@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
@@ -26,7 +27,7 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
@@ -42,6 +43,9 @@ public class OTSDbHelper extends SQLiteOpenHelper {
     private static Integer mNextTagId = 100000;
 
     private static Context mContext;
+
+    private long idInicialCity = 100000;
+    private long idInicialRelTagCity = 100000;
 
     public OTSDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -144,13 +148,20 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         //Inicializations Scripts - COUNTRY
 
         db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_BRAZIL + ", 'BR', 'brazil');");
-        //db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_USA + ", 'US', 'united_states');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_USA + ", 'US', 'united_states');");
         //db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_FRANCE + ", 'FR', 'france');");
         //db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_CANADA + ", 'CA', 'canada');");
 
         //Log.v(LOG_TAG, "primeiros inserts executaram");
 
-        readCitiesFile(db);
+
+        Resources res =  mContext.getResources();
+
+        InputStream inputStream = res.openRawResource(R.raw.citiesbrazil);
+        readCitiesFile(db,inputStream);
+
+        inputStream = res.openRawResource(R.raw.citiesusa);
+        readCitiesFile(db,inputStream);
 
         //Log.v(LOG_TAG, "leu bd");
 
@@ -177,14 +188,13 @@ public class OTSDbHelper extends SQLiteOpenHelper {
 
     }
 
-    private void readCitiesFile(SQLiteDatabase db){
-        long idInicialCity = 100000;
-        long idInicialRelTagCity = 100000;
+    private void readCitiesFile(SQLiteDatabase db, InputStream inputStream){
 
         try {
             Resources res =  mContext.getResources();
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(res.openRawResource(R.raw.cidadesfiltradas), "UTF-8"));
+            //BufferedReader in = new BufferedReader(new InputStreamReader(res.openRawResource(R.raw.citiesbrazil), "UTF-8"));
+            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
             while (in.ready()) {
                 String str = in.readLine();

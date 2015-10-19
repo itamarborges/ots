@@ -2,6 +2,7 @@ package br.borbi.ots;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,7 @@ import br.borbi.ots.utility.Utility;
 
 public class CitiesListActivity extends ActionBarActivity {
 
+    private static final String LOG_TAG = CitiesListActivity.class.getSimpleName();
     private CitiesListAdapter mCitiesListAdapter;
     private ListView mListView;
     private View mEmptyView;
@@ -58,6 +60,8 @@ public class CitiesListActivity extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 mEmptyView.setVisibility(View.INVISIBLE);
+
+                Log.v(LOG_TAG, "CountryId = " + id);
 
                 City cityQuery = new City();
                 cityQuery.setCountryId((int) id);
