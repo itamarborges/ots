@@ -2,7 +2,6 @@ package br.borbi.ots;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -46,7 +45,7 @@ public class CitiesListActivity extends ActionBarActivity {
         mListView = (ListView) findViewById(R.id.listView);
         mEmptyView = (TextView) findViewById(R.id.listview_list_cities_empty);
 
-        LinkedList<Country> listCountries = CountryModel.listCountries(getApplication());
+        final LinkedList<Country> listCountries = CountryModel.listCountries(getApplication());
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listCountries);
 
@@ -61,10 +60,8 @@ public class CitiesListActivity extends ActionBarActivity {
 
                 mEmptyView.setVisibility(View.INVISIBLE);
 
-                Log.v(LOG_TAG, "CountryId = " + id);
-
                 City cityQuery = new City();
-                cityQuery.setCountryId((int) id);
+                cityQuery.setCountryId((int) listCountries.get(position).getId());
 
                 LinkedList<City> listCities = CityModel.listCitiesWithTags(cityQuery, getApplication());
 
