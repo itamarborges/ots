@@ -7,12 +7,16 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -20,6 +24,7 @@ import java.util.TimerTask;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.entity.Search;
+import br.borbi.ots.model.CityResultSearchModel;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.pojo.Coordinates;
@@ -27,6 +32,7 @@ import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.pojo.SearchParameters;
 import br.borbi.ots.task.FetchWeatherTask;
 import br.borbi.ots.utility.CoordinatesUtillity;
+import br.borbi.ots.utility.DateUtility;
 import br.borbi.ots.utility.Utility;
 
 interface TaskFinished {
@@ -44,6 +50,8 @@ public class SearchActivity extends ActionBarActivity {
 
     private Context mContext;
     private ArrayList<CityResultSearch> mCities;
+    // Cidades nao validadas, retornadas da pesquisa pela previsao do tempo.
+    private List<CityResultSearch> mCitiesFromSearch = null;
 
     private int minTemperature = 0;
     private int numberSunnyDays = 0;
@@ -95,8 +103,41 @@ public class SearchActivity extends ActionBarActivity {
         mWarningTask.execute();
 
         List<City> cities = searchCities(Double.valueOf(mMaxDistance), lastLatitude, lastLongitude);
-        int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin, dateEnd);
-        searchWeatherData(cities, numberOfDays);
+        cities = removeCitiesAlreadySearched(cities);
+        if(cities == null || cities.isEmpty()){
+         validateCities(mCitiesFromSearch);
+        }else {
+            int numberOfDays = Utility.getNumberOfDaysToSearch(dateBegin, dateEnd);
+            searchWeatherData(cities, numberOfDays);
+        }
+    }
+
+    private List<City> removeCitiesAlreadySearched(List<City> cities){
+        List<City> citiesAux = new ArrayList<>();
+        citiesAux.addAll(cities);
+
+        LinkedList<CityResultSearch> citiesAlreadySearched = CityResultSearchModel.listCities(mContext,new Coordinates(lastLatitude, lastLongitude, Double.valueOf(mMaxDistance)),Utility.setDateToInitialHours(new Date()),dateBegin,dateEnd);
+        mCitiesFromSearch = new ArrayList<>();
+        if(citiesAlreadySearched!= null || !citiesAlreadySearched.isEmpty()) {
+            mCitiesFromSearch = new ArrayList<CityResultSearch>();
+            boolean found = false;
+            for (City city : citiesAux) {
+                found = false;
+                Iterator<CityResultSearch> it = citiesAlreadySearched.iterator();
+                while (it.hasNext() && !found) {
+                    CityResultSearch cityResultSearch = (CityResultSearch) it.next();
+                    if (cityResultSearch.getCity().equals(city)) {
+                        found = true;
+                        // remover da lista a pesquisar;
+                        cities.remove(city);
+                        // acrescentar na lista de resultados
+                        mCitiesFromSearch.add(cityResultSearch);
+                        found = true;
+                    }
+                }
+            }
+        }
+        return cities;
     }
 
     /*
@@ -254,9 +295,15 @@ public class SearchActivity extends ActionBarActivity {
 
     public class TaskFinishedListener implements TaskFinished {
         public void OnTaskFinished(List<CityResultSearch> cities) {
-            validateCities(cities);
+            if(mCitiesFromSearch == null || mCitiesFromSearch.isEmpty()){
+                Log.v(LOG_TAG,"listener, entrou no if");
+                mCitiesFromSearch = cities;
+            }else{
+                Log.v(LOG_TAG,"listener, entrou no false");
+                mCitiesFromSearch.addAll(cities);
+            }
+            validateCities(mCitiesFromSearch);
         }
-
     }
 
     private class WarningTask extends AsyncTask<String, Integer, Void> {

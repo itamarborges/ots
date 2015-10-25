@@ -112,6 +112,18 @@ public class City implements Serializable, Comparable<City>{
     public void setTranslationFileKey(String translationFileKey) { this.translationFileKey = translationFileKey;}
 
     @Override
+    public boolean equals(Object o) {
+        if(o == null){
+            return false;
+        }
+        City city = (City) o;
+        if(this.getId() == city.getId()){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "City{" +
                 "id=" + id +
@@ -134,4 +146,5 @@ public class City implements Serializable, Comparable<City>{
         cot.setStrength(Collator.PRIMARY);
         return cot.compare(this.getName(), another.getName());
     }
+
 }
