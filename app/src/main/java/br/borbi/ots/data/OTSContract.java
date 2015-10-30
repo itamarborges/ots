@@ -192,6 +192,7 @@ public final class OTSContract {
         public static final String COLUMN_NAME_DATE_END = "date_end";
         public static final String COLUMN_NAME_RADIUS = "radius";
         public static final String COLUMN_NAME_MIN_SUNNY_DAYS = "min_sunny_days";
+        public static final String COLUMN_NAME_INCLUDES_CLOUDY_DAYS = "includes_cloudy_days";
         public static final String COLUMN_NAME_MIN_TEMPERATURE = "min_temperature";
         public static final String COLUMN_NAME_DATETIME_LAST_SEARCH = "datetime_last_search";
         public static final String COLUMN_NAME_ORIGIN_LONG = "origin_long";

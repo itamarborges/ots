@@ -615,8 +615,8 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
             searchValues.put(OTSContract.Search.COLUMN_NAME_DATE_END, search.getEndDate().getTime());
             searchValues.put(OTSContract.Search.COLUMN_NAME_RADIUS, search.getRadius());
             searchValues.put(OTSContract.Search.COLUMN_NAME_MIN_SUNNY_DAYS, search.getMinSunnyDays());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_INCLUDES_CLOUDY_DAYS, search.getIncludesCloudyDays());
             searchValues.put(OTSContract.Search.COLUMN_NAME_MIN_TEMPERATURE, search.getMinTemperature());
-            searchValues.put(OTSContract.Search.COLUMN_NAME_MIN_SUNNY_DAYS, search.getMinSunnyDays());
             searchValues.put(OTSContract.Search.COLUMN_NAME_DATETIME_LAST_SEARCH, search.getDateTimeLastSearch().getTime());
             searchValues.put(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT, search.getOriginLatitude());
             searchValues.put(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG, search.getOriginLongitude());

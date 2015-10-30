@@ -17,6 +17,7 @@ public class Search implements Serializable{
     private Date endDate;
     private Integer radius;
     private Integer minSunnyDays;
+    private Boolean includesCloudyDays;
     private Double minTemperature;
     private Date dateTimeLastSearch;
     private Double originLatitude;
@@ -103,6 +104,14 @@ public class Search implements Serializable{
         this.originLongitude = originLongitude;
     }
 
+    public Boolean getIncludesCloudyDays() {
+        return includesCloudyDays;
+    }
+
+    public void setIncludesCloudyDays(Boolean includesCloudyDays) {
+        this.includesCloudyDays = includesCloudyDays;
+    }
+
     @Override
     public String toString() {
         return "Search{" +
@@ -111,6 +120,7 @@ public class Search implements Serializable{
                 ", endDate=" + endDate +
                 ", radius=" + radius +
                 ", minSunnyDays=" + minSunnyDays +
+                ", includesCloudyDays=" + includesCloudyDays +
                 ", minTemperature=" + minTemperature +
                 ", dateTimeLastSearch=" + dateTimeLastSearch +
                 ", originLatitude=" + originLatitude +

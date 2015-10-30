@@ -78,6 +78,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 Search.COLUMN_NAME_ORIGIN_LAT + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 Search.COLUMN_NAME_ORIGIN_LONG + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 Search.COLUMN_NAME_MIN_SUNNY_DAYS + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
+                Search.COLUMN_NAME_INCLUDES_CLOUDY_DAYS + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 Search.COLUMN_NAME_DATETIME_LAST_SEARCH + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + " );";
 
         final String SQL_CREATE_COUNTRY_TABLE = OTSContract.CREATE_TABLE + Country.TABLE_NAME + " (" +
