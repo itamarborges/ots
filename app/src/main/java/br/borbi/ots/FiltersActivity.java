@@ -295,7 +295,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         if ((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)) {
-            //TODO MOSTRAR DIALOGO AQUI, AO INVES DE ENCAMINHAR PARA A TELA DE FALHA
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.location).setTitle(R.string.location_turn_on);
             builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -368,7 +367,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
                 if ((mLastSearchDateTime.equals(-1l)) ||
                     (mLastSearchIdSearch == -1) ||
-                    (diffHours >= 3) ||
+                    (diffHours >= OTSContract.HOURS_TO_SEARCH_EXPIRATION) ||
                     (mBolDifferentLatitude) ||
                     (mBolDifferentLatitude) ||
                     (!mLastSearchInitialDate.equals(dateBegin.getTime())) ||

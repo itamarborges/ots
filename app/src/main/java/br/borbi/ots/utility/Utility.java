@@ -372,4 +372,8 @@ public class Utility {
         }
         return false;
     }
+
+    public static boolean getBooleanValue(int value){
+        return (value==0? false:true);
+    }
 }

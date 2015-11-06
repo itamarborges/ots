@@ -69,4 +69,17 @@ public class DateUtility {
         SimpleDateFormat monthDayFormat = new SimpleDateFormat("E");
         return monthDayFormat.format(date).substring(0,1).toUpperCase();
     }
+
+    public static boolean isToday(Date date){
+        return Utility.isSameDay(new Date(), date);
+    }
+
+    public static boolean isDateBeforeAnother(Date date, Date another){
+        date = Utility.setDateToInitialHours(date);
+        another = Utility.setDateToInitialHours(another);
+        if (date.compareTo(another) < 0){
+            return true;
+        }
+        return false;
+    }
 }

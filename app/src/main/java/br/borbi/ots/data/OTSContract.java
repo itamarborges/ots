@@ -12,6 +12,11 @@ import android.text.format.Time;
 public final class OTSContract {
 
     /*
+    Quantidade de horas em que uma pesquisa e valida.
+     */
+    public static final int HOURS_TO_SEARCH_EXPIRATION = 3;
+
+    /*
     Constantes shared preferences
      */
     public static final String KEY_REL_SEARCH_CITY = "keyRelSearchCity";
@@ -66,6 +71,10 @@ public final class OTSContract {
 
     public static final String PATH_LIST_CITIES_WITH_TAGS = "list_cities_with_tags";
     public static final Uri CONTENT_URI_LIST_CITIES_WITH_TAGS = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_WITH_TAGS).build();
+
+    public static final String PATH_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS = "list_cities_by_search_and_new_search_parameters";
+    public static final Uri CONTENT_URI_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS).build();
+
 
     public static final String METHOD_SAVE_SEARCH = "METHOD_SAVE_SEARCH";
 
@@ -183,6 +192,7 @@ public final class OTSContract {
         public static final String COLUMN_NAME_DATE_END = "date_end";
         public static final String COLUMN_NAME_RADIUS = "radius";
         public static final String COLUMN_NAME_MIN_SUNNY_DAYS = "min_sunny_days";
+        public static final String COLUMN_NAME_INCLUDES_CLOUDY_DAYS = "includes_cloudy_days";
         public static final String COLUMN_NAME_MIN_TEMPERATURE = "min_temperature";
         public static final String COLUMN_NAME_DATETIME_LAST_SEARCH = "datetime_last_search";
         public static final String COLUMN_NAME_ORIGIN_LONG = "origin_long";

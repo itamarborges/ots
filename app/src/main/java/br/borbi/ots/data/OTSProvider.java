@@ -37,6 +37,7 @@ public class OTSProvider extends ContentProvider {
     static final int LIST_CITIES_BY_SEARCH = 1200;
     static final int LIST_TAGS_FROM_A_CITY = 1300;
     static final int LIST_CITIES_WITH_TAGS = 1400;
+    static final int LIST_CITIES_BY_SEARCH_AND_BY_NEW_SEARCH_PARAMETERS = 1500;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final String CLASS_NAME = OTSProvider.class.getName();
@@ -87,6 +88,7 @@ public class OTSProvider extends ContentProvider {
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_SEARCH, LIST_CITIES_BY_SEARCH);
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_TAGS_FROM_A_CITY, LIST_TAGS_FROM_A_CITY);
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_WITH_TAGS, LIST_CITIES_WITH_TAGS);
+        uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS, LIST_CITIES_BY_SEARCH_AND_BY_NEW_SEARCH_PARAMETERS);
 
         return uriMatcher;
     }
@@ -200,6 +202,10 @@ public class OTSProvider extends ContentProvider {
 
             case LIST_CITIES_WITH_TAGS: {
                 retCursor = listCitiesWithTags(projection, selection, selectionArgs);
+                break;
+            }
+            case LIST_CITIES_BY_SEARCH_AND_BY_NEW_SEARCH_PARAMETERS:{
+                retCursor = listCitiesBySearchAlreadyMade(projection,selection,selectionArgs);
                 break;
             }
         }
@@ -470,7 +476,6 @@ public class OTSProvider extends ContentProvider {
                         " = " + OTSContract.City.TABLE_NAME +
                         "." + OTSContract.City.COLUMN_NAME_COUNTRY_ID);
 
-
 /*
         Log.v(CLASS_NAME, "busca por coord === projection = ");
         LogUtility.printArray(CLASS_NAME,projection);
@@ -610,12 +615,11 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
             searchValues.put(OTSContract.Search.COLUMN_NAME_DATE_END, search.getEndDate().getTime());
             searchValues.put(OTSContract.Search.COLUMN_NAME_RADIUS, search.getRadius());
             searchValues.put(OTSContract.Search.COLUMN_NAME_MIN_SUNNY_DAYS, search.getMinSunnyDays());
+            searchValues.put(OTSContract.Search.COLUMN_NAME_INCLUDES_CLOUDY_DAYS, search.getIncludesCloudyDays());
             searchValues.put(OTSContract.Search.COLUMN_NAME_MIN_TEMPERATURE, search.getMinTemperature());
-            searchValues.put(OTSContract.Search.COLUMN_NAME_MIN_SUNNY_DAYS, search.getMinSunnyDays());
             searchValues.put(OTSContract.Search.COLUMN_NAME_DATETIME_LAST_SEARCH, search.getDateTimeLastSearch().getTime());
             searchValues.put(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT, search.getOriginLatitude());
             searchValues.put(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG, search.getOriginLongitude());
-
 
             db.beginTransaction();
             searchId = (int) db.insert(OTSContract.Search.TABLE_NAME, null, searchValues);
@@ -623,7 +627,6 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
             if (searchId <= 0) {
                 throw new android.database.SQLException("Failed to insert row into search");
             }
-
 
             SharedPreferences sharedPref = getContext().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -670,5 +673,86 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
         bundle.putLong(SearchActivity.SEARCH, searchId);
 
         return bundle;
+    }
+
+    public Cursor listCitiesBySearchAlreadyMade(String[] projection, String selection, String[] selectionArgs) {
+        SQLiteQueryBuilder sWeatherBySearchQueryBuilder = new SQLiteQueryBuilder();
+        /*
+        select sc.*
+from rel_search_city sc
+inner join search s on s._id=sc.search_id
+inner join city c on c._id=sc.city_id
+where
+c.latitude between ? and ? and
+c.lon between ? and ? and
+s.datetime_last_search >= ? and // agora - 3 horas
+s.date_begin <= ? and // dt inicial da pesquisa atual
+s.date_end >= ? //dt final da pesquisa atual
+
+         */
+
+        StringBuilder sql = new StringBuilder();
+        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
+        sql.append(" INNER JOIN ");
+        sql.append(OTSContract.Search.TABLE_NAME);
+        sql.append(" ON ");
+        sql.append(OTSContract.Search.TABLE_NAME);
+        sql.append(".");
+        sql.append(OTSContract.Search._ID);
+        sql.append(" = ");
+        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
+        sql.append(".");
+        sql.append(OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID);
+        sql.append(" INNER JOIN ");
+        sql.append(OTSContract.City.TABLE_NAME);
+        sql.append(" ON ");
+        sql.append(OTSContract.City.TABLE_NAME);
+        sql.append(".");
+        sql.append(OTSContract.City._ID);
+        sql.append(" = ");
+        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
+        sql.append(".");
+        sql.append(OTSContract.RelSearchCity.COLUMN_NAME_CITY_ID);
+        sql.append(" INNER JOIN ");
+        sql.append(OTSContract.Country.TABLE_NAME);
+        sql.append(" ON ");
+        sql.append(OTSContract.Country.TABLE_NAME);
+        sql.append(".");
+        sql.append(OTSContract.Country._ID);
+        sql.append(" = ");
+        sql.append(OTSContract.City.TABLE_NAME);
+        sql.append(".");
+        sql.append(OTSContract.City.COLUMN_NAME_COUNTRY_ID);
+
+        sWeatherBySearchQueryBuilder.setTables(sql.toString());
+
+        StringBuilder whereClause = new StringBuilder();
+        whereClause.append(OTSContract.City.COLUMN_NAME_LATITUDE);
+        whereClause.append(" BETWEEN ? AND ? AND ");
+        whereClause.append(OTSContract.City.COLUMN_NAME_LONGITUDE);
+        whereClause.append(" BETWEEN ? AND ? AND ");
+        whereClause.append(OTSContract.Search.COLUMN_NAME_DATETIME_LAST_SEARCH);
+        whereClause.append(" >= ? AND ");
+        whereClause.append(OTSContract.Search.COLUMN_NAME_DATE_BEGIN);
+        whereClause.append(" <= ? AND ");
+        whereClause.append(OTSContract.Search.COLUMN_NAME_DATE_END);
+        whereClause.append(" >= ?");
+
+/*
+        Log.v(CLASS_NAME, "=== projection = ");
+        LogUtility.printArray(CLASS_NAME, projection);
+        Log.v(CLASS_NAME, "==== selection = " + selection);
+        Log.v(CLASS_NAME, "==== whereClause = " + whereClause);
+        Log.v(CLASS_NAME, "==== selectionArgs = ");
+        LogUtility.printArray(CLASS_NAME, selectionArgs);
+        Log.v(CLASS_NAME, "tables = " + sWeatherBySearchQueryBuilder.getTables());
+*/
+        return sWeatherBySearchQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection,
+                whereClause.toString(),
+                selectionArgs,
+                null,
+                null,
+                null);
     }
 }
