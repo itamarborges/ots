@@ -126,12 +126,26 @@ public class CitiesAdapter extends BaseAdapter{
         }
 
         final LinkedList<String> tags = tagsCity.get((long) idCity);
-        String tagsItem = "";
-        String separador = "";
 
-        for(String tag:tags)  {
-            tagsItem = tagsItem.concat(separador + tag);
-            separador = " - ";
+        if (tags.size() > 0) {
+            viewHolder.firstTagTextView.setVisibility(View.VISIBLE);
+            viewHolder.firstTagTextView.setText(tags.get(0));
+        } else {
+            viewHolder.firstTagTextView.setVisibility(View.GONE);
+        }
+
+        if (tags.size() > 1) {
+            viewHolder.secondTagTextView.setVisibility(View.VISIBLE);
+            viewHolder.secondTagTextView.setText(tags.get(1));
+        } else {
+            viewHolder.secondTagTextView.setVisibility(View.GONE);
+        }
+
+        if (tags.size() > 2) {
+            viewHolder.thirdTagTextView.setVisibility(View.VISIBLE);
+            viewHolder.thirdTagTextView.setText(tags.get(2));
+        } else {
+            viewHolder.thirdTagTextView.setVisibility(View.GONE);
         }
 
         if(Utility.usesMiles(mContext)){
@@ -150,7 +164,6 @@ public class CitiesAdapter extends BaseAdapter{
             viewHolder.linearLayoutDistanceDistance.setVisibility(View.VISIBLE);
         }
 
-        viewHolder.tagTextView.setText(tagsItem);
 
         viewHolder.layoutCities.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,7 +192,9 @@ public class CitiesAdapter extends BaseAdapter{
 
     public static class ViewHolder {
         public final TextView cityNameTextView;
-        public final TextView tagTextView;
+        public final TextView firstTagTextView;
+        public final TextView secondTagTextView;
+        public final TextView thirdTagTextView;
         public final TextView distanceTextView;
         public final LinearLayout layoutCities;
         public final ImageView youAreHereImageView;
@@ -187,7 +202,9 @@ public class CitiesAdapter extends BaseAdapter{
 
         public ViewHolder(View view) {
             cityNameTextView = (TextView) view.findViewById(R.id.list_item_city_name_textview);
-            tagTextView = (TextView) view.findViewById(R.id.list_item_tag_textview);
+            firstTagTextView = (TextView) view.findViewById(R.id.list_item_resul_first_tag_textview);
+            secondTagTextView = (TextView) view.findViewById(R.id.list_item_resul_second_tag_textview);
+            thirdTagTextView = (TextView) view.findViewById(R.id.list_item_resul_third_tag_textview);
             distanceTextView = (TextView) view.findViewById(R.id.list_item_distance_textview);
             layoutCities = (LinearLayout) view.findViewById(R.id.layout_search_city);
             youAreHereImageView = (ImageView) view.findViewById(R.id.image_view_you_are_here);

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.LinkedList;
 import java.util.Set;
 
 import br.borbi.ots.R;
@@ -25,7 +26,9 @@ public class TitleCityFragment extends Fragment {
     private Set<String> mSetTags;
 
     private TextView mCityNameTextView;
-    private TextView mTagsTextView;
+    private TextView mFirstTagTextView;
+    private TextView mSecondTagTextView;
+    private TextView mThirdTagTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,23 +43,39 @@ public class TitleCityFragment extends Fragment {
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mStrCityName = sp.getString(OTSContract.KEY_CITY_NAME, "");
-        mSetTags = sp.getStringSet(OTSContract.KEY_CITY_TAGS, null);
+        final Set<String> mTags  = sp.getStringSet(OTSContract.KEY_CITY_TAGS, null);
 
         View rootView = inflater.inflate(R.layout.fragment_title_city, container, false);
         mCityNameTextView = (TextView) rootView.findViewById(R.id.city_name_textview);
-        mTagsTextView = (TextView) rootView.findViewById(R.id.tags_textview);
+        mFirstTagTextView = (TextView) rootView.findViewById(R.id.fragment_city_first_tag_textview);
+        mSecondTagTextView = (TextView) rootView.findViewById(R.id.fragment_city_second_tag_textview);
+        mThirdTagTextView = (TextView) rootView.findViewById(R.id.fragment_city_third_tag_textview);
 
         mCityNameTextView.setText(mStrCityName);
 
-        String tagsItem = "";
-        String separador = "";
+        final LinkedList<String> tags = new LinkedList<String>();
+        tags.addAll(mTags);
 
-        for(String tag:mSetTags)  {
-            tagsItem = tagsItem.concat(separador + tag);
-            separador = " - ";
+        if (tags.size() > 0) {
+            mFirstTagTextView.setVisibility(View.VISIBLE);
+            mFirstTagTextView.setText(tags.get(0));
+        } else {
+            mFirstTagTextView.setVisibility(View.GONE);
         }
 
-        mTagsTextView.setText(tagsItem);
+        if (tags.size() > 1) {
+            mSecondTagTextView.setVisibility(View.VISIBLE);
+            mSecondTagTextView.setText(tags.get(1));
+        } else {
+            mSecondTagTextView.setVisibility(View.GONE);
+        }
+
+        if (tags.size() > 2) {
+            mThirdTagTextView.setVisibility(View.VISIBLE);
+            mThirdTagTextView.setText(tags.get(2));
+        } else {
+            mThirdTagTextView.setVisibility(View.GONE);
+        }
 
         return rootView;
     }

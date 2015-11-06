@@ -10,7 +10,7 @@ public class Country implements Comparable<Country> {
 
     private int mId;
     private String mCountryCode;
-    private String mTranslationFileKay;
+    private String mTranslationFileKey;
     private String mCountryName;
 
     public int getId() {
@@ -38,11 +38,11 @@ public class Country implements Comparable<Country> {
     }
 
     public String getTranslationFileKay() {
-        return mTranslationFileKay;
+        return mTranslationFileKey;
     }
 
-    public void setTranslationFileKay(String mTranslationFileKay) {
-        this.mTranslationFileKay = mTranslationFileKay;
+    public void setTranslationFileKay(String mTranslationFileKey) {
+        this.mTranslationFileKey = mTranslationFileKey;
     }
 
     public Country(int mId, String mCountryCode, String mCityName) {

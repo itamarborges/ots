@@ -71,27 +71,42 @@ public class CitiesListAdapter extends BaseAdapter{
         viewHolder.cityNameTextView.setText(strCityName);
 
         final List<String> tags = city.getTags();
-        String tagsItem = "";
-        String separador = "";
 
-        for(String tag:tags)  {
-            tagsItem = tagsItem.concat(separador + tag);
-            separador = " - ";
+        if (tags.size() > 0) {
+            viewHolder.firstTagTextView.setVisibility(View.VISIBLE);
+            viewHolder.firstTagTextView.setText(tags.get(0));
+        } else {
+            viewHolder.firstTagTextView.setVisibility(View.GONE);
         }
 
-        viewHolder.tagTextView.setText(tagsItem);
+        if (tags.size() > 1) {
+            viewHolder.secondtTagTextView.setVisibility(View.VISIBLE);
+            viewHolder.secondtTagTextView.setText(tags.get(1));
+        } else {
+            viewHolder.secondtTagTextView.setVisibility(View.GONE);
+        }
 
+        if (tags.size() > 2) {
+            viewHolder.thirdTagTextView.setVisibility(View.VISIBLE);
+            viewHolder.thirdTagTextView.setText(tags.get(2));
+        } else {
+            viewHolder.thirdTagTextView.setVisibility(View.GONE);
+        }
 
         return convertView;
     }
 
     public static class ViewHolder {
         public final TextView cityNameTextView;
-        public final TextView tagTextView;
+        public final TextView firstTagTextView;
+        public final TextView secondtTagTextView;
+        public final TextView thirdTagTextView;
 
         public ViewHolder(View view) {
             cityNameTextView = (TextView) view.findViewById(R.id.list_item_city_list_name_textview);
-            tagTextView = (TextView) view.findViewById(R.id.list_item_city_list_tags_textview);
+            firstTagTextView = (TextView) view.findViewById(R.id.list_item_city_list_first_tag_textview);
+            secondtTagTextView = (TextView) view.findViewById(R.id.list_item_city_list_second_tag_textview);
+            thirdTagTextView = (TextView) view.findViewById(R.id.list_item_city_list_third_tag_textview);
         }
     }
 

@@ -23,14 +23,39 @@
             android:text="Porto Alegre - Brasil"
             android:textAppearance="@style/titleTextView"
             android:focusableInTouchMode="true" />
-
-        <TextView
-            android:id="@+id/list_item_city_list_tags_textview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayoutTags">
+
+        <TextView
+            android:id="@+id/list_item_city_list_first_tag_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Praia - Neve"
-            android:textSize="10sp"
-            android:textColor="#010000" />
+            android:textSize="@dimen/font_size_small"
+            android:textColor="#ffffff"
+            android:background="@drawable/customborder"
+            android:layout_marginRight="@dimen/marginRightTagsCity" />
+        <TextView
+            android:id="@+id/list_item_city_list_second_tag_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Neve"
+            android:textSize="@dimen/font_size_small"
+            android:textColor="#ffffff"
+            android:background="@drawable/customborder"
+            android:layout_marginRight="@dimen/marginRightTagsCity" />
+        <TextView
+            android:id="@+id/list_item_city_list_third_tag_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comida"
+            android:textSize="@dimen/font_size_small"
+            android:textColor="#ffffff"
+            android:background="@drawable/customborder" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

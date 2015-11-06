@@ -262,7 +262,7 @@ public class SearchActivity extends ActionBarActivity {
     private class WarningTask extends AsyncTask<String, Integer, Void> {
         protected Void doInBackground(String... params) {
 
-            long delay = 8000;
+            long delay = 3000;
             long difference = 8000;
 
             if(!isCancelled()) {
