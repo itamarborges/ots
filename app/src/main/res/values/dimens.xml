@@ -25,5 +25,10 @@
     <dimen name="icon_details_city_forecast_margin">2dp</dimen>
     <dimen name="average_temperature_padding">2dp</dimen>
     <dimen name="paddingBottomScreen">0dp</dimen>
+    <dimen name="radius">10dp</dimen>
+    <dimen name="customBorderLeftRight">10dp</dimen>
+    <dimen name="customBorderTopBotton">5dp</dimen>
+    <dimen name="paddingTagsCity">5dp</dimen>
+    <dimen name="marginRightTagsCity">5dp</dimen>
 
 </resources>
