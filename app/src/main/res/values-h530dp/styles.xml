@@ -77,7 +77,7 @@
     </style>
 
     <style name="mediumTextView">
-        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
         <item name="android:textSize">@dimen/font_size_medium</item>
     </style>
 
@@ -87,5 +87,4 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
     </style>
-
 </resources>

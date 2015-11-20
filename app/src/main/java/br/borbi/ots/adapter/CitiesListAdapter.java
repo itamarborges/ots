@@ -55,6 +55,7 @@ public class CitiesListAdapter extends BaseAdapter{
         ViewHolder viewHolder;
 
         if(convertView == null){
+
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item_cities_list, parent, false);
 
             viewHolder = new ViewHolder(convertView);

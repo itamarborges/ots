@@ -76,6 +76,7 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     private TextView mAverageMorning;
     private TextView mAverageAfternoon;
     private TextView mAverageNight;
+    private TextView mPrecipitation;
     private ImageView mWeatherImageView;
 
     private Button mNextButton;
@@ -109,6 +110,7 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
         mWeatherImageView = (ImageView) rootView.findViewById(R.id.imageWeatherDetail);
         mNextButton = (Button) rootView.findViewById(R.id.btnNext);
         mPreviousButton = (Button) rootView.findViewById(R.id.btnPrevious);
+        mPrecipitation = (TextView) rootView.findViewById(R.id.precipitation_textView);
 
         rootView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -257,6 +259,9 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             int indexNightTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_NIGHT_TEMPERATURE);
             Integer nightTemperature = Utility.roundCeil(data.getDouble(indexNightTemperature));
 
+            int indexPrecipitation = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_PRECIPITATION);
+            Integer precipitation = Utility.roundCeil(data.getDouble(indexPrecipitation));
+
             int indexIdWeatherType = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE);
             final int idWeatherType = data.getInt(indexIdWeatherType);
 
@@ -283,6 +288,7 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
                 mAverageNight.setText(getString(R.string.display_temperature_celsius, Integer.toString(nightTemperature)));
             }
 
+            mPrecipitation.setText(getString(R.string.detail_precipitation, Integer.toString(precipitation)));
             mDateDetail.setText(Utility.getFormattedDate(date));
             mWeatherImageView.setImageResource(Utility.getMediumArtResourceForWeatherCondition(idWeatherType));
         }

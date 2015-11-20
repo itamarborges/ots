@@ -78,4 +78,5 @@
     <string name="searching_sunny_cities_message5">Soon we are going to show wonderful places to go.</string>
     <string name="searching_sunny_cities_message0">Cliquez dans toutes les villes dans l\'écran ci-dessous pour obtenir plus de détails sur la météo.</string>
     <string name="searching_sunny_cities_message6">Quand vous voyez des prévisions météorologiques de quelque ville, cliquez sur les jours pour voir plus de détails.</string>
+    <string name="detail_precipitation">Précipitation: <xliff:g>%1$s</xliff:g> mm</string>
 </resources>

@@ -237,7 +237,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
                     Double nightTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_NIGHT);
 
                     Double humidity = dayForecast.getDouble(OWM_HUMIDITY);
-                    Double precipitation = null;
+                    Double precipitation = 0.0;
                     if(dayForecast.has(OWM_PRECIPITATION)) {
                         precipitation = dayForecast.getDouble(OWM_PRECIPITATION);
                     }

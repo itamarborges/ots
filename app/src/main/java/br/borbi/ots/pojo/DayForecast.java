@@ -31,8 +31,17 @@ public class DayForecast implements Serializable{
         this.morningTemperature = morningTemperature;
         this.eveningTemperature = eveningTemperature;
         this.nightTemperature = nightTemperature;
-        this.weatherType = weatherType;
+
         this.precipitation = precipitation;
+
+        //This is important to avoid the precipitation being 0 and the weather type being Rain.
+        //Doesn´t make ay sense something like that !!!
+        if ((precipitation == 0.0) && (!weatherType.equals(WeatherType.SUNNY))) {
+            this.weatherType = WeatherType.CLOUDS;
+        } else {
+            this.weatherType = weatherType;
+        }
+
         this.humidity = humidity;
     }
 
