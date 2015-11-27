@@ -100,7 +100,7 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
 
         View rootView = inflater.inflate(R.layout.fragment_detail_city, container, false);
 
-        mAdView = Utility.initializeAdView(mAdView, rootView);
+        //mAdView = Utility.initializeAdView(mAdView, rootView);
 
         mDateDetail = (TextView) rootView.findViewById(R.id.detail_date_textView);
         mMinMaxTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_min_max_temperature_textView);
@@ -313,17 +313,17 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onPause() {
         super.onPause();
-        mAdView.pause();
+        //mAdView.pause();
     }
 
     public void onResume(){
         super.onResume();
-        mAdView.resume();
+        //mAdView.resume();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mAdView.destroy();
+        //mAdView.destroy();
     }
 }

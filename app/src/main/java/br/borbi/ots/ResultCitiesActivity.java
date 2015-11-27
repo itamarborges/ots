@@ -46,7 +46,7 @@ public class ResultCitiesActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_result_cities);
 
-        mAdView = Utility.initializeAd(mAdView, this);
+        //mAdView = Utility.initializeAd(mAdView, this);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         idRelSearchCityId = sp.getInt(OTSContract.KEY_REL_SEARCH_CITY, -1);
@@ -62,17 +62,17 @@ public class ResultCitiesActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mAdView.pause();
+        //mAdView.pause();
     }
 
     protected void onResume(){
         super.onResume();
-        mAdView.resume();
+        //mAdView.resume();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mAdView.destroy();
+        //mAdView.destroy();
     }
 }

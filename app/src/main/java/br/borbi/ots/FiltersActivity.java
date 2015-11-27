@@ -111,7 +111,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         mContext = this;
 
-        mAdView = Utility.initializeAd(mAdView, this);
+    //    mAdView = Utility.initializeAd(mAdView, this);
 
         getParametersLastSearch();
 
@@ -710,18 +710,18 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     @Override
     protected void onPause() {
         super.onPause();
-        mAdView.pause();
+        //mAdView.pause();
     }
 
     protected void onResume(){
         super.onResume();
-        mAdView.resume();
+        //mAdView.resume();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mAdView.destroy();
+        //mAdView.destroy();
     }
 
     private void forwardActivity(){

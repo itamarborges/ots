@@ -32,7 +32,7 @@ public class ResultActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        mAdView = Utility.initializeAd(mAdView, this);
+       // mAdView = Utility.initializeAd(mAdView, this);
 
         Intent intent = getIntent();
 
@@ -121,17 +121,17 @@ public class ResultActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mAdView.pause();
+        //mAdView.pause();
     }
 
     protected void onResume(){
         super.onResume();
-        mAdView.resume();
+        //mAdView.resume();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mAdView.destroy();
+        //mAdView.destroy();
     }
 }

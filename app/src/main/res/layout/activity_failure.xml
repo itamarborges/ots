@@ -83,14 +83,12 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
+    <fragment android:name="br.borbi.ots.fragment.AdFragment"
+        android:id="@+id/anuncioFailure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        />
+        android:layout_gravity="bottom"/>
 
 </RelativeLayout>

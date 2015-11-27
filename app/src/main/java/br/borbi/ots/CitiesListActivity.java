@@ -39,7 +39,7 @@ public class CitiesListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities_list);
 
-        mAdView = Utility.initializeAd(mAdView, this);
+        //mAdView = Utility.initializeAd(mAdView, this);
 
         mCountrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         mListView = (ListView) findViewById(R.id.listView);
@@ -85,17 +85,17 @@ public class CitiesListActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mAdView.pause();
+        //mAdView.pause();
     }
 
     protected void onResume(){
         super.onResume();
-        mAdView.resume();
+        //mAdView.resume();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mAdView.destroy();
+        //mAdView.destroy();
     }
 }

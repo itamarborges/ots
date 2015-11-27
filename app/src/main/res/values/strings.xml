@@ -7,8 +7,6 @@
     <string name="afternoon">Afternoon</string>
 
     <!-- B -->
-    <string translatable="false" name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string translatable="false" name="banner_ad_unit_id_producao">ca-app-pub-7723898994387347/6641662118</string>
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
 
     <!-- C -->
@@ -112,8 +110,8 @@
     <string name="searching_sunny_cities_message1">We\'re searching for the cities where the sun will shine.</string>
     <string name="searching_sunny_cities_message2">Soon we\'re going to show you all the cities where the sun will shine.</string>
     <string name="searching_sunny_cities_message3">If it\'s taking too long, think about decreasing the distance.</string>
-    <string name="searching_sunny_cities_message4" > Take this time and start to pack your bags.</string>
-    <string name="searching_sunny_cities_message5" > Soon we are going to show wonderful places to go.</string>
+    <string name="searching_sunny_cities_message4"> Take this time and start to pack your bags.</string>
+    <string name="searching_sunny_cities_message5"> Soon we are going to show wonderful places to go.</string>
     <string name="snow">Snow</string>
     <string name="source">Forecast Weather Source:</string>
     <string name="search">Go!</string>
@@ -149,6 +147,9 @@
     <string name="searching_sunny_cities_message0">Click in any city in the following screen to obtain more details about the weather.</string>
     <string name="searching_sunny_cities_message6">When you see the forecast weather from some city, click in the days to see more details.</string>
     <string name="detail_precipitation">Precipitation: <xliff:g>%1$s</xliff:g> mm</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <!-- Z -->
