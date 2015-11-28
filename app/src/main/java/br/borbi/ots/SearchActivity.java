@@ -159,7 +159,10 @@ public class SearchActivity extends ActionBarActivity {
         List<City> citiesAux = new ArrayList<>();
         citiesAux.addAll(cities);
 
-        LinkedList<CityResultSearch> citiesAlreadySearched = CityResultSearchModel.listCities(mContext, new Coordinates(lastLatitude, lastLongitude, Double.valueOf(mMaxDistance)), Utility.setDateToInitialHours(new Date()), dateBegin, dateEnd);
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.HOUR_OF_DAY,-OTSContract.HOURS_TO_SEARCH_EXPIRATION);
+        
+        LinkedList<CityResultSearch> citiesAlreadySearched = CityResultSearchModel.listCities(mContext, new Coordinates(lastLatitude, lastLongitude, Double.valueOf(mMaxDistance)), cal.getTime(), dateBegin, dateEnd);
         mCitiesFromSearch = new ArrayList<>();
         if(citiesAlreadySearched!= null || !citiesAlreadySearched.isEmpty()) {
             mCitiesFromSearch = new ArrayList<CityResultSearch>();
@@ -170,7 +173,6 @@ public class SearchActivity extends ActionBarActivity {
                 while (it.hasNext() && !found) {
                     CityResultSearch cityResultSearch = (CityResultSearch) it.next();
                     if (cityResultSearch.getCity().equals(city)) {
-                        found = true;
                         // remover da lista a pesquisar;
                         cities.remove(city);
                         // acrescentar na lista de resultados
@@ -271,7 +273,7 @@ public class SearchActivity extends ActionBarActivity {
             if(Utility.isDistanceSmallerThanMinimumDistance(distance, mMaxDistance) && cityResultSearch.getDayForecasts()!=null){
 
                 for (DayForecast dayForecast : cityResultSearch.getDayForecasts()) {
-                    if (dayForecast.getDate().after(dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateBegin)) {
+                    if (dayForecast.getDate().after(dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateBegin) || dayForecast.getDate().before(dateEnd)) {
 
                         if (!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature) {
                             validCity = false;

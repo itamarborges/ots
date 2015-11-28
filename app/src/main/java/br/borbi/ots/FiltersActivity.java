@@ -34,6 +34,7 @@ import java.util.GregorianCalendar;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.pojo.Coordinates;
+import br.borbi.ots.utility.DateUtility;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.Utility;
 import br.borbi.ots.utility.ValidationUtility;
@@ -188,7 +189,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             dateBegin  = Utility.setDateToInitialHours(new Date());
             dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
 
-
             if(Utility.usesMiles(this)){
                 activateButton(milesButton);
                 deactivateButton(kilometersButton);
@@ -206,7 +206,13 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         } else {
             dateBegin  = new Date(mLastSearchInitialDate);
+            if(DateUtility.isDateBeforeAnother(dateBegin,new Date())){
+                Utility.setDateToInitialHours(new Date());
+            }
             dateEnd = new Date(mLastSearchFinalDate);
+            if(DateUtility.isDateBeforeAnother(dateEnd,new Date())){
+                dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
+            }
 
             if(!mLastSearchUseKilometers){
                 activateButton(milesButton);
