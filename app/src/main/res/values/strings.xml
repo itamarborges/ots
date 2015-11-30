@@ -114,6 +114,8 @@
     <string name="searching_sunny_cities_message3">If it\'s taking too long, think about decreasing the distance.</string>
     <string name="searching_sunny_cities_message4" >Take this time and start to pack your bags.</string>
     <string name="searching_sunny_cities_message5" > Soon we are going to show wonderful places to go.</string>
+    <string name="searching_sunny_cities_message4"> Take this time and start to pack your bags.</string>
+    <string name="searching_sunny_cities_message5"> Soon we are going to show wonderful places to go.</string>
     <string name="snow">Snow</string>
     <string name="source">Forecast Weather Source:</string>
     <string name="search">Go!</string>

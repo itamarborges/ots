@@ -264,21 +264,21 @@ public class Utility {
     static public int roundCeil(Double num) {
         return (int) Math.ceil(num);
     }
+    /*
+        public static AdView initializeAd(AdView adView,Activity activity){
+            adView = (AdView)activity.findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+            adView.loadAd(adRequest);
+            return adView;
+        }
 
-    public static AdView initializeAd(AdView adView,Activity activity){
-        adView = (AdView)activity.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-        adView.loadAd(adRequest);
-        return adView;
-    }
-
-    public static AdView initializeAdView(AdView adView, View view){
-        adView = (AdView) view.findViewById(R.id.adViewFragment);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-        adView.loadAd(adRequest);
-        return adView;
-    }
-
+        public static AdView initializeAdView(AdView adView, View view){
+            adView = (AdView) view.findViewById(R.id.adViewFragment);
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+            adView.loadAd(adRequest);
+            return adView;
+        }
+    */
     public static boolean isSameDay(Date date1, Date date2){
         date1 = setDateToInitialHours(date1);
         date2 = setDateToInitialHours(date2);

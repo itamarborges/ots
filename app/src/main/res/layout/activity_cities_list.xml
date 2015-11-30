@@ -35,7 +35,7 @@
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/adView"
+        android:layout_above="@+id/anuncioCitiesList"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="@dimen/marginFragmentLeftRight"
@@ -59,14 +59,12 @@
         android:layout_below="@+id/linearLayout"
         android:visibility="invisible" />
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
+    <fragment android:name="br.borbi.ots.fragment.AdFragment"
+        android:id="@+id/anuncioCitiesList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        />
+        android:layout_gravity="bottom"/>
 
 </RelativeLayout>

@@ -18,19 +18,19 @@
         android:layout_height="wrap_content"
         tools:context="br.borbi.ots.fragment.CitiesFragment"
         tools:layout="@android:layout/list_content"
-        android:layout_above="@id/adView"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="@dimen/paddingMarginBottonTop"
         android:layout_marginTop="@dimen/paddingMarginBottonTop"
         android:layout_marginLeft="@dimen/marginFragmentLeftRight"
-        android:layout_marginRight="@dimen/marginFragmentLeftRight" />
+        android:layout_marginRight="@dimen/marginFragmentLeftRight"
+        android:layout_above="@+id/anuncioResults"
+        />
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
+    <fragment android:name="br.borbi.ots.fragment.AdFragment"
+        android:id="@+id/anuncioResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"/>
 
 </RelativeLayout>
