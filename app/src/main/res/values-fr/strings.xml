@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
-    <string name="app_name">OÙ IL FAIT BEAU ?</string>
+    <string name="app_name">OÙ IL FAIT BEAU?</string>
     <string name="action_settings">Paramètres</string>
     <string name="title">Où il fait beau?</string>
     <string name="datePeriod">DATE</string>
@@ -17,7 +17,7 @@
     <string name="min_temperature">TEMPÉRATURE MINIMALE</string>
     <string name="dont_care">Ça ne fait rien</string>
 
-    <string name="error_localization">Não foi possível determinar a sua localização.</string>
+    <string name="error_localization">Il n\'a pas été possible de déterminer votre position.</string>
     <string name="snow">Niege</string>
     <string name="historic">Historique</string>
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
@@ -26,7 +26,7 @@
     <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>
-    <string name="invalid_fields">Please verify all red fields.</string>
+    <string name="invalid_fields">S\'il vous plaît vérifier tous les champs rouges.</string>
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
     <string name="max_temperature">Maximum temperature:</string>
     <string name="minimum_days">Please inform number of days between 1 and <xliff:g>%1$s</xliff:g>.</string>
@@ -44,10 +44,10 @@
     <string name="location_found">Votre emplacement a été déterminé avec succès.</string>
     <string name="location_not_found_yet">Votre emplacement n\'a pas encore été trouvé.</string>
     <string name="try_to_find_me">Essayez de me trouver</string>
-    <string name="where_am_i">Où suis-je ?</string>
+    <string name="where_am_i">Où suis-je?</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
-    <string name="here_the_sun_shines">Ici il fait beau</string>
-    <string name="searching_the_sun">Chercher où il fait beau</string>
+    <string name="here_the_sun_shines">Ici il fait beau!</string>
+    <string name="searching_the_sun">Recherche ...</string>
     <string name="next">Suivant</string>
     <string name="previous">Précédent</string>
     <string name="searching_sunny_cities_message1">Nous sommes à la recherche pour les villes où il fait beau.</string>
@@ -57,12 +57,12 @@
     <string name="try_again">Essayer à nouveau</string>
     <string name="continue_anyway">Continuer malgré tout</string>
     <string name="help_distance">La distance maximun de votre lieu de currente.</string>
-    <string name="explanation_localization">If the app can\'t find where you are, it won\'t be possible to determine which cities are in distance radius informed. It\'s essential that the location is set on your device so you can use this app.</string>
-    <string name="explanation_internet">If you don\'t have an internet connection, it won\'t be possible to search for the weather forecast. It\'s essential that the internet connection is active in your device so you can use this app</string>
-    <string name="continue_without_my_location">Continue without my location</string>
-    <string name="failure_message_localization">Oops... It was not possible determine your location. Set the location on your device and press \"Try to find me\" button.</string>
-    <string name="failure_message_internet">Oops... Your internet connection seems to be down. Check your internet connection and press \"Try again\" button.</string>
-    <string name="internet_is_down">Your internet connection still seems to be down. Please, try again.</string>
+    <string name="explanation_localization">Si l\'application ne peut pas trouver l\'endroit où vous êtes, il ne sera pas possible de déterminer quelles villes sont en rayon à distance informé. Il est essentiel que l\'emplacement est fixé sur votre appareil afin que vous puissiez utiliser cette application.</string>
+    <string name="explanation_internet">Si vous ne disposez pas d\'une connexion Internet, il ne sera pas possible de rechercher les prévisions météo. Il est essentiel que la connexion Internet est activé dans votre appareil afin que vous pouvez utiliser cette application.</string>
+    <string name="continue_without_my_location">Continuer sans mon endroit</string>
+    <string name="failure_message_localization">Oops...Il n\'a pas été possible de déterminer votre emplacement. Définissez l\'emplacement de votre appareil et appuyez sur \ "Essayez de me trouver \" bouton.</string>
+    <string name="failure_message_internet">Oops... Votre connexion Internet semble être en panne. Vérifiez votre connexion Internet et appuyez sur \ "Essayez de nouveau \" bouton..</string>
+    <string name="internet_is_down">Votre connexion Internet semble encore être en panne. Veuillez réessayer.</string>
     <string name="min_temperature_abbreviated">MIN</string>
     <string name="max_temperature_abbreviated">MAX</string>
     <string name="location">This app needs you to turn the location services on in order to determine which cities are near you. You won\'t be able to use this app if location isn\'t active.</string>
@@ -74,8 +74,8 @@
     <string name="country_textview">Pays:</string>
     <string name="title_activity_cities_list">Liste de Ville</string>
     <string name="no_list_cities_found">Aucune ville a été trouvé.</string>
-    <string name="searching_sunny_cities_message4" >Take this time and start to pack your bags.</string>
-    <string name="searching_sunny_cities_message5">Soon we are going to show wonderful places to go.</string>
+    <string name="searching_sunny_cities_message4" > Prenez ce temps et commencer à faire vos valises.</string>
+    <string name="searching_sunny_cities_message5">Bientôt, nous allons montrer des endroits merveilleux pour aller.</string>
     <string name="searching_sunny_cities_message0">Cliquez dans toutes les villes dans l\'écran ci-dessous pour obtenir plus de détails sur la météo.</string>
     <string name="searching_sunny_cities_message6">Quand vous voyez des prévisions météorologiques de quelque ville, cliquez sur les jours pour voir plus de détails.</string>
     <string name="detail_precipitation">Précipitation: <xliff:g>%1$s</xliff:g> mm</string>

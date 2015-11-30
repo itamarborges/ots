@@ -2,10 +2,29 @@
 
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/ots_blue</item>
         <item name="colorPrimaryDark">@color/ots_dark_blue</item>
+        <item name="android:actionBarStyle">@style/OTSActionBarStyle</item>
+        <item name="actionBarStyle">@style/OTSActionBarStyle</item>
+    </style>
+
+    <style name="OTSActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/ots_blue</item>
+        <item name="background">@color/ots_blue</item>
+        <item name="android:titleTextStyle">@style/ActionBarStyleTitleStyle</item>
+        <item name="titleTextStyle">@style/ActionBarStyleTitleStyle</item>
+        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
+        <item name="displayOptions">useLogo|showHome|showTitle</item>
+        <item name="logo">@drawable/logo_small</item>
+    </style>
+
+    <style name="ActionBarStyleTitleStyle">
+        <item name="android:textSize">@dimen/fontSizeBar</item>
+        <item name="android:textColor">@color/ots_pure_white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
@@ -37,11 +56,13 @@
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-black</item>
         <item name="android:textSize">9dp</item>
         <item name="android:textColor">?android:attr/textColorTertiary</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="dateTextView">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="smallTitleTextView">
@@ -54,6 +75,7 @@
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">8sp</item>
         <item name="android:textColor">?android:attr/textColorTertiary</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="moreDetailsTextView">
@@ -74,12 +96,13 @@
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">@dimen/font_size_big</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="mediumTextView">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-condensed</item>
         <item name="android:textSize">@dimen/font_size_medium</item>
-
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="averageTemperatureTitleTextView">
