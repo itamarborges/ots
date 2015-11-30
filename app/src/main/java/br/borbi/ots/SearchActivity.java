@@ -161,7 +161,7 @@ public class SearchActivity extends ActionBarActivity {
 
         Calendar cal = new GregorianCalendar();
         cal.add(Calendar.HOUR_OF_DAY,-OTSContract.HOURS_TO_SEARCH_EXPIRATION);
-        
+
         LinkedList<CityResultSearch> citiesAlreadySearched = CityResultSearchModel.listCities(mContext, new Coordinates(lastLatitude, lastLongitude, Double.valueOf(mMaxDistance)), cal.getTime(), dateBegin, dateEnd);
         mCitiesFromSearch = new ArrayList<>();
         if(citiesAlreadySearched!= null || !citiesAlreadySearched.isEmpty()) {
