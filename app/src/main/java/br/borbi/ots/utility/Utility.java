@@ -217,7 +217,7 @@ public class Utility {
 
     public static int getDefaultNumberOfDaysToShow(Date dateBegin, Date dateEnd){
         int difference = Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
-        difference = difference/2;
+        difference = difference/4;
         if(difference == 0){
             difference = 1;
         }
