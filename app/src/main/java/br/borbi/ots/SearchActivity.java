@@ -273,7 +273,8 @@ public class SearchActivity extends ActionBarActivity {
             if(Utility.isDistanceSmallerThanMinimumDistance(distance, mMaxDistance) && cityResultSearch.getDayForecasts()!=null){
 
                 for (DayForecast dayForecast : cityResultSearch.getDayForecasts()) {
-                    if (dayForecast.getDate().after(dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateBegin) || dayForecast.getDate().before(dateEnd)) {
+
+                    if((dayForecast.getDate().after(dateBegin) && dayForecast.getDate().before(dateEnd)) || Utility.isSameDay(dayForecast.getDate(), dateBegin)){
 
                         if (!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature) {
                             validCity = false;
