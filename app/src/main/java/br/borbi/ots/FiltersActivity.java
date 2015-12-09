@@ -204,10 +204,12 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
             distanceEditText.setText(DISTANCE_DEFAULT);
 
+            daysWithoutRainCheckbox.setChecked(true);
+
         } else {
             dateBegin  = new Date(mLastSearchInitialDate);
             if(DateUtility.isDateBeforeAnother(dateBegin,new Date())){
-                Utility.setDateToInitialHours(new Date());
+                dateBegin = Utility.setDateToInitialHours(new Date());
             }
             dateEnd = new Date(mLastSearchFinalDate);
             if(DateUtility.isDateBeforeAnother(dateEnd,new Date())){
