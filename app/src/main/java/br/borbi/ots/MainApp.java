@@ -14,15 +14,18 @@ public class MainApp extends Application {
 
     @Override
     public void onCreate() {
-        analytics = GoogleAnalytics.getInstance(this);
-        analytics.setLocalDispatchPeriod(1800);
+        boolean isTest= Boolean.valueOf(getString(R.string.app_in_test));
+        if(!isTest) {
+            analytics = GoogleAnalytics.getInstance(this);
+            analytics.setLocalDispatchPeriod(1800);
 
-        tracker = analytics.newTracker("UA-65843001-1"); // Replace with actual tracker/property Id
-        tracker.enableExceptionReporting(true);
-        tracker.enableAdvertisingIdCollection(true);
-        tracker.enableAutoActivityTracking(true);
+            tracker = analytics.newTracker("UA-65843001-1"); // Replace with actual tracker/property Id
+            tracker.enableExceptionReporting(true);
+            tracker.enableAdvertisingIdCollection(true);
+            tracker.enableAutoActivityTracking(true);
 
-        tracker.enableAdvertisingIdCollection(true);
+            tracker.enableAdvertisingIdCollection(true);
+        }
    }
 
 }

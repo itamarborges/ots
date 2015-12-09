@@ -221,6 +221,7 @@ public class Utility {
         if(difference == 0){
             difference = 1;
         }
+
         return difference;
     }
 
