@@ -39,7 +39,7 @@ public class DayForecast implements Serializable{
         if ((precipitation == 0.0) && (!weatherType.equals(WeatherType.SUNNY))) {
             this.weatherType = WeatherType.CLOUDS;
         } else {
-            if ((precipitation < 5.0) && (!weatherType.equals(WeatherType.CLOUDS))) {
+            if ((precipitation < 5.0) && (!weatherType.equals(WeatherType.CLOUDS)) && (!weatherType.equals(WeatherType.SUNNY))) {
                 this.weatherType = WeatherType.CLOUDS;
             } else {
                  this.weatherType = weatherType;
