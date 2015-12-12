@@ -198,7 +198,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                 deactivateButton(milesButton);
             }
 
-            daysEditText.setText(String.valueOf(Utility.getDefaultNumberOfDaysToShow(dateBegin, dateEnd)));
+            daysEditText.setText(String.valueOf(1));
 
             temperatureCheckbox.setChecked(true);
 
