@@ -34,7 +34,7 @@
     <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
     <string name="failure_message_localization">Ops ... Não foi possível determinar sua localização. Habilite a localização em seu dispositivo e pressione o botão \"Tente me achar\".</string>
     <string name="max_temperature">Temperatura máxima:</string>
-    <string name="no_data_available">Nenhuma cidade com sol encontrada. Tente alterar o período de dias, a distância, o número de dias com sol ou a temperatura mínima.</string>
+    <string name="no_data_available">Nenhuma cidade com sol encontrada. Tente alterar o período de dias, a distância, o número de dias com sol ou a temperatura mínima. Atualmente, procuramos cidades no Brasil, na França e nos Estados Unidos.</string>
     <string name="average_temperature">Temperaturas Médias:</string>
     <string name="morning">Manhã</string>
     <string name="afternoon">Tarde</string>

@@ -66,6 +66,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         if(isTest) {
             lastLatitude = -30.03306;
             lastLongitude = -51.23;
+            //lastLatitude = 48.853409;
+            //lastLongitude = 2.3488;
             LocationUtility.saveCoordinates(lastLatitude, lastLongitude, this);
         }
 

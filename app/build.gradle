@@ -8,8 +8,8 @@ android {
         applicationId "br.borbi.ots"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 15
-        versionName "1.7.1"
+        versionCode 16
+        versionName "1.8"
     }
     buildTypes {
         release {

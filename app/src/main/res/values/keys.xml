@@ -12,6 +12,6 @@
     <string translatable="false" name="amazon_app_key_producao">b331750b0ea54edfaeda588eba49427f</string>
 
     <!-- Fonte primária de anúncios -->
-    <string name="primary_ad_source">admob</string> <!-- valores possíveis: amazon e admob -->
+    <string name="primary_ad_source" translatable="false">admob</string> <!-- valores possíveis: amazon e admob -->
 
 </resources>
