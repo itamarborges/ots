@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Flag para indicar se app está em teste ou não -->
-    <string translatable="false" name="app_in_test">true</string> <!-- Trocar para false quanto entrar em produção -->
+    <string translatable="false" name="app_in_test">false</string> <!-- Trocar para false quanto entrar em produção -->
 
     <!-- Anúncios AdMob-->
     <string translatable="false" name="admob_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
