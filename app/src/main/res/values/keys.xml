@@ -8,10 +8,14 @@
     <string translatable="false" name="admob_banner_ad_unit_id_producao">ca-app-pub-7723898994387347/6641662118</string>
     
     <!-- Anúncios Amazon -->
-    <string translatable="false" name="amazon_app_key">sample-app-v1_pub-2</string>
+    <string translatable="false" name="amazon_app_key">sample-app-v1_pub-2aa</string>
     <string translatable="false" name="amazon_app_key_producao">b331750b0ea54edfaeda588eba49427f</string>
 
     <!-- Fonte primária de anúncios -->
     <string name="primary_ad_source" translatable="false">admob</string> <!-- valores possíveis: amazon e admob -->
+
+    <!-- Chaves serviços de previsão do tempo -->
+    <string name="openweather_key" translatable="false"></string>
+    <string name="openweather_key_producao" translatable="false"></string>
 
 </resources>

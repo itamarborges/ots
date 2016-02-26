@@ -2,6 +2,8 @@ package br.borbi.ots.pojo;
 
 import java.util.List;
 
+import br.borbi.ots.enums.WeatherForecastSourcePriority;
+
 /**
  * Created by Gabriela on 14/07/2015.
  */
@@ -12,6 +14,7 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
     private Integer idResultSearch;
     private boolean isFirstCity;
     private List<DayForecast> dayForecasts;
+    private WeatherForecastSourcePriority weatherForecastSourceUsed;
 
     public CityResultSearch(City city, Integer distance, Integer idResultSearch) {
         this.city = city;
@@ -81,4 +84,11 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
 
     public void setDayForecasts(List<DayForecast> dayForecasts) { this.dayForecasts = dayForecasts; }
 
+    public WeatherForecastSourcePriority getWeatherForecastSourceUsed() {
+        return weatherForecastSourceUsed;
+    }
+
+    public void setWeatherForecastSourceUsed(WeatherForecastSourcePriority weatherForecastSourceUsed) {
+        this.weatherForecastSourceUsed = weatherForecastSourceUsed;
+    }
 }

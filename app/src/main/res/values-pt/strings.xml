@@ -78,4 +78,11 @@
     <string name="searching_sunny_cities_message0">Ao clicar em qualquer uma das cidades na lista a seguir, você obtêm mais detalhes sobre o tempo.</string>
     <string name="searching_sunny_cities_message6">Ao olhar a previsão do tempo de uma cidade, clique nos dias para obter mais detalhes.</string>
     <string name="detail_precipitation">Precipitação: <xliff:g>%1$s</xliff:g> mm</string>
+    <string name="action_about">Sobre</string>
+    <string name="byBorbiApps">Por BorbiApps</string>
+    <string name="title_activity_about">Sobre</string>
+    <string name="version">Versão: </string>
+    <string name="facebookUrl">facebook.com/ondetemsol</string>
+    <string name="developerForecastCredit">Fornecido por Forecast</string>
+    <string name="developerForecastLimitation">Não foi possível buscar previsão para mais de 7 dias por limitação do serviço de metereologia.</string>
 </resources>

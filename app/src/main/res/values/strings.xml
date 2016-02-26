@@ -5,16 +5,20 @@
     <string name="action_settings">Settings</string>
     <string name="average_temperature">Average Temperature:</string>
     <string name="afternoon">Afternoon</string>
+    <string name="action_cities_list">Cities List</string>
+    <string name="action_about">About</string>
 
     <!-- B -->
-    <string translatable="false" name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string translatable="false" name="banner_ad_unit_id_producao">ca-app-pub-7723898994387347/6641662118</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_producao" translatable="false">ca-app-pub-7723898994387347/6641662118</string>
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
+    <string name="byBorbiApps">By BorbiApps</string>
 
     <!-- C -->
     <string name="continue_without_my_location">Continue without my location</string>
     <string name="continue_anyway">Continue anyway</string>
     <string name="celsius" translatable="false">C</string>
+    <string name="country_textview">Country:</string>
 
     <!-- D -->
     <string name="datePeriod">DATE</string>
@@ -33,6 +37,7 @@
     <string name="detail_city">City: <xliff:g>%1$s</xliff:g>.</string>
     <string name="detail_date">Date: <xliff:g>%1$s</xliff:g>.</string>
     <string name="detail_humidity">Humidity: <xliff:g>%1$s</xliff:g> \%</string>
+    <string name="detail_precipitation">Precipitation: <xliff:g>%1$s</xliff:g> mm</string>
     <string name="degree_symbol" translatable="false">º</string>
     <string name="dont_care">Don\'t care</string>
 
@@ -94,6 +99,7 @@
     <string name="night">Night</string>
     <string name="no_data_available">No sunny city was found. Try to change the dates, the distance, the number of sunny days or the minimum temperature. Currently, we only search cities in Brazil, France and in the United States.</string>
     <string name="not_now">Not now</string>
+    <string name="no_list_cities_found">No cities found for the selected country.</string>
 
     <!-- O -->
 
@@ -109,13 +115,15 @@
 
     <!-- S -->
     <string name="searching_the_sun">Searching ...</string>
+    <string name="searching_sunny_cities_message0">Click in any city in the following screen to obtain more details about the weather.</string>
     <string name="searching_sunny_cities_message1">We\'re searching for the cities where the sun will shine.</string>
     <string name="searching_sunny_cities_message2">Soon we\'re going to show you all the cities where the sun will shine.</string>
     <string name="searching_sunny_cities_message3">If it\'s taking too long, think about decreasing the distance.</string>
     <string name="searching_sunny_cities_message4"> Take this time and start to pack your bags.</string>
     <string name="searching_sunny_cities_message5"> Soon we are going to show wonderful places to go.</string>
+    <string name="searching_sunny_cities_message6">When you see the weather forecast from some city, click in the days to see more details.</string>
     <string name="snow">Snow</string>
-    <string name="source">Forecast Weather Source:</string>
+    <string name="source">Weather Forecast Source:</string>
     <string name="search">Go!</string>
 
 
@@ -125,30 +133,35 @@
     <string name="try_to_find_me">Try to find me</string>
     <string name="try_again">Try again</string>
     <string name="to"> to </string>
+    <string name="title_activity_cities_list">Cities List</string>
+    <string name="title_activity_about">About</string>
 
     <!-- U -->
 
 
     <!-- V -->
-
+    <string name="version">Version: </string>
 
     <!-- W -->
     <string name="where_am_i">Where am I?</string>
+    <string name="weather_forecast_source_open_weather" translatable="false">http://openweathermap.org/</string>
+    <string name="weather_forecast_source_developer_forecast" translatable="false">https://developer.forecast.io/</string>
 
     <!-- X -->
 
 
     <!-- Y -->
     <string name="yes">Yes</string>
-    <string name="action_cities_list">Cities List</string>
-    <string name="title_activity_cities_list">Cities List</string>
+
 
     <string name="hello_world" translatable="false">Hello world!</string>
-    <string name="country_textview">Country:</string>
-    <string name="no_list_cities_found">No cities found for the selected country.</string>
-    <string name="searching_sunny_cities_message0">Click in any city in the following screen to obtain more details about the weather.</string>
-    <string name="searching_sunny_cities_message6">When you see the forecast weather from some city, click in the days to see more details.</string>
-    <string name="detail_precipitation">Precipitation: <xliff:g>%1$s</xliff:g> mm</string>
+    <string name="facebookUrl">https://www.facebook.com/Where-will-the-sun-shine-1523247531310545/?ref=hl</string>
+    <string name="twitterUrl" translatable="false">twitter.com/ondetemsol</string>
+    <string name="openWeatherName" translatable="false">OpenWeather:</string>
+    <string name="developerForecastName" translatable="false">DeveloperForecast:</string>
+    <string name="developerForecastCredit">Powered by Forecast</string>
+    <string name="developerForecastLimitation">It was\'t possible to fetch weather forecast for more than 7 days as a limitation of the meteorology provider.</string>
+    <string name="openWeatherCredit" translatable="false">OpenWeather</string>
 
 
     <!-- Z -->

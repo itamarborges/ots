@@ -76,6 +76,7 @@
         />
 
     <LinearLayout
+        android:id="@+id/temperatures_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -191,9 +192,7 @@
         android:textAppearance="?android:textAppearanceSmall"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center_horizontal"
-        android:linksClickable="true"
-        android:autoLink="web"
-        android:text="http://openweathermap.org/"/>
+        android:text="@string/weather_forecast_source_open_weather"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

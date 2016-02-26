@@ -38,6 +38,7 @@ public class OTSProvider extends ContentProvider {
     static final int LIST_TAGS_FROM_A_CITY = 1300;
     static final int LIST_CITIES_WITH_TAGS = 1400;
     static final int LIST_CITIES_BY_SEARCH_AND_BY_NEW_SEARCH_PARAMETERS = 1500;
+    static final int LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY = 1600;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final String CLASS_NAME = OTSProvider.class.getName();
@@ -89,6 +90,7 @@ public class OTSProvider extends ContentProvider {
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_TAGS_FROM_A_CITY, LIST_TAGS_FROM_A_CITY);
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_WITH_TAGS, LIST_CITIES_WITH_TAGS);
         uriMatcher.addURI(authority, OTSContract.PATH_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS, LIST_CITIES_BY_SEARCH_AND_BY_NEW_SEARCH_PARAMETERS);
+        uriMatcher.addURI(authority, OTSContract.PATH_LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY, LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY);
 
         return uriMatcher;
     }
@@ -206,6 +208,10 @@ public class OTSProvider extends ContentProvider {
             }
             case LIST_CITIES_BY_SEARCH_AND_BY_NEW_SEARCH_PARAMETERS:{
                 retCursor = listCitiesBySearchAlreadyMade(projection,selection,selectionArgs);
+                break;
+            }
+            case LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY:{
+                retCursor = listDayForecastResultSearch(projection,selection,selectionArgs);
                 break;
             }
         }
@@ -642,6 +648,7 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
                 relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_CITY_ID, cityResultSearch.getCity().getId());
                 relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_DISTANCE, cityResultSearch.getDistance());
                 relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID, searchId);
+                relSearchCityValues.put(OTSContract.RelSearchCity.COLUMN_NAME_WEATHER_FORECAST_SOURCE, cityResultSearch.getWeatherForecastSourceUsed().ordinal());
 
                 long relSearchCityId = db.insert(OTSContract.RelSearchCity.TABLE_NAME, null, relSearchCityValues);
 
@@ -750,6 +757,35 @@ s.date_end >= ? //dt final da pesquisa atual
         return sWeatherBySearchQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
                 whereClause.toString(),
+                selectionArgs,
+                null,
+                null,
+                null);
+    }
+
+    public Cursor listDayForecastResultSearch(String[] projection, String selection, String[] selectionArgs){
+        SQLiteQueryBuilder sqLiteQueryBuilder = new SQLiteQueryBuilder();
+
+        StringBuilder sql = new StringBuilder();
+        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
+        sql.append(" INNER JOIN ");
+        sql.append(OTSContract.ResultSearch.TABLE_NAME);
+        sql.append(" ON ");
+        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
+        sql.append(".");
+        sql.append(OTSContract.RelSearchCity._ID);
+        sql.append(" = ");
+        sql.append(OTSContract.ResultSearch.TABLE_NAME);
+        sql.append(".");
+        sql.append(OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID);
+
+        Log.v(CLASS_NAME, "sql = " + sql);
+
+        sqLiteQueryBuilder.setTables(sql.toString());
+
+        return sqLiteQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection,
+                selection,
                 selectionArgs,
                 null,
                 null,

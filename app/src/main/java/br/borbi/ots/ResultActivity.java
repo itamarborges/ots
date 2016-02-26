@@ -115,6 +115,10 @@ public class ResultActivity extends ActionBarActivity {
                 Intent intent = new Intent(this, CitiesListActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.action_about:
+                Intent aboutIntent = new Intent(this, AboutActivity.class);
+                startActivity(aboutIntent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

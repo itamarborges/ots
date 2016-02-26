@@ -18,8 +18,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:fillViewport="true"
+        android:layout_weight="1"
         >
 
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,13 +41,24 @@
         android:layout_height="match_parent"
         android:divider="@null" /-->
 
+    <TextView
+        android:id="@+id/weather_forecast_source_url_text_view"
+        android:text="@string/weather_forecast_source_developer_forecast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/title_fragment_horizontal_margin"
+        />
+
     <!-- empty list -->
     <TextView
         android:id="@+id/listview_result_city_empty"
         android:text="@string/no_data_available"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         />

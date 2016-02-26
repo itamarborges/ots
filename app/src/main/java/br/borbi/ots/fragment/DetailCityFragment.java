@@ -9,18 +9,25 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.util.Linkify;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.enums.WeatherForecastSourcePriority;
 import br.borbi.ots.utility.Utility;
 
 ;
@@ -68,7 +75,8 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_EVENING_TEMPERATURE,
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_NIGHT_TEMPERATURE,
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_PRECIPITATION,
-            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID,
+            OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_WEATHER_FORECAST_SOURCE
     };
 
     private TextView mDateDetail;
@@ -78,18 +86,16 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     private TextView mAverageNight;
     private TextView mPrecipitation;
     private ImageView mWeatherImageView;
+    private TextView mUrlSourceTextView;
+    private TextView mTemperaturaMediaTextView;
+    private LinearLayout mTemperaturesLinearLayout;
 
     private Button mNextButton;
     private Button mPreviousButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
-        //AdView mAdView = null;
-        //Utility.initializeAd(mAdView, getActivity());
-
     }
 
     public DetailCityFragment() {}
@@ -100,8 +106,6 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
 
         View rootView = inflater.inflate(R.layout.fragment_detail_city, container, false);
 
-        //mAdView = Utility.initializeAdView(mAdView, rootView);
-
         mDateDetail = (TextView) rootView.findViewById(R.id.detail_date_textView);
         mMinMaxTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_min_max_temperature_textView);
         mAverageMorning = (TextView) rootView.findViewById(R.id.morning_temperature_textView);
@@ -111,6 +115,9 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
         mNextButton = (Button) rootView.findViewById(R.id.btnNext);
         mPreviousButton = (Button) rootView.findViewById(R.id.btnPrevious);
         mPrecipitation = (TextView) rootView.findViewById(R.id.precipitation_textView);
+        mUrlSourceTextView = (TextView) rootView.findViewById(R.id.url_source_textView);
+        mTemperaturaMediaTextView = (TextView) rootView.findViewById(R.id.temperatura_media_textView);
+        mTemperaturesLinearLayout = (LinearLayout) rootView.findViewById(R.id.temperatures_linearLayout);
 
         rootView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -208,29 +215,24 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
                     fragmentTransaction.replace(R.id.fragment_layout, newDetailCityFragment);
 
                     fragmentTransaction.commit();
-
-
                 }
             });
 
         }
-
-
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        Uri uriResultSearch = OTSContract.ResultSearch.CONTENT_URI;
-
         String[] selectionArgs;
         String selection;
 
-        selection = OTSContract.ResultSearch._ID + " = ? ";
+        selection = OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID + " = ? ";
         selectionArgs = new String[]{String.valueOf(idResultSearch)};
 
         return new CursorLoader(getActivity(),
-                uriResultSearch,
+                //uriResultSearch,
+                OTSContract.CONTENT_URI_LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY,
                 RESULT_SEARCH_COLUMNS,
                 selection,
                 selectionArgs,
@@ -251,13 +253,22 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             Integer minTemperature = Utility.roundCeil(data.getDouble(indexMinTemperature));
 
             int indexMorningTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MORNING_TEMPERATURE);
-            Integer morningTemperature = Utility.roundCeil(data.getDouble(indexMorningTemperature));
+            Integer morningTemperature = null;
+            if(!data.isNull(indexMorningTemperature)){
+                morningTemperature = Utility.roundCeil(data.getDouble(indexMorningTemperature));
+            }
 
             int indexEveningTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_EVENING_TEMPERATURE);
-            Integer eveningTemperature = Utility.roundCeil(data.getDouble(indexEveningTemperature));
+            Integer eveningTemperature = null;
+            if(!data.isNull(indexEveningTemperature)) {
+                eveningTemperature = Utility.roundCeil(data.getDouble(indexEveningTemperature));
+            }
 
             int indexNightTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_NIGHT_TEMPERATURE);
-            Integer nightTemperature = Utility.roundCeil(data.getDouble(indexNightTemperature));
+            Integer nightTemperature = null;
+            if(!data.isNull(indexNightTemperature)) {
+                nightTemperature = Utility.roundCeil(data.getDouble(indexNightTemperature));
+            }
 
             int indexPrecipitation = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_PRECIPITATION);
             Integer precipitation = Utility.roundCeil(data.getDouble(indexPrecipitation));
@@ -265,32 +276,80 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             int indexIdWeatherType = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE);
             final int idWeatherType = data.getInt(indexIdWeatherType);
 
+            int indexWeatherForecastSource = data.getColumnIndex(OTSContract.RelSearchCity.COLUMN_NAME_WEATHER_FORECAST_SOURCE);
+            final int idWeatherForecastSource = data.getInt(indexWeatherForecastSource);
             
             if(minTemperature.intValue() == maxTemperature.intValue()){
                 maxTemperature++;
             }
-
-            if(Utility.usesFahrenheit(getActivity())){
+            boolean usesFahrenheit = Utility.usesFahrenheit(getActivity());
+            if(usesFahrenheit){
                 minTemperature = Utility.convertCelsiusToFarenheit(minTemperature);
                 maxTemperature = Utility.convertCelsiusToFarenheit(maxTemperature);
-                morningTemperature = Utility.convertCelsiusToFarenheit(morningTemperature);
-                eveningTemperature = Utility.convertCelsiusToFarenheit(eveningTemperature);
-                nightTemperature = Utility.convertCelsiusToFarenheit(nightTemperature);
-
                 mMinMaxTemperatureDetail.setText(getString(R.string.display_min_max_temperature_fahrenheit, Integer.toString(minTemperature), Integer.toString(maxTemperature)));
-                mAverageMorning.setText(getString(R.string.display_temperature_fahrenheit, Integer.toString(morningTemperature)));
-                mAverageAfternoon.setText(getString(R.string.display_temperature_fahrenheit, Integer.toString(eveningTemperature)));
-                mAverageNight.setText(getString(R.string.display_temperature_fahrenheit, Integer.toString(nightTemperature)));
             }else{
                 mMinMaxTemperatureDetail.setText(getString(R.string.display_min_max_temperature_celsius, Integer.toString(minTemperature), Integer.toString(maxTemperature)));
-                mAverageMorning.setText(getString(R.string.display_temperature_celsius, Integer.toString(morningTemperature)));
-                mAverageAfternoon.setText(getString(R.string.display_temperature_celsius, Integer.toString(eveningTemperature)));
-                mAverageNight.setText(getString(R.string.display_temperature_celsius, Integer.toString(nightTemperature)));
+            }
+
+            if(morningTemperature == null || eveningTemperature == null || nightTemperature==null){
+                mTemperaturesLinearLayout.setVisibility(View.INVISIBLE);
+                mTemperaturaMediaTextView.setVisibility(View.INVISIBLE);
+
+            }else{
+                if(Utility.usesFahrenheit(getActivity())){
+                    morningTemperature = Utility.convertCelsiusToFarenheit(morningTemperature);
+                    eveningTemperature = Utility.convertCelsiusToFarenheit(eveningTemperature);
+                    nightTemperature = Utility.convertCelsiusToFarenheit(nightTemperature);
+
+                    if(morningTemperature!=null) {
+                        mAverageMorning.setText(getString(R.string.display_temperature_fahrenheit, Integer.toString(morningTemperature)));
+                    }
+                    if(eveningTemperature!=null) {
+                        mAverageAfternoon.setText(getString(R.string.display_temperature_fahrenheit, Integer.toString(eveningTemperature)));
+                    }
+                    if(nightTemperature!=null) {
+                        mAverageNight.setText(getString(R.string.display_temperature_fahrenheit, Integer.toString(nightTemperature)));
+                    }
+                }else{
+
+                    if(morningTemperature!=null) {
+                        mAverageMorning.setText(getString(R.string.display_temperature_celsius, Integer.toString(morningTemperature)));
+                    }
+                    if(eveningTemperature!=null) {
+                        mAverageAfternoon.setText(getString(R.string.display_temperature_celsius, Integer.toString(eveningTemperature)));
+                    }
+                    if(nightTemperature!=null) {
+                        mAverageNight.setText(getString(R.string.display_temperature_celsius, Integer.toString(nightTemperature)));
+                    }
+                }
             }
 
             mPrecipitation.setText(getString(R.string.detail_precipitation, Integer.toString(precipitation)));
             mDateDetail.setText(Utility.getFormattedDate(date));
             mWeatherImageView.setImageResource(Utility.getMediumArtResourceForWeatherCondition(idWeatherType));
+
+            WeatherForecastSourcePriority weatherForecastSourcePriority = WeatherForecastSourcePriority.getSource(idWeatherForecastSource);
+            Pattern pattern = null;
+            String url = null;
+            if(weatherForecastSourcePriority.isDeveloperForecast()){
+                mUrlSourceTextView.setText(getString(R.string.developerForecastCredit));
+                pattern = Pattern.compile(getString(R.string.developerForecastCredit));
+                url = getString(R.string.weather_forecast_source_developer_forecast);
+            }else{
+                mUrlSourceTextView.setText(getString(R.string.openWeatherCredit));
+                pattern = Pattern.compile(getString(R.string.openWeatherCredit));
+                url = getString(R.string.weather_forecast_source_open_weather);
+            }
+
+            Linkify.TransformFilter t = new Linkify.TransformFilter() {
+                @Override
+                public String transformUrl(Matcher match, String url) {
+                    return ""; // retorna uma String vazia para não enviar um parâmetro de query
+                }
+            };
+
+            Linkify.addLinks(mUrlSourceTextView, pattern, url,null,t);
+
         }
     }
 

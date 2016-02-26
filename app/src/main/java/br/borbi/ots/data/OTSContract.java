@@ -75,9 +75,10 @@ public final class OTSContract {
     public static final String PATH_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS = "list_cities_by_search_and_new_search_parameters";
     public static final Uri CONTENT_URI_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS).build();
 
+    public static final String PATH_LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY = "list_result_search_with_rel_search_city";
+    public static final Uri CONTENT_URI_LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY).build();
 
     public static final String METHOD_SAVE_SEARCH = "METHOD_SAVE_SEARCH";
-
 
     public static long normalizeDate(long startDate) {
         // normalize the start date to the beginning of the (UTC) day
@@ -216,6 +217,7 @@ public final class OTSContract {
         public static final String COLUMN_NAME_SEARCH_ID = "search_id";
         public static final String COLUMN_NAME_CITY_ID = "city_id";
         public static final String COLUMN_NAME_DISTANCE = "distance";
+        public static final String COLUMN_NAME_WEATHER_FORECAST_SOURCE = "weather_forecast_source";
 
         public static Uri buildRelSearchCityUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

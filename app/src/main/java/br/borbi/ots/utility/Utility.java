@@ -105,7 +105,7 @@ public class Utility {
 
     public static String getFormattedDate(Long dateInMillis ) {
         Date date = new Date(dateInMillis);
-        SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM/yyyy EEEE");
         return monthDayFormat.format(date);
     }
 

@@ -67,7 +67,7 @@
     <string name="max_temperature_abbreviated">MAX</string>
     <string name="location">This app needs you to turn the location services on in order to determine which cities are near you. You won\'t be able to use this app if location isn\'t active.</string>
     <string name="location_explanation">Please turn your location services on to use this app.</string>
-    <string name="location_turn_on">Turn on location services?</string>
+    <string name="location_turn_on">Activer les services de localisation?</string>
     <string name="not_now">Pas maintenant</string>
     <string name="yes">Oui</string>
     <string name="action_cities_list">Liste des Villes</string>
@@ -79,4 +79,11 @@
     <string name="searching_sunny_cities_message0">Cliquez dans toutes les villes dans l\'écran ci-dessous pour obtenir plus de détails sur la météo.</string>
     <string name="searching_sunny_cities_message6">Quand vous voyez des prévisions météorologiques de quelque ville, cliquez sur les jours pour voir plus de détails.</string>
     <string name="detail_precipitation">Précipitation: <xliff:g>%1$s</xliff:g> mm</string>
+    <string name="action_about">Sur</string>
+    <string name="byBorbiApps">Par BorbiApps</string>
+    <string name="title_activity_about">Sur</string>
+    <string name="version">Version: </string>
+    <string name="facebookUrl">https://www.facebook.com/Where-will-the-sun-shine-1523247531310545/?ref=hl</string>
+    <string name="developerForecastCredit">Fournis par Forecast</string>
+    <string name="developerForecastLimitation">Il n\'a pas été possible de récupérer la météo de plus de 7 jours comme une limitation du fournisseur de la météorologie.</string>
 </resources>

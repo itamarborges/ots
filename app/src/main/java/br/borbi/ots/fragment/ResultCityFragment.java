@@ -7,19 +7,27 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.util.Linkify;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import br.borbi.ots.R;
 import br.borbi.ots.adapter.ResultCityDayForecastAdapter;
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.enums.WeatherForecastSourcePriority;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.DateUtility;
@@ -37,7 +45,8 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE,
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE,
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_WEATHER_TYPE,
-            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID
+            OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch._ID,
+            OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_WEATHER_FORECAST_SOURCE
     };
 
     private int idRelSearchCity;
@@ -117,7 +126,8 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
         selectionArgs = new String[]{String.valueOf(idRelSearchCity)};
 
         return new CursorLoader(getActivity(),
-                uriResultCity,
+                //uriResultCity,
+                OTSContract.CONTENT_URI_LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY,
                 RESULT_CITY_COLUMNS,
                 selection,
                 selectionArgs,
@@ -131,9 +141,14 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
 
         mQtyCities = data.getCount();
 
+        Integer idWeatherForecastSource = null;
+
         LinkedList<DayForecast> databaseForecasts = new LinkedList<>();
         if (data.moveToFirst()) {
             do {
+                if(idWeatherForecastSource == null){
+                    idWeatherForecastSource = data.getInt(data.getColumnIndex(OTSContract.RelSearchCity.COLUMN_NAME_WEATHER_FORECAST_SOURCE));
+                }
                 int numIndexDate = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_DATE);
                 int numIndexMinimumTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE);
                 int numIndexMaximumTemperature = data.getColumnIndex(OTSContract.ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE);
@@ -158,6 +173,23 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
                 forecasts.add(null);
             }
             forecasts.addAll(databaseForecasts);
+        }
+
+        WeatherForecastSourcePriority weatherForecastSourcePriority = WeatherForecastSourcePriority.getSource(idWeatherForecastSource);
+        if(weatherForecastSourcePriority.isDeveloperForecast()){
+            Toast.makeText(getActivity(), getText(R.string.developerForecastLimitation), Toast.LENGTH_LONG).show();
+
+            Linkify.TransformFilter t = new Linkify.TransformFilter() {
+                @Override
+                public String transformUrl(Matcher match, String url) {
+                    return ""; // retorna uma String vazia para não enviar um parâmetro de query
+                }
+            };
+
+            TextView weatherForecastUrlTextView = (TextView)mRootView.findViewById(R.id.weather_forecast_source_url_text_view);
+            weatherForecastUrlTextView.setVisibility(View.VISIBLE);
+            weatherForecastUrlTextView.setText(getString(R.string.developerForecastCredit));
+            Linkify.addLinks(weatherForecastUrlTextView, Pattern.compile(getString(R.string.developerForecastCredit)), getString(R.string.weather_forecast_source_developer_forecast),null,t);
         }
 
         fillAdapter();

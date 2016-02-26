@@ -110,6 +110,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 RelSearchCity.COLUMN_NAME_CITY_ID + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 RelSearchCity.COLUMN_NAME_SEARCH_ID + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 RelSearchCity.COLUMN_NAME_DISTANCE + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
+                RelSearchCity.COLUMN_NAME_WEATHER_FORECAST_SOURCE + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 " FOREIGN KEY (" + RelSearchCity.COLUMN_NAME_CITY_ID + ") REFERENCES " +
                 City.TABLE_NAME + " (" + City._ID + "), " +
                 " FOREIGN KEY (" + RelSearchCity.COLUMN_NAME_SEARCH_ID + ") REFERENCES " +
@@ -121,11 +122,11 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                 ResultSearch.COLUMN_NAME_DATE + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
                 ResultSearch.COLUMN_NAME_MINIMUM_TEMPERATURE + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
                 ResultSearch.COLUMN_NAME_MAXIMUM_TEMPERATURE + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
-                ResultSearch.COLUMN_NAME_MORNING_TEMPERATURE + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
-                ResultSearch.COLUMN_NAME_EVENING_TEMPERATURE + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
-                ResultSearch.COLUMN_NAME_NIGHT_TEMPERATURE + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
+                ResultSearch.COLUMN_NAME_MORNING_TEMPERATURE + OTSContract.TYPE_REAL + ", " +
+                ResultSearch.COLUMN_NAME_EVENING_TEMPERATURE + OTSContract.TYPE_REAL + ", " +
+                ResultSearch.COLUMN_NAME_NIGHT_TEMPERATURE + OTSContract.TYPE_REAL + ", " +
                 ResultSearch.COLUMN_NAME_WEATHER_TYPE + OTSContract.TYPE_INTEGER + OTSContract.NOT_NULL + ", " +
-                ResultSearch.COLUMN_NAME_HUMIDITY + OTSContract.TYPE_REAL + OTSContract.NOT_NULL + ", " +
+                ResultSearch.COLUMN_NAME_HUMIDITY + OTSContract.TYPE_REAL + ", " +
                 ResultSearch.COLUMN_NAME_PRECIPITATION + OTSContract.TYPE_REAL + ", " +
                 " FOREIGN KEY (" + ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID+ ") REFERENCES " +
                 RelSearchCity.TABLE_NAME + " (" + RelSearchCity._ID + ") ON DELETE CASCADE);";
