@@ -33,12 +33,13 @@
                 android:id="@+id/detail_date_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:textAppearanceLarge"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center_vertical|left"
                 android:text="20/07/2015"
                 android:layout_weight="1"
-                android:paddingLeft="@dimen/paddingLeftRight"/>
+                android:paddingLeft="@dimen/paddingLeftRight"
+                style="@style/dateTitle"
+                />
 
             <TextView
                 android:id="@+id/detail_min_max_temperature_textView"

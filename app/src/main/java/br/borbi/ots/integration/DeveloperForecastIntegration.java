@@ -137,8 +137,6 @@ public class DeveloperForecastIntegration {
                     }
 
                     DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high,null,null,null, WeatherType.getWeatherTypeByDeveloperForecast(dayForecast.getString("icon")),precipitation,humidity);
-
-                    Log.v(LOG_TAG,"data = " + forecastForTheDay.getDate());
                     daysForecast.add(forecastForTheDay);
                 }
                 cityResultSearch = new CityResultSearch(citySearched,daysForecast);

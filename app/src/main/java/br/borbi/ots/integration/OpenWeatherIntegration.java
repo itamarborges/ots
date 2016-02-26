@@ -39,7 +39,6 @@ public class OpenWeatherIntegration {
     private static final String UNITS = "metric";
     private static final String LOG_TAG = OpenWeatherIntegration.class.getSimpleName();
 
-
     public static CityResultSearch searchWeatherData(City city, int numberOfDays){
 
         HttpURLConnection urlConnection = null;
@@ -81,7 +80,7 @@ public class OpenWeatherIntegration {
             if (buffer.length() != 0) {
                 forecastJsonStr = buffer.toString();
                 //Log.v(LOG_TAG,"cidade: " + cityToSearch.getNameEnglish() );
-                //Log.v(LOG_TAG,"cidade: " + cityToSearch.getNameEnglish() + ", retorno: " + forecastJsonStr);
+                Log.v(LOG_TAG,"cidade: " + city.getNameEnglish() + ", retorno: " + forecastJsonStr);
 
                 cityResultSearch = getWeatherDataFromJson(forecastJsonStr, city);
             }

@@ -435,7 +435,6 @@ public class SearchActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //mAdView.pause();
 
         if (weatherTask != null) {
             weatherTask.cancel(true);
@@ -447,12 +446,10 @@ public class SearchActivity extends ActionBarActivity {
 
     protected void onResume(){
         super.onResume();
-        //mAdView.resume();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //mAdView.destroy();
     }
 }

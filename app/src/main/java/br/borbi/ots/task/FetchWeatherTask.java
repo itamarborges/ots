@@ -40,9 +40,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
-    private static final String[] WEATHER_FORECAST_RESOURCES = {"OpenWeather", "DeveloperForecast"};
-
-
     private final Context mContext;
 
     private SearchActivity.TaskFinishedListener taskFinishedListener;
@@ -91,37 +88,25 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
             City cityToSearch = (City) it.next();
 
-            //cityResultSearchAux = searchDeveloperForecastData(cityToSearch, searchParameters.getNumberOfDays());
             if (weatherForecastSource.isOpenWeather()) {
                 cityResultSearchAux = searchOpenWeatherData(cityToSearch, numberOfDays);
+                Log.v(LOG_TAG,"openweather resultado: " + cityResultSearchAux == null? "null":"nao e null");
 
                 if (cityResultSearchAux == null) {
                     weatherForecastSource = WeatherForecastSourcePriority.getSource(lastWeatherForecastSource++);
                 }
             }
 
+            Log.v(LOG_TAG,"fonte da previsao = " + weatherForecastSource);
+
             if (weatherForecastSource.isDeveloperForecast()) {
+                Log.v(LOG_TAG,"vai pesquisar no developer");
                 cityResultSearchAux = searchDeveloperForecastData(cityToSearch, searchParameters.getNumberOfDays());
 
                 if (cityResultSearchAux == null) {
                     weatherForecastSource = WeatherForecastSourcePriority.getSource(lastWeatherForecastSource++);
                 }
             }
-
-//            if(searchOpenWeatherFirst) {
-//                cityResultSearchAux = searchOpenWeatherData(cityToSearch, numberOfDays);
-//
-//                if (cityResultSearchAux == null) {
-//                    cityResultSearchAux = searchDeveloperForecastData(cityToSearch, searchParameters.getNumberOfDays());
-//                    searchOpenWeatherFirst = false;
-//                }
-//            }else{
-//                cityResultSearchAux = searchDeveloperForecastData(cityToSearch, searchParameters.getNumberOfDays());
-//                if (cityResultSearchAux == null) {
-//                    cityResultSearchAux = searchOpenWeatherData(cityToSearch, searchParameters.getNumberOfDays());
-//                    searchOpenWeatherFirst = true;
-//                }
-//            }
 
             if(cityResultSearchAux!=null){
                 cityResultSearchAux.setWeatherForecastSourceUsed(weatherForecastSource);
