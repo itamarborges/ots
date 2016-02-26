@@ -1,5 +1,6 @@
 package br.borbi.ots.integration;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -18,6 +19,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.borbi.ots.R;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
@@ -31,7 +33,6 @@ public class DeveloperForecastIntegration {
 
     private static final String LOG_TAG = DeveloperForecastIntegration.class.getSimpleName();
 
-    private static final String KEY = "b012034346ab93467a2fd3a9cdc992d4";
     private static final String URL = "https://api.forecast.io/forecast/";
 
     private static final String PARAM_EXCLUDE_FLAGS = "exclude";
@@ -39,7 +40,7 @@ public class DeveloperForecastIntegration {
     private static final String PARAM_UNITS = "units";
     private static final String PARAM_UNITS_VALUE = "si";
 
-    public static CityResultSearch searchWeatherData(City city, int numberOfDays) {
+    public static CityResultSearch searchWeatherData(City city, int numberOfDays, Context context) {
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -50,8 +51,16 @@ public class DeveloperForecastIntegration {
         try {
             String latLong = (new StringBuilder().append(city.getLatitude()).append(",").append(city.getLongitude())).toString();
 
+            String appKey = null;
+            boolean isTest= Boolean.valueOf(context.getString(R.string.app_in_test));
+            if(isTest) {
+                appKey = context.getString(R.string.developerforecast_key);
+            }else{
+                appKey = context.getString(R.string.developerforecast_key_producao);
+            }
+
             Uri builtUri = Uri.parse(URL).buildUpon()
-                    .appendPath(KEY)
+                    .appendPath(appKey)
                     .appendPath(latLong)
                     .appendQueryParameter(PARAM_EXCLUDE_FLAGS, EXCLUDE_FLAGS)
                     .appendQueryParameter(PARAM_UNITS, PARAM_UNITS_VALUE)

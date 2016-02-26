@@ -75,8 +75,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
         Iterator<City> it = citiesToSearch.iterator();
 
-        boolean searchOpenWeatherFirst = true;
-
         WeatherForecastSourcePriority weatherForecastSource = WeatherForecastSourcePriority.getFirstWeatherForecastSource();
         int lastWeatherForecastSource = weatherForecastSource.ordinal();
 
@@ -118,11 +116,11 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
     }
 
     private CityResultSearch searchOpenWeatherData(City city, int numberOfDays){
-        return OpenWeatherIntegration.searchWeatherData(city,numberOfDays);
+        return OpenWeatherIntegration.searchWeatherData(city,numberOfDays,mContext);
     }
 
     private CityResultSearch searchDeveloperForecastData(City city, int numberOfDays){
-        return DeveloperForecastIntegration.searchWeatherData(city,numberOfDays);
+        return DeveloperForecastIntegration.searchWeatherData(city,numberOfDays,mContext);
     }
 
     @Override

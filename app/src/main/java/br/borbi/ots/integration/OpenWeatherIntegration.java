@@ -1,5 +1,6 @@
 package br.borbi.ots.integration;
 
+import android.content.Context;
 import android.net.Uri;
 import android.text.format.Time;
 import android.util.Log;
@@ -17,6 +18,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.LinkedList;
 
+import br.borbi.ots.R;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
@@ -27,9 +29,7 @@ import br.borbi.ots.pojo.DayForecast;
  */
 public class OpenWeatherIntegration {
 
-    private static final String FORECAST_BASE_URL ="http://api.openweathermap.org/data/2.5/forecast/daily?";
-    //private static final String APPID_KEY = "5ed032e071b3b0d20ae075ff8f8c7215";
-    private static final String APPID_KEY = "712325732390dd58c6eb1eebae3202a2";
+    private static final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
     private static final String APPID_PARAM = "APPID";
     private static final String QUERY_PARAM = "q";
     private static final String FORMAT_PARAM = "mode";
@@ -39,7 +39,7 @@ public class OpenWeatherIntegration {
     private static final String UNITS = "metric";
     private static final String LOG_TAG = OpenWeatherIntegration.class.getSimpleName();
 
-    public static CityResultSearch searchWeatherData(City city, int numberOfDays){
+    public static CityResultSearch searchWeatherData(City city, int numberOfDays, Context context) {
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -49,42 +49,50 @@ public class OpenWeatherIntegration {
 
         CityResultSearch cityResultSearch = null;
 
-        try{
-        Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                .appendQueryParameter(QUERY_PARAM, city.getNameEnglish()+"," + city.getCountryCode())
-                .appendQueryParameter(FORMAT_PARAM, FORMAT)
-                .appendQueryParameter(UNITS_PARAM, UNITS)
-                .appendQueryParameter(APPID_PARAM, APPID_KEY)
-                .appendQueryParameter(DAYS_PARAM, String.valueOf(numberOfDays))
-                .build();
-
-        URL url = new URL(builtUri.toString());
-
-        // Create the request to OpenWeatherMap, and open the connection
-        urlConnection = (HttpURLConnection) url.openConnection();
-        urlConnection.setRequestMethod("GET");
-        urlConnection.connect();
-
-        // Read the input stream into a String
-        InputStream inputStream = urlConnection.getInputStream();
-        StringBuffer buffer = new StringBuffer();
-        if (inputStream != null) {
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-
-                buffer.append(line + "\n");
+        try {
+            String appKey = null;
+            boolean isTest = Boolean.valueOf(context.getString(R.string.app_in_test));
+            if (isTest) {
+                appKey = context.getString(R.string.openweather_key);
+            } else {
+                appKey = context.getString(R.string.openweather_key_producao);
             }
 
-            if (buffer.length() != 0) {
-                forecastJsonStr = buffer.toString();
-                //Log.v(LOG_TAG,"cidade: " + cityToSearch.getNameEnglish() );
-                Log.v(LOG_TAG,"cidade: " + city.getNameEnglish() + ", retorno: " + forecastJsonStr);
+            Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                    .appendQueryParameter(QUERY_PARAM, city.getNameEnglish() + "," + city.getCountryCode())
+                    .appendQueryParameter(FORMAT_PARAM, FORMAT)
+                    .appendQueryParameter(UNITS_PARAM, UNITS)
+                    .appendQueryParameter(APPID_PARAM, appKey)
+                    .appendQueryParameter(DAYS_PARAM, String.valueOf(numberOfDays))
+                    .build();
 
-                cityResultSearch = getWeatherDataFromJson(forecastJsonStr, city);
+            URL url = new URL(builtUri.toString());
+
+            // Create the request to OpenWeatherMap, and open the connection
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+
+            // Read the input stream into a String
+            InputStream inputStream = urlConnection.getInputStream();
+            StringBuffer buffer = new StringBuffer();
+            if (inputStream != null) {
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+
+                    buffer.append(line + "\n");
+                }
+
+                if (buffer.length() != 0) {
+                    forecastJsonStr = buffer.toString();
+                    //Log.v(LOG_TAG,"cidade: " + cityToSearch.getNameEnglish() );
+                    Log.v(LOG_TAG, "cidade: " + city.getNameEnglish() + ", retorno: " + forecastJsonStr);
+
+                    cityResultSearch = getWeatherDataFromJson(forecastJsonStr, city);
+                }
             }
-        }
         } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
             // If the code didn't successfully get the weather data, there's no point in attempting
@@ -139,10 +147,10 @@ public class OpenWeatherIntegration {
 
         try {
             JSONObject forecastJson = new JSONObject(forecastJsonStr);
-            if(!forecastJson.has(OWM_LIST)){
+            if (!forecastJson.has(OWM_LIST)) {
                 //TODO tratar cidade nao encontrada
                 //Log.v(LOG_TAG,"cidade " + citySearched.getNameEnglish() + " nao encontrada");
-            }else{
+            } else {
                 JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
 
                 // OWM returns daily forecasts based upon the local time of the city that is being
@@ -187,14 +195,14 @@ public class OpenWeatherIntegration {
 
                     Double humidity = dayForecast.getDouble(OWM_HUMIDITY);
                     Double precipitation = 0.0;
-                    if(dayForecast.has(OWM_PRECIPITATION)) {
+                    if (dayForecast.has(OWM_PRECIPITATION)) {
                         precipitation = dayForecast.getDouble(OWM_PRECIPITATION);
                     }
 
-                    DayForecast forecastForTheDay = new DayForecast(new Date(dateTime),low,high,morningTemperature,eveningTemperature,nightTemperature, WeatherType.getWeatherType(weatherId),precipitation,humidity);
+                    DayForecast forecastForTheDay = new DayForecast(new Date(dateTime), low, high, morningTemperature, eveningTemperature, nightTemperature, WeatherType.getWeatherType(weatherId), precipitation, humidity);
                     daysForecast.add(forecastForTheDay);
                 }
-                cityResultSearch = new CityResultSearch(citySearched,daysForecast);
+                cityResultSearch = new CityResultSearch(citySearched, daysForecast);
             }
 
         } catch (JSONException e) {

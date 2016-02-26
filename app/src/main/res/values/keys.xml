@@ -15,7 +15,10 @@
     <string name="primary_ad_source" translatable="false">admob</string> <!-- valores possíveis: amazon e admob -->
 
     <!-- Chaves serviços de previsão do tempo -->
-    <string name="openweather_key" translatable="false"></string>
-    <string name="openweather_key_producao" translatable="false"></string>
+    <string name="openweather_key" translatable="false">5ed032e071b3b0d20ae075ff8f8c7215</string>
+    <string name="openweather_key_producao" translatable="false">712325732390dd58c6eb1eebae3202a2</string>
+
+    <string name="developerforecast_key" translatable="false">e890138405ec89f522a93c2749773367</string>
+    <string name="developerforecast_key_producao" translatable="false">b012034346ab93467a2fd3a9cdc992d4</string>
 
 </resources>
