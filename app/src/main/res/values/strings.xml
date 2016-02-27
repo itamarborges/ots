@@ -22,7 +22,7 @@
 
     <!-- D -->
     <string name="datePeriod">DATE</string>
-    <string name="dateFormat">mm/dd/yyyy</string>
+    <string name="dateFormatDetails">MM/dd, EEEE</string>
     <string name="days">days</string>
     <string name="days_without_rain">Include cloudy days</string>
     <string name="distance_miles" translatable="false"><xliff:g>%1$s</xliff:g> mi</string>
@@ -162,6 +162,7 @@
     <string name="developerForecastCredit">Powered by Forecast</string>
     <string name="developerForecastLimitation">It was\'t possible to fetch weather forecast for more than 7 days as a limitation of the meteorology provider.</string>
     <string name="openWeatherCredit" translatable="false">OpenWeather</string>
+    <string name="dateFormat">mm/dd/yyyy</string>
 
 
     <!-- Z -->

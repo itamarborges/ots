@@ -86,4 +86,5 @@
     <string name="facebookUrl">https://www.facebook.com/Where-will-the-sun-shine-1523247531310545/?ref=hl</string>
     <string name="developerForecastCredit">Fournis par Forecast</string>
     <string name="developerForecastLimitation">Il n\'a pas été possible de récupérer la météo de plus de 7 jours comme une limitation du fournisseur de la météorologie.</string>
+    <string name="dateFormatDetails">dd/MM, EEEE</string>
 </resources>

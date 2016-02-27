@@ -325,7 +325,7 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             }
 
             mPrecipitation.setText(getString(R.string.detail_precipitation, Integer.toString(precipitation)));
-            mDateDetail.setText(Utility.getFormattedDate(date));
+            mDateDetail.setText(Utility.getFormattedDate(date, getActivity()));
             mWeatherImageView.setImageResource(Utility.getMediumArtResourceForWeatherCondition(idWeatherType));
 
             WeatherForecastSourcePriority weatherForecastSourcePriority = WeatherForecastSourcePriority.getSource(idWeatherForecastSource);

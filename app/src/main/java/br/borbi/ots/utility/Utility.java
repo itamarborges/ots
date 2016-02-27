@@ -103,9 +103,9 @@ public class Utility {
         return -1;
     }
 
-    public static String getFormattedDate(Long dateInMillis ) {
+    public static String getFormattedDate(Long dateInMillis, Context context) {
         Date date = new Date(dateInMillis);
-        SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM/yyyy EEEE");
+        SimpleDateFormat monthDayFormat = new SimpleDateFormat(context.getString(R.string.dateFormatDetails));
         return monthDayFormat.format(date);
     }
 
