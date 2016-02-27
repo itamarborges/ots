@@ -88,7 +88,7 @@ public class OpenWeatherIntegration {
                 if (buffer.length() != 0) {
                     forecastJsonStr = buffer.toString();
                     //Log.v(LOG_TAG,"cidade: " + cityToSearch.getNameEnglish() );
-                    Log.v(LOG_TAG, "cidade: " + city.getNameEnglish() + ", retorno: " + forecastJsonStr);
+                    //Log.v(LOG_TAG, "cidade: " + city.getNameEnglish() + ", retorno: " + forecastJsonStr);
 
                     cityResultSearch = getWeatherDataFromJson(forecastJsonStr, city);
                 }

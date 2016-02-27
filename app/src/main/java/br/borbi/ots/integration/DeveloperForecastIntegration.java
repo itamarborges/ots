@@ -66,7 +66,7 @@ public class DeveloperForecastIntegration {
                     .appendQueryParameter(PARAM_UNITS, PARAM_UNITS_VALUE)
                     .build();
 
-            Log.v(LOG_TAG, "url = " + builtUri.toString());
+            //Log.v(LOG_TAG, "url = " + builtUri.toString());
 
             URL url = new URL(builtUri.toString());
 
@@ -88,12 +88,12 @@ public class DeveloperForecastIntegration {
 
                 if (buffer.length() != 0) {
                     forecastJsonStr = buffer.toString();
-                    Log.v(LOG_TAG, "cidade: " + city.getNameEnglish() + ", retorno: " + forecastJsonStr);
+                    //Log.v(LOG_TAG, "cidade: " + city.getNameEnglish() + ", retorno: " + forecastJsonStr);
 
                     cityResultSearch = getWeatherDataFromJson(forecastJsonStr, city);
                 }
             } else {
-                Log.v(LOG_TAG, "nao retornou nada");
+                Log.i(LOG_TAG, "nao retornou nada");
             }
 
         } catch (IOException e) {

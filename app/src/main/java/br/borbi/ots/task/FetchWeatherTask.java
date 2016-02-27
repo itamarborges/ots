@@ -88,17 +88,12 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
             if (weatherForecastSource.isOpenWeather()) {
                 cityResultSearchAux = searchOpenWeatherData(cityToSearch, numberOfDays);
-                Log.v(LOG_TAG,"openweather resultado: " + cityResultSearchAux == null? "null":"nao e null");
-
                 if (cityResultSearchAux == null) {
                     weatherForecastSource = WeatherForecastSourcePriority.getSource(lastWeatherForecastSource++);
                 }
             }
 
-            Log.v(LOG_TAG,"fonte da previsao = " + weatherForecastSource);
-
             if (weatherForecastSource.isDeveloperForecast()) {
-                Log.v(LOG_TAG,"vai pesquisar no developer");
                 cityResultSearchAux = searchDeveloperForecastData(cityToSearch, searchParameters.getNumberOfDays());
 
                 if (cityResultSearchAux == null) {
