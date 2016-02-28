@@ -779,7 +779,7 @@ s.date_end >= ? //dt final da pesquisa atual
         sql.append(".");
         sql.append(OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID);
 
-        Log.v(CLASS_NAME, "sql = " + sql);
+        //Log.v(CLASS_NAME, "sql = " + sql);
 
         sqLiteQueryBuilder.setTables(sql.toString());
 
