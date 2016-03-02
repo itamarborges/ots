@@ -15,11 +15,14 @@ import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.pojo.DayForecast;
 
 import android.database.Cursor;
+import android.util.Log;
 
 /**
  * Created by Gabriela on 27/09/2015.
  */
 public class CityResultSearchModel {
+
+    private static final String LOG_TAG = CityResultSearchModel.class.getSimpleName();
 
     private static final String[] RESULT_CITIES_COLUMNS = {
             OTSContract.Country.TABLE_NAME + "." + OTSContract.Country.COLUMN_NAME_TRANSLATION_FILE_KEY,

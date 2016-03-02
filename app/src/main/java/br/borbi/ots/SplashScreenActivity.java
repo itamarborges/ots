@@ -79,6 +79,9 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
             //Recife
             //lastLatitude = -8.05389;
             //lastLongitude=-34.881111;
+            //Montreal
+            lastLatitude = 45.508839;
+            lastLongitude=-73.587807;
             LocationUtility.saveCoordinates(lastLatitude, lastLongitude, this);
         }
 

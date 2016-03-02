@@ -285,7 +285,7 @@ public class SearchActivity extends ActionBarActivity {
                         }
 
                         dayForecasts.add(dayForecast);
-                    }
+                    }//
                 }
 
                 if (contSunnyDays < numberSunnyDays) {
@@ -294,7 +294,7 @@ public class SearchActivity extends ActionBarActivity {
             }else{
                 validCity = false;
             }
-
+//
             if (validCity) {
                 cityResultSearch.setDayForecasts(dayForecasts);
                 cityResultSearch.setDistance(distance);

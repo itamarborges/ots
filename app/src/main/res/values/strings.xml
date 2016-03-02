@@ -97,7 +97,7 @@
     <!-- N -->
     <string name="next">Next</string>
     <string name="night">Night</string>
-    <string name="no_data_available">No sunny city was found. Try to change the dates, the distance, the number of sunny days or the minimum temperature. Currently, we only search cities in Brazil, France and in the United States.</string>
+    <string name="no_data_available">No sunny city was found. Try to change the dates, the distance, the number of sunny days or the minimum temperature. Currently, we only search cities in Brazil, Canada, France and in the United States.</string>
     <string name="not_now">Not now</string>
     <string name="no_list_cities_found">No cities found for the selected country.</string>
 

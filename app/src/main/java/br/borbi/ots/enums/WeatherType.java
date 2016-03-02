@@ -26,11 +26,12 @@ public enum WeatherType {
             return  WeatherType.SUNNY;
         }
 
+        //cd C:\Users\Gabriela\AppData\Local\Android\android-sdk\platform-tools
         if(weatherType >= 802 && weatherType <= 804){
             return WeatherType.CLOUDS;
         }
 
-        if(weatherType > 600 && weatherType < 700){
+        if(weatherType >= 600 && weatherType < 700){
             return WeatherType.SNOW;
         }
 

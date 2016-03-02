@@ -1,5 +1,7 @@
 package br.borbi.ots.pojo;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,6 +11,8 @@ import br.borbi.ots.enums.WeatherType;
  * Created by Gabriela on 28/05/2015.
  */
 public class DayForecast implements Serializable{
+
+    private static final String LOG_TAG = DayForecast.class.getSimpleName();
 
     private static final long serialVersionUID = -5659072624209865929L;
 
@@ -36,13 +40,13 @@ public class DayForecast implements Serializable{
 
         //This is important to avoid the precipitation being 0 and the weather type being Rain.
         //Doesn´t make ay sense something like that !!!
-        if ((precipitation == 0.0) && (!weatherType.equals(WeatherType.SUNNY))) {
+        if(precipitation == 0 && weatherType.equals(WeatherType.RAIN)){
             this.weatherType = WeatherType.CLOUDS;
-        } else {
+        }else {
             if ((precipitation < 5.0) && (weatherType.equals(WeatherType.RAIN))) {
                 this.weatherType = WeatherType.CLOUDS;
             } else {
-                 this.weatherType = weatherType;
+                this.weatherType = weatherType;
             }
         }
 
