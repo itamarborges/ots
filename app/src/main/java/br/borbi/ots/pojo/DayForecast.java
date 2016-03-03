@@ -40,7 +40,7 @@ public class DayForecast implements Serializable{
 
         //This is important to avoid the precipitation being 0 and the weather type being Rain.
         //Doesn´t make ay sense something like that !!!
-        if(precipitation == 0 && weatherType.equals(WeatherType.RAIN)){
+        if(precipitation == 0 && (weatherType.equals(WeatherType.RAIN) || weatherType.equals(WeatherType.SNOW))){
             this.weatherType = WeatherType.CLOUDS;
         }else {
             if ((precipitation < 5.0) && (weatherType.equals(WeatherType.RAIN))) {
