@@ -3,6 +3,7 @@ package br.borbi.ots.model;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -15,6 +16,8 @@ import br.borbi.ots.pojo.City;
  * Created by Itamar on 18/09/2015.
  */
 public class CityModel {
+
+    private static final String LOG_TAG = CityModel.class.getSimpleName();
 
     public City getCity(City cityParam, Activity activityParam) throws Exception {
 
