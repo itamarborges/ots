@@ -71,8 +71,6 @@ public class OpenWeatherIntegration {
                     .appendQueryParameter(DAYS_PARAM, String.valueOf(numberOfDays))
                     .build();
 
-            Log.v(LOG_TAG,"url consulta = " + builtUri.toString());
-
             URL url = new URL(builtUri.toString());
 
             // Create the request to OpenWeatherMap, and open the connection
@@ -191,12 +189,9 @@ public class OpenWeatherIntegration {
                     String description = weatherObject.getString(OWM_DESCRIPTION);
                     int weatherId = weatherObject.getInt(OWM_WEATHER_ID);
 
-                    Log.v(LOG_TAG, "weatherId = " + weatherId);
-                    Log.v(LOG_TAG, "weather type = " + WeatherType.getWeatherType(weatherId));
-
-                            // Temperatures are in a child object called "temp".  Try not to name variables
-                            // "temp" when working with temperature.  It confuses everybody.
-                            JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
+                    // Temperatures are in a child object called "temp".  Try not to name variables
+                    // "temp" when working with temperature.  It confuses everybody.
+                    JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
                     Double high = temperatureObject.getDouble(OWM_MAX);
                     Double low = temperatureObject.getDouble(OWM_MIN);
                     Double morningTemperature = temperatureObject.getDouble(OWM_TEMPERATURE_MORNING);

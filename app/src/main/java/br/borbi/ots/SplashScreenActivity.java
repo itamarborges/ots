@@ -68,8 +68,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
             lastLatitude = -30.03306;
             lastLongitude = -51.23;
             // Sao Paulo
-            lastLatitude = -23.547501;
-            lastLongitude = -46.636108;
+            //lastLatitude = -23.547501;
+            //lastLongitude = -46.636108;
             // Paris
             //lastLatitude = 48.853409;
             //lastLongitude = 2.3488;
@@ -80,8 +80,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
             //lastLatitude = -8.05389;
             //lastLongitude=-34.881111;
             //Montreal
-            lastLatitude = 45.508839;
-            lastLongitude=-73.587807;
+            //lastLatitude = 45.508839;
+            //lastLongitude=-73.587807;
             LocationUtility.saveCoordinates(lastLatitude, lastLongitude, this);
         }
 
