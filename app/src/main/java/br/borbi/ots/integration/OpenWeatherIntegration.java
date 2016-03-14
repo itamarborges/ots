@@ -59,7 +59,10 @@ public class OpenWeatherIntegration {
             }
 
             String cityName = city.getNameEnglish();
-            cityName = cityName.substring(0, cityName.indexOf(","));
+            int indexComma = cityName.indexOf(",");
+            if(indexComma > 0) {
+                cityName = cityName.substring(0, indexComma);
+            }
             cityName =  cityName + "," + city.getCountryCode();
 
             Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
