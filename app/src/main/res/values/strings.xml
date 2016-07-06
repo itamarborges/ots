@@ -155,7 +155,7 @@
 
 
     <string name="hello_world" translatable="false">Hello world!</string>
-    <string name="facebookUrl">https://www.facebook.com/Where-will-the-sun-shine-1523247531310545/?ref=hl</string>
+    <string name="facebookUrl">https://www.facebook.com/wherewillthesunshine/</string>
     <string name="twitterUrl" translatable="false">twitter.com/ondetemsol</string>
     <string name="openWeatherName" translatable="false">OpenWeather:</string>
     <string name="developerForecastName" translatable="false">DeveloperForecast:</string>
