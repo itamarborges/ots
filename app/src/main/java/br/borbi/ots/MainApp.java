@@ -14,6 +14,7 @@ public class MainApp extends Application {
 
     @Override
     public void onCreate() {
+        super.onCreate();
         boolean isTest= Boolean.valueOf(getString(R.string.app_in_test));
         if(!isTest) {
             analytics = GoogleAnalytics.getInstance(this);
