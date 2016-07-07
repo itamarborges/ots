@@ -94,6 +94,9 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
             //New York
             lastLatitude = 40.714272;
             lastLongitude = -74.005966;
+            //Chicago
+            lastLatitude = 41.850029;
+            lastLongitude=-87.650047;
             LocationUtility.saveCoordinates(lastLatitude, lastLongitude, this);
         }
 
