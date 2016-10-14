@@ -144,8 +144,8 @@
 
     <!-- W -->
     <string name="where_am_i">Where am I?</string>
-    <string name="weather_forecast_source_open_weather" translatable="false">http://openweathermap.org/</string>
-    <string name="weather_forecast_source_developer_forecast" translatable="false">https://developer.forecast.io/</string>
+    <string name="weather_forecast_source_open_weather" translatable="false">openweathermap.org/</string>
+    <string name="weather_forecast_source_developer_forecast" translatable="false">developer.forecast.io/</string>
 
     <!-- X -->
 
@@ -155,7 +155,7 @@
 
 
     <string name="hello_world" translatable="false">Hello world!</string>
-    <string name="facebookUrl">https://www.facebook.com/wherewillthesunshine/</string>
+    <string name="facebookUrl">facebook.com/wherewillthesunshine/</string>
     <string name="twitterUrl" translatable="false">twitter.com/ondetemsol</string>
     <string name="openWeatherName" translatable="false">OpenWeather:</string>
     <string name="developerForecastName" translatable="false">DeveloperForecast:</string>
@@ -163,6 +163,9 @@
     <string name="developerForecastLimitation">It was\'t possible to fetch weather forecast for more than 7 days as a limitation of the meteorology provider.</string>
     <string name="openWeatherCredit" translatable="false">OpenWeather</string>
     <string name="dateFormat">mm/dd/yyyy</string>
+    <string name="label_click_ofinion">Do you know our other app, Ofinion? Click in the logo to download it!</string>
+    <string name="ots_icon_description">Where Will the Sun Shine? icon</string>
+    <string name="ofinion_description">Ofinion icon</string>
 
 
     <!-- Z -->

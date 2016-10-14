@@ -1,181 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.borbi.ots.AboutActivity">
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="@drawable/border"
-        android:layout_margin="@dimen/title_fragment_horizontal_margin"
+        android:fillViewport="true"
         >
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/imageWhereWillTheSunShineIcon"
-            android:adjustViewBounds="true"
-            android:src="@drawable/logo"
-            android:padding="@dimen/icon_details_city_forecast_margin"
-            android:layout_gravity="top|right"
-            />
+
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            >
-
-            <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:textAppearanceLarge"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/title"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/paddingLeftRight"/>
-
-            <TextView
-                android:id="@+id/byTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:fontFamily="sans-serif-condensed"
-                android:text="@string/byBorbiApps"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/paddingLeftRight"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/title_fragment_horizontal_margin"
-                android:layout_marginTop="@dimen/title_fragment_horizontal_margin">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/versionTitleTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:textAppearanceMedium"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center_vertical|left"
-                    android:text="@string/version"
-                    android:layout_weight="1"
-                    android:paddingLeft="@dimen/paddingLeftRight"/>
 
-                <TextView
-                    android:id="@+id/versionTextView"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:textAppearanceMedium"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="left|center_vertical"
-                    android:layout_weight="1"
-                    android:text="1.9.1"
-                    android:layout_marginLeft="2dp" />
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:padding="10dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/ots_about_linearLayout">
+
+                    <ImageView
+                        android:id="@+id/imageOtsIcon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/ots_icon_description"
+                        android:padding="@dimen/icon_about"
+                        android:src="@drawable/logo"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/titleTextView"
+                            style="@style/about_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-condensed"
+                            android:lines="2"
+                            android:paddingLeft="@dimen/paddingLeftRight"
+                            android:text="@string/app_name"/>
+
+                        <TextView
+                            android:id="@+id/byTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:paddingLeft="@dimen/paddingLeftRight"
+                            android:text="@string/byBorbiApps"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="@dimen/title_fragment_horizontal_margin"
+                            android:layout_marginTop="@dimen/title_fragment_horizontal_margin"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/versionTitleTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-condensed"
+                                android:paddingLeft="@dimen/paddingLeftRight"
+                                android:text="@string/version"/>
+
+                            <TextView
+                                android:id="@+id/versionTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="2dp"
+                                android:fontFamily="sans-serif-condensed"
+                                android:text="1.9.1"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/facebook"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="web"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center_vertical|left"
+                            android:linksClickable="true"
+                            android:paddingLeft="@dimen/paddingLeftRight"
+                            android:text="@string/facebookUrl"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/twitter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/title_fragment_horizontal_margin"
+                            android:layout_marginTop="@dimen/title_fragment_horizontal_margin"
+                            android:autoLink="web"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="center_vertical|left"
+                            android:linksClickable="true"
+                            android:paddingLeft="@dimen/paddingLeftRight"
+                            android:text="@string/twitterUrl"
+                            android:textStyle="bold"/>
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/facebook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/facebookUrl"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="@dimen/paddingLeftRight"
-                android:linksClickable="true"
-                android:autoLink="web"
-                />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/twitter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/twitterUrl"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="@dimen/paddingLeftRight"
-                android:layout_marginBottom="@dimen/title_fragment_horizontal_margin"
-                android:layout_marginTop="@dimen/title_fragment_horizontal_margin"
-                android:linksClickable="true"
-                android:autoLink="web"
-                />
+                    <TextView
+                        android:id="@+id/weather_forecast_source_label_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/source"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:fontFamily="sans-serif-condensed"
+                        android:paddingLeft="@dimen/paddingLeftRight"
+                        />
 
-            <TextView
-                android:id="@+id/weather_forecast_source_label_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/source"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="@dimen/paddingLeftRight"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/openWeatherName"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="@dimen/paddingLeftRight"
-                android:layout_marginTop="@dimen/icon_details_city_forecast_margin"
-                />
-            <TextView
-                android:id="@+id/weather_forecast_source_openweather_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/weather_forecast_source_open_weather"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:layout_weight="1"
-                android:gravity="left|top"
-                android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="@dimen/paddingLeftRight"
-                android:layout_marginBottom="@dimen/title_fragment_horizontal_margin"
-                android:linksClickable="true"
-                android:autoLink="web"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:id="@+id/weather_forecast_source_openweather_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/weather_forecast_source_open_weather"
+                            android:layout_weight="1"
+                            android:gravity="left|top"
+                            android:fontFamily="sans-serif-condensed"
+                            android:paddingLeft="@dimen/paddingLeftRight"
+                            android:layout_marginBottom="@dimen/title_fragment_horizontal_margin"
+                            android:linksClickable="true"
+                            android:autoLink="web"/>
 
-            <TextView
+                        <TextView
+                            android:id="@+id/weather_forecast_source_developer_forecast_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/weather_forecast_source_developer_forecast"
+                            android:layout_weight="1"
+                            android:gravity="left|top"
+                            android:fontFamily="sans-serif-condensed"
+                            android:paddingLeft="@dimen/paddingLeftRight"
+                            android:linksClickable="true"
+                            android:autoLink="web"
+                            android:layout_marginBottom="@dimen/title_fragment_horizontal_margin"
+                            />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/developerForecastName"
-                android:textAppearance="?android:textAppearanceSmall"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="@dimen/paddingLeftRight"
-                />
-            <TextView
-                android:id="@+id/weather_forecast_source_developer_forecast_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/weather_forecast_source_developer_forecast"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:layout_weight="1"
-                android:gravity="left|top"
-                android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="@dimen/paddingLeftRight"
-                android:linksClickable="true"
-                android:autoLink="web"
-                android:layout_marginBottom="@dimen/title_fragment_horizontal_margin"
-                />
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:id="@+id/ofinion_about_linear_layout">
+
+                <TextView
+                    android:id="@+id/ofinionLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="sans-serif-condensed"
+                    android:paddingLeft="@dimen/paddingLeftRight"
+                    android:text="@string/label_click_ofinion"
+                    />
+
+                <ImageView
+                    android:id="@+id/ofinion_img"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/ofinion_description"
+                    android:src="@drawable/logo_ofinion"
+                    />
+            </LinearLayout>
+
 
         </LinearLayout>
-    </LinearLayout>
+
+    </ScrollView>
 
     <fragment android:name="br.borbi.ots.fragment.AdFragment"
         android:id="@+id/anuncioAbout"
@@ -183,6 +222,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-
-    android:layout_gravity="bottom"/>
+        android:layout_gravity="bottom"/>
 </RelativeLayout>

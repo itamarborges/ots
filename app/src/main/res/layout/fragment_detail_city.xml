@@ -193,7 +193,9 @@
         android:textAppearance="?android:textAppearanceSmall"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center_horizontal"
-        android:text="@string/weather_forecast_source_open_weather"/>
+        android:text="@string/weather_forecast_source_open_weather"
+        android:linksClickable="true"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"

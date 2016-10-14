@@ -83,8 +83,9 @@
     <string name="byBorbiApps">Par BorbiApps</string>
     <string name="title_activity_about">Sur</string>
     <string name="version">Version: </string>
-    <string name="facebookUrl">https://www.facebook.com/Where-will-the-sun-shine-1523247531310545/?ref=hl</string>
+    <string name="facebookUrl">facebook.com/wherewillthesunshine/</string>
     <string name="developerForecastCredit">Fournis par Forecast</string>
     <string name="developerForecastLimitation">Il n\'a pas été possible de récupérer la météo de plus de 7 jours comme une limitation du fournisseur de la météorologie.</string>
     <string name="dateFormatDetails">dd/MM, EEEE</string>
+    <string name="label_click_ofinion">Connaissez-vous notre autre application, Ofinion? Cliquez dans le logo pour le télécharger!</string>
 </resources>

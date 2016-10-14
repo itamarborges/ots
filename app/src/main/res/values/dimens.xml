@@ -20,7 +20,7 @@
     <dimen name="layoutLeftRight">0dp</dimen>
     <dimen name="marginFragmentLeftRight">8dp</dimen>
 
-    <dimen name="title_fragment_horizontal_margin">4dp</dimen>
+    <dimen name="title_fragment_horizontal_margin">2dp</dimen>
     <dimen name="title_fragment_vertical_margin">4dp</dimen>
     <dimen name="icon_details_city_forecast_margin">2dp</dimen>
     <dimen name="average_temperature_padding">2dp</dimen>
@@ -30,5 +30,7 @@
     <dimen name="customBorderTopBotton">5dp</dimen>
     <dimen name="paddingTagsCity">5dp</dimen>
     <dimen name="marginRightTagsCity">5dp</dimen>
+    <dimen name="icon_about">2dp</dimen>
+    <dimen name="aboutTitleTextSize">20sp</dimen>
 
 </resources>
