@@ -88,4 +88,5 @@
     <string name="developerForecastLimitation">Il n\'a pas été possible de récupérer la météo de plus de 7 jours comme une limitation du fournisseur de la météorologie.</string>
     <string name="dateFormatDetails">dd/MM, EEEE</string>
     <string name="label_click_ofinion">Connaissez-vous notre autre application, Ofinion? Cliquez dans le logo pour le télécharger!</string>
+    <string name="no_receiving_apps">Il n\'y a aucune application dans votre appareil qui permet d\'utiliser des cartes.</string>
 </resources>

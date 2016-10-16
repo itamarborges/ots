@@ -36,6 +36,7 @@ import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.utility.DateUtility;
 import br.borbi.ots.utility.ForwardUtility;
+import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.Utility;
 import br.borbi.ots.utility.ValidationUtility;
 
@@ -303,29 +304,10 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         if ((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.location).setTitle(R.string.location_turn_on);
-            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // User clicked OK button
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(intent);
-
-                }
-            });
-            builder.setNegativeButton(R.string.not_now, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // User cancelled the dialog
-                    Toast.makeText(mContext, getText(R.string.location_explanation), Toast.LENGTH_LONG).show();
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-
-
-            //ForwardUtility.goToFailure(mContext, false);
+            AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
+            if(dialog!=null) {
+                dialog.show();
+            }
 
         } else {
             boolean allFieldsValid = validateFields();
@@ -389,7 +371,11 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
                     (mLastSearchUseKilometers != useKilometers)) {
 
                     if (!Utility.isNetworkAvailable(this)) {
-                        ForwardUtility.goToFailure(this,true, false);
+                        AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
+                        if(dialog!=null) {
+                            dialog.show();
+                        }
+
                     } else {
                         editor.putInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
                         editor.putLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, timeNow);
@@ -602,25 +588,9 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         int id = item.getItemId();
         switch (id) {
         case R.id.action_where_am_I:
-            SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-
-            Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
-            Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
-
-            if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
-                ForwardUtility.goToFailure(mContext,false);
-            } else {
-                Uri geoLocation = Uri.parse("geo:" + lastLatitude + "," + lastLongitude);
-
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(geoLocation);
-
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Log.d(FiltersActivity.CLASS_NAME, "Couldn't call " + geoLocation.toString() + ", no receiving apps installed!");
-                    return true;
-                }
+            Intent mapIntent = ForwardUtility.goToMap(this);
+            if(mapIntent != null){
+                startActivity(mapIntent);
             }
             break;
             case R.id.action_cities_list:

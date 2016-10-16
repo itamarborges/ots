@@ -1,12 +1,18 @@
 package br.borbi.ots.utility;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
+import android.widget.Toast;
 
-import br.borbi.ots.FailureActivity;
 import br.borbi.ots.FiltersActivity;
+import br.borbi.ots.R;
 import br.borbi.ots.ResultActivity;
+import br.borbi.ots.data.OTSContract;
 
 /**
  * Created by Gabriela on 16/07/2015.
@@ -15,8 +21,6 @@ public class ForwardUtility {
 
     public static final String SEARCH_ID = "SEARCH_ID";
     public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
-    public static final String ERROR_INTERNET_CONNECTION = "ERROR_INTERNET_CONNECTION";
-    public static final String SHOW_FOLLOWING_BUTTON = "SHOW_FOLLOWING_BUTTON";
 
     public static void goToResults(boolean foundCoordinates, Integer searchId, Context context){
         Intent intent = new Intent();
@@ -33,15 +37,36 @@ public class ForwardUtility {
         context.startActivity(intent);
     }
 
-    public static void goToFailure(Context context, boolean errorInternetConnection){
-        goToFailure(context, errorInternetConnection, true);
-    }
+    /**
+     * Builds the intent to see the current position in a map. Only builds the intent if there are coordinates available and if there is any app that can do that.
+     * @param context
+     * @return the intent to show a map.
+     */
+    public static Intent goToMap(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
-    public static void goToFailure(Context context, boolean errorInternetConnection, boolean showFollowingButton){
-        Intent intent = new Intent();
-        intent.setClass(context, FailureActivity.class);
-        intent.putExtra(ERROR_INTERNET_CONNECTION, errorInternetConnection);
-        intent.putExtra(SHOW_FOLLOWING_BUTTON, showFollowingButton);
-        context.startActivity(intent);
+        Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
+        Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
+
+        if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
+            AlertDialog dialog = LocationUtility.buildLocationDialog(context);
+            if(dialog!=null) {
+                dialog.show();
+            }
+            return null;
+        }
+
+        Uri geoLocation = Uri.parse("geo:" + lastLatitude + "," + lastLongitude);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+
+        if (intent.resolveActivity(context.getPackageManager()) == null) {
+            Toast.makeText(context, R.string.no_receiving_apps, Toast.LENGTH_LONG).show();
+            Log.d(FiltersActivity.CLASS_NAME, "Couldn't call " + geoLocation.toString() + ", no receiving apps installed!");
+            return null;
+        }
+
+        return intent;
     }
 }

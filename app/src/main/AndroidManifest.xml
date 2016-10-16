@@ -107,16 +107,6 @@
                 android:value="br.borbi.ots.FiltersActivity" />
         </activity>
         <activity
-            android:name=".FailureActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:parentActivityName=".FiltersActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.borbi.ots.FiltersActivity" />
-        </activity>
-        <activity
             android:name=".DetailCityActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"

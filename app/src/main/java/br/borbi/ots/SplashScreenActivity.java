@@ -65,42 +65,9 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
         boolean isTest= Boolean.valueOf(getString(R.string.app_in_test));
         if(isTest) {
             //Porto Alegre
-            lastLatitude = -30.03306;
-            lastLongitude = -51.23;
-            // Sao Paulo
-            //lastLatitude = -23.547501;
-            //lastLongitude = -46.636108;
-            // Paris
-            //lastLatitude = 48.853409;
-            //lastLongitude = 2.3488;
-            //Los Angeles
-            //lastLatitude = 34.052231;
-            //lastLongitude = -118.243683;
-            //Recife
-            //lastLatitude = -8.05389;
-            //lastLongitude=-34.881111;
-            //Montreal
-            //lastLatitude = 45.508839;
-            //lastLongitude=-73.587807;
-            //Brasília
-            //lastLatitude = -15.77972;
-            //lastLongitude=-47.929722;
-            //Miami
-            //lastLatitude = 25.774269;
-            //lastLongitude = -80.193657;
-            //San Franciso
-            //lastLatitude = 37.774929;
-            //lastLongitude = -122.419418;
-            //Chicago
-            //lastLatitude = 41.850029;
-            //lastLongitude=-87.650047;
-            //Boston
-            //lastLatitude = 42.358429;
-            //lastLongitude=-71.059769;
-            //New York
-            //lastLatitude = 40.714272;
-            //lastLongitude = -74.005966;
-            LocationUtility.saveCoordinates(lastLatitude, lastLongitude, this);
+            //lastLatitude = -30.03306;
+            //lastLongitude = -51.23;
+           // LocationUtility.saveCoordinates(lastLatitude, lastLongitude, this);
         }
 
         new Timer().schedule(new TimerTask() {
@@ -166,12 +133,8 @@ public class SplashScreenActivity extends Activity implements GoogleApiClient.Co
      * Method to verify google play services on the device
      */
     private void findLocation() {
-
         if (Utility.isNetworkAvailable(this)) {
             buildGoogleApiClient();
-        } else {
-            // If there's no internet connection, forwards to failure screen.
-            ForwardUtility.goToFailure(mContext,true);
         }
     }
 

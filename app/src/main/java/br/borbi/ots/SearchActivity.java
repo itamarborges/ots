@@ -1,5 +1,6 @@
 package br.borbi.ots;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +35,7 @@ import br.borbi.ots.pojo.SearchParameters;
 import br.borbi.ots.task.FetchWeatherTask;
 import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.DateUtility;
+import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.Utility;
 
 interface TaskFinished {
@@ -76,7 +78,6 @@ public class SearchActivity extends ActionBarActivity {
 
         mContext = this;
 
-        //mAdView = Utility.initializeAd(mAdView, this);
         Intent intent = getIntent();
 
         if (intent != null) {
@@ -95,9 +96,10 @@ public class SearchActivity extends ActionBarActivity {
         lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         if(lastLatitude == null || lastLongitude == null){
-            Intent failureIntent = new Intent();
-            failureIntent.setClass(SearchActivity.this, FailureActivity.class);
-            startActivity(failureIntent);
+            AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
+            if(dialog!=null) {
+                dialog.show();
+            }
         }
 
         mWarningTask = new WarningTask();
