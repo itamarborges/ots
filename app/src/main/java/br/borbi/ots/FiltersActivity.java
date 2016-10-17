@@ -1,17 +1,18 @@
 package br.borbi.ots;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
@@ -26,6 +27,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -46,7 +52,9 @@ interface ClickFragment {
 }
 
 
-public class FiltersActivity extends ActionBarActivity implements ClickFragment{
+public class FiltersActivity extends AppCompatActivity implements ClickFragment,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+
+    private static final String LOG_TAG = FiltersActivity.class.getSimpleName();
 
     public static final String CLASS_NAME = FiltersActivity.class.getName();
     public static final String BUTTON_CLICKED = "BUTTON_CLICKED";
@@ -62,6 +70,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     public static final int MINIMUM_DISTANCE_KILOMETERS=100;
     public static final int MINIMUM_DISTANCE_MILES=60;
     public static final int INDETERMINED_TEMPERATURE = 999;
+
 
     private static DateFormat dateFormat;
     private static TextView dateBeginView;
@@ -81,7 +90,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
     private boolean celsiusChecked = true;
     private boolean kilometersChecked = true;
-    private AdView mAdView;
 
     //Variables to compare with the current query
     private Long mLastSearchDateTime;
@@ -101,7 +109,13 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     private boolean mBolDifferentLatitude;
     private boolean mBolDifferentLongitude;
 
-    Context mContext;
+    // Objects to check the coordinates
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private static Double mLastLongitude;
+    private static Double mLastLatitude;
+
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +127,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
         mContext = this;
 
-    //    mAdView = Utility.initializeAd(mAdView, this);
+        findLocation();
 
         getParametersLastSearch();
 
@@ -246,7 +260,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
         dateBeginView.setText(dateFormat.format(dateBegin));
         dateEndView.setText(dateFormat.format(dateEnd));
 
-        helpDatePeriod.setText(getString(R.string.help_date_period, dateFormat.format(dateEnd)));
+        helpDatePeriod.setText(getString(R.string.help_date_period));
 
         checkTemperature();
 
@@ -269,7 +283,7 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
     }
 
     /**
-     * Procura pelos parametros da ultima pesquisa realizada e salva no shared preferences.
+     * Procura pelos parâmetros da ultima pesquisa realizada e salva no shared preferences.
      */
     private void getParametersLastSearch(){
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
@@ -697,7 +711,29 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
 
     protected void onResume(){
         super.onResume();
-        //mAdView.resume();
+
+        //defineNextStep();
+    }
+
+    /**
+     * Verify if there is any data in search and/or if this is valid data. Meaning that:
+     * - the table search is not empty and
+     * - the date_end is before than today
+     * - the current location is not too far from the place where the search was originally made
+     */
+    private void defineNextStep(){
+        if (mLastLongitude == null || mLastLatitude == null) {
+            Integer searchId = Utility.findSearchByDate(mContext);
+            if (searchId != null) {
+                ForwardUtility.goToResults(false, searchId, mContext);
+            }
+        } else {
+            Integer searchId = Utility.findSearchByDateAndCoordinates(mLastLatitude, mLastLongitude, mContext);
+
+            if (searchId != null) {
+                ForwardUtility.goToResults(true, searchId, mContext);
+            }
+        }
     }
 
     @Override
@@ -726,5 +762,81 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             boolean hasFoundCoordinates = (lastLatitude != null && lastLongitude != null);
             ForwardUtility.goToResults(hasFoundCoordinates, searchId, mContext);
         }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        try {
+            mLocationRequest = LocationUtility.createLocationRequest();
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+        } catch (Exception e) {
+            Log.e(LOG_TAG, getString(R.string.error_localization),e);
+            LocationUtility.disconnectFromLocationServices(mGoogleApiClient,this);
+            finish();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.e(LOG_TAG, "conexao suspensa, erro = " + i);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.e(LOG_TAG, "falhou na conexao, erro = " + connectionResult.getErrorCode());
+
+        Toast.makeText(getApplication(), getString(R.string.error_localization), Toast.LENGTH_LONG).show();
+        LocationUtility.disconnectFromLocationServices(mGoogleApiClient, this);
+    }
+
+    /**
+     * Method to verify google play services on the device
+     */
+    private void findLocation() {
+        Log.v(LOG_TAG,"entrou em findLocation");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+        }else{
+            Log.v(LOG_TAG,"vai chamar prepareBuildGoogleApi");
+            prepareBuildGoogleApi();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.v(LOG_TAG,"entrou em onRequestPermissionsResult");
+        if (grantResults.length > 0) {
+            // Inicia o servico de localizacao
+            prepareBuildGoogleApi();
+        }
+    }
+
+    private void prepareBuildGoogleApi(){
+        Log.v(LOG_TAG,"entrou em prepareBuildGoogleApi");
+        if (Utility.isNetworkAvailable(this)) {
+            Log.v(LOG_TAG,"entrou em prepareBuildGoogleApi após if");
+            buildGoogleApiClient();
+        }
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mLastLatitude = location.getLatitude();
+        mLastLongitude = location.getLongitude();
+
+        LocationUtility.saveCoordinates(mLastLatitude, mLastLongitude, this);
+        LocationUtility.disconnectFromLocationServices(mGoogleApiClient, this);
     }
 }

@@ -46,6 +46,7 @@ public final class OTSContract {
     public static final String SHARED_LAST_SEARCH_DISTANCE = "last_search_distance";
     public static final String SHARED_LAST_SEARCH_ID_SEARCH = "last_search_id_search";
 
+    public static final int MAX_DISTANCE_VALID = 100;
 
     public static final int INDETERMINATED_VALUE = 99999;
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact

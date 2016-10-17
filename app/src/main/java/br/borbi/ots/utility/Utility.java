@@ -341,7 +341,7 @@ public class Utility {
 
         int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
 
-        Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, SplashScreenActivity.MAX_DISTANCE_VALID);
+        Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, OTSContract.MAX_DISTANCE_VALID);
 
         String[] selectionArgs = new String[5];
         selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
