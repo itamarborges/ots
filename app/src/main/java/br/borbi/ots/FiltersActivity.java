@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -26,7 +27,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -317,7 +317,12 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        if ((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)) {
+        if (!Utility.isNetworkAvailable(this)) {
+            AlertDialog dialog = buildInternetDialog(mContext);
+            if (dialog != null) {
+                dialog.show();
+            }
+        }else if ((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)) {
             AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
             if(dialog!=null) {
                 dialog.show();
@@ -384,33 +389,25 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                     (mLastSearchDistance != Integer.valueOf(distanceEditText.getText().toString())) ||
                     (mLastSearchUseKilometers != useKilometers)) {
 
-                    if (!Utility.isNetworkAvailable(this)) {
-                        AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
-                        if(dialog!=null) {
-                            dialog.show();
-                        }
+                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, timeNow);
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_LONGITUDE, Double.doubleToRawLongBits(lastLongitude));
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, dateBegin.getTime());
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, dateEnd.getTime());
+                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, Integer.valueOf(daysEditText.getText().toString()));
+                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, mMinTemperaure);
+                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_DISTANCE, Integer.valueOf(distanceEditText.getText().toString()));
+                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, usesCloudyDays);
+                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, temperatureDoesNotMatter);
+                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, useCelsius);
+                    editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, useKilometers);
 
-                    } else {
-                        editor.putInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
-                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, timeNow);
-                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_LONGITUDE, Double.doubleToRawLongBits(lastLongitude));
-                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
-                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, dateBegin.getTime());
-                        editor.putLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, dateEnd.getTime());
-                        editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, Integer.valueOf(daysEditText.getText().toString()));
-                        editor.putInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, mMinTemperaure);
-                        editor.putInt(OTSContract.SHARED_LAST_SEARCH_DISTANCE, Integer.valueOf(distanceEditText.getText().toString()));
-                        editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, usesCloudyDays);
-                        editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_TEMPERATURE_DOES_NOT_MATTER, temperatureDoesNotMatter);
-                        editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, useCelsius);
-                        editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, useKilometers);
+                    editor.apply();
 
-                        editor.apply();
+                    mBolRenewInformations = false;
 
-                        mBolRenewInformations = false;
-
-                        callSearch();
-                    }
+                    callSearch();
                 } else {
                     //Call the last results
                     forwardActivity();
@@ -794,29 +791,18 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
      * Method to verify google play services on the device
      */
     private void findLocation() {
-        Log.v(LOG_TAG,"entrou em findLocation");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }else{
-            Log.v(LOG_TAG,"vai chamar prepareBuildGoogleApi");
-            prepareBuildGoogleApi();
+            buildGoogleApiClient();
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.v(LOG_TAG,"entrou em onRequestPermissionsResult");
         if (grantResults.length > 0) {
             // Inicia o servico de localizacao
-            prepareBuildGoogleApi();
-        }
-    }
-
-    private void prepareBuildGoogleApi(){
-        Log.v(LOG_TAG,"entrou em prepareBuildGoogleApi");
-        if (Utility.isNetworkAvailable(this)) {
-            Log.v(LOG_TAG,"entrou em prepareBuildGoogleApi após if");
             buildGoogleApiClient();
         }
     }
@@ -838,5 +824,16 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
         LocationUtility.saveCoordinates(mLastLatitude, mLastLongitude, this);
         LocationUtility.disconnectFromLocationServices(mGoogleApiClient, this);
+    }
+
+    public AlertDialog buildInternetDialog(final Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(R.string.explanation_internet).setTitle(R.string.failure_message_internet);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        return builder.create();
     }
 }
