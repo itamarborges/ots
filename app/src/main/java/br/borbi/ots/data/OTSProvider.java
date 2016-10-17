@@ -610,7 +610,7 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
 
         delete(OTSContract.Search.CONTENT_URI,null,null);
 
-        int searchId = 0;
+        long searchId = 0;
 
         try {
             //Insere search;
@@ -626,7 +626,7 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
             searchValues.put(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG, search.getOriginLongitude());
 
             db.beginTransaction();
-            searchId = (int) db.insert(OTSContract.Search.TABLE_NAME, null, searchValues);
+            searchId = db.insert(OTSContract.Search.TABLE_NAME, null, searchValues);
 
             if (searchId <= 0) {
                 throw new android.database.SQLException("Failed to insert row into search");
@@ -635,7 +635,7 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
             SharedPreferences sharedPref = getContext().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
 
-            editor.putInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, searchId);
+            editor.putLong(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, searchId);
 
             editor.apply();
 

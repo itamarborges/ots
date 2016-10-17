@@ -22,16 +22,10 @@ import br.borbi.ots.utility.ForwardUtility;
 
 public class ResultActivity extends ActionBarActivity {
 
-    private static String LOG_TAG = ResultActivity.class.getSimpleName();
-
-    private AdView mAdView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
-       // mAdView = Utility.initializeAd(mAdView, this);
 
         Intent intent = getIntent();
 
@@ -46,9 +40,12 @@ public class ResultActivity extends ActionBarActivity {
         }
 
         Integer minimumDistance = intent.getIntExtra(SearchActivity.MINIMUM_DISTANCE,0);
-        Integer searchId = (int) intent.getLongExtra(ForwardUtility.SEARCH_ID,0);
+        Long searchId = 0l;
+        if(intent.hasExtra(ForwardUtility.SEARCH_ID)){
+            searchId = intent.getLongExtra(ForwardUtility.SEARCH_ID,Long.valueOf(0));
+        }
 
-        if(searchId.intValue() != 0){
+        if(searchId != 0){
 
             String[] selectionArgs = new String[]{searchId.toString()};
             Cursor c = getContentResolver().query(
@@ -61,6 +58,9 @@ public class ResultActivity extends ActionBarActivity {
                 minimumDistance = c.getInt(c.getColumnIndex(OTSContract.Search.COLUMN_NAME_RADIUS));
                 lastLatitude = c.getDouble(c.getColumnIndex(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT));
                 lastLongitude = c.getDouble(c.getColumnIndex(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG));
+            }
+            if(c!=null){
+                c.close();
             }
         }
 
@@ -103,5 +103,4 @@ public class ResultActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

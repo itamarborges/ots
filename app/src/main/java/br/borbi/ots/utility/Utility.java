@@ -292,7 +292,7 @@ public class Utility {
         return false;
     }
 
-    public static Integer findSearchByDate(Context context){
+    public static Long findSearchByDate(Context context){
         Time dayTime = new Time();
         dayTime.setToNow();
 
@@ -308,13 +308,17 @@ public class Utility {
                 selectionArgs,
                 null);
 
+        Long searchId = null;
         if (c.moveToFirst()) {
-            return c.getInt(c.getColumnIndex(OTSContract.Search._ID));
+            searchId = c.getLong(c.getColumnIndex(OTSContract.Search._ID));
         }
-        return  null;
+        if(c!= null){
+            c.close();
+        }
+        return  searchId;
     }
 
-    public static Integer findSearchByDateAndCoordinates(double lastLatitude, double lastLongitude, Context context){
+    public static Long findSearchByDateAndCoordinates(double lastLatitude, double lastLongitude, Context context){
         Time dayTime = new Time();
         dayTime.setToNow();
 
@@ -336,10 +340,14 @@ public class Utility {
                 selectionArgs,
                 null);
 
+        Long searchId = null;
         if (c.moveToFirst()) {
-            return c.getInt(c.getColumnIndex(OTSContract.Search._ID));
+            searchId = c.getLong(c.getColumnIndex(OTSContract.Search._ID));
         }
-        return null;
+        if(c!= null){
+            c.close();
+        }
+        return searchId;
     }
 
     public static void positioningCursorInTheEnd(EditText et) {

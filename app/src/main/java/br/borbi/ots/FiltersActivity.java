@@ -96,7 +96,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private Double mLastSearchLatitude;
     private Long mLastSearchInitialDate;
     private Long mLastSearchFinalDate;
-    private int mLastSearchIdSearch;
+    private Long mLastSearchIdSearch;
     private int mLastSearchSunnyDays;
     private int mLastSearchMinTemperature;
     private int mLastSearchDistance;
@@ -116,6 +116,8 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     private Context mContext;
 
+    private Boolean mAppJustOpened = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -125,6 +127,11 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         setContentView(R.layout.activity_filters);
 
         mContext = this;
+
+        Intent intent = getIntent();
+        if(intent.hasExtra(ForwardUtility.APP_JUST_OPENED)){
+            mAppJustOpened = intent.getBooleanExtra(ForwardUtility.APP_JUST_OPENED,false);
+        }
 
         findLocation();
 
@@ -299,7 +306,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         mLastSearchUseCelsius = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, false);
         mLastSearchUseKilometers = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, false);
         mLastSearchDistance = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_DISTANCE, -1);
-        mLastSearchIdSearch = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
+        mLastSearchIdSearch = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
 
         mBolRenewInformations = true;
     }
@@ -388,7 +395,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                     (mLastSearchDistance != Integer.valueOf(distanceEditText.getText().toString())) ||
                     (mLastSearchUseKilometers != useKilometers)) {
 
-                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
+                    editor.putLong(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, timeNow);
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_LONGITUDE, Double.doubleToRawLongBits(lastLongitude));
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
@@ -705,28 +712,30 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     }
 
     /**
-     * Verify if there is any data in search and/or if this is valid data. Meaning that:
+     * If this is the first time this activity is called in the current session, verifies if there is any data in search and/or if this is valid data. Meaning that:
      * - the table search is not empty and
      * - the date_end is before than today
      * - the current location is not too far from the place where the search was originally made
      */
     private void defineNextStep(){
-        if (mLastLongitude == null || mLastLatitude == null) {
-            Integer searchId = Utility.findSearchByDate(mContext);
-            if (searchId != null) {
-                ForwardUtility.goToResults(false, searchId, mContext);
-            }
-        } else {
-            Integer searchId = Utility.findSearchByDateAndCoordinates(mLastLatitude, mLastLongitude, mContext);
+        if(mAppJustOpened) {
+            if (mLastLongitude == null || mLastLatitude == null) {
+                Long searchId = Utility.findSearchByDate(mContext);
+                if (searchId != null) {
+                    ForwardUtility.goToResults(false, searchId, mContext);
+                }
+            } else {
+                Long searchId = Utility.findSearchByDateAndCoordinates(mLastLatitude, mLastLongitude, mContext);
 
-            if (searchId != null) {
-                ForwardUtility.goToResults(true, searchId, mContext);
+                if (searchId != null) {
+                    ForwardUtility.goToResults(true, searchId, mContext);
+                }
             }
         }
     }
 
     private void forwardActivity(){
-        Integer searchId = null;
+        Long searchId = null;
 
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 

@@ -50,16 +50,10 @@ public class SplashScreenActivity extends Activity  {
             mImgSplash.setBackgroundResource(R.drawable.logo_novo_impar);
         }
 
-        //ForwardUtility.goToFilters(mContext);
-
-//        Intent intent = new Intent();
-//        intent.setClass(this, FiltersActivity.class);
-//        startActivity(intent);
-
         new Timer().schedule(new TimerTask() {
 
             public void run() {
-                ForwardUtility.goToFilters(mContext);
+                ForwardUtility.goToFilters(mContext,true);
             }
         }, TIME_SPLASH);
     }

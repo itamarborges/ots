@@ -246,6 +246,10 @@ public class SearchActivity extends ActionBarActivity {
             while (c.moveToNext());
         }
 
+        if(c!= null){
+            c.close();
+        }
+
         return cities;
     }
 

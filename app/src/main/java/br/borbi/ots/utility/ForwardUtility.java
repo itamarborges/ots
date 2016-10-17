@@ -21,8 +21,9 @@ public class ForwardUtility {
 
     public static final String SEARCH_ID = "SEARCH_ID";
     public static final String COORDINATES_FOUND = "COORDINATES_FOUND";
+    public static final String APP_JUST_OPENED = "APP_JUST_OPENED";
 
-    public static void goToResults(boolean foundCoordinates, Integer searchId, Context context){
+    public static void goToResults(boolean foundCoordinates, Long searchId, Context context){
         Intent intent = new Intent();
         intent.setClass(context, ResultActivity.class);
         intent.putExtra(COORDINATES_FOUND, foundCoordinates);
@@ -31,9 +32,12 @@ public class ForwardUtility {
         TaskStackBuilder.create(context).addNextIntentWithParentStack(intent).startActivities();
     }
 
-    public static void goToFilters(Context context){
+    public static void goToFilters(Context context, boolean appJustOpened){
         Intent intent = new Intent();
         intent.setClass(context, FiltersActivity.class);
+        if(appJustOpened){
+            intent.putExtra(APP_JUST_OPENED,true);
+        }
         context.startActivity(intent);
     }
 
