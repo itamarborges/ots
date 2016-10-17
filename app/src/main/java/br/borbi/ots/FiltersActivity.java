@@ -699,16 +699,9 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //mAdView.pause();
-    }
-
     protected void onResume(){
         super.onResume();
-
-        //defineNextStep();
+        defineNextStep();
     }
 
     /**
@@ -730,12 +723,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                 ForwardUtility.goToResults(true, searchId, mContext);
             }
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //mAdView.destroy();
     }
 
     private void forwardActivity(){
