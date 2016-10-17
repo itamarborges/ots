@@ -1,7 +1,5 @@
 package br.borbi.ots.utility;
 
-import android.util.Log;
-
 /**
  * Created by Gabriela on 23/05/2015.
  */

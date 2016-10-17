@@ -18,7 +18,6 @@ import br.borbi.ots.model.CityModel;
 import br.borbi.ots.model.CountryModel;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.Country;
-import br.borbi.ots.utility.Utility;
 
 public class CitiesListActivity extends ActionBarActivity {
 
@@ -80,22 +79,5 @@ public class CitiesListActivity extends ActionBarActivity {
         mCitiesListAdapter = new CitiesListAdapter(listCities, getApplicationContext());
         mListView.setEmptyView(mEmptyView);
         mListView.setAdapter(mCitiesListAdapter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //mAdView.pause();
-    }
-
-    protected void onResume(){
-        super.onResume();
-        //mAdView.resume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //mAdView.destroy();
     }
 }

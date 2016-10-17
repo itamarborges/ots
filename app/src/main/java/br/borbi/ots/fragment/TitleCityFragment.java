@@ -30,11 +30,6 @@ public class TitleCityFragment extends Fragment {
     private TextView mSecondTagTextView;
     private TextView mThirdTagTextView;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     public TitleCityFragment() {}
 
     @Override

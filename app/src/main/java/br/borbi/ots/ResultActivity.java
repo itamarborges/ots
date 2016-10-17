@@ -18,7 +18,6 @@ import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.fragment.CitiesFragment;
 import br.borbi.ots.utility.ForwardUtility;
-import br.borbi.ots.utility.Utility;
 
 
 public class ResultActivity extends ActionBarActivity {
@@ -47,8 +46,9 @@ public class ResultActivity extends ActionBarActivity {
         }
 
         Integer minimumDistance = intent.getIntExtra(SearchActivity.MINIMUM_DISTANCE,0);
-        if(minimumDistance.intValue() == 0){
-            Integer searchId = intent.getIntExtra(ForwardUtility.SEARCH_ID,0);
+        Integer searchId = (int) intent.getLongExtra(ForwardUtility.SEARCH_ID,0);
+
+        if(searchId.intValue() != 0){
 
             String[] selectionArgs = new String[]{searchId.toString()};
             Cursor c = getContentResolver().query(
@@ -103,20 +103,5 @@ public class ResultActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //mAdView.pause();
-    }
 
-    protected void onResume(){
-        super.onResume();
-        //mAdView.resume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //mAdView.destroy();
-    }
 }

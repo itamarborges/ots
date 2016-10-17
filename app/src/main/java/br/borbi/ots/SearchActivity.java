@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
@@ -36,11 +35,12 @@ import br.borbi.ots.task.FetchWeatherTask;
 import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.DateUtility;
 import br.borbi.ots.utility.LocationUtility;
+import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.Utility;
 
 interface TaskFinished {
 
-    public void OnTaskFinished(List<CityResultSearch> cities);
+    void OnTaskFinished(List<CityResultSearch> cities);
 }
 
 public class SearchActivity extends ActionBarActivity {
@@ -260,7 +260,7 @@ public class SearchActivity extends ActionBarActivity {
     }
 
     private void validateCities(List<CityResultSearch> cities) {
-
+        Long mIdSearch = null;
         mCities = new ArrayList<CityResultSearch>();
 
         for (CityResultSearch cityResultSearch: cities) {
@@ -317,7 +317,7 @@ public class SearchActivity extends ActionBarActivity {
         search.setCites(mCities);
 
         if (mCities.size() > 0) {
-            saveSearch(search);
+            mIdSearch = saveSearch(search);
         }
 
         if(mWarningTask!=null) {
@@ -329,6 +329,7 @@ public class SearchActivity extends ActionBarActivity {
 
         Intent intent = new Intent(this, ResultActivity.class);
         intent.putExtra(MINIMUM_DISTANCE, mMaxDistance);
+        intent.putExtra(ForwardUtility.SEARCH_ID, mIdSearch);
         startActivity(intent);
     }
 
@@ -444,14 +445,5 @@ public class SearchActivity extends ActionBarActivity {
         if (mWarningTask != null) {
             mWarningTask.cancel(true);
         }
-    }
-
-    protected void onResume(){
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

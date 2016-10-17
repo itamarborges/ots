@@ -3,7 +3,6 @@ package br.borbi.ots.model;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import java.util.Collections;
 import java.util.LinkedList;

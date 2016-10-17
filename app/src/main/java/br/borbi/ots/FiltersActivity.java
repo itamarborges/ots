@@ -48,7 +48,7 @@ import br.borbi.ots.utility.ValidationUtility;
 
 interface ClickFragment {
 
-    public void OnClickFragment(int v, Date date);
+    void OnClickFragment(int v, Date date);
 }
 
 
@@ -70,7 +70,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     public static final int MINIMUM_DISTANCE_KILOMETERS=100;
     public static final int MINIMUM_DISTANCE_MILES=60;
     public static final int INDETERMINED_TEMPERATURE = 999;
-
 
     private static DateFormat dateFormat;
     private static TextView dateBeginView;

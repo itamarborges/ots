@@ -16,6 +16,13 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
     private List<DayForecast> dayForecasts;
     private WeatherForecastSourcePriority weatherForecastSourceUsed;
 
+    public CityResultSearch(City city, Integer distance, Integer idResultSearch, WeatherForecastSourcePriority weatherSource) {
+        this.city = city;
+        this.distance = distance;
+        this.idResultSearch = idResultSearch;
+        this.weatherForecastSourceUsed = weatherSource;
+    }
+
     public CityResultSearch(City city, Integer distance, Integer idResultSearch) {
         this.city = city;
         this.distance = distance;

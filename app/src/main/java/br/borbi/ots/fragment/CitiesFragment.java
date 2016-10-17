@@ -2,28 +2,19 @@ package br.borbi.ots.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.util.Collections;
 import java.util.LinkedList;
 
 import br.borbi.ots.R;
 import br.borbi.ots.adapter.CitiesAdapter;
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.data.OTSProvider;
-import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.model.CityResultSearchModel;
-import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
 
 /**
@@ -52,11 +43,6 @@ public class CitiesFragment extends Fragment {
     // these indices must match the projection
     public static final int INDEX_TAG_ID = 0;
     public static final int INDEX_RESOURCE_NAME = 1;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     public CitiesFragment() {}
 
@@ -120,13 +106,6 @@ public class CitiesFragment extends Fragment {
 
 
         return mRootView;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        //getLoaderManager().initLoader(CITIES_LOADER, null, this);
-        super.onActivityCreated(savedInstanceState);
-
     }
 
     private void fillAdapter(LinkedList<CityResultSearch> cities ){

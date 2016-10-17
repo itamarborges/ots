@@ -1,7 +1,6 @@
 package br.borbi.ots.fragment;
 
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -92,11 +90,6 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
 
     private Button mNextButton;
     private Button mPreviousButton;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     public DetailCityFragment() {}
 
@@ -364,25 +357,4 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
         this.idResultSearch = idResultSearch;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //mAdView.pause();
-    }
-
-    public void onResume(){
-        super.onResume();
-        //mAdView.resume();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //mAdView.destroy();
-    }
 }
