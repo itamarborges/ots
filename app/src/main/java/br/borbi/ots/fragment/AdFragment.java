@@ -22,6 +22,7 @@ import com.google.android.gms.ads.AdView;
 
 import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.utility.Utility;
 
 public class AdFragment extends Fragment {
     private static String LOG_TAG = AdFragment.class.getSimpleName();
@@ -51,19 +52,21 @@ public class AdFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_ad, container, false);
 
-        setPrimaryAdSource(getActivity().getBaseContext());
+        if (Utility.isNetworkAvailable(this.getContext())) {
+            setPrimaryAdSource(getActivity().getBaseContext());
 
-        initializeAdAmazon(this.getActivity());
-        initializeAdmob(this.getActivity());
+            initializeAdAmazon(this.getActivity());
+            initializeAdmob(this.getActivity());
 
-        mAdViewContainer = (ViewGroup)rootView.findViewById(R.id.linearLayoutAd);
+            mAdViewContainer = (ViewGroup)rootView.findViewById(R.id.linearLayoutAd);
 
-        if(mAmazonAdEnabled){
-            mAdViewContainer.addView(mAmazonAdView);
-            loadAmazonAd();
-        }else{
-            mAdViewContainer.addView(mAdmobAdView);
-            loadAdMobAd();
+            if(mAmazonAdEnabled){
+                mAdViewContainer.addView(mAmazonAdView);
+                loadAmazonAd();
+            }else{
+                mAdViewContainer.addView(mAdmobAdView);
+                loadAdMobAd();
+            }
         }
 
         return rootView;
@@ -184,28 +187,38 @@ public class AdFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mAmazonAdView.destroy();
-        mAdmobAdView.destroy();
+        if(mAmazonAdView!=null) {
+            mAmazonAdView.destroy();
+        }
+        if(mAdmobAdView!=null) {
+            mAdmobAdView.destroy();
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mAmazonAdView.destroy();
-        mAdmobAdView.destroy();
+        if(mAmazonAdView!=null) {
+            mAmazonAdView.destroy();
+        }
+        if(mAdmobAdView!=null) {
+            mAdmobAdView.destroy();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mAdmobAdView.pause();
-        mAdmobAdView.pause();
+        if(mAdmobAdView!=null) {
+            mAdmobAdView.pause();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mAdmobAdView.resume();
-        mAdmobAdView.resume();
+        if(mAdmobAdView!=null) {
+            mAdmobAdView.resume();
+        }
     }
 }
