@@ -105,6 +105,10 @@ public class DayForecastModel {
             while (cursor.moveToNext());
         }
 
+        if(cursor != null){
+            cursor.close();
+        }
+
         return databaseForecasts;
     }
 }

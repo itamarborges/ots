@@ -41,6 +41,11 @@ public class CountryModel {
 
             country = new Country(mId, mCountryCode, mName);
         }
+
+        if(c != null){
+            c.close();
+        }
+
         return country;
     }
 
@@ -67,6 +72,10 @@ public class CountryModel {
             country = new Country(mId, mCountryCode, mName);
 
             listCountries.add(country);
+        }
+
+        if(c != null){
+            c.close();
         }
 
         Collections.sort(listCountries);

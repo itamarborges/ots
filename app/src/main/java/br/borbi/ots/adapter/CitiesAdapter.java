@@ -123,6 +123,10 @@ public class CitiesAdapter extends BaseAdapter{
                 }
             }
             tagsCity.put((long) idCity, tagNames);
+
+            if(c!= null){
+                c.close();
+            }
         }
 
         final LinkedList<String> tags = tagsCity.get((long) idCity);

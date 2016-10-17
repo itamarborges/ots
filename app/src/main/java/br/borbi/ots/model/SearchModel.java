@@ -54,6 +54,11 @@ public class SearchModel {
         }else{
             return null;
         }
+
+        if(cursor!= null){
+            cursor.close();
+        }
+
         return search;
     }
 }

@@ -120,6 +120,10 @@ public class CityResultSearchModel {
             while (cursor.moveToNext());
         }
 
+        if(cursor != null){
+            cursor.close();
+        }
+
         Collections.sort(cities);
 
         return cities;

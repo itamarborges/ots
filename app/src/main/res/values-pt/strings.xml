@@ -88,4 +88,7 @@
     <string name="dateFormatDetails">dd/MM, EEEE</string>
     <string name="label_click_ofinion">Conheça nosso outro app, Ofinion. Clique no ícone ao lado para saber mais.</string>
     <string name="no_receiving_apps">Não há nenhum app instalado que permita visualizar o mapa.</string>
+    <string name="ofinion_description">Ícone do Ofinion</string>
+    <string name="ok">Ok</string>
+    <string name="ots_icon_description">Ícone do Onde tem sol?</string>
 </resources>

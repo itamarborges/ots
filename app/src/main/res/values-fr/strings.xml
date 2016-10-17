@@ -89,4 +89,7 @@
     <string name="dateFormatDetails">dd/MM, EEEE</string>
     <string name="label_click_ofinion">Connaissez-vous notre autre application, Ofinion? Cliquez dans le logo pour le télécharger!</string>
     <string name="no_receiving_apps">Il n\'y a aucune application dans votre appareil qui permet d\'utiliser des cartes.</string>
+    <string name="ok">Ok</string>
+    <string name="ofinion_description">Icône de l\'Ofinion</string>
+    <string name="ots_icon_description">Icône de l\'Où il fait beau?</string>
 </resources>

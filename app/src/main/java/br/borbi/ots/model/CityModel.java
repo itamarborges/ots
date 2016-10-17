@@ -48,6 +48,10 @@ public class CityModel {
             city.setName(activityParam.getString(activityParam.getResources().getIdentifier(translationFileKey, "string", activityParam.getPackageName())));
 
         }
+        if(c!= null){
+            c.close();
+        }
+
         return city;
     }
 
@@ -108,11 +112,18 @@ public class CityModel {
                     tagNames.add(tag);
                 }
             }
-            cTags.close();
+            if(cTags!= null){
+                cTags.close();
+            }
+
 
             city.setTags(tagNames);
 
             listCities.add(city);
+        }
+
+        if(c!= null){
+            c.close();
         }
 
         Collections.sort(listCities);

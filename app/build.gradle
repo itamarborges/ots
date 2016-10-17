@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         applicationId "br.borbi.ots"
@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 24
         versionName "2.4"
+        vectorDrawables.useSupportLibrary true
     }
     buildTypes {
         release {
