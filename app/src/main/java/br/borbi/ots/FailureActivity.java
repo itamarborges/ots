@@ -204,20 +204,4 @@ public class FailureActivity extends ActionBarActivity implements SharedPreferen
         }
 
     }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //mAdView.pause();
-    }
-
-    protected void onResume(){
-        super.onResume();
-        //mAdView.resume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //mAdView.destroy();
-    }
 }

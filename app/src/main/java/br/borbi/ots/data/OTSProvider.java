@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.List;
 
@@ -19,7 +18,6 @@ import br.borbi.ots.entity.Search;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.pojo.DayForecast;
-import br.borbi.ots.utility.LogUtility;
 
 /**
  * Created by Itamar on 08/04/2015.

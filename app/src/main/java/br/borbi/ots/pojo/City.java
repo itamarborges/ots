@@ -2,7 +2,6 @@ package br.borbi.ots.pojo;
 
 import java.io.Serializable;
 import java.text.Collator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 

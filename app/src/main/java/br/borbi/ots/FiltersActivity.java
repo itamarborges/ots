@@ -41,7 +41,7 @@ import br.borbi.ots.utility.ValidationUtility;
 
 interface ClickFragment {
 
-    public void OnClickFragment(int v, Date date);
+    void OnClickFragment(int v, Date date);
 }
 
 
@@ -717,23 +717,6 @@ public class FiltersActivity extends ActionBarActivity implements ClickFragment{
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(temperatureCheckbox.getWindowToken(), 0);
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //mAdView.pause();
-    }
-
-    protected void onResume(){
-        super.onResume();
-        //mAdView.resume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //mAdView.destroy();
     }
 
     private void forwardActivity(){

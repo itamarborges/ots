@@ -4,14 +4,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.google.android.gms.ads.AdView;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.fragment.ResultCityFragment;
-import br.borbi.ots.utility.Utility;
 
 
 public class ResultCitiesActivity extends ActionBarActivity {
@@ -59,20 +56,4 @@ public class ResultCitiesActivity extends ActionBarActivity {
         resultCityFragment.setStrCityName(strNameCity);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //mAdView.pause();
-    }
-
-    protected void onResume(){
-        super.onResume();
-        //mAdView.resume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //mAdView.destroy();
-    }
 }

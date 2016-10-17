@@ -1,7 +1,6 @@
 package br.borbi.ots.utility;
 
 import android.content.Context;
-import android.util.Log;
 
 /**
  * Created by Gabriela on 15/09/2015.

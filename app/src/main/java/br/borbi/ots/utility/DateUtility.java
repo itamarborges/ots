@@ -1,14 +1,10 @@
 package br.borbi.ots.utility;
 
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Gabriela on 10/07/2015.

@@ -1,6 +1,5 @@
 package br.borbi.ots.utility;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -9,11 +8,7 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.text.format.Time;
-import android.view.View;
 import android.widget.EditText;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -244,22 +239,6 @@ public class Utility {
                 throw new UnsupportedOperationException("Datatype invalid!");
         }
         spe.apply();
-    }
-
-    static public void getSharedPreferences(Context c, String key){
-        /*
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
-        SharedPreferences.Editor spe = sp.edit();
-
-        switch (dataType) {
-            case INT:
-                spe.putInt(key, Integer.parseInt(value));
-                break;
-            default:
-                throw new UnsupportedOperationException("Datatype invalid!");
-        }
-        spe.apply();
-        */
     }
 
     static public int roundCeil(Double num) {
