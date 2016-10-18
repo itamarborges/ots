@@ -83,7 +83,7 @@
     <string name="title_activity_about">Sobre</string>
     <string name="version">Versão: </string>
     <string name="facebookUrl">facebook.com/ondetemsol</string>
-    <string name="developerForecastCredit">Fornecido por Forecast</string>
+    <string name="developerForecastCredit">Fornecido por Dark Sky</string>
     <string name="developerForecastLimitation">Não foi possível buscar previsão para mais de 7 dias por limitação do serviço de metereologia.</string>
     <string name="dateFormatDetails">dd/MM, EEEE</string>
     <string name="label_click_ofinion">Conheça nosso outro app, Ofinion. Clique no ícone ao lado para saber mais.</string>

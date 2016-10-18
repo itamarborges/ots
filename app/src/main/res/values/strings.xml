@@ -145,7 +145,7 @@
     <!-- W -->
     <string name="where_am_i">Where am I?</string>
     <string name="weather_forecast_source_open_weather" translatable="false">openweathermap.org/</string>
-    <string name="weather_forecast_source_developer_forecast" translatable="false">developer.forecast.io/</string>
+    <string name="weather_forecast_source_developer_forecast" translatable="false">darksky.net/poweredby/</string>
 
     <!-- X -->
 
@@ -159,7 +159,7 @@
     <string name="twitterUrl" translatable="false">twitter.com/ondetemsol</string>
     <string name="openWeatherName" translatable="false">OpenWeather:</string>
     <string name="developerForecastName" translatable="false">DeveloperForecast:</string>
-    <string name="developerForecastCredit">Powered by Forecast</string>
+    <string name="developerForecastCredit">Powered by Dark Sky</string>
     <string name="developerForecastLimitation">It was\'t possible to fetch weather forecast for more than 7 days as a limitation of the meteorology provider.</string>
     <string name="openWeatherCredit" translatable="false">OpenWeather</string>
     <string name="dateFormat">mm/dd/yyyy</string>

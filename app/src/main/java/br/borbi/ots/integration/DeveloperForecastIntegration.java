@@ -30,7 +30,8 @@ public class DeveloperForecastIntegration {
 
     private static final String LOG_TAG = DeveloperForecastIntegration.class.getSimpleName();
 
-    private static final String URL = "https://api.forecast.io/forecast/";
+    //private static final String URL = "https://api.forecast.io/forecast/";
+    private static final String URL = "https://api.darksky.net/forecast/";
 
     private static final String PARAM_EXCLUDE_FLAGS = "exclude";
     private static final String EXCLUDE_FLAGS = "currently,minutely,hourly,alerts,flags";
