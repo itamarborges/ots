@@ -759,8 +759,12 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     @Override
     public void onConnected(Bundle bundle) {
         try {
-            mLocationRequest = LocationUtility.createLocationRequest();
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mLocationRequest = LocationUtility.createLocationRequest();
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            }else{
+                Log.v(LOG_TAG,"Não tem permissão!");
+            }
 
         } catch (Exception e) {
             Log.e(LOG_TAG, getString(R.string.error_localization),e);
