@@ -43,6 +43,7 @@ import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.utility.DateUtility;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.LocationUtility;
+import br.borbi.ots.utility.LogUtility;
 import br.borbi.ots.utility.Utility;
 import br.borbi.ots.utility.ValidationUtility;
 
@@ -52,7 +53,7 @@ interface ClickFragment {
 }
 
 
-public class FiltersActivity extends AppCompatActivity implements ClickFragment,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class FiltersActivity extends AppCompatActivity implements ClickFragment,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener,ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final String LOG_TAG = FiltersActivity.class.getSimpleName();
 
@@ -791,8 +792,9 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
      */
     private void findLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }else{
+            Log.v(LOG_TAG,"vai chamar buildGoogleApiClient em findLocation");
             buildGoogleApiClient();
         }
     }
@@ -800,9 +802,22 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0) {
+
+        Log.v(LOG_TAG,"onRequestPermissionsResult, requestCode =" + requestCode);
+        Log.v(LOG_TAG,"onRequestPermissionsResult, permissions =" );
+        LogUtility.printArray(LOG_TAG,permissions);
+        Log.v(LOG_TAG,"onRequestPermissionsResult, grantResults =" );
+        LogUtility.printArray(LOG_TAG,grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ) {
             // Inicia o servico de localizacao
+            Log.v(LOG_TAG,"vai chamar buildGoogleApiClient em onRequestPermissionsResult");
             buildGoogleApiClient();
+        }else{
+            AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
+            if(dialog!=null) {
+                dialog.show();
+            }
         }
     }
 
