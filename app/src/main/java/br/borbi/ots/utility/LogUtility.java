@@ -31,6 +31,16 @@ public class LogUtility {
         }
     }
 
+    public static void printArray(String className, int[] arr) {
+        if(arr==null){
+            Log.v(className, "Empty array");
+        }else {
+            for (int i = 0; i < arr.length; i++) {
+                Log.v(className, "" + arr[i]);
+            }
+        }
+    }
+
     public static String makeLogTag(Class cls) {
         return makeLogTag(cls.getSimpleName());
     }
