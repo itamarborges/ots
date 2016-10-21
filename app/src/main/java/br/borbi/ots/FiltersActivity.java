@@ -52,7 +52,7 @@ interface ClickFragment {
 }
 
 
-public class FiltersActivity extends AppCompatActivity implements ClickFragment,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class FiltersActivity extends AppCompatActivity implements ClickFragment,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
     private static final String LOG_TAG = FiltersActivity.class.getSimpleName();
 
@@ -790,7 +790,8 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
      * Method to verify google play services on the device
      */
     private void findLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }else{
             buildGoogleApiClient();
