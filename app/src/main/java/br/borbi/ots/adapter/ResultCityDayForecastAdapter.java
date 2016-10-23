@@ -118,7 +118,6 @@ public class
                     intent.putExtra(DetailCityActivity.CITY_NAME, strCityName);
                     intent.putExtra(DetailCityActivity.QTY_ITENS, mQtyItens);
                     intent.putExtra(DetailCityActivity.RELATIVE_POSITION, dayForecast.getPosition());
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     mContext.startActivity(intent);
                 }
             });

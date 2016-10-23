@@ -85,6 +85,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     private static Button kilometersButton;
     private static Button milesButton;
+
     private static Button celsiusButton;
     private static Button fahrenheitButton;
 
@@ -113,16 +114,24 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private static Double mLastLongitude;
-    private static Double mLastLatitude;
-
     private Context mContext;
 
     private Boolean mAppJustOpened = false;
+    private static Double mLastLatitude;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         mBolRenewInformations = false;
+
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
@@ -274,7 +283,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         Utility.positioningCursorInTheEnd(distanceEditText);
 
     }
-
     public void showCalendar(View view) {
 
         int viewIdClicked = -1;
@@ -378,7 +386,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                 }
 
                 if (lastLongitude > (coordinates.getMaxLongitude()) || (lastLongitude < coordinates.getMinLongitude())) {
-                    mBolDifferentLatitude = true;
+                    mBolDifferentLongitude = true;
                 }
 
                 if ((mLastSearchDateTime.equals(-1l)) ||
@@ -714,12 +722,13 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     /**
      * If this is the first time this activity is called in the current session, verifies if there is any data in search and/or if this is valid data. Meaning that:
-     * - the table search is not empty and
      * - the date_end is before than today
+     * - the table search is not empty and
      * - the current location is not too far from the place where the search was originally made
      */
     private void defineNextStep(){
         if(mAppJustOpened) {
+            mAppJustOpened = false;
             if (mLastLongitude == null || mLastLatitude == null) {
                 Long searchId = Utility.findSearchByDate(mContext);
                 if (searchId != null) {

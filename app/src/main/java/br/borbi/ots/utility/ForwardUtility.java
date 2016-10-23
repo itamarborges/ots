@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -28,8 +27,8 @@ public class ForwardUtility {
         intent.setClass(context, ResultActivity.class);
         intent.putExtra(COORDINATES_FOUND, foundCoordinates);
         intent.putExtra(SEARCH_ID, searchId);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        TaskStackBuilder.create(context).addNextIntentWithParentStack(intent).startActivities();
+        intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+        context.startActivity(intent);
     }
 
     public static void goToFilters(Context context, boolean appJustOpened){
