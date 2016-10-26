@@ -13,6 +13,7 @@
         android:name=".MainApp"
         android:allowBackup="true"
         android:icon="@drawable/logo"
+        android:largeHeap="true"
         android:label="@string/title"
         android:theme="@style/AppTheme">
 
