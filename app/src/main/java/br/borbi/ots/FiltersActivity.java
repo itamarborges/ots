@@ -315,7 +315,12 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         mLastSearchUseCelsius = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_CELSIUS, false);
         mLastSearchUseKilometers = sharedPreferences.getBoolean(OTSContract.SHARED_LAST_SEARCH_USE_KILOMETERS, false);
         mLastSearchDistance = sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_DISTANCE, -1);
-        mLastSearchIdSearch = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
+
+        try {
+            mLastSearchIdSearch = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
+        }catch (ClassCastException e){
+            mLastSearchIdSearch = Long.valueOf(sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1));
+        }
 
         mBolRenewInformations = true;
     }
@@ -800,8 +805,9 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
      * Method to verify google play services on the device
      */
     private void findLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }else{
             Log.v(LOG_TAG,"vai chamar buildGoogleApiClient em findLocation");
             buildGoogleApiClient();
