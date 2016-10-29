@@ -4,7 +4,7 @@
     <color name="ots_pure_white">#FFFFFF</color>
     <color name="yellow_bar">#FBC02D</color>
     <color name="yellow_light">#FFEB3B</color>
-
+    <color name="windowBackground">#FFFFFF</color>
     <color name="ots_blue">#ff1ca8f4</color>
     <color name="ots_dark_blue">#0288D1</color>
     <color name="ots_green">#ff80f63e</color>

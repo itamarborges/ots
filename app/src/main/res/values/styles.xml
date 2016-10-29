@@ -34,6 +34,10 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="SplashTheme" parent="FullscreenTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
     <!-- Backward-compatible version of ?android:attr/buttonBarStyle -->
     <style name="ButtonBar">
         <item name="android:paddingLeft">2dp</item>

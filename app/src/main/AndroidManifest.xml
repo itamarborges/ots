@@ -79,8 +79,8 @@
             android:configChanges="orientation"
             android:label="@string/title"
             android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
