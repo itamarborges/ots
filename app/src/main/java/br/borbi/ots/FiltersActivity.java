@@ -319,7 +319,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         try {
             mLastSearchIdSearch = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
         }catch (ClassCastException e){
-            mLastSearchIdSearch = Long.valueOf(sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1));
+            mLastSearchIdSearch = (long) sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
         }
 
         mBolRenewInformations = true;

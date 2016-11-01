@@ -53,7 +53,7 @@ public class CountryModel {
 
         LinkedList<Country> listCountries = new LinkedList<Country>();
 
-        Country country = null;
+        Country country;
 
         Cursor c =  contextParam.getContentResolver().query(
                 OTSContract.Country.CONTENT_URI,

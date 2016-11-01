@@ -47,7 +47,7 @@ public class SearchModel {
             search.setRadius(cursor.getInt(cursor.getColumnIndex(OTSContract.Search.COLUMN_NAME_RADIUS)));
             search.setMinSunnyDays(cursor.getInt(cursor.getColumnIndex(OTSContract.Search.COLUMN_NAME_MIN_SUNNY_DAYS)));
             search.setIncludesCloudyDays(Utility.getBooleanValue(cursor.getInt(cursor.getColumnIndex(OTSContract.Search.COLUMN_NAME_INCLUDES_CLOUDY_DAYS))));
-            search.setMinTemperature(Double.valueOf(cursor.getInt(cursor.getColumnIndex(OTSContract.Search.COLUMN_NAME_MIN_TEMPERATURE))));
+            search.setMinTemperature((double) cursor.getInt(cursor.getColumnIndex(OTSContract.Search.COLUMN_NAME_MIN_TEMPERATURE)));
             search.setDateTimeLastSearch(new Date(cursor.getLong(cursor.getColumnIndex(OTSContract.Search.COLUMN_NAME_DATETIME_LAST_SEARCH))));
             search.setOriginLatitude(cursor.getDouble(cursor.getColumnIndex(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT)));
             search.setOriginLongitude(cursor.getDouble(cursor.getColumnIndex(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG)));

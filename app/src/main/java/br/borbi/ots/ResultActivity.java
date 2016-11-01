@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.google.android.gms.ads.AdView;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.data.OTSProvider;
@@ -42,7 +38,7 @@ public class ResultActivity extends ActionBarActivity {
         Integer minimumDistance = intent.getIntExtra(SearchActivity.MINIMUM_DISTANCE,0);
         Long searchId = 0l;
         if(intent.hasExtra(ForwardUtility.SEARCH_ID)){
-            searchId = intent.getLongExtra(ForwardUtility.SEARCH_ID,Long.valueOf(0));
+            searchId = intent.getLongExtra(ForwardUtility.SEARCH_ID, 0L);
         }
 
         if(searchId != 0){

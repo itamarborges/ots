@@ -43,6 +43,7 @@ interface TaskFinished {
     void OnTaskFinished(List<CityResultSearch> cities);
 }
 
+@SuppressWarnings("UnnecessaryBoxing")
 public class SearchActivity extends ActionBarActivity {
 
     private static final String LOG_TAG = SearchActivity.class.getName();
@@ -173,7 +174,7 @@ public class SearchActivity extends ActionBarActivity {
                 found = false;
                 Iterator<CityResultSearch> it = citiesAlreadySearched.iterator();
                 while (it.hasNext() && !found) {
-                    CityResultSearch cityResultSearch = (CityResultSearch) it.next();
+                    CityResultSearch cityResultSearch = it.next();
                     if (cityResultSearch.getCity().equals(city)) {
                         // remover da lista a pesquisar;
                         cities.remove(city);
@@ -314,7 +315,7 @@ public class SearchActivity extends ActionBarActivity {
         search.setRadius(mMaxDistance);
         search.setMinSunnyDays(numberSunnyDays);
         search.setIncludesCloudyDays(usesCloudyDays);
-        search.setMinTemperature(Double.valueOf(minTemperature));
+        search.setMinTemperature((double) minTemperature);
         search.setDateTimeLastSearch(new Date());
         search.setOriginLatitude(lastLatitude);
         search.setOriginLongitude(lastLongitude);

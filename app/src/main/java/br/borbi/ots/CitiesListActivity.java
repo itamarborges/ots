@@ -60,7 +60,7 @@ public class CitiesListActivity extends ActionBarActivity {
                 mEmptyView.setVisibility(View.INVISIBLE);
 
                 City cityQuery = new City();
-                cityQuery.setCountryId((int) listCountries.get(position).getId());
+                cityQuery.setCountryId(listCountries.get(position).getId());
 
                 LinkedList<City> listCities = CityModel.listCitiesWithTags(cityQuery, getApplication());
 

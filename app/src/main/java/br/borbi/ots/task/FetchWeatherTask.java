@@ -63,7 +63,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
             if (isCancelled()) break;
 
-            City cityToSearch = (City) it.next();
+            City cityToSearch = it.next();
 
             if (weatherForecastSource.isOpenWeather()) {
                 cityResultSearchAux = searchOpenWeatherData(cityToSearch, numberOfDays);

@@ -322,8 +322,8 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             mWeatherImageView.setImageResource(Utility.getMediumArtResourceForWeatherCondition(idWeatherType));
 
             WeatherForecastSourcePriority weatherForecastSourcePriority = WeatherForecastSourcePriority.getSource(idWeatherForecastSource);
-            Pattern pattern = null;
-            String url = null;
+            Pattern pattern;
+            String url;
             if(weatherForecastSourcePriority.isDeveloperForecast()){
                 mUrlSourceTextView.setText(getString(R.string.developerForecastCredit));
                 pattern = Pattern.compile(getString(R.string.developerForecastCredit));

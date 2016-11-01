@@ -59,7 +59,7 @@ public class CityModel {
 
         LinkedList<City> listCities = new LinkedList<City>();
 
-        City city = null;
+        City city;
 
         String strFilter = null;
         String[] selectionArgs = null;
@@ -101,8 +101,8 @@ public class CityModel {
                     null);
 
             LinkedList<String> tagNames = new LinkedList<String>();
-            String tag = "";
-            String resourceName = "";
+            String tag;
+            String resourceName;
             while (cTags.moveToNext()) {
                 resourceName = cTags.getString(cTags.getColumnIndex(OTSContract.Tag.COLUMN_NAME_RESOURCE_NAME));
 

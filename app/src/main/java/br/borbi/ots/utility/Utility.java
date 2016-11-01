@@ -20,7 +20,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import br.borbi.ots.R;
-import br.borbi.ots.SplashScreenActivity;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.pojo.Coordinates;
 
@@ -193,7 +192,7 @@ public class Utility {
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
 
-        int numberOfDays = 16;
+        int numberOfDays;
         if(dateBegin.after(today.getTime())){
             numberOfDays = Utility.getDifferenceInDays(today.getTime(), dateEnd) + 1;
         }else{

@@ -43,13 +43,13 @@ public class DeveloperForecastIntegration {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
-        String forecastJsonStr = null;
+        String forecastJsonStr;
         CityResultSearch cityResultSearch = null;
 
         try {
             String latLong = (new StringBuilder().append(city.getLatitude()).append(",").append(city.getLongitude())).toString();
 
-            String appKey = null;
+            String appKey;
             boolean isTest= Boolean.valueOf(context.getString(R.string.app_in_test));
             if(isTest) {
                 appKey = context.getString(R.string.developerforecast_key);
