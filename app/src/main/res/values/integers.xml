@@ -4,4 +4,5 @@
     <integer name="fontSizeEms">8</integer>
     <integer name="max_width_logo">150</integer>
     <integer name="max_height_logo">150</integer>
+    <integer name="map_padding">100</integer>
 </resources>

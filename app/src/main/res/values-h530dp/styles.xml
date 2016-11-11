@@ -4,6 +4,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/ots_blue</item>
+        <item name="android:textColorSecondary">@color/ots_blue</item>
         <item name="colorPrimary">@color/ots_blue</item>
         <item name="colorPrimaryDark">@color/ots_dark_blue</item>
         <item name="android:actionBarStyle">@style/OTSActionBarStyle</item>

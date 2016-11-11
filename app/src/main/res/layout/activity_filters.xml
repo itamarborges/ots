@@ -20,8 +20,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/datePeriod"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
         android:paddingLeft="@dimen/paddingLeftRight"
         android:paddingRight="@dimen/paddingLeftRight"
         android:paddingTop="@dimen/paddingMarginBottonTop">
@@ -71,8 +69,7 @@
                     android:padding="@dimen/paddingCalendar"
                     android:src="@drawable/calendar"
                     android:nestedScrollingEnabled="false"
-                    android:onClick="showCalendar"
-                    />
+                    android:onClick="showCalendar" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,9 +88,9 @@
             android:layout_weight="3"
             android:id="@+id/textViewDateEndPeriod"
             android:text="@string/dateFormat"
-                android:layout_gravity="center"
-                android:gravity="center_vertical|center_horizontal"
-                android:textAppearance="@style/dateTextView" />
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="@style/dateTextView" />
 
         <ImageButton
             android:layout_width="0dp"
@@ -104,8 +101,7 @@
             android:padding="@dimen/paddingCalendar"
             android:src="@drawable/calendar"
             android:nestedScrollingEnabled="false"
-            android:onClick="showCalendar"
-            />
+            android:onClick="showCalendar" />
            </LinearLayout>
 
     </LinearLayout>
@@ -117,9 +113,7 @@
         android:text="@string/help_date_period"
         android:id="@+id/textViewHelpDatePeriod"
         android:textAppearance="@style/subtitleTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_centerHorizontal="true"
-            android:paddingRight="@dimen/paddingLeftRight"
+        android:paddingRight="@dimen/paddingLeftRight"
         android:paddingTop="@dimen/paddingMarginBottonTop"
         android:paddingBottom="@dimen/paddingMarginBottonTop"
             android:gravity="center_vertical|center_horizontal" />
@@ -131,13 +125,12 @@
         android:id="@+id/separator"
         android:visibility="visible"
         android:background="@android:color/darker_gray"
-        android:layout_below="@+id/datePeriod" />
+        />
     <!-- Distância-->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayoutDistance"
-        android:layout_below="@+id/separator"
         android:orientation="vertical"
         android:paddingLeft="@dimen/paddingLeftRight"
         android:paddingRight="@dimen/paddingLeftRight"
@@ -168,15 +161,14 @@
                 android:layout_gravity="center|bottom"
                 android:gravity="bottom">
 
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:inputType="number"
-            android:ems="@integer/fontSizeEms"
-            android:id="@+id/editTextMaxDistance"
-            android:background="@null"
-            android:layout_gravity="center"
-            android:gravity="center_vertical|center_horizontal" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:inputType="number"
+                    android:id="@+id/editTextMaxDistance"
+                    android:background="@null"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|center_horizontal" />
 
             </LinearLayout>
 
@@ -186,7 +178,7 @@
                 android:layout_height="fill_parent"
                 android:text="@string/km"
                 android:id="@+id/btnKm"
-                android:background="@color/ots_green"
+                android:background="@color/ots_blue"
                 android:textColor="@color/ots_pure_white"
                 android:onClick="changeDistanceMeasure"/>
 
@@ -213,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/kilometers"
                 android:id="@+id/radioButtonKm"
-                android:layout_centerVertical="true" />
+                />
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -229,8 +221,6 @@
             android:text="@string/help_distance"
             android:id="@+id/helpTextView"
             android:textAppearance="@style/subtitleTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_centerHorizontal="true"
             android:gravity="left"
             android:paddingTop="@dimen/paddingMarginBottonTop"
             android:paddingBottom="@dimen/paddingMarginBottonTop"
@@ -243,14 +233,13 @@
         android:id="@+id/separator2"
         android:visibility="visible"
         android:background="@android:color/darker_gray"
-        android:layout_below="@+id/linearLayoutDistance" />
+        />
     <!-- Dias bons -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linearLayoutSunnyDays"
-        android:layout_below="@+id/separator2"
         android:paddingLeft="@dimen/paddingLeftRight"
         android:paddingRight="@dimen/paddingLeftRight"
         android:paddingTop="@dimen/paddingMarginBottonTop">
@@ -266,23 +255,23 @@
             android:layout_marginBottom="@dimen/paddingMarginBottonTop" />
 
         <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/sizeGroup"
-        android:orientation="vertical"
-        android:background="@drawable/border_gray"
-        android:layout_marginLeft="@dimen/distanceLeftRight"
-        android:layout_marginRight="@dimen/distanceLeftRight"
-        android:gravity="right">
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/sizeGroup"
+            android:orientation="vertical"
+            android:background="@drawable/border_gray"
+            android:layout_marginLeft="@dimen/distanceLeftRight"
+            android:layout_marginRight="@dimen/distanceLeftRight"
+            android:gravity="right">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:inputType="number"
-            android:ems="@integer/fontSizeEms"
-            android:id="@+id/editTextQtySunnyDays"
-            android:background="@null"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_gravity="center" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:inputType="number"
+                android:ems="@integer/fontSizeEms"
+                android:id="@+id/editTextQtySunnyDays"
+                android:background="@null"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
@@ -306,7 +295,7 @@
         android:id="@+id/separator3"
         android:visibility="visible"
         android:background="@android:color/darker_gray"
-        android:layout_below="@+id/linearLayoutSunnyDays" />
+        />
     <!-- Temperatura -->
 
     <LinearLayout
@@ -314,7 +303,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/linearLayoutTemperature"
-        android:layout_below="@+id/separator3"
         android:paddingLeft="@dimen/paddingLeftRight"
         android:paddingRight="@dimen/paddingLeftRight"
         android:paddingTop="@dimen/paddingMarginBottonTop">
@@ -358,7 +346,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:inputType="number"
-                    android:ems="@integer/fontSizeEms"
                     android:id="@+id/editTextMinTemperature"
                     android:background="@null"
                     android:layout_gravity="center"
@@ -411,13 +398,12 @@
         android:layout_height="@dimen/sizeBtn"
         android:text="@string/search"
         android:id="@+id/buttonSearch"
-        android:layout_alignParentRight="true"
         android:onClick="onSaveButtonClicked"
         android:background="@drawable/button_background"
         android:layout_marginBottom="@dimen/paddingTopBtn"
-        android:layout_below="@+id/linearLayoutTemperature"
         android:layout_marginTop="@dimen/paddingBottonBtn"
         android:clickable="true"
+        android:textColor="#ffffff"
         android:layout_gravity="right" />
 <FrameLayout
     android:layout_width="fill_parent"
@@ -429,8 +415,7 @@
         android:id="@+id/anuncioFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"/>
+              android:layout_gravity="bottom"/>
 </FrameLayout>
 </LinearLayout>
     </ScrollView>

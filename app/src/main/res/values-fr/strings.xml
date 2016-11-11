@@ -30,8 +30,8 @@
     <string name="location_not_found">Your location wasn\'t found yet. This search may not correspond to your current location.</string>
     <string name="max_temperature">Maximum temperature:</string>
     <string name="minimum_days">Please inform number of days between 1 and <xliff:g>%1$s</xliff:g>.</string>
-    <string name="minimum_distance_kilometers">Please inform distance bigger than <xliff:g>%1$s</xliff:g> kilometers.</string>
-    <string name="minimum_distance_miles">Please inform distance bigger than <xliff:g>%1$s</xliff:g> miles.</string>
+    <string name="minimum_distance_kilometers">Please inform distance between <xliff:g>%1$s</xliff:g> and <xliff:g>%2$s</xliff:g> kilometers.</string>
+    <string name="minimum_distance_miles">Please inform distance between <xliff:g>%1$s</xliff:g> and and <xliff:g>%2$s</xliff:g> miles.</string>
     <string name="no_data_available">Aucune ville ensoleillée a été trouvé. Essayez de changer les dates, la distance, le nombre de jours d\'ensoleillement ou la température minimum. Actuellement, nous cherchons seulement villes au Brésil, au Canada, en France et aux États-Unis.</string>
     <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F à <xliff:g>%2$s</xliff:g>º F</string>
     <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g>º C à <xliff:g>%2$s</xliff:g>º C</string>
@@ -92,4 +92,5 @@
     <string name="ok">Ok</string>
     <string name="ofinion_description">Icône de l\'Ofinion</string>
     <string name="ots_icon_description">Icône de l\'Où il fait beau?</string>
+    <string name="see_cities_in_map">Les villes sur le carte</string>
 </resources>

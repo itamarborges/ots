@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 
-import com.google.android.gms.ads.AdView;
-
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.fragment.ResultCityFragment;
 
@@ -19,31 +17,11 @@ public class ResultCitiesActivity extends ActionBarActivity {
     int idRelSearchCityId;
     String strNameCity;
 
-    AdView mAdView;
-
-    public String getStrNameCity() {
-        return strNameCity;
-    }
-
-    public void setStrNameCity(String strNameCity) {
-        this.strNameCity = strNameCity;
-    }
-
-    public int getIdRelSearchCityId() {
-        return idRelSearchCityId;
-    }
-
-    public void setIdRelSearchCityId(int idRelSearchCityId) {
-        this.idRelSearchCityId = idRelSearchCityId;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_result_cities);
-
-        //mAdView = Utility.initializeAd(mAdView, this);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         idRelSearchCityId = sp.getInt(OTSContract.KEY_REL_SEARCH_CITY, -1);

@@ -3,7 +3,6 @@ package br.borbi.ots;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -11,8 +10,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import br.borbi.ots.data.OTSContract;
-import br.borbi.ots.data.OTSProvider;
-import br.borbi.ots.fragment.CitiesFragment;
 import br.borbi.ots.utility.ForwardUtility;
 
 
@@ -34,36 +31,6 @@ public class ResultActivity extends ActionBarActivity {
         if(!foundCoordinates && (lastLatitude==null || lastLongitude == null || lastLatitude == 0d || lastLongitude == 0d)){
             Toast.makeText(this,R.string.location_not_found,Toast.LENGTH_LONG).show();
         }
-
-        Integer minimumDistance = intent.getIntExtra(SearchActivity.MINIMUM_DISTANCE,0);
-        Long searchId = 0l;
-        if(intent.hasExtra(ForwardUtility.SEARCH_ID)){
-            searchId = intent.getLongExtra(ForwardUtility.SEARCH_ID, 0L);
-        }
-
-        if(searchId != 0){
-
-            String[] selectionArgs = new String[]{searchId.toString()};
-            Cursor c = getContentResolver().query(
-                    OTSContract.Search.CONTENT_URI,
-                    new String[]{OTSContract.Search.COLUMN_NAME_RADIUS, OTSContract.Search.COLUMN_NAME_ORIGIN_LAT, OTSContract.Search.COLUMN_NAME_ORIGIN_LONG},
-                    OTSProvider.FILTER_BY_SEARCH_ID,
-                    selectionArgs,
-                    null);
-            if (c.moveToFirst()) {
-                minimumDistance = c.getInt(c.getColumnIndex(OTSContract.Search.COLUMN_NAME_RADIUS));
-                lastLatitude = c.getDouble(c.getColumnIndex(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT));
-                lastLongitude = c.getDouble(c.getColumnIndex(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG));
-            }
-            if(c!=null){
-                c.close();
-            }
-        }
-
-        CitiesFragment citiesFragment = (CitiesFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_cities);
-        citiesFragment.setMininumDistance(minimumDistance);
-        citiesFragment.setLastLatitude(lastLatitude);
-        citiesFragment.setLastLongitude(lastLongitude);
     }
 
     @Override

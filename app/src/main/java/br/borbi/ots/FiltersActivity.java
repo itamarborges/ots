@@ -67,9 +67,11 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     public static final String MIN_TEMPERATURE = "MIN_TEMPERATURE";
     public static final String DONT_USE_TEMPERATURE = "DONT_USE_TEMPERATURE";
     public static final int MAX_NUMBER_OF_DAYS = 15;
-    public static final String DISTANCE_DEFAULT = "500";
+    public static final String DISTANCE_DEFAULT = "250";
     public static final int MINIMUM_DISTANCE_KILOMETERS=100;
+    public static final int MAXIMUM_DISTANCE_KILOMETERS=2000;
     public static final int MINIMUM_DISTANCE_MILES=60;
+    public static final int MAXIMUM_DISTANCE_MILES=1250;
     public static final int INDETERMINED_TEMPERATURE = 999;
 
     private static DateFormat dateFormat;
@@ -128,10 +130,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         mBolRenewInformations = false;
-
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
@@ -158,9 +157,9 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && distanceEditText.getText() != null) {
                     if (kilometersChecked) {
-                        ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, null, mContext.getString(R.string.minimum_distance_kilometers, MINIMUM_DISTANCE_KILOMETERS));
+                        ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, MAXIMUM_DISTANCE_KILOMETERS, mContext.getString(R.string.minimum_distance_kilometers, String.valueOf(MINIMUM_DISTANCE_KILOMETERS), String.valueOf(MAXIMUM_DISTANCE_KILOMETERS)));
                     } else {
-                        ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, null, mContext.getString(R.string.minimum_distance_miles, MINIMUM_DISTANCE_MILES));
+                        ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, MAXIMUM_DISTANCE_MILES, mContext.getString(R.string.minimum_distance_miles, String.valueOf(MINIMUM_DISTANCE_MILES), String.valueOf(MAXIMUM_DISTANCE_MILES)));
                     }
                 }
             }
@@ -180,7 +179,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                 if (!hasFocus && daysEditText.getText() != null) {
                     Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
 
-                    ValidationUtility.validateInteger(daysEditText, 1, maxNumberOfDays, mContext.getString(R.string.minimum_days, maxNumberOfDays));
+                    ValidationUtility.validateInteger(daysEditText, 1, maxNumberOfDays, mContext.getString(R.string.minimum_days, String.valueOf(maxNumberOfDays)));
 
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -337,17 +336,11 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        if (!Utility.isNetworkAvailable(this)) {
-            AlertDialog dialog = buildInternetDialog(mContext);
-            if (dialog != null) {
-                dialog.show();
-            }
-        }else if ((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)) {
+        if ((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)) {
             AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
             if(dialog!=null) {
                 dialog.show();
             }
-
         } else {
             boolean allFieldsValid = validateFields();
             if (allFieldsValid) {
@@ -408,6 +401,16 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                     (mLastSearchUseCelsius != useCelsius) ||
                     (mLastSearchDistance != Integer.valueOf(distanceEditText.getText().toString())) ||
                     (mLastSearchUseKilometers != useKilometers)) {
+
+                    //If the parameters have different values and there is no wifi connection,
+                    //it will show a message asking for the user to turn on the wifi
+                    if (!Utility.isNetworkAvailable(this)) {
+                        AlertDialog dialog = buildInternetDialog(mContext);
+                        if (dialog != null) {
+                            dialog.show();
+                            return;
+                        }
+                    }
 
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, timeNow);
@@ -534,7 +537,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     }
 
     private void activateButton(Button button){
-        button.setBackgroundResource(R.color.ots_green);
+        button.setBackgroundResource(R.color.ots_blue);
         button.setTextColor(getResources().getColor(R.color.ots_pure_white));
     }
 
@@ -667,15 +670,16 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         boolean validDistance = true;
         // Valida distancia.
         if(kilometersChecked){
-            validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, null, mContext.getString(R.string.minimum_distance_kilometers,MINIMUM_DISTANCE_KILOMETERS));
+            validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, MAXIMUM_DISTANCE_KILOMETERS, mContext.getString(R.string.minimum_distance_kilometers,String.valueOf(MINIMUM_DISTANCE_KILOMETERS), String.valueOf(MAXIMUM_DISTANCE_KILOMETERS)));
         }else{
-            validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, null, mContext.getString(R.string.minimum_distance_miles,MINIMUM_DISTANCE_MILES));
+            validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, MAXIMUM_DISTANCE_MILES, mContext.getString(R.string.minimum_distance_miles,String.valueOf(MINIMUM_DISTANCE_MILES), String.valueOf(MAXIMUM_DISTANCE_MILES)));
         }
 
         // Valida numero de dias
-        boolean validDays = ValidationUtility.validateInteger(daysEditText, 1, Utility.getNumberOfDaysToShow(dateBegin, dateEnd), mContext.getString(R.string.minimum_days));
+        Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
+        boolean validDays = ValidationUtility.validateInteger(daysEditText, 1, Utility.getNumberOfDaysToShow(dateBegin, dateEnd), mContext.getString(R.string.minimum_days, String.valueOf(maxNumberOfDays)));
 
-        return (validDistance || validDays);
+        return (validDistance && validDays);
     }
 
     private void activateTemperatureButtonsStatus(){
@@ -805,6 +809,12 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
      * Method to verify google play services on the device
      */
     private void findLocation() {
+
+        mLastLatitude = -30.03306;
+        mLastLongitude = -51.23;
+
+        LocationUtility.saveCoordinates(mLastLatitude, mLastLongitude, this);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 0);

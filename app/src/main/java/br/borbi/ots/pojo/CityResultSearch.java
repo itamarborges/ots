@@ -1,5 +1,8 @@
 package br.borbi.ots.pojo;
 
+import android.os.Parcel;
+
+import java.io.Serializable;
 import java.util.List;
 
 import br.borbi.ots.enums.WeatherForecastSourcePriority;
@@ -7,7 +10,7 @@ import br.borbi.ots.enums.WeatherForecastSourcePriority;
 /**
  * Created by Gabriela on 14/07/2015.
  */
-public class CityResultSearch implements Comparable<CityResultSearch>{
+public class CityResultSearch implements Comparable<CityResultSearch>, Serializable {
 
     private City city;
     private Integer distance;
@@ -37,6 +40,10 @@ public class CityResultSearch implements Comparable<CityResultSearch>{
     public CityResultSearch(City city, List<DayForecast> dayForecasts) {
         this.city = city;
         this.dayForecasts = dayForecasts;
+    }
+
+    protected CityResultSearch(Parcel in) {
+        isFirstCity = in.readByte() != 0;
     }
 
     public City getCity() {

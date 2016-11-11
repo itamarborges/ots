@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdView;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,8 +32,8 @@ import br.borbi.ots.pojo.SearchParameters;
 import br.borbi.ots.task.FetchWeatherTask;
 import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.DateUtility;
-import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.ForwardUtility;
+import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.Utility;
 
 interface TaskFinished {
@@ -68,7 +66,6 @@ public class SearchActivity extends ActionBarActivity {
     private Double lastLongitude = 0d;
     private Toast mToast;
     private WarningTask mWarningTask;
-    private AdView mAdView;
 
     private FetchWeatherTask weatherTask;
 

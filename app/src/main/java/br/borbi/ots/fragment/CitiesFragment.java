@@ -1,21 +1,24 @@
 package br.borbi.ots.fragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
+import br.borbi.ots.MapsActivity;
 import br.borbi.ots.R;
 import br.borbi.ots.adapter.CitiesAdapter;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.model.CityResultSearchModel;
 import br.borbi.ots.pojo.CityResultSearch;
+import br.borbi.ots.utility.Utility;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -27,13 +30,9 @@ public class CitiesFragment extends Fragment {
 
     private ListView mListView;
 
-    private Double lastLatitude;
-    private Double lastLongitude;
-
-    private Integer mininumDistance;
-
     private View mRootView;
     private View mEmptyView;
+    private Button mSeeCitiesBtn;
 
     public static final String[] TAG_COLUMNS = {
             OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag._ID,
@@ -46,46 +45,6 @@ public class CitiesFragment extends Fragment {
 
     public CitiesFragment() {}
 
-
-    public double getLastLatitude() {
-        if(lastLatitude == null){
-            setCoordinates();
-        }
-        return lastLatitude.doubleValue();
-    }
-
-    public void setLastLatitude(Double lastLatitude) {
-        this.lastLatitude = lastLatitude;
-    }
-
-    public double getLastLongitude() {
-        if(lastLongitude == null){
-            setCoordinates();
-        }
-        return lastLongitude.doubleValue();
-    }
-
-    public void setLastLongitude(Double lastLongitude) {
-        this.lastLongitude = lastLongitude;
-    }
-
-    public Integer getMininumDistance() {
-        return mininumDistance;
-    }
-
-    public void setMininumDistance(Integer mininumDistance) {
-        this.mininumDistance = mininumDistance;
-    }
-
-    private void setCoordinates(){
-        SharedPreferences sharedPreferences = getActivity().getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-
-        Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
-        Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
-        this.setLastLatitude(lastLatitude);
-        this.setLastLongitude(lastLongitude);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,8 +52,7 @@ public class CitiesFragment extends Fragment {
         mRootView = inflater.inflate(R.layout.fragment_cities, container, false);
         mEmptyView = mRootView.findViewById(R.id.listview_cities_empty);
 
-
-        LinkedList<CityResultSearch> cities = CityResultSearchModel.list(getActivity());
+        final LinkedList<CityResultSearch> cities = CityResultSearchModel.list(getActivity());
         if(cities.size() > 0){
             CityResultSearch cityResultSearch = cities.get(0);
             if(cityResultSearch.getDistance() <=50){
@@ -103,6 +61,26 @@ public class CitiesFragment extends Fragment {
         }
 
         fillAdapter(cities);
+
+        mSeeCitiesBtn = (Button) mRootView.findViewById(R.id.btnSeeCities);
+
+        if (Utility.isGoogleMapsInstalled(getContext())) {
+
+            mSeeCitiesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    ArrayList<CityResultSearch> mList = new ArrayList<CityResultSearch>(cities);
+
+                    Intent mIntent = new Intent(getActivity(), MapsActivity.class);
+                    mIntent.putExtra(MapsActivity.INDEX_LIST_CITIES, mList);
+                    startActivity(mIntent);
+                }
+            });
+
+        } else {
+            mSeeCitiesBtn.setVisibility(View.GONE);
+        }
 
 
         return mRootView;

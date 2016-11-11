@@ -1,7 +1,10 @@
+
 package br.borbi.ots.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -362,5 +365,14 @@ public class Utility {
 
     public static boolean getBooleanValue(int value){
         return (value==0? false:true);
+    }
+
+    public static boolean isGoogleMapsInstalled(Context mContext) {
+        try {
+            ApplicationInfo info = mContext.getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 }
