@@ -7,19 +7,18 @@
     <dimen name="font_size_medium">13sp</dimen>
     <dimen name="font_size_small">10sp</dimen>
     <dimen name="sizeGroup">27dp</dimen>
-    <dimen name="paddingTopBtn">3dp</dimen>
-    <dimen name="paddingBottonBtn">3dp</dimen>
-    <dimen name="sizeBtn">40dp</dimen>
+    <dimen name="paddingTopBtn">2dp</dimen>
+    <dimen name="paddingBottonBtn">2dp</dimen>
+    <dimen name="sizeBtn">30dp</dimen>
     <dimen name="checkAlignLeft">30dp</dimen>
     <dimen name="distanceLeftRight">30dp</dimen>
-    <dimen name="paddingMarginBottonTop">3dp</dimen>
+    <dimen name="paddingMarginBottonTop">2dp</dimen>
     <dimen name="paddingLeftRight">10dp</dimen>
     <dimen name="sizeSeparator">1dp</dimen>
     <dimen name="paddingCalendar">2dp</dimen>
     <dimen name="distanceCalendar">3dp</dimen>
     <dimen name="layoutLeftRight">0dp</dimen>
     <dimen name="marginFragmentLeftRight">8dp</dimen>
-
     <dimen name="title_fragment_horizontal_margin">2dp</dimen>
     <dimen name="title_fragment_vertical_margin">4dp</dimen>
     <dimen name="icon_details_city_forecast_margin">2dp</dimen>
@@ -27,10 +26,11 @@
     <dimen name="paddingBottomScreen">0dp</dimen>
     <dimen name="radius">10dp</dimen>
     <dimen name="customBorderLeftRight">10dp</dimen>
-    <dimen name="customBorderTopBotton">5dp</dimen>
+    <dimen name="customBorderTopBotton">3dp</dimen>
     <dimen name="paddingTagsCity">5dp</dimen>
     <dimen name="marginRightTagsCity">5dp</dimen>
     <dimen name="icon_about">2dp</dimen>
     <dimen name="aboutTitleTextSize">20sp</dimen>
+    <dimen name="btnMapCities">7dp</dimen>
 
 </resources>

@@ -22,7 +22,6 @@ import br.borbi.ots.pojo.Country;
 public class CitiesListActivity extends ActionBarActivity {
 
     private static final String LOG_TAG = CitiesListActivity.class.getSimpleName();
-    private CitiesListAdapter mCitiesListAdapter;
     private ListView mListView;
     private View mEmptyView;
 
@@ -30,7 +29,7 @@ public class CitiesListActivity extends ActionBarActivity {
     public static final int INDEX_CITY_ID = 0;
     public static final int INDEX_CITY_TRANSLATION_FILE_KEY = 1;
 
-    Spinner mCountrySpinner;
+    private Spinner mCountrySpinner;
     AdView mAdView;
 
     @Override
@@ -76,8 +75,8 @@ public class CitiesListActivity extends ActionBarActivity {
     }
 
     private void fillAdapter(LinkedList<City> listCities) {
-        mCitiesListAdapter = new CitiesListAdapter(listCities, getApplicationContext());
+        CitiesListAdapter mMCitiesListAdapter = new CitiesListAdapter(listCities, getApplicationContext());
         mListView.setEmptyView(mEmptyView);
-        mListView.setAdapter(mCitiesListAdapter);
+        mListView.setAdapter(mMCitiesListAdapter);
     }
 }

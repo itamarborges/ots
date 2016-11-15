@@ -32,11 +32,8 @@ public class DateUtility {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.get(Calendar.DAY_OF_WEEK);
-        if(calendar.get(Calendar.DAY_OF_WEEK) == getFirstDayOfWeek()){
-            return true;
-        }
+        return calendar.get(Calendar.DAY_OF_WEEK) == getFirstDayOfWeek();
 
-        return false;
     }
 
     public static LinkedList<Date> listDatesFromFirstDayOfWeek(Date beginDate){
@@ -73,9 +70,6 @@ public class DateUtility {
     public static boolean isDateBeforeAnother(Date date, Date another){
         date = Utility.setDateToInitialHours(date);
         another = Utility.setDateToInitialHours(another);
-        if (date.compareTo(another) < 0){
-            return true;
-        }
-        return false;
+        return date.compareTo(another) < 0;
     }
 }

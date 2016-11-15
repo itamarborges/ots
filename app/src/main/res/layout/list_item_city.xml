@@ -17,7 +17,6 @@
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:orientation="vertical">
 
         <TextView
@@ -43,7 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_toRightOf="@+id/list_item_linearlayout"
             android:src="@drawable/ic_more_horiz_black_24dp"
             />
 
@@ -52,7 +50,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="77 km"
-            android:layout_toRightOf="@+id/list_item_linearlayout"
             android:gravity="center" />
 
     </LinearLayout>
@@ -63,7 +60,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_toRightOf="@+id/list_item_linearlayout"
         android:layout_gravity="center"
         android:visibility="gone"
         android:src="@drawable/ic_place_black_24dp"

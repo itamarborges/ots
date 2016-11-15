@@ -61,5 +61,5 @@
         android:gravity="center"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        />
+        android:visibility="gone"/>
 </LinearLayout>

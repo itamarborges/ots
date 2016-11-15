@@ -33,7 +33,7 @@ public class CitiesAdapter extends BaseAdapter{
 
     private static final String LOG_TAG= CitiesAdapter.class.getSimpleName();
 
-    HashMap<Long, LinkedList> tagsCity = new HashMap<Long, LinkedList>();
+    private HashMap<Long, LinkedList> tagsCity = new HashMap<>();
 
     private LinkedList<CityResultSearch> mCities;
     private final Context mContext;
@@ -110,9 +110,9 @@ public class CitiesAdapter extends BaseAdapter{
                     selectionArgs,
                     sortOrder);
 
-            LinkedList<String> tagNames = new LinkedList<String>();
-            String tag = "";
-            String resourceName = "";
+            LinkedList<String> tagNames = new LinkedList<>();
+            String tag;
+            String resourceName;
             while (c.moveToNext()) {
                 resourceName = c.getString(CitiesFragment.INDEX_RESOURCE_NAME);
 
@@ -181,7 +181,7 @@ public class CitiesAdapter extends BaseAdapter{
                 spe.putString(OTSContract.KEY_CITY_NAME, strLabelLocal);
                 spe.putInt(OTSContract.KEY_REL_SEARCH_CITY, cityResultSearch.getIdResultSearch());
 
-                Set<String> tagsSetString = new HashSet<String>(tags);
+                Set<String> tagsSetString = new HashSet<>(tags);
 
                 spe.putStringSet(OTSContract.KEY_CITY_TAGS, tagsSetString );
 

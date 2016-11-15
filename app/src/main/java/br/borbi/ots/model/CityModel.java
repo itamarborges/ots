@@ -57,7 +57,7 @@ public class CityModel {
 
     public static LinkedList<City> listCitiesWithTags(City cityParam, Context contextParam) {
 
-        LinkedList<City> listCities = new LinkedList<City>();
+        LinkedList<City> listCities = new LinkedList<>();
 
         City city;
 
@@ -100,7 +100,7 @@ public class CityModel {
                     selectionArgsTags,
                     null);
 
-            LinkedList<String> tagNames = new LinkedList<String>();
+            LinkedList<String> tagNames = new LinkedList<>();
             String tag;
             String resourceName;
             while (cTags.moveToNext()) {

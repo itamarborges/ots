@@ -75,11 +75,7 @@ public class AdFragment extends Fragment {
     private void setPrimaryAdSource(Context context){
         String primaryAdSource = context.getString(R.string.primary_ad_source);
 
-        if(AD_SOURCE_ADMOB.equalsIgnoreCase(primaryAdSource)){
-            mAmazonAdEnabled = false;
-        }else {
-            mAmazonAdEnabled = true;
-        }
+        mAmazonAdEnabled = !AD_SOURCE_ADMOB.equalsIgnoreCase(primaryAdSource);
     }
 
     private void initializeAdAmazon(final Activity activity){
@@ -111,8 +107,11 @@ public class AdFragment extends Fragment {
                     mAdViewContainer.removeView(mAmazonAdView);
                     mAdViewContainer.addView(mAdmobAdView);
                 }
-
-                loadAdMobAd();
+                if (Utility.isNetworkAvailable(getContext())) {
+                    loadAdMobAd();
+                } else {
+                    mAdViewContainer.removeView(mAdmobAdView);
+                }
             }
 
             @Override
@@ -127,6 +126,7 @@ public class AdFragment extends Fragment {
 
             @Override
             public void onAdDismissed(Ad ad) {
+
 
             }
         });
@@ -153,8 +153,11 @@ public class AdFragment extends Fragment {
                     mAdViewContainer.removeView(mAdmobAdView);
                     mAdViewContainer.addView(mAmazonAdView);
                 }
-
-                loadAmazonAd();
+                if (Utility.isNetworkAvailable(getContext())) {
+                    loadAmazonAd();
+                } else {
+                    mAdViewContainer.removeView(mAmazonAdView);
+                }
             }
 
             @Override

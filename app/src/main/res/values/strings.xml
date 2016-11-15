@@ -48,8 +48,8 @@
     <string name="error_localization">It was not possible to determine your location.</string>
 
     <!-- F -->
-    <string name="failure_message_localization">Oops... It was not possible determine your location. Set the location on your device and press \"Try to find me\" button.</string>
-    <string name="failure_message_internet">Oops... Your internet connection seems to be down. Check your internet connection and press \"Try again\" button.</string>
+    <string name="failure_message_localization">Oops… It was not possible determine your location. Set the location on your device and press \"Try to find me\" button.</string>
+    <string name="failure_message_internet">Oops… Your internet connection seems to be down. Check your internet connection and press \"Try again\" button.</string>
     <string name="farenheit" translatable="false">F</string>
 
     <!-- G -->
@@ -114,7 +114,7 @@
 
 
     <!-- S -->
-    <string name="searching_the_sun">Searching ...</string>
+    <string name="searching_the_sun">Searching …</string>
     <string name="searching_sunny_cities_message0">Click in any city in the following screen to obtain more details about the weather.</string>
     <string name="searching_sunny_cities_message1">We\'re searching for the cities where the sun will shine.</string>
     <string name="searching_sunny_cities_message2">Soon we\'re going to show you all the cities where the sun will shine.</string>
@@ -167,9 +167,9 @@
     <string name="ots_icon_description">Where Will the Sun Shine? icon</string>
     <string name="ofinion_description">Ofinion icon</string>
     <string name="no_receiving_apps">There is no app in your device that allows using maps.</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="see_cities_in_map">Look cities in map!</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
 
 
     <!-- Z -->

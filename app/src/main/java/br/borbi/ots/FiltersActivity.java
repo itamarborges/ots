@@ -77,13 +77,13 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     public static final int INDETERMINED_TEMPERATURE = 999;
 
     private static DateFormat dateFormat;
-    private static TextView dateBeginView;
-    private static TextView dateEndView;
-    private static EditText distanceEditText;
-    private static EditText daysEditText;
-    private static CheckBox daysWithoutRainCheckbox;
-    private static EditText temperatureEditText;
-    private static CheckBox temperatureCheckbox;
+    private TextView dateBeginView;
+    private TextView dateEndView;
+    private EditText distanceEditText;
+    private EditText daysEditText;
+    private CheckBox daysWithoutRainCheckbox;
+    private EditText temperatureEditText;
+    private CheckBox temperatureCheckbox;
     private static Date dateBegin;
     private static Date dateEnd;
 
@@ -111,8 +111,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private boolean mLastSearchUseCelsius;
     private boolean mLastSearchUseKilometers;
     private boolean mBolRenewInformations;
-    private boolean mBolDifferentLatitude;
-    private boolean mBolDifferentLongitude;
 
     private static Double mLastLatitude;
     private static Double mLastLongitude;
@@ -121,10 +119,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private Boolean mAppJustOpened = false;
 
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 
 
     @Override
@@ -214,7 +208,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             }
         });
 
-        if (mLastSearchDateTime.equals(-1l)) {
+        if (mLastSearchDateTime.equals(-1L)) {
 
             dateBegin  = Utility.setDateToInitialHours(new Date());
             dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
@@ -376,22 +370,22 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
                 Coordinates coordinates = new Coordinates(mLastSearchLatitude, mLastSearchLongitude, 50);
 
-                mBolDifferentLatitude = false;
-                mBolDifferentLongitude = false;
+                boolean mMBolDifferentLatitude = false;
+                boolean mMBolDifferentLongitude = false;
 
                 if ((lastLatitude > coordinates.getMaxLatitude()) || (lastLatitude < coordinates.getMinLatitude())) {
-                    mBolDifferentLatitude = true;
+                    mMBolDifferentLatitude = true;
                 }
 
                 if (lastLongitude > (coordinates.getMaxLongitude()) || (lastLongitude < coordinates.getMinLongitude())) {
-                    mBolDifferentLongitude = true;
+                    mMBolDifferentLongitude = true;
                 }
 
-                if ((mLastSearchDateTime.equals(-1l)) ||
+                if ((mLastSearchDateTime.equals(-1L)) ||
                     (mLastSearchIdSearch == -1) ||
                     (diffHours >= OTSContract.HOURS_TO_SEARCH_EXPIRATION) ||
-                    (mBolDifferentLatitude) ||
-                    (mBolDifferentLatitude) ||
+                    (mMBolDifferentLatitude) ||
+                    (mMBolDifferentLatitude) ||
                     (!mLastSearchInitialDate.equals(dateBegin.getTime())) ||
                     (!mLastSearchFinalDate.equals(dateEnd.getTime())) ||
                     (mLastSearchSunnyDays != Integer.valueOf(daysEditText.getText().toString())) ||

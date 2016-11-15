@@ -42,7 +42,7 @@ public class ForwardUtility {
 
     /**
      * Builds the intent to see the current position in a map. Only builds the intent if there are coordinates available and if there is any app that can do that.
-     * @param context
+     * @param context the context from the place that is calling this method
      * @return the intent to show a map.
      */
     public static Intent goToMap(Context context){

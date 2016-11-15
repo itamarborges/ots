@@ -48,6 +48,7 @@ public class DayForecast implements Serializable{
             }
         }
 
+
         this.humidity = humidity;
     }
 

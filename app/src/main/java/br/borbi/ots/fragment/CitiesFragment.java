@@ -26,13 +26,9 @@ import br.borbi.ots.utility.Utility;
 public class CitiesFragment extends Fragment {
 
     public static final String LOG_TAG = CitiesFragment.class.getSimpleName();
-    private CitiesAdapter mCitiesAdapter;
-
-    private ListView mListView;
 
     private View mRootView;
     private View mEmptyView;
-    private Button mSeeCitiesBtn;
 
     public static final String[] TAG_COLUMNS = {
             OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag._ID,
@@ -62,15 +58,16 @@ public class CitiesFragment extends Fragment {
 
         fillAdapter(cities);
 
-        mSeeCitiesBtn = (Button) mRootView.findViewById(R.id.btnSeeCities);
 
-        if (Utility.isGoogleMapsInstalled(getContext())) {
+        Button mMSeeCitiesBtn = (Button) mRootView.findViewById(R.id.btnSeeCities);
 
-            mSeeCitiesBtn.setOnClickListener(new View.OnClickListener() {
+        if ((Utility.isGoogleMapsInstalled(getContext())) && (cities.size() > 0)) {
+
+            mMSeeCitiesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    ArrayList<CityResultSearch> mList = new ArrayList<CityResultSearch>(cities);
+                    ArrayList<CityResultSearch> mList = new ArrayList<>(cities);
 
                     Intent mIntent = new Intent(getActivity(), MapsActivity.class);
                     mIntent.putExtra(MapsActivity.INDEX_LIST_CITIES, mList);
@@ -79,7 +76,7 @@ public class CitiesFragment extends Fragment {
             });
 
         } else {
-            mSeeCitiesBtn.setVisibility(View.GONE);
+            mMSeeCitiesBtn.setVisibility(View.GONE);
         }
 
 
@@ -87,9 +84,9 @@ public class CitiesFragment extends Fragment {
     }
 
     private void fillAdapter(LinkedList<CityResultSearch> cities ){
-        mCitiesAdapter = new CitiesAdapter(cities,getActivity());
-        mListView = (ListView) mRootView.findViewById(R.id.listview_cities);
-        mListView.setEmptyView(mEmptyView);
-        mListView.setAdapter(mCitiesAdapter);
+        CitiesAdapter mMCitiesAdapter = new CitiesAdapter(cities, getActivity());
+        ListView mMListView = (ListView) mRootView.findViewById(R.id.listview_cities);
+        mMListView.setEmptyView(mEmptyView);
+        mMListView.setAdapter(mMCitiesAdapter);
     }
 }
