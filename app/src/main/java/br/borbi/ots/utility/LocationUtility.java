@@ -1,14 +1,23 @@
 package br.borbi.ots.utility;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -20,9 +29,28 @@ import br.borbi.ots.data.OTSContract;
 /**
  * Created by Gabriela on 15/07/2015.
  */
-public class LocationUtility {
+public final class LocationUtility {
+
+    private LocationUtility() {
+    }
 
     private static final String LOG_TAG = LocationUtility.class.getSimpleName();
+
+    private static GoogleApiClient mGoogleApiClient;
+
+    private static Activity mActivity;
+
+    public static synchronized void buildGoogleApiClient(Activity activity) {
+        mActivity = activity;
+
+        mGoogleApiClient = new GoogleApiClient.Builder(mActivity )
+                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks)mActivity)
+                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener)mActivity)
+                .addApi(LocationServices.API)
+                .build();
+
+        mGoogleApiClient.connect();
+    }
 
     public static LocationRequest createLocationRequest() {
         LocationRequest locationRequest = LocationRequest.create()
@@ -84,5 +112,36 @@ public class LocationUtility {
         });
 
         return builder.create();
+    }
+
+    public static void onConnected() {
+        try {
+            if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                LocationRequest locationRequest = createLocationRequest();
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, (LocationListener) mActivity);
+            }else{
+                Log.v(LOG_TAG,"Não tem permissão!");
+            }
+
+        } catch (Exception e) {
+            Log.e(LOG_TAG, mActivity.getString(R.string.error_localization),e);
+            disconnectFromLocationServices(mGoogleApiClient,(LocationListener) mActivity);
+        }
+    }
+
+    public static void onConnectionSuspended(int i) {
+        Log.e(LOG_TAG, "conexao suspensa, erro = " + i);
+    }
+
+    public static void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.e(LOG_TAG, "falhou na conexao, erro = " + connectionResult.getErrorCode());
+
+        disconnectFromLocationServices(mGoogleApiClient, (LocationListener)mActivity);
+    }
+
+    public static void onLocationChanged(Location location) {
+        saveCoordinates(location.getLatitude(), location.getLongitude(), mActivity);
+        disconnectFromLocationServices(mGoogleApiClient, (LocationListener)mActivity);
     }
 }

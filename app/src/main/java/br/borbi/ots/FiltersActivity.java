@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
@@ -112,14 +114,12 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private boolean mBolDifferentLatitude;
     private boolean mBolDifferentLongitude;
 
-    // Objects to check the coordinates
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
+    private static Double mLastLatitude;
     private static Double mLastLongitude;
     private Context mContext;
 
     private Boolean mAppJustOpened = false;
-    private static Double mLastLatitude;
+
 
     @Override
     protected void onPause() {
@@ -775,35 +775,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         }
     }
 
-    @Override
-    public void onConnected(Bundle bundle) {
-        try {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                mLocationRequest = LocationUtility.createLocationRequest();
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            }else{
-                Log.v(LOG_TAG,"Não tem permissão!");
-            }
-
-        } catch (Exception e) {
-            Log.e(LOG_TAG, getString(R.string.error_localization),e);
-            LocationUtility.disconnectFromLocationServices(mGoogleApiClient,this);
-            finish();
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        Log.e(LOG_TAG, "conexao suspensa, erro = " + i);
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e(LOG_TAG, "falhou na conexao, erro = " + connectionResult.getErrorCode());
-
-        Toast.makeText(getApplication(), getString(R.string.error_localization), Toast.LENGTH_LONG).show();
-        LocationUtility.disconnectFromLocationServices(mGoogleApiClient, this);
-    }
 
     /**
      * Method to verify google play services on the device
@@ -820,7 +791,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }else{
             Log.v(LOG_TAG,"vai chamar buildGoogleApiClient em findLocation");
-            buildGoogleApiClient();
+            LocationUtility.buildGoogleApiClient(this);
         }
     }
 
@@ -828,41 +799,15 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        Log.v(LOG_TAG,"onRequestPermissionsResult, requestCode =" + requestCode);
-        Log.v(LOG_TAG,"onRequestPermissionsResult, permissions =" );
-        LogUtility.printArray(LOG_TAG,permissions);
-        Log.v(LOG_TAG,"onRequestPermissionsResult, grantResults =" );
-        LogUtility.printArray(LOG_TAG,grantResults);
-
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ) {
             // Inicia o servico de localizacao
-            Log.v(LOG_TAG,"vai chamar buildGoogleApiClient em onRequestPermissionsResult");
-            buildGoogleApiClient();
+            LocationUtility.buildGoogleApiClient(this);
         }else{
             AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
             if(dialog!=null) {
                 dialog.show();
             }
         }
-    }
-
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        mLastLatitude = location.getLatitude();
-        mLastLongitude = location.getLongitude();
-
-        LocationUtility.saveCoordinates(mLastLatitude, mLastLongitude, this);
-        LocationUtility.disconnectFromLocationServices(mGoogleApiClient, this);
     }
 
     public AlertDialog buildInternetDialog(final Context context){
@@ -874,5 +819,28 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             }
         });
         return builder.create();
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        LocationUtility.onConnected();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        LocationUtility.onConnectionSuspended(i);
+        Toast.makeText(this, getString(R.string.error_localization), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        LocationUtility.onConnectionFailed(connectionResult);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        LocationUtility.onLocationChanged(location);
+        mLastLatitude = location.getLatitude();
+        mLastLongitude = location.getLongitude();
     }
 }

@@ -3,17 +3,29 @@ package br.borbi.ots;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+
 import br.borbi.ots.data.OTSContract;
+import br.borbi.ots.entity.Search;
+import br.borbi.ots.model.SearchModel;
+import br.borbi.ots.utility.CoordinatesUtillity;
 import br.borbi.ots.utility.ForwardUtility;
+import br.borbi.ots.utility.LocationUtility;
+import br.borbi.ots.utility.Utility;
 
 
-public class ResultActivity extends ActionBarActivity {
+public class ResultActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +41,7 @@ public class ResultActivity extends ActionBarActivity {
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         if(!foundCoordinates && (lastLatitude==null || lastLongitude == null || lastLatitude == 0d || lastLongitude == 0d)){
-            Toast.makeText(this,R.string.location_not_found,Toast.LENGTH_LONG).show();
+            LocationUtility.buildGoogleApiClient(this);
         }
     }
 
@@ -39,7 +51,6 @@ public class ResultActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_filters, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -65,5 +76,37 @@ public class ResultActivity extends ActionBarActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        LocationUtility.onConnected();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        LocationUtility.onConnectionSuspended(i);
+        Toast.makeText(this, getString(R.string.location_not_found), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        LocationUtility.onConnectionFailed(connectionResult);
+        Toast.makeText(this,R.string.location_not_found,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        LocationUtility.onLocationChanged(location);
+        Double lastLatitude = location.getLatitude();
+        Double lastLongitude = location.getLongitude();
+
+        Search search = SearchModel.findSearch(this);
+        if (search != null){
+            Double distance = CoordinatesUtillity.getDistance(lastLatitude,lastLongitude, search.getOriginLatitude(), search.getOriginLongitude());
+            if (!Utility.isDistanceSmallerThanMinimumDistance(distance.intValue(), 50)){
+                Toast.makeText(this, getString(R.string.location_not_found), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
