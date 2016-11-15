@@ -17,8 +17,6 @@ public class DetailCityActivity extends ActionBarActivity {
     public static final String RELATIVE_POSITION = "RELATIVE_POSITION";
 
     private int mIdResultSearch;
-    private int mQtyItens;
-    private int mRelativePosition;
 
     public int getidResultSearch() {
         return mIdResultSearch;
@@ -35,14 +33,14 @@ public class DetailCityActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         mIdResultSearch = intent.getIntExtra(ID_RESULT_SEARCH, -1);
-        mQtyItens = intent.getIntExtra(QTY_ITENS, 0);
-        mRelativePosition = intent.getIntExtra(RELATIVE_POSITION, -1);
+        int mMQtyItens = intent.getIntExtra(QTY_ITENS, 0);
+        int mMRelativePosition = intent.getIntExtra(RELATIVE_POSITION, -1);
 
         DetailCityFragment newDetailCityFragment = new DetailCityFragment();
 
         newDetailCityFragment.setIdResultSearch(mIdResultSearch);
-        newDetailCityFragment.setQtyItens(mQtyItens);
-        newDetailCityFragment.setRelativePosition(mRelativePosition);
+        newDetailCityFragment.setQtyItens(mMQtyItens);
+        newDetailCityFragment.setRelativePosition(mMRelativePosition);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

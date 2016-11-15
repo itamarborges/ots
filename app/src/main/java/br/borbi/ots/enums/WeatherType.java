@@ -22,7 +22,7 @@ public enum WeatherType {
 
     public static WeatherType getWeatherType(int weatherType){
 
-        if(weatherType == 800 || weatherType == 801){
+        if(weatherType >= 800 && weatherType < 802){
             return  WeatherType.SUNNY;
         }
 
@@ -64,17 +64,14 @@ public enum WeatherType {
         }
         if(WeatherType.SNOW.equals(weatherType)){
             return 600;
+
         }
         return 500;
     }
 
 
     public boolean isSunnyDay(boolean acceptsClouds){
-        if(this.equals(SUNNY) || (acceptsClouds && this.equals(CLOUDS))){
-            return true;
-        }
-
-        return false;
+        return this.equals(SUNNY) || (acceptsClouds && this.equals(CLOUDS));
 
     }
 }

@@ -21,9 +21,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public static final String INDEX_LIST_CITIES = "listCities";
 
-    private GoogleMap mMap;
-    private Intent mIntent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +43,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        GoogleMap mMMap = googleMap;
 
-        mIntent = getIntent();
+        Intent mMIntent = getIntent();
 
-        ArrayList<CityResultSearch> mCities = (ArrayList<CityResultSearch>) mIntent.getSerializableExtra(INDEX_LIST_CITIES);
+        ArrayList<CityResultSearch> mCities = (ArrayList<CityResultSearch>) mMIntent.getSerializableExtra(INDEX_LIST_CITIES);
 
         //Parameters that will be used to determine the bounds for zooming in;
         Double smallestLatitude = null;
@@ -63,12 +60,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng city = new LatLng(cityResultSearch.getCity().getLatitude(), cityResultSearch.getCity().getLongitude());
 
             if (cityResultSearch.isFirstCity()) {
-                mMap.addMarker(new MarkerOptions()
+                mMMap.addMarker(new MarkerOptions()
                         .position(city)
                         .title(cityResultSearch.getCity().getName())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black_36dp)));
             } else {
-                mMap.addMarker(new MarkerOptions()
+                mMMap.addMarker(new MarkerOptions()
                         .position(city)
                         .title(cityResultSearch.getCity().getName())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue_36dp)));
@@ -101,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLngBounds latLngBounds = new LatLngBounds(new LatLng(smallestLatitude, smallestLongitude), new LatLng(biggestLatitude, biggestLongitude));
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, width, height, getResources().getInteger(R.integer.map_padding)));
+        mMMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, width, height, getResources().getInteger(R.integer.map_padding)));
 
     }
 }

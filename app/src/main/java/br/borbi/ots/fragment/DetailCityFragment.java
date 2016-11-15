@@ -28,8 +28,6 @@ import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.enums.WeatherForecastSourcePriority;
 import br.borbi.ots.utility.Utility;
 
-;
-
 /**
  * Created by Itamar on 16/06/2015.
  */

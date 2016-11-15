@@ -61,8 +61,8 @@ public class LocationUtility {
 
     /**
      * Builds a dialog to ask the user to turn on the location on the device.
-     * @param context
-     * @return
+     * @param context context from the place that is calling this
+     * @return returns a dialog
      */
     public static AlertDialog buildLocationDialog(final Context context){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

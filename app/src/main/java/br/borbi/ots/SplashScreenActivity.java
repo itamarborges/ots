@@ -15,15 +15,13 @@ public class SplashScreenActivity extends Activity  {
 
     private ImageView mImgSplash;
 
-    private Context mContext;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
+        Context mMContext = this;
 
         LocationUtility.cleanSavedCoordinates(this);
 
-        ForwardUtility.goToFilters(mContext,true);
+        ForwardUtility.goToFilters(mMContext,true);
     }
 }

@@ -30,5 +30,6 @@
     <dimen name="customBorderTopBotton">5dp</dimen>
     <dimen name="paddingTagsCity">5dp</dimen>
     <dimen name="marginRightTagsCity">5dp</dimen>
+    <dimen name="btnMapCities">20dp</dimen>
 
 </resources>

@@ -2,5 +2,5 @@
 <resources>
     <integer name="transition_duration">2</integer>
     <integer name="fontSizeEms">10</integer>
-
+    <integer name="map_padding">100</integer>
 </resources>

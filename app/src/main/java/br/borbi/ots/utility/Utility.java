@@ -44,7 +44,7 @@ public class Utility {
 
     public static int getMediumArtResourceForWeatherCondition(int idWeatherType) {
         // Based on weather code data found at:
-        // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
+        // http://openweathermap.org/weather-conditions
         if (idWeatherType >= 200 && idWeatherType <= 232) {
             return R.drawable.ots_rain_medium;
         } else if (idWeatherType >= 300 && idWeatherType <= 321) {
@@ -61,9 +61,7 @@ public class Utility {
             return R.drawable.ots_clouds_medium;
         } else if (idWeatherType == 761 || idWeatherType == 781) {
             return R.drawable.ots_rain_medium;
-        } else if (idWeatherType == 800) {
-            return R.drawable.ots_sunny_medium;
-        } else if (idWeatherType == 801) {
+        } else if (idWeatherType >= 800 && idWeatherType <= 801) {
             return R.drawable.ots_sunny_medium;
         } else if (idWeatherType >= 802 && idWeatherType <= 804) {
             return R.drawable.ots_clouds_medium;
@@ -90,9 +88,7 @@ public class Utility {
             return R.drawable.ots_rain_small;
         } else if (idWeatherType == 761 || idWeatherType == 781) {
             return R.drawable.ots_rain_small;
-        } else if (idWeatherType == 800) {
-            return R.drawable.ots_sunny_small;
-        } else if (idWeatherType == 801) {
+        } else if (idWeatherType >= 800 && idWeatherType <= 801) {
             return R.drawable.ots_sunny_small;
         } else if (idWeatherType >= 802 && idWeatherType <= 804) {
             return R.drawable.ots_clouds_small;
@@ -264,10 +260,7 @@ public class Utility {
     public static boolean isSameDay(Date date1, Date date2){
         date1 = setDateToInitialHours(date1);
         date2 = setDateToInitialHours(date2);
-        if(date1.getTime() == date2.getTime()){
-            return true;
-        }
-        return false;
+        return date1.getTime() == date2.getTime();
     }
 
     public static boolean usesMiles(Context c){
@@ -275,11 +268,8 @@ public class Utility {
         boolean usesKilometers = sharedPref.getBoolean(OTSContract.USE_KILOMETERS, true);
 
         String country = Locale.getDefault().getCountry();
-        if ("US".equalsIgnoreCase(country) || !usesKilometers) {
-            return true;
-        }
+        return "US".equalsIgnoreCase(country) || !usesKilometers;
 
-        return false;
     }
     
     public static boolean usesFahrenheit(Context c){
@@ -287,11 +277,8 @@ public class Utility {
         boolean usesCelsius = sharedPref.getBoolean(OTSContract.USE_CELSIUS, true);
 
         String country = Locale.getDefault().getCountry();
-        if ("US".equalsIgnoreCase(country) || !usesCelsius) {
-            return true;
-        }
+        return "US".equalsIgnoreCase(country) || !usesCelsius;
 
-        return false;
     }
 
     public static Long findSearchByDate(Context context){
@@ -357,14 +344,11 @@ public class Utility {
     }
 
     public static boolean isDistanceSmallerThanMinimumDistance(Integer distance, Integer minimumDistance){
-        if(minimumDistance == null || minimumDistance.intValue() == 0 || (minimumDistance.compareTo(distance) >=0)){
-            return true;
-        }
-        return false;
+        return minimumDistance == null || minimumDistance.intValue() == 0 || (minimumDistance.compareTo(distance) >= 0);
     }
 
     public static boolean getBooleanValue(int value){
-        return (value==0? false:true);
+        return (value != 0);
     }
 
     public static boolean isGoogleMapsInstalled(Context mContext) {
@@ -372,6 +356,7 @@ public class Utility {
             ApplicationInfo info = mContext.getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
+
             return false;
         }
     }

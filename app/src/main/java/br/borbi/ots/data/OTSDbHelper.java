@@ -264,13 +264,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
     }
 
     private boolean isWhiteLine(String whiteLine) {
-        if (whiteLine == null) {
-            return true;
-        }
-        if (whiteLine.trim().length() == 0) {
-            return true;
-        }
-        return false;
+        return whiteLine == null || whiteLine.trim().length() == 0;
     }
 
 }

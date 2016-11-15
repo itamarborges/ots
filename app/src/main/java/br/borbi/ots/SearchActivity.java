@@ -51,7 +51,6 @@ public class SearchActivity extends ActionBarActivity {
     public static final String SEARCH = "SEARCH";
 
     private Context mContext;
-    private ArrayList<CityResultSearch> mCities;
     // Cidades nao validadas, retornadas da pesquisa pela previsao do tempo.
     private List<CityResultSearch> mCitiesFromSearch = null;
 
@@ -263,7 +262,7 @@ public class SearchActivity extends ActionBarActivity {
 
     private void validateCities(List<CityResultSearch> cities) {
         Long mIdSearch = null;
-        mCities = new ArrayList<CityResultSearch>();
+        ArrayList<CityResultSearch> mMCities = new ArrayList<CityResultSearch>();
 
         for (CityResultSearch cityResultSearch: cities) {
 
@@ -302,7 +301,7 @@ public class SearchActivity extends ActionBarActivity {
             if (validCity) {
                 cityResultSearch.setDayForecasts(dayForecasts);
                 cityResultSearch.setDistance(distance);
-                mCities.add(cityResultSearch);
+                mMCities.add(cityResultSearch);
             }
         }
 
@@ -316,9 +315,9 @@ public class SearchActivity extends ActionBarActivity {
         search.setDateTimeLastSearch(new Date());
         search.setOriginLatitude(lastLatitude);
         search.setOriginLongitude(lastLongitude);
-        search.setCites(mCities);
+        search.setCites(mMCities);
 
-        if (mCities.size() > 0) {
+        if (mMCities.size() > 0) {
             mIdSearch = saveSearch(search);
         }
 

@@ -23,16 +23,10 @@ public enum WeatherForecastSourcePriority {
     }
 
     public boolean isOpenWeather(){
-        if(this.equals(OPEN_WEATHER)){
-            return true;
-        }
-        return false;
+        return this.equals(OPEN_WEATHER);
     }
 
     public boolean isDeveloperForecast(){
-        if(this.equals(DEVELOPER_FORECAST)){
-            return true;
-        }
-        return false;
+        return this.equals(DEVELOPER_FORECAST);
     }
 }

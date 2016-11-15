@@ -116,10 +116,7 @@ public class City implements Serializable, Comparable<City>{
             return false;
         }
         City city = (City) o;
-        if(this.getId() == city.getId()){
-            return true;
-        }
-        return false;
+        return this.getId() == city.getId();
     }
 
     @Override

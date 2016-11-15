@@ -29,10 +29,10 @@
     <string name="detail_date">Data: <xliff:g>%1$s</xliff:g>.</string>
     <string name="detail_humidity">Umidade: <xliff:g>%1$s</xliff:g> \%</string>
     <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
-    <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF</string>
-    <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>
+    <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> °F</string>
+    <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> °C</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
-    <string name="failure_message_localization">Ops ... Não foi possível determinar sua localização. Habilite a localização em seu dispositivo e pressione o botão \"Tente me achar\".</string>
+    <string name="failure_message_localization">Ops … Não foi possível determinar sua localização. Habilite a localização em seu dispositivo e pressione o botão \"Tente me achar\".</string>
     <string name="max_temperature">Temperatura máxima:</string>
     <string name="no_data_available">Nenhuma cidade com sol encontrada. Tente alterar o período de dias, a distância, o número de dias com sol ou a temperatura mínima. Atualmente, procuramos cidades no Brasil, Canadá, França e Estados Unidos.</string>
     <string name="average_temperature">Temperaturas Médias:</string>
@@ -49,7 +49,7 @@
     <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F à <xliff:g>%2$s</xliff:g>º F</string>
     <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g>º C à <xliff:g>%2$s</xliff:g>º C</string>
     <string name="here_the_sun_shines">Aqui tem sol!</string>
-    <string name="searching_the_sun">Pesquisando ...</string>
+    <string name="searching_the_sun">Pesquisando …</string>
     <string name="next">Próximo</string>
     <string name="previous">Anterior</string>
     <string name="searching_sunny_cities_message1">Estamos buscando cidades com sol.</string>
@@ -57,7 +57,7 @@
     <string name="searching_sunny_cities_message3">Se estiver demorando muito, pense em diminuir o raio.</string>
     <string name="explanation_localization">Se o aplicativo não souber onde você está, não será possível determinar quais cidades estão dentro do raio informado. É essencial que a localização esteja habilitada para utilizar este aplicativo.</string>
     <string name="explanation_internet">Se você não tiver conexão à internet, o aplicativo não poderá buscar a previsão do tempo. É essencial que a conexão à internet esteja ativa para utilizar este aplicativo.</string>
-    <string name="failure_message_internet">Ops... Você parece estar sem internet. Verifique sua conexão e pressione o botão \"Tentar novamente\".</string>
+    <string name="failure_message_internet">Ops… Você parece estar sem internet. Verifique sua conexão e pressione o botão \"Tentar novamente\".</string>
     <string name="try_again">Tentar novamente</string>
     <string name="continue_anyway">Continuar mesmo assim</string>
     <string name="internet_is_down">Você ainda não tem conexão à internet. Por favor, tente novamente.</string>
@@ -84,7 +84,7 @@
     <string name="version">Versão: </string>
     <string name="facebookUrl">facebook.com/ondetemsol</string>
     <string name="developerForecastCredit">Fornecido por Dark Sky</string>
-    <string name="developerForecastLimitation">Não foi possível buscar previsão para mais de 7 dias por limitação do serviço de metereologia.</string>
+    <string name="developerForecastLimitation">Não foi possível buscar previsão para mais de 7 dias por limitação do serviço de meteorologia.</string>
     <string name="dateFormatDetails">dd/MM, EEEE</string>
     <string name="label_click_ofinion">Conheça nosso outro app, Ofinion. Clique no ícone ao lado para saber mais.</string>
     <string name="no_receiving_apps">Não há nenhum app instalado que permita visualizar o mapa.</string>
