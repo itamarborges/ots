@@ -1,6 +1,6 @@
 package br.borbi.ots.pojo;
 
-import br.borbi.ots.utility.CoordinatesUtillity;
+import br.borbi.ots.utility.CoordinatesUtility;
 
 /**
  * Created by Gabriela on 05/06/2015.
@@ -13,11 +13,11 @@ public class Coordinates {
     private double maxLongitude;
 
     public Coordinates(double lastLatitude, double lastLongitude, double distance) {
-        this.minLatitude = CoordinatesUtillity.getMinLatitude(lastLatitude,distance);
-        this.maxLatitude = CoordinatesUtillity.getMaxLatitude(lastLatitude, distance);
+        this.minLatitude = CoordinatesUtility.getMinLatitude(lastLatitude,distance);
+        this.maxLatitude = CoordinatesUtility.getMaxLatitude(lastLatitude, distance);
 
-        this.minLongitude = CoordinatesUtillity.getMinLongitude(lastLatitude, lastLongitude, distance);
-        this.maxLongitude = CoordinatesUtillity.getMaxLongitude(lastLatitude, lastLongitude, distance);
+        this.minLongitude = CoordinatesUtility.getMinLongitude(lastLatitude, lastLongitude, distance);
+        this.maxLongitude = CoordinatesUtility.getMaxLongitude(lastLatitude, lastLongitude, distance);
 
         if(this.minLatitude > this.maxLatitude){
             double aux = this.maxLatitude;

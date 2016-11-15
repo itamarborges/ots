@@ -19,7 +19,7 @@ import com.google.android.gms.location.LocationListener;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.entity.Search;
 import br.borbi.ots.model.SearchModel;
-import br.borbi.ots.utility.CoordinatesUtillity;
+import br.borbi.ots.utility.CoordinatesUtility;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.Utility;
@@ -103,7 +103,7 @@ public class ResultActivity extends ActionBarActivity implements GoogleApiClient
 
         Search search = SearchModel.findSearch(this);
         if (search != null){
-            Double distance = CoordinatesUtillity.getDistance(lastLatitude,lastLongitude, search.getOriginLatitude(), search.getOriginLongitude());
+            Double distance = CoordinatesUtility.getDistance(lastLatitude,lastLongitude, search.getOriginLatitude(), search.getOriginLongitude());
             if (!Utility.isDistanceSmallerThanMinimumDistance(distance.intValue(), 50)){
                 Toast.makeText(this, getString(R.string.location_not_found), Toast.LENGTH_LONG).show();
             }

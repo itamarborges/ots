@@ -30,7 +30,7 @@ import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.pojo.SearchParameters;
 import br.borbi.ots.task.FetchWeatherTask;
-import br.borbi.ots.utility.CoordinatesUtillity;
+import br.borbi.ots.utility.CoordinatesUtility;
 import br.borbi.ots.utility.DateUtility;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.LocationUtility;
@@ -234,7 +234,7 @@ public class SearchActivity extends ActionBarActivity {
 
                 City city = new City(c.getInt(numIndexCityId), c.getString(numIndexName), c.getString(numIndexCountryCode),null,c.getDouble(numIndexCityLatitude),c.getDouble(numIndexCityLongitude));
 
-                Integer distanceBetweenCities = Utility.roundCeil(CoordinatesUtillity.getDistance(lastLatitude, lastLongitude, city.getLatitude(), city.getLongitude()));
+                Integer distanceBetweenCities = Utility.roundCeil(CoordinatesUtility.getDistance(lastLatitude, lastLongitude, city.getLatitude(), city.getLongitude()));
 
                 if(Utility.isDistanceSmallerThanMinimumDistance(distanceBetweenCities, mMaxDistance)){
                     cities.add(city);
@@ -271,7 +271,7 @@ public class SearchActivity extends ActionBarActivity {
 
             List<DayForecast> dayForecasts = new LinkedList<DayForecast>();
 
-            Integer distance = Utility.roundCeil(CoordinatesUtillity.getDistance(lastLatitude, lastLongitude, cityResultSearch.getCity().getLatitude(), cityResultSearch.getCity().getLongitude()));
+            Integer distance = Utility.roundCeil(CoordinatesUtility.getDistance(lastLatitude, lastLongitude, cityResultSearch.getCity().getLatitude(), cityResultSearch.getCity().getLongitude()));
 
             if(Utility.isDistanceSmallerThanMinimumDistance(distance, mMaxDistance) && cityResultSearch.getDayForecasts()!=null){
 

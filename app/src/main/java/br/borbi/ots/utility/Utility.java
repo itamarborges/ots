@@ -208,16 +208,6 @@ public class Utility {
         return Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
     }
 
-    public static int getDefaultNumberOfDaysToShow(Date dateBegin, Date dateEnd){
-        int difference = Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
-        difference = difference/4;
-        if(difference == 0){
-            difference = 1;
-        }
-
-        return difference;
-    }
-
     static public boolean isNetworkAvailable(Context c) {
         ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -225,38 +215,10 @@ public class Utility {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    static public void setSharedPreferences(Context c, String key, String value, @DataType int dataType){
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
-        SharedPreferences.Editor spe = sp.edit();
-
-        switch (dataType) {
-            case INT:
-              spe.putInt(key, Integer.parseInt(value));
-            break;
-            default:
-                throw new UnsupportedOperationException("Datatype invalid!");
-        }
-        spe.apply();
-    }
-
     static public int roundCeil(Double num) {
         return (int) Math.ceil(num);
     }
-    /*
-        public static AdView initializeAd(AdView adView,Activity activity){
-            adView = (AdView)activity.findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-            adView.loadAd(adRequest);
-            return adView;
-        }
 
-        public static AdView initializeAdView(AdView adView, View view){
-            adView = (AdView) view.findViewById(R.id.adViewFragment);
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-            adView.loadAd(adRequest);
-            return adView;
-        }
-    */
     public static boolean isSameDay(Date date1, Date date2){
         date1 = setDateToInitialHours(date1);
         date2 = setDateToInitialHours(date2);

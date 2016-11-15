@@ -3,9 +3,7 @@ package br.borbi.ots.utility;
 /**
  * Created by Gabriela on 23/05/2015.
  */
-public class CoordinatesUtillity {
-
-    private static final String LOG_TAG = CoordinatesUtillity.class.getSimpleName();
+public class CoordinatesUtility {
 
     private static final double EARTH_RADIUS = 6371d;
 

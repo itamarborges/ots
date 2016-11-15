@@ -1,6 +1,6 @@
 package br.borbi.ots;
 
-import android.support.multidex.MultiDexApplication;
+import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -8,7 +8,7 @@ import com.google.android.gms.analytics.Tracker;
 /**
  * Created by Itamar on 30/07/2015.
  */
-public class MainApp extends MultiDexApplication {
+public class MainApp extends Application {
     public static GoogleAnalytics analytics;
     public static Tracker tracker;
 
