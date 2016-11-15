@@ -118,8 +118,12 @@ public final class LocationUtility {
         try {
             if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                     ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                LocationRequest locationRequest = createLocationRequest();
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, (LocationListener) mActivity);
+
+                if(mGoogleApiClient.isConnected()) {
+                    LocationRequest locationRequest = createLocationRequest();
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, (LocationListener) mActivity);
+                }
+
             }else{
                 Log.v(LOG_TAG,"Não tem permissão!");
             }

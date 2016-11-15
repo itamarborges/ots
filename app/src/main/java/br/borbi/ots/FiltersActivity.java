@@ -118,9 +118,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     private Boolean mAppJustOpened = false;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -199,7 +196,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         temperatureCheckbox = (CheckBox) findViewById(R.id.checkBoxTemperature);
         celsiusButton= (Button)findViewById(R.id.btnCelsius);
         fahrenheitButton = (Button)findViewById(R.id.btnFahrenheit);
-
 
         temperatureCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -732,12 +728,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private void defineNextStep(){
         if(mAppJustOpened) {
             mAppJustOpened = false;
-            if (mLastLongitude == null || mLastLatitude == null) {
-                Long searchId = Utility.findSearchByDate(mContext);
-                if (searchId != null) {
-                    ForwardUtility.goToResults(false, searchId, mContext);
-                }
-            } else {
+            if (mLastLongitude != null && mLastLatitude != null) {
                 Long searchId = Utility.findSearchByDateAndCoordinates(mLastLatitude, mLastLongitude, mContext);
 
                 if (searchId != null) {
@@ -769,16 +760,17 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         }
     }
 
-
     /**
      * Method to verify google play services on the device
      */
     private void findLocation() {
 
-        mLastLatitude = -30.03306;
-        mLastLongitude = -51.23;
-
-        LocationUtility.saveCoordinates(mLastLatitude, mLastLongitude, this);
+        boolean isTest= Boolean.valueOf(getString(R.string.app_in_test));
+        if(isTest) {
+           // mLastLatitude = -30.03306;
+           // mLastLongitude = -51.23;
+            // LocationUtility.saveCoordinates(mLastLatitude, mLastLongitude, this);
+        }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
