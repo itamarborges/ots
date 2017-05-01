@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import br.borbi.ots.R;
+import br.borbi.ots.credentials.Credentials;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
@@ -49,13 +50,7 @@ public class DeveloperForecastIntegration {
         try {
             String latLong = (new StringBuilder().append(city.getLatitude()).append(",").append(city.getLongitude())).toString();
 
-            String appKey;
-            boolean isTest= Boolean.valueOf(context.getString(R.string.app_in_test));
-            if(isTest) {
-                appKey = context.getString(R.string.developerforecast_key);
-            }else{
-                appKey = context.getString(R.string.developerforecast_key_producao);
-            }
+            String appKey = Credentials.getDeveloperForecast();
 
             Uri builtUri = Uri.parse(URL).buildUpon()
                     .appendPath(appKey)
