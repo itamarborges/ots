@@ -21,6 +21,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import br.borbi.ots.R;
+import br.borbi.ots.credentials.Credentials;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.Utility;
 
@@ -80,11 +81,7 @@ public class AdFragment extends Fragment {
 
     private void initializeAdAmazon(final Activity activity){
         boolean isTest= Boolean.valueOf(activity.getBaseContext().getString(R.string.app_in_test));
-        if(isTest){
-            AdRegistration.setAppKey(activity.getBaseContext().getString(R.string.amazon_app_key));
-        }else{
-            AdRegistration.setAppKey(activity.getBaseContext().getString(R.string.amazon_app_key_producao));
-        }
+        AdRegistration.setAppKey(Credentials.getAmazon());
         AdRegistration.enableLogging(isTest);
         AdRegistration.enableTesting(isTest);
 
@@ -136,13 +133,7 @@ public class AdFragment extends Fragment {
         mAdmobAdView = new com.google.android.gms.ads.AdView(activity);
         mAdmobAdView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
         boolean isTest= Boolean.valueOf(activity.getBaseContext().getString(R.string.app_in_test));
-        if(isTest){
-            mAdmobAdView.setAdUnitId(activity.getBaseContext().getString(R.string.admob_banner_ad_unit_id));
-        }else{
-            mAdmobAdView.setAdUnitId(activity.getBaseContext().getString(R.string.admob_banner_ad_unit_id_producao));
-        }
-
-
+        mAdmobAdView.setAdUnitId(Credentials.getAdMob());
         mAdmobAdView.setAdListener(new com.google.android.gms.ads.AdListener() {
 
             @Override

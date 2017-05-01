@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import br.borbi.ots.R;
+import br.borbi.ots.credentials.Credentials;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.CityResultSearch;
@@ -50,14 +51,7 @@ public class OpenWeatherIntegration {
         CityResultSearch cityResultSearch = null;
 
         try {
-            String appKey = null;
-            boolean isTest = Boolean.valueOf(context.getString(R.string.app_in_test));
-            if (isTest) {
-                appKey = context.getString(R.string.openweather_key);
-            } else {
-                appKey = context.getString(R.string.openweather_key_producao);
-            }
-
+            String appKey = Credentials.getOpenWeather();
             String cityName = city.getNameEnglish();
             int indexComma = cityName.indexOf(",");
             if(indexComma > 0) {
