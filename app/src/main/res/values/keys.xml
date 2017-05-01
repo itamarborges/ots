@@ -3,22 +3,6 @@
     <!-- Flag para indicar se app está em teste ou não -->
     <string translatable="false" name="app_in_test">true</string> <!-- Trocar para false quanto entrar em produção -->
 
-    <!-- Anúncios AdMob-->
-    <string translatable="false" name="admob_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string translatable="false" name="admob_banner_ad_unit_id_producao">ca-app-pub-7723898994387347/6641662118</string>
-    
-    <!-- Anúncios Amazon -->
-    <string translatable="false" name="amazon_app_key">sample-app-v1_pub-2aa</string>
-    <string translatable="false" name="amazon_app_key_producao">b331750b0ea54edfaeda588eba49427f</string>
-
     <!-- Fonte primária de anúncios -->
     <string name="primary_ad_source" translatable="false">admob</string> <!-- valores possíveis: amazon e admob -->
-
-    <!-- Chaves serviços de previsão do tempo -->
-    <string name="openweather_key" translatable="false">5ed032e071b3b0d20ae075ff8f8c7215</string>
-    <string name="openweather_key_producao" translatable="false">712325732390dd58c6eb1eebae3202a2</string>
-
-    <string name="developerforecast_key" translatable="false">e890138405ec89f522a93c2749773367</string>
-    <string name="developerforecast_key_producao" translatable="false">b012034346ab93467a2fd3a9cdc992d4</string>
-
 </resources>

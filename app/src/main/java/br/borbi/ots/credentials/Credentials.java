@@ -611,4 +611,41 @@ public final class Credentials {
             }
         }.toString());
     }
+
+    public static String getAnalytics() {
+        return (new Object() {
+            int t;
+
+            public String toString() {
+                byte[] buf = new byte[13];
+                t = 1722546525;
+                buf[0] = (byte) (t >>> 17);
+                t = 1306821529;
+                buf[1] = (byte) (t >>> 9);
+                t = 1121544384;
+                buf[2] = (byte) (t >>> 11);
+                t = 2099471344;
+                buf[3] = (byte) (t >>> 12);
+                t = 363964678;
+                buf[4] = (byte) (t >>> 11);
+                t = -1367814635;
+                buf[5] = (byte) (t >>> 6);
+                t = -1081972536;
+                buf[6] = (byte) (t >>> 9);
+                t = 1940283543;
+                buf[7] = (byte) (t >>> 13);
+                t = -1764552763;
+                buf[8] = (byte) (t >>> 12);
+                t = 371507822;
+                buf[9] = (byte) (t >>> 10);
+                t = 1662989372;
+                buf[10] = (byte) (t >>> 20);
+                t = 1521699700;
+                buf[11] = (byte) (t >>> 6);
+                t = -1507776131;
+                buf[12] = (byte) (t >>> 21);
+                return new String(buf);
+            }
+        }.toString());
+    }
 }
