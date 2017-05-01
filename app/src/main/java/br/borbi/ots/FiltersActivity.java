@@ -54,7 +54,6 @@ interface ClickFragment {
     void OnClickFragment(int v, Date date);
 }
 
-
 public class FiltersActivity extends AppCompatActivity implements ClickFragment,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener,ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final String LOG_TAG = FiltersActivity.class.getSimpleName();
