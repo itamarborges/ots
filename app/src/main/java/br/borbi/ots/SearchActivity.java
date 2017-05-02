@@ -255,7 +255,7 @@ public class SearchActivity extends ActionBarActivity {
 
         getContentResolver().delete(OTSContract.Search.CONTENT_URI,null,null);
 
-        weatherTask = new FetchWeatherTask(this, new TaskFinishedListener());
+        weatherTask = new FetchWeatherTask(new TaskFinishedListener());
         weatherTask.execute(searchParameters);
 
     }

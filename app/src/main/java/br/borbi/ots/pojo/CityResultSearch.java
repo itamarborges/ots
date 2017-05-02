@@ -1,7 +1,5 @@
 package br.borbi.ots.pojo;
 
-import android.os.Parcel;
-
 import java.io.Serializable;
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package br.borbi.ots.integration;
 
-import android.content.Context;
 import android.net.Uri;
 import android.text.format.Time;
 import android.util.Log;

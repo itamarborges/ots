@@ -24,12 +24,9 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
-    private final Context mContext;
-
     private final SearchActivity.TaskFinishedListener taskFinishedListener;
 
-    public FetchWeatherTask(Context context,SearchActivity.TaskFinishedListener taskFinishedListener) {
-        mContext = context;
+    public FetchWeatherTask(SearchActivity.TaskFinishedListener taskFinishedListener) {
         this.taskFinishedListener = taskFinishedListener;
     }
 

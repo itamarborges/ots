@@ -18,8 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdView;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
