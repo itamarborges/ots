@@ -33,9 +33,9 @@ public class CitiesAdapter extends BaseAdapter{
 
     private static final String LOG_TAG= CitiesAdapter.class.getSimpleName();
 
-    private HashMap<Long, LinkedList> tagsCity = new HashMap<>();
+    private final HashMap<Long, LinkedList> tagsCity = new HashMap<>();
 
-    private LinkedList<CityResultSearch> mCities;
+    private final LinkedList<CityResultSearch> mCities;
     private final Context mContext;
 
     public CitiesAdapter(LinkedList<CityResultSearch> cities, Context context) {
@@ -161,11 +161,9 @@ public class CitiesAdapter extends BaseAdapter{
         if(cityResultSearch.isFirstCity()){
             viewHolder.youAreHereImageView.setVisibility(View.VISIBLE);
             viewHolder.distanceTextView.setVisibility(View.GONE);
-            viewHolder.linearLayoutDistanceDistance.setVisibility(View.GONE);
         }else{
             viewHolder.youAreHereImageView.setVisibility(View.GONE);
             viewHolder.distanceTextView.setVisibility(View.VISIBLE);
-            viewHolder.linearLayoutDistanceDistance.setVisibility(View.VISIBLE);
         }
 
 
@@ -202,7 +200,6 @@ public class CitiesAdapter extends BaseAdapter{
         public final TextView distanceTextView;
         public final LinearLayout layoutCities;
         public final ImageView youAreHereImageView;
-        public final LinearLayout linearLayoutDistanceDistance;
 
         public ViewHolder(View view) {
             cityNameTextView = (TextView) view.findViewById(R.id.list_item_city_name_textview);
@@ -212,9 +209,6 @@ public class CitiesAdapter extends BaseAdapter{
             distanceTextView = (TextView) view.findViewById(R.id.list_item_distance_textview);
             layoutCities = (LinearLayout) view.findViewById(R.id.layout_search_city);
             youAreHereImageView = (ImageView) view.findViewById(R.id.image_view_you_are_here);
-            linearLayoutDistanceDistance = (LinearLayout) view.findViewById(R.id.linear_layout_distance);
         }
     }
-
-
 }

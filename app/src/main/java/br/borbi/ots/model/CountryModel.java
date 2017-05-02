@@ -82,18 +82,4 @@ public class CountryModel {
 
         return listCountries;
     }
-
-    public Country consult(Country CountryParam) {
-
-        Country Country = null;
-
-        return Country;
-    }
-
-    public LinkedList<Country> list(Country CountryParam) {
-
-        LinkedList<Country> listCountry = null;
-
-        return listCountry;
-    }
 }

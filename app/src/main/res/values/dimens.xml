@@ -26,8 +26,6 @@
     <dimen name="paddingBottomScreen">0dp</dimen>
     <dimen name="radius">10dp</dimen>
     <dimen name="customBorderLeftRight">10dp</dimen>
-    <dimen name="customBorderTopBotton">3dp</dimen>
-    <dimen name="paddingTagsCity">5dp</dimen>
     <dimen name="marginRightTagsCity">5dp</dimen>
     <dimen name="icon_about">2dp</dimen>
     <dimen name="aboutTitleTextSize">20sp</dimen>

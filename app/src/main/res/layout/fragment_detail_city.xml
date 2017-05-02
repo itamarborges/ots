@@ -84,7 +84,7 @@
         android:orientation="horizontal"
         android:layout_marginLeft="@dimen/title_fragment_horizontal_margin"
         android:layout_marginRight="@dimen/title_fragment_horizontal_margin"
-        >
+        android:baselineAligned="false">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -178,7 +178,6 @@
 
 
     <TextView
-        android:id="@+id/data_source_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceSmall"

@@ -20,7 +20,7 @@ public class CitiesListAdapter extends BaseAdapter{
 
     private static final String LOG_TAG= CitiesListAdapter.class.getSimpleName();
 
-    private LinkedList<City> mCities;
+    private final LinkedList<City> mCities;
     private final Context mContext;
 
     public CitiesListAdapter(LinkedList<City> cities, Context context) {

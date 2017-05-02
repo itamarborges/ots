@@ -25,8 +25,8 @@ public class LogUtility {
         if(arr==null){
             Log.v(className, "Empty array");
         }else {
-            for (int i = 0; i < arr.length; i++) {
-                Log.v(className, arr[i]);
+            for (String anArr : arr) {
+                Log.v(className, anArr);
             }
         }
     }
@@ -35,8 +35,8 @@ public class LogUtility {
         if(arr==null){
             Log.v(className, "Empty array");
         }else {
-            for (int i = 0; i < arr.length; i++) {
-                Log.v(className, "" + arr[i]);
+            for (int anArr : arr) {
+                Log.v(className, "" + anArr);
             }
         }
     }

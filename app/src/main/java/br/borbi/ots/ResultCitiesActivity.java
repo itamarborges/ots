@@ -14,8 +14,8 @@ public class ResultCitiesActivity extends ActionBarActivity {
     public static final String ID_REL_SEARCH_CITY = "ID_REL_SEARCH_CITY";
     public static final String CITY_NAME = "CITY_NAME";
 
-    int idRelSearchCityId;
-    String strNameCity;
+    private int idRelSearchCityId;
+    private String strNameCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

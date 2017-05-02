@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.text.format.Time;
 import android.widget.EditText;
@@ -37,9 +36,9 @@ public class Utility {
     @IntDef({STRING, INT, FLOAT})
     public @interface DataType {}
 
-    public static final int STRING = 0;
-    public static final int INT = 1;
-    public static final int
+    private static final int STRING = 0;
+    private static final int INT = 1;
+    private static final int
             FLOAT = 2;
 
     public static int getMediumArtResourceForWeatherCondition(int idWeatherType) {
@@ -135,7 +134,7 @@ public class Utility {
         return Double.valueOf((temperatureInCelsius *1.8)+32).intValue();
     }
 
-    public static int getDifferenceInDays(Date dateBegin, Date dateEnd){
+    private static int getDifferenceInDays(Date dateBegin, Date dateEnd){
         Long difference = dateEnd.getTime() - dateBegin.getTime();
         difference = (difference/1000)/60/60/24;
         return difference.intValue();
@@ -306,7 +305,7 @@ public class Utility {
     }
 
     public static boolean isDistanceSmallerThanMinimumDistance(Integer distance, Integer minimumDistance){
-        return minimumDistance == null || minimumDistance.intValue() == 0 || (minimumDistance.compareTo(distance) >= 0);
+        return minimumDistance == null || minimumDistance == 0 || (minimumDistance.compareTo(distance) >= 0);
     }
 
     public static boolean getBooleanValue(int value){
@@ -315,7 +314,7 @@ public class Utility {
 
     public static boolean isGoogleMapsInstalled(Context mContext) {
         try {
-            ApplicationInfo info = mContext.getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0);
+            mContext.getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
 

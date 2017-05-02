@@ -51,7 +51,7 @@ public class ForwardUtility {
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        if((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)){
+        if((lastLatitude == null && lastLongitude == null) || (lastLatitude == 0d && lastLongitude == 0d)){
             AlertDialog dialog = LocationUtility.buildLocationDialog(context);
             if(dialog!=null) {
                 dialog.show();

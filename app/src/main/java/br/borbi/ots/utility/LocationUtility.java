@@ -9,10 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -52,23 +50,21 @@ public final class LocationUtility {
         mGoogleApiClient.connect();
     }
 
-    public static LocationRequest createLocationRequest() {
-        LocationRequest locationRequest = LocationRequest.create()
+    private static LocationRequest createLocationRequest() {
+        return LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
                 .setInterval(5 * 1000)        // 5 seconds, in milliseconds
                 .setFastestInterval(1000); // 1 second, in milliseconds
-
-        return locationRequest;
     }
 
-    public static void disconnectFromLocationServices(GoogleApiClient googleApiClient, LocationListener locationListener) {
+    private static void disconnectFromLocationServices(GoogleApiClient googleApiClient, LocationListener locationListener) {
         if (googleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, locationListener);
             googleApiClient.disconnect();
         }
     }
 
-    public static void saveCoordinates(Double lastLatitude, Double lastLongitude, Activity activity) {
+    private static void saveCoordinates(Double lastLatitude, Double lastLongitude, Activity activity) {
         SharedPreferences sharedPreferences = activity.getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 

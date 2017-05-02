@@ -13,7 +13,7 @@ public class DateUtility {
 
     private static final String LOG_TAG = DateUtility.class.getSimpleName();
 
-    public static int getFirstDayOfWeek(){
+    private static int getFirstDayOfWeek(){
         Calendar cal = new GregorianCalendar();
         return cal.getFirstDayOfWeek();
     }
@@ -28,7 +28,7 @@ public class DateUtility {
         return calendar;
     }
 
-    public static boolean isFirstDayOfWeek(Date date){
+    private static boolean isFirstDayOfWeek(Date date){
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.get(Calendar.DAY_OF_WEEK);

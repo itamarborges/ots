@@ -18,7 +18,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.LinkedList;
 
-import br.borbi.ots.R;
 import br.borbi.ots.credentials.Credentials;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;
@@ -97,11 +96,6 @@ public class OpenWeatherIntegration {
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage(), e);
-            // If the code didn't successfully get the weather data, there's no point in attempting
-            // to parse it.
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -118,8 +112,7 @@ public class OpenWeatherIntegration {
         return cityResultSearch;
     }
 
-    private static CityResultSearch getWeatherDataFromJson(String forecastJsonStr, City citySearched)
-            throws JSONException {
+    private static CityResultSearch getWeatherDataFromJson(String forecastJsonStr, City citySearched) {
 
         // These are the names of the JSON objects that need to be extracted.
 

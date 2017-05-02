@@ -33,15 +33,15 @@ public class OTSDbHelper extends SQLiteOpenHelper {
 
     private static final String DROP_TABLE_IF_EXISTS = "DROP TABLE IF EXISTS ";
 
-    public static final long COUNTRY_ID_BRAZIL = 100000;
-    public static final long COUNTRY_ID_USA = 100001;
-    public static final long COUNTRY_ID_FRANCE = 100002;
-    public static final long COUNTRY_ID_CANADA = 100003;
+    private static final long COUNTRY_ID_BRAZIL = 100000;
+    private static final long COUNTRY_ID_USA = 100001;
+    private static final long COUNTRY_ID_FRANCE = 100002;
+    private static final long COUNTRY_ID_CANADA = 100003;
 
-    private static HashMap<String,Integer> mExistingTags = new HashMap<String,Integer>();
+    private static final HashMap<String,Integer> mExistingTags = new HashMap<String,Integer>();
     private static Integer mNextTagId = 100000;
 
-    private static Context mContext;
+    private final Context mContext;
 
     private long idInicialCity = 100000;
     private long idInicialRelTagCity = 100000;
@@ -191,9 +191,6 @@ public class OTSDbHelper extends SQLiteOpenHelper {
     private void readCitiesFile(SQLiteDatabase db, InputStream inputStream){
 
         try {
-            Resources res =  mContext.getResources();
-
-            //BufferedReader in = new BufferedReader(new InputStreamReader(res.openRawResource(R.raw.citiesbrazil), "UTF-8"));
             BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 
             while (in.ready()) {
@@ -217,10 +214,10 @@ public class OTSDbHelper extends SQLiteOpenHelper {
                         db.execSQL("INSERT INTO " + City.TABLE_NAME + "(" + City._ID + ", " + City.COLUMN_NAME_COUNTRY_ID + ", " + City.COLUMN_NAME_LATITUDE + ", " + City.COLUMN_NAME_LONGITUDE + ", " + City.COLUMN_NAME_NAME_ENGLISH + ", " + City.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + idInicialCity + "," + getCountryId(countryCode) + "," + latitude + ", " + longitude + ",'" + cityName + "','" + translationFileKey + "');");
                     }
                     // Inserir rel_tag para cada uma  OK
-                    for (int i=0;i<tags.length;i++){
-                        String tag = tags[i].trim();
-                        if(!tag.isEmpty()){
-                            db.execSQL("INSERT INTO " + RelCityTag.TABLE_NAME + "(" + RelCityTag._ID + ", " + RelCityTag.COLUMN_NAME_CITY_ID + ", " + RelCityTag.COLUMN_NAME_TAG_ID + ") VALUES (" + idInicialRelTagCity + ", " + idInicialCity + "," + getTagId(tag,db) + ");");
+                    for (String tag1 : tags) {
+                        String tag = tag1.trim();
+                        if (!tag.isEmpty()) {
+                            db.execSQL("INSERT INTO " + RelCityTag.TABLE_NAME + "(" + RelCityTag._ID + ", " + RelCityTag.COLUMN_NAME_CITY_ID + ", " + RelCityTag.COLUMN_NAME_TAG_ID + ") VALUES (" + idInicialRelTagCity + ", " + idInicialCity + "," + getTagId(tag, db) + ");");
                             idInicialRelTagCity++;
                         }
                     }

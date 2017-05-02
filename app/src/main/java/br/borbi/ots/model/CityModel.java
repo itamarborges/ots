@@ -131,20 +131,6 @@ public class CityModel {
         return listCities;
     }
 
-    public City consult(City cityParam) {
-
-        City city = null;
-
-        return city;
-    }
-
-    public LinkedList<City> list(City cityParam) {
-
-        LinkedList<City> listCity = null;
-
-        return listCity;
-    }
-
 /*
     public LinkedList<City> getCitiesWithTags(City cityParam) {
 

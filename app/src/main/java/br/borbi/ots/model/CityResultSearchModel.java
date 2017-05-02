@@ -35,16 +35,16 @@ public class CityResultSearchModel {
     };
 
     // these indices must match the projection
-    public static final int INDEX_COUNTRY_TRANSLATION_FILE_KEY = 0;
-    public static final int INDEX_CITY_NAME = 1;
+    private static final int INDEX_COUNTRY_TRANSLATION_FILE_KEY = 0;
+    private static final int INDEX_CITY_NAME = 1;
     public static final int INDEX_SEARCH_ID = 2;
-    public static final int INDEX_REL_SEARCH_CITY_ID = 3;
-    public static final int INDEX_REL_SEARCH_CITY_DISTANCE = 4;
-    public static final int INDEX_REL_SEARCH_FORECAST_SOURCE = 5;
-    public static final int INDEX_CITY_ID = 6;
-    public static final int INDEX_CITY_LATITUDE = 7;
-    public static final int INDEX_CITY_LONGITUDE = 8;
-    public static final int INDEX_CITY_TRANSLATION_FILE_KEY = 9;
+    private static final int INDEX_REL_SEARCH_CITY_ID = 3;
+    private static final int INDEX_REL_SEARCH_CITY_DISTANCE = 4;
+    private static final int INDEX_REL_SEARCH_FORECAST_SOURCE = 5;
+    private static final int INDEX_CITY_ID = 6;
+    private static final int INDEX_CITY_LATITUDE = 7;
+    private static final int INDEX_CITY_LONGITUDE = 8;
+    private static final int INDEX_CITY_TRANSLATION_FILE_KEY = 9;
 
     public static LinkedList<CityResultSearch> list(Context contextParam){
 

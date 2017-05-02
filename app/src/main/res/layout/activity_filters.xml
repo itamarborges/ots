@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/layoutLeftRight"
     android:paddingTop="@dimen/paddingMarginBottonTop"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="br.borbi.ots.FiltersActivity"
     android:background="@color/ots_pure_white">
@@ -19,7 +19,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/datePeriod"
         android:paddingLeft="@dimen/paddingLeftRight"
         android:paddingRight="@dimen/paddingLeftRight"
         android:paddingTop="@dimen/paddingMarginBottonTop">
@@ -28,7 +27,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/datePeriod"
-            android:id="@+id/textViewDatePeriod"
             android:gravity="center"
             android:textAppearance="@style/titleTextView"
             android:layout_marginTop="@dimen/paddingMarginBottonTop"
@@ -37,7 +35,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="@dimen/sizeGroup"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -79,7 +78,6 @@
                 android:layout_height="fill_parent"
                 android:background="@drawable/border_gray"
                 android:layout_marginLeft="@dimen/distanceCalendar"
-                android:id="@+id/layoutDateEnd"
                 android:onClick="showCalendar">
 
             <TextView
@@ -122,7 +120,6 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/sizeSeparator"
-        android:id="@+id/separator"
         android:visibility="visible"
         android:background="@android:color/darker_gray"
         />
@@ -130,7 +127,6 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayoutDistance"
         android:orientation="vertical"
         android:paddingLeft="@dimen/paddingLeftRight"
         android:paddingRight="@dimen/paddingLeftRight"
@@ -140,7 +136,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/max_distance"
-            android:id="@+id/textViewMaxDistance"
             android:textStyle="bold"
             android:textAppearance="@style/titleTextView"
             android:gravity="center_vertical|center_horizontal"
@@ -194,8 +189,7 @@
                 />
 
             <RadioGroup
-            android:id="@+id/radioGroupDistance"
-            android:layout_width="wrap_content"
+                android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
                 android:visibility="gone">
@@ -203,15 +197,12 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/kilometers"
-                android:id="@+id/radioButtonKm"
-                />
+                android:text="@string/kilometers" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/miles"
-                android:id="@+id/radioButtonMiles" />
+                android:text="@string/miles" />
         </RadioGroup>
 
         </LinearLayout>
@@ -219,7 +210,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/help_distance"
-            android:id="@+id/helpTextView"
             android:textAppearance="@style/subtitleTextView"
             android:gravity="left"
             android:paddingTop="@dimen/paddingMarginBottonTop"
@@ -230,7 +220,6 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/sizeSeparator"
-        android:id="@+id/separator2"
         android:visibility="visible"
         android:background="@android:color/darker_gray"
         />
@@ -239,7 +228,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/linearLayoutSunnyDays"
         android:paddingLeft="@dimen/paddingLeftRight"
         android:paddingRight="@dimen/paddingLeftRight"
         android:paddingTop="@dimen/paddingMarginBottonTop">
@@ -248,7 +236,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/qty_sunny_days"
-            android:id="@+id/textViewQtySunnyDays"
             android:textAppearance="@style/titleTextView"
             android:textAlignment="center"
             android:gravity="center_vertical|center_horizontal"
@@ -292,7 +279,6 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="@dimen/sizeSeparator"
-        android:id="@+id/separator3"
         android:visibility="visible"
         android:background="@android:color/darker_gray"
         />
@@ -302,7 +288,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/linearLayoutTemperature"
         android:paddingLeft="@dimen/paddingLeftRight"
         android:paddingRight="@dimen/paddingLeftRight"
         android:paddingTop="@dimen/paddingMarginBottonTop">
@@ -311,7 +296,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/min_temperature"
-            android:id="@+id/textViewMinTemperature"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:elegantTextHeight="false"
@@ -382,7 +366,7 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="@string/dont_care"
             android:id="@+id/checkBoxTemperature"
             android:layout_marginLeft="@dimen/checkAlignLeft"
