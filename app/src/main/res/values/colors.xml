@@ -1,15 +1,10 @@
 <resources>
-
     <color name="black_overlay">#66000000</color>
     <color name="ots_pure_white">#FFFFFF</color>
-    <color name="yellow_bar">#FBC02D</color>
-    <color name="yellow_light">#FFEB3B</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="ots_blue">#1ca8f4</color>
     <color name="ots_dark_blue">#0288D1</color>
-    <color name="ots_green">#ff80f63e</color>
     <color name="ots_dark_grey">#ff696969</color>
     <color name="ots_disabled_button_color">#E0E0E0</color>
     <color name="ots_pure_black">#000000</color>
-
 </resources>

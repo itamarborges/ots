@@ -132,7 +132,6 @@ public class AdFragment extends Fragment {
     private void initializeAdmob(Activity activity){
         mAdmobAdView = new com.google.android.gms.ads.AdView(activity);
         mAdmobAdView.setAdSize(com.google.android.gms.ads.AdSize.BANNER);
-        boolean isTest= Boolean.valueOf(activity.getBaseContext().getString(R.string.app_in_test));
         mAdmobAdView.setAdUnitId(Credentials.getAdMob());
         mAdmobAdView.setAdListener(new com.google.android.gms.ads.AdListener() {
 

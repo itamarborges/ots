@@ -21,8 +21,6 @@ public class AboutActivity extends ActionBarActivity {
 
         ImageView img = (ImageView) findViewById(R.id.ofinion_img);
 
-        //img.setImageBitmap(ImageUtils.decodeSampledBitmapFromResource(getResources(), R.drawable.logo_ofinion, getResources().getInteger(R.integer.max_width_logo), getResources().getInteger(R.integer.max_height_logo)));
-
         img.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent();
@@ -32,10 +30,6 @@ public class AboutActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
-//        ImageView imgOfinion = (ImageView) findViewById(R.id.imageOtsIcon);
-//
-//        imgOfinion.setImageBitmap(ImageUtils.decodeSampledBitmapFromResource(getResources(), R.drawable.logo, getResources().getInteger(R.integer.max_width_logo), getResources().getInteger(R.integer.max_height_logo)));
     }
 
 

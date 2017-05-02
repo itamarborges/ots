@@ -14,7 +14,7 @@ import br.borbi.ots.pojo.DayForecast;
 /**
  * Created by Gabriela on 23/10/2015.
  */
-public class DayForecastModel {
+class DayForecastModel {
 
     private static final String[] RESULT_CITY_COLUMNS = {
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE,

@@ -46,7 +46,7 @@ public class SearchActivity extends ActionBarActivity {
 
     private static final String LOG_TAG = SearchActivity.class.getName();
 
-    public static final String MINIMUM_DISTANCE = "MINIMUM_DISTANCE";
+    private static final String MINIMUM_DISTANCE = "MINIMUM_DISTANCE";
 
     public static final String SEARCH = "SEARCH";
 
@@ -190,7 +190,7 @@ public class SearchActivity extends ActionBarActivity {
     private List<City> searchCities(double distance, double lastLatitude, double lastLongitude) {
         Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, distance);
 
-        StringBuffer whereClause = new StringBuffer(
+        StringBuilder whereClause = new StringBuilder(
                 OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ?")
                 .append(" AND ")
                 .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ?")
@@ -416,7 +416,7 @@ public class SearchActivity extends ActionBarActivity {
 
         private class MyTimerTask extends TimerTask{
 
-            private String message;
+            private final String message;
             public MyTimerTask(String message) {
                 this.message = message;
             }

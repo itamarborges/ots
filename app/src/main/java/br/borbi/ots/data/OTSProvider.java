@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.List;
 
@@ -18,25 +19,26 @@ import br.borbi.ots.entity.Search;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.pojo.DayForecast;
+import br.borbi.ots.utility.LogUtility;
 
 /**
  * Created by Itamar on 08/04/2015.
  */
 public class OTSProvider extends ContentProvider {
 
-    static final int TAG = 100;
-    static final int REL_CITY_TAG = 200;
-    static final int CITY = 300;
-    static final int COUNTRY = 700;
-    static final int SEARCH = 800;
-    static final int REL_SEARCH_CITY = 900;
-    static final int RESULT_SEARCH = 1000;
-    static final int LIST_CITIES_BY_COORDINATES = 1100;
-    static final int LIST_CITIES_BY_SEARCH = 1200;
-    static final int LIST_TAGS_FROM_A_CITY = 1300;
-    static final int LIST_CITIES_WITH_TAGS = 1400;
-    static final int LIST_CITIES_BY_SEARCH_AND_BY_NEW_SEARCH_PARAMETERS = 1500;
-    static final int LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY = 1600;
+    private static final int TAG = 100;
+    private static final int REL_CITY_TAG = 200;
+    private static final int CITY = 300;
+    private static final int COUNTRY = 700;
+    private static final int SEARCH = 800;
+    private static final int REL_SEARCH_CITY = 900;
+    private static final int RESULT_SEARCH = 1000;
+    private static final int LIST_CITIES_BY_COORDINATES = 1100;
+    private static final int LIST_CITIES_BY_SEARCH = 1200;
+    private static final int LIST_TAGS_FROM_A_CITY = 1300;
+    private static final int LIST_CITIES_WITH_TAGS = 1400;
+    private static final int LIST_CITIES_BY_SEARCH_AND_BY_NEW_SEARCH_PARAMETERS = 1500;
+    private static final int LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY = 1600;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private static final String CLASS_NAME = OTSProvider.class.getName();
@@ -432,7 +434,7 @@ public class OTSProvider extends ContentProvider {
         }
     }
 
-    public Cursor listTagsFromACity(String[] projection, String selection, String[] selectionArgs) {
+    private Cursor listTagsFromACity(String[] projection, String selection, String[] selectionArgs) {
         SQLiteQueryBuilder sTagsFromACityQueryBuilder = new SQLiteQueryBuilder();
 
         sTagsFromACityQueryBuilder.setTables(
@@ -469,7 +471,7 @@ public class OTSProvider extends ContentProvider {
 
     }
 
-    public Cursor listCitiesByCoordinates(String[] projection, String selection, String[] selectionArgs) {
+    private Cursor listCitiesByCoordinates(String[] projection, String selection, String[] selectionArgs) {
         SQLiteQueryBuilder sWeatherByLocationSettingQueryBuilder = new SQLiteQueryBuilder();
 
         sWeatherByLocationSettingQueryBuilder.setTables(
@@ -499,7 +501,7 @@ public class OTSProvider extends ContentProvider {
 
     }
 
-    public Cursor listCitiesBySearch(String[] projection, String selection, String[] selectionArgs) {
+    private Cursor listCitiesBySearch(String[] projection, String selection, String[] selectionArgs) {
         SQLiteQueryBuilder sWeatherBySearchQueryBuilder = new SQLiteQueryBuilder();
         /*
         select rel_country_language.name, rel_city_language.name,
@@ -547,7 +549,7 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
     }
 
 
-    public Cursor listCitiesWithTags(String[] projection, String selection, String[] selectionArgs) {
+    private Cursor listCitiesWithTags(String[] projection, String selection, String[] selectionArgs) {
         SQLiteQueryBuilder sCitiesWithTagsQueryBuilder = new SQLiteQueryBuilder();
         /*
         select rel_country_language.name, rel_city_language.name,
@@ -669,7 +671,7 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
             db.setTransactionSuccessful();
 
         } catch (Exception e) {
-
+            Log.e(LogUtility.makeLogTag(OTSProvider.class), e.getLocalizedMessage(), e);
         } finally {
             db.endTransaction();
         }
@@ -680,7 +682,7 @@ from search INNER JOIN rel_search_city ON search._id = rel_search_city.search_id
         return bundle;
     }
 
-    public Cursor listCitiesBySearchAlreadyMade(String[] projection, String selection, String[] selectionArgs) {
+    private Cursor listCitiesBySearchAlreadyMade(String[] projection, String selection, String[] selectionArgs) {
         SQLiteQueryBuilder sWeatherBySearchQueryBuilder = new SQLiteQueryBuilder();
         /*
         select sc.*
@@ -761,7 +763,7 @@ s.date_end >= ? //dt final da pesquisa atual
                 null);
     }
 
-    public Cursor listDayForecastResultSearch(String[] projection, String selection, String[] selectionArgs){
+    private Cursor listDayForecastResultSearch(String[] projection, String selection, String[] selectionArgs){
         SQLiteQueryBuilder sqLiteQueryBuilder = new SQLiteQueryBuilder();
 
         StringBuilder sql = new StringBuilder();

@@ -43,8 +43,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        GoogleMap mMMap = googleMap;
-
         Intent mMIntent = getIntent();
 
         ArrayList<CityResultSearch> mCities = (ArrayList<CityResultSearch>) mMIntent.getSerializableExtra(INDEX_LIST_CITIES);
@@ -60,12 +58,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng city = new LatLng(cityResultSearch.getCity().getLatitude(), cityResultSearch.getCity().getLongitude());
 
             if (cityResultSearch.isFirstCity()) {
-                mMMap.addMarker(new MarkerOptions()
+                googleMap.addMarker(new MarkerOptions()
                         .position(city)
                         .title(cityResultSearch.getCity().getName())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_black_36dp)));
             } else {
-                mMMap.addMarker(new MarkerOptions()
+                googleMap.addMarker(new MarkerOptions()
                         .position(city)
                         .title(cityResultSearch.getCity().getName())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_blue_36dp)));
@@ -98,7 +96,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLngBounds latLngBounds = new LatLngBounds(new LatLng(smallestLatitude, smallestLongitude), new LatLng(biggestLatitude, biggestLongitude));
 
-        mMMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, width, height, getResources().getInteger(R.integer.map_padding)));
-
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, width, height, getResources().getInteger(R.integer.map_padding)));
     }
 }

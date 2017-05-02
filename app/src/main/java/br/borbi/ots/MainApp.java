@@ -11,8 +11,8 @@ import br.borbi.ots.credentials.Credentials;
  * Created by Itamar on 30/07/2015.
  */
 public class MainApp extends Application {
-    public static GoogleAnalytics analytics;
-    public static Tracker tracker;
+    private static GoogleAnalytics analytics;
+    private static Tracker tracker;
 
     @Override
     public void onCreate() {

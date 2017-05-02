@@ -110,8 +110,6 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
 
         String sortOrder = OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE +" ASC";
 
-        Uri uriResultCity = OTSContract.ResultSearch.CONTENT_URI;
-
         String[] selectionArgs;
         String selection;
 
