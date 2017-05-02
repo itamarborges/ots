@@ -31,7 +31,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
     public FetchWeatherTask(Context context,SearchActivity.TaskFinishedListener taskFinishedListener) {
         mContext = context;
         this.taskFinishedListener = taskFinishedListener;
-
     }
 
     @Override
@@ -43,7 +42,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
         SearchParameters searchParameters = params[0];
 
-        List<CityResultSearch> cities = new ArrayList<CityResultSearch>();
+        List<CityResultSearch> cities = new ArrayList<>();
         List<City> citiesToSearch = searchParameters.getCities();
 
         CityResultSearch cityResultSearchAux = null;
@@ -86,11 +85,11 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
     }
 
     private CityResultSearch searchOpenWeatherData(City city, int numberOfDays){
-        return OpenWeatherIntegration.searchWeatherData(city,numberOfDays,mContext);
+        return OpenWeatherIntegration.searchWeatherData(city,numberOfDays);
     }
 
     private CityResultSearch searchDeveloperForecastData(City city, int numberOfDays){
-        return DeveloperForecastIntegration.searchWeatherData(city,numberOfDays,mContext);
+        return DeveloperForecastIntegration.searchWeatherData(city);
     }
 
     @Override

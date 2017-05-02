@@ -39,7 +39,7 @@ public class OpenWeatherIntegration {
     private static final String UNITS = "metric";
     private static final String LOG_TAG = OpenWeatherIntegration.class.getSimpleName();
 
-    public static CityResultSearch searchWeatherData(City city, int numberOfDays, Context context) {
+    public static CityResultSearch searchWeatherData(City city, int numberOfDays) {
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -76,21 +76,17 @@ public class OpenWeatherIntegration {
 
             // Read the input stream into a String
             InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (inputStream != null) {
                 reader = new BufferedReader(new InputStreamReader(inputStream));
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-
-                    buffer.append(line + "\n");
+                    buffer.append(line).append("\n");
                 }
 
                 if (buffer.length() != 0) {
                     forecastJsonStr = buffer.toString();
-                    //Log.v(LOG_TAG,"cidade: " + cityToSearch.getNameEnglish() );
-                    //Log.v(LOG_TAG, "cidade: " + city.getNameEnglish() + ", retorno: " + forecastJsonStr);
-
                     cityResultSearch = getWeatherDataFromJson(forecastJsonStr, city);
                 }
             }
@@ -137,7 +133,7 @@ public class OpenWeatherIntegration {
         final String OWM_PRECIPITATION = "rain";
         final String OWM_HUMIDITY = "humidity";
 
-        LinkedList<DayForecast> daysForecast = new LinkedList<DayForecast>();
+        LinkedList<DayForecast> daysForecast = new LinkedList<>();
         CityResultSearch cityResultSearch = null;
 
         try {

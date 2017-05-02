@@ -32,7 +32,7 @@ public class CitiesListActivity extends ActionBarActivity {
 
         Spinner countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         mListView = (ListView) findViewById(R.id.listView);
-        mEmptyView = (TextView) findViewById(R.id.listview_list_cities_empty);
+        mEmptyView = findViewById(R.id.listview_list_cities_empty);
 
         final LinkedList<Country> listCountries = CountryModel.listCountries(getApplication());
 

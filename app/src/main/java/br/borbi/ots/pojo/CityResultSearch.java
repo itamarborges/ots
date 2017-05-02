@@ -26,24 +26,9 @@ public class CityResultSearch implements Comparable<CityResultSearch>, Serializa
         this.weatherForecastSourceUsed = weatherSource;
     }
 
-    public CityResultSearch(City city, Integer distance, Integer idResultSearch) {
-        this.city = city;
-        this.distance = distance;
-        this.idResultSearch = idResultSearch;
-    }
-
-    public CityResultSearch(City city, Integer distance) {
-        this.city = city;
-        this.distance = distance;
-    }
-
     public CityResultSearch(City city, List<DayForecast> dayForecasts) {
         this.city = city;
         this.dayForecasts = dayForecasts;
-    }
-
-    protected CityResultSearch(Parcel in) {
-        isFirstCity = in.readByte() != 0;
     }
 
     public City getCity() {

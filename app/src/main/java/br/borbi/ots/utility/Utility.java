@@ -3,7 +3,6 @@ package br.borbi.ots.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -142,14 +141,6 @@ public class Utility {
 
     public static Date getDate(int year, int monthOfYear, int dayOfMonth){
         return (new GregorianCalendar(year,monthOfYear,dayOfMonth,0,0,0)).getTime();
-    }
-
-    /*
-    Formata a data marcada no calendario de acordo com o formato marcado como padrao no aparelho.
-     */
-    public static String formatDate(int year, int monthOfYear, int dayOfMonth, DateFormat dateFormat) {
-        Calendar data = new GregorianCalendar(year,monthOfYear,dayOfMonth);
-        return dateFormat.format(data.getTime());
     }
 
     public static Date setDateToFinalHours(Date date){

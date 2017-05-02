@@ -11,9 +11,6 @@ import br.borbi.ots.fragment.ResultCityFragment;
 
 public class ResultCitiesActivity extends ActionBarActivity {
 
-    public static final String ID_REL_SEARCH_CITY = "ID_REL_SEARCH_CITY";
-    public static final String CITY_NAME = "CITY_NAME";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

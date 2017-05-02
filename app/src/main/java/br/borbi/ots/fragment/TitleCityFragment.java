@@ -22,8 +22,6 @@ public class TitleCityFragment extends Fragment {
 
     public static final String LOG_TAG = TitleCityFragment.class.getSimpleName();
 
-    private Set<String> mSetTags;
-
     public TitleCityFragment() {}
 
     @Override
@@ -42,7 +40,7 @@ public class TitleCityFragment extends Fragment {
 
         mMCityNameTextView.setText(mMStrCityName);
 
-        final LinkedList<String> tags = new LinkedList<String>();
+        final LinkedList<String> tags = new LinkedList<>();
         tags.addAll(mTags);
 
         if (tags.size() > 0) {
@@ -68,5 +66,4 @@ public class TitleCityFragment extends Fragment {
 
         return rootView;
     }
-
 }

@@ -38,7 +38,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
     private static final long COUNTRY_ID_FRANCE = 100002;
     private static final long COUNTRY_ID_CANADA = 100003;
 
-    private static final HashMap<String,Integer> mExistingTags = new HashMap<String,Integer>();
+    private static final HashMap<String,Integer> mExistingTags = new HashMap<>();
     private static Integer mNextTagId = 100000;
 
     private final Context mContext;

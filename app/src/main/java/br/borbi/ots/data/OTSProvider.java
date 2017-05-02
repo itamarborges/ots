@@ -41,12 +41,7 @@ public class OTSProvider extends ContentProvider {
     private static final int LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY = 1600;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
-    private static final String CLASS_NAME = OTSProvider.class.getName();
     private OTSDbHelper mOpenHelper;
-
-    public static final String FILTER_BY_SEARCH_ID=
-            OTSContract.Search.TABLE_NAME+
-                    "." + OTSContract.Search._ID + " = ? ";
 
     public static final String FILTER_BY_CITY = OTSContract.City.TABLE_NAME+"." + OTSContract.City._ID + " = ? ";
     public static final String FILTER_CITY_BY_COUNTRY = OTSContract.City.TABLE_NAME+"." + OTSContract.City.COLUMN_NAME_COUNTRY_ID + " = ? ";
