@@ -29,7 +29,6 @@ public class CitiesListActivity extends ActionBarActivity {
     public static final int INDEX_CITY_ID = 0;
     public static final int INDEX_CITY_TRANSLATION_FILE_KEY = 1;
 
-    private Spinner mCountrySpinner;
     AdView mAdView;
 
     @Override
@@ -37,9 +36,7 @@ public class CitiesListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities_list);
 
-        //mAdView = Utility.initializeAd(mAdView, this);
-
-        mCountrySpinner = (Spinner) findViewById(R.id.countrySpinner);
+        Spinner countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         mListView = (ListView) findViewById(R.id.listView);
         mEmptyView = (TextView) findViewById(R.id.listview_list_cities_empty);
 
@@ -50,9 +47,9 @@ public class CitiesListActivity extends ActionBarActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Create the list view and bind the adapter
-        mCountrySpinner.setAdapter(arrayAdapter);
+        countrySpinner.setAdapter(arrayAdapter);
 
-        mCountrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 

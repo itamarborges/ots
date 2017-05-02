@@ -17,7 +17,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.LinkedList;
 
-import br.borbi.ots.R;
 import br.borbi.ots.credentials.Credentials;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.City;

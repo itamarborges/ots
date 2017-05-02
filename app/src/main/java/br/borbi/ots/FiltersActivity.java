@@ -32,8 +32,6 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -45,7 +43,6 @@ import br.borbi.ots.pojo.Coordinates;
 import br.borbi.ots.utility.DateUtility;
 import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.LocationUtility;
-import br.borbi.ots.utility.LogUtility;
 import br.borbi.ots.utility.Utility;
 import br.borbi.ots.utility.ValidationUtility;
 
@@ -59,7 +56,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private static final String LOG_TAG = FiltersActivity.class.getSimpleName();
 
     public static final String CLASS_NAME = FiltersActivity.class.getName();
-    public static final String BUTTON_CLICKED = "BUTTON_CLICKED";
+    private static final String BUTTON_CLICKED = "BUTTON_CLICKED";
     public static final String DATE_BEGIN = "DATE_BEGIN";
     public static final String DATE_END = "DATE_END";
     public static final String DISTANCE = "DISTANCE";
@@ -67,13 +64,13 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     public static final String USE_CLOUDY_DAYS = "USE_CLOUDY_DAYS";
     public static final String MIN_TEMPERATURE = "MIN_TEMPERATURE";
     public static final String DONT_USE_TEMPERATURE = "DONT_USE_TEMPERATURE";
-    public static final int MAX_NUMBER_OF_DAYS = 15;
-    public static final String DISTANCE_DEFAULT = "250";
-    public static final int MINIMUM_DISTANCE_KILOMETERS=100;
-    public static final int MAXIMUM_DISTANCE_KILOMETERS=2000;
-    public static final int MINIMUM_DISTANCE_MILES=60;
-    public static final int MAXIMUM_DISTANCE_MILES=1250;
-    public static final int INDETERMINED_TEMPERATURE = 999;
+    private static final int MAX_NUMBER_OF_DAYS = 15;
+    private static final String DISTANCE_DEFAULT = "250";
+    private static final int MINIMUM_DISTANCE_KILOMETERS=100;
+    private static final int MAXIMUM_DISTANCE_KILOMETERS=2000;
+    private static final int MINIMUM_DISTANCE_MILES=60;
+    private static final int MAXIMUM_DISTANCE_MILES=1250;
+    private static final int INDETERMINED_TEMPERATURE = 999;
 
     private static DateFormat dateFormat;
     private TextView dateBeginView;
@@ -86,11 +83,11 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private static Date dateBegin;
     private static Date dateEnd;
 
-    private static Button kilometersButton;
-    private static Button milesButton;
+    private Button kilometersButton;
+    private Button milesButton;
 
-    private static Button celsiusButton;
-    private static Button fahrenheitButton;
+    private Button celsiusButton;
+    private Button fahrenheitButton;
 
     private boolean celsiusChecked = true;
     private boolean kilometersChecked = true;
@@ -325,7 +322,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        if ((lastLatitude == null && lastLongitude == null) || (lastLatitude.doubleValue() == 0d && lastLongitude.doubleValue() == 0d)) {
+        if ((lastLatitude == null && lastLongitude == null) || (lastLatitude == 0d && lastLongitude == 0d)) {
             AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
             if(dialog!=null) {
                 dialog.show();
@@ -343,8 +340,8 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
                 Long timeNow = time.toMillis(false);
 
-                useKilometers = (kilometersChecked) ? true : false;
-                useCelsius = (celsiusChecked) ? true : false;
+                useKilometers = kilometersChecked;
+                useCelsius = celsiusChecked;
 
                 //in milliseconds
                 long diff = timeNow - mLastSearchDateTime;
@@ -795,7 +792,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         }
     }
 
-    public AlertDialog buildInternetDialog(final Context context){
+    private AlertDialog buildInternetDialog(final Context context){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.explanation_internet).setTitle(R.string.failure_message_internet);
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

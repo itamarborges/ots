@@ -51,7 +51,7 @@ public final class OTSContract {
     public static final int INDETERMINATED_VALUE = 99999;
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
     // the content provider.
-    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     public static final String PATH_TAG = "tag";
     public static final String PATH_REL_CITY_TAG = "rel_city_tag";

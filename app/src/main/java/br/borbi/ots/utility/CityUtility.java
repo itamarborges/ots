@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * Created by Gabriela on 15/09/2015.
  */
-public class CityUtility {
+class CityUtility {
 
     public static String LOG_TAG = CityUtility.class.getSimpleName();
 

@@ -56,7 +56,8 @@
 
         <provider
             android:name=".data.OTSProvider"
-            android:authorities="br.borbi.ots.app"/>
+            android:authorities="br.borbi.ots.app"
+            android:exported="false" />
 
         <activity
             android:name=".FiltersActivity"

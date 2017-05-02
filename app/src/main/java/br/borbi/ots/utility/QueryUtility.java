@@ -5,10 +5,10 @@ import br.borbi.ots.data.OTSContract;
 /**
  * Created by Gabriela on 15/06/2015.
  */
-public class QueryUtility {
+class QueryUtility {
 
     public static String buildQuerySelectSearchByCoordinatesAndDate(){
-        StringBuffer whereClause = new StringBuffer(
+        StringBuilder whereClause = new StringBuilder(
                 OTSContract.Search.COLUMN_NAME_ORIGIN_LAT).append(" >= ?")
                 .append(" AND ")
                 .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT).append(" <= ?")
@@ -23,7 +23,7 @@ public class QueryUtility {
     }
 
     public static String buildQuerySelectSearchByDate(){
-        StringBuffer whereClause = new StringBuffer(OTSContract.Search.COLUMN_NAME_DATE_END).append(" >= ?");
+        StringBuilder whereClause = new StringBuilder(OTSContract.Search.COLUMN_NAME_DATE_END).append(" >= ?");
         return whereClause.toString();
     }
 }

@@ -26,7 +26,7 @@ public class
 
     private static final String LOG_TAG= ResultCityDayForecastAdapter.class.getSimpleName();
 
-    LinkedList<DayForecast> forecasts;
+    private final LinkedList<DayForecast> forecasts;
 
     private String strCityName;
 

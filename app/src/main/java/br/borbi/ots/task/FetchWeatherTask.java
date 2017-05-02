@@ -28,10 +28,6 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
     private SearchActivity.TaskFinishedListener taskFinishedListener;
 
-    public FetchWeatherTask(Context context) {
-        mContext = context;
-    }
-
     public FetchWeatherTask(Context context,SearchActivity.TaskFinishedListener taskFinishedListener) {
         mContext = context;
         this.taskFinishedListener = taskFinishedListener;

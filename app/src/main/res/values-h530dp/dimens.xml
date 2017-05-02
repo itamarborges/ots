@@ -27,8 +27,6 @@
     <dimen name="paddingBottomScreen">5dp</dimen>
     <dimen name="radius">10dp</dimen>
     <dimen name="customBorderLeftRight">10dp</dimen>
-    <dimen name="customBorderTopBotton">5dp</dimen>
-    <dimen name="paddingTagsCity">5dp</dimen>
     <dimen name="marginRightTagsCity">5dp</dimen>
     <dimen name="btnMapCities">20dp</dimen>
 
