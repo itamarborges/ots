@@ -25,12 +25,6 @@ public class CitiesListActivity extends ActionBarActivity {
     private ListView mListView;
     private View mEmptyView;
 
-    // these indices must match the projection
-    public static final int INDEX_CITY_ID = 0;
-    public static final int INDEX_CITY_TRANSLATION_FILE_KEY = 1;
-
-    AdView mAdView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
