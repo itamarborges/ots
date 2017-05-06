@@ -21,14 +21,11 @@ import br.borbi.ots.utility.Utility;
 /**
  * Created by Gabriela on 10/07/2015.
  */
-public class
-        ResultCityDayForecastAdapter extends BaseAdapter{
-
-    private static final String LOG_TAG= ResultCityDayForecastAdapter.class.getSimpleName();
+public class ResultCityDayForecastAdapter extends BaseAdapter {
 
     private final LinkedList<DayForecast> forecasts;
 
-    private String strCityName;
+    private String cityName;
 
     private int mQtyItens;
 
@@ -39,17 +36,13 @@ public class
         this.mContext = mContext;
     }
 
-    public String getStrCityName() {
-        return strCityName;
-    }
-
-    public void setStrCityName(String strCityName) {
-        this.strCityName = strCityName;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     @Override
     public int getCount() {
-        if(forecasts== null){
+        if (forecasts == null) {
             return 0;
         }
         return forecasts.size();
@@ -57,7 +50,7 @@ public class
 
     @Override
     public Object getItem(int position) {
-        if(forecasts== null) {
+        if (forecasts == null) {
             return null;
         }
         return forecasts.get(position);
@@ -72,34 +65,31 @@ public class
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
 
-        if(convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item_result_city, parent, false);
 
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final DayForecast dayForecast = (DayForecast)getItem(position);
-        if(dayForecast == null){
+        final DayForecast dayForecast = (DayForecast) getItem(position);
+        if (dayForecast == null) {
             viewHolder.dateTextView.setText("");
             viewHolder.minTemperatureTextView.setText("");
             viewHolder.maxTemperatureTextView.setText("");
-            //viewHolder.minTemperatureLabelTextView.setText("");
-            //viewHolder.maxTemperatureLabelTextView.setText("");
             viewHolder.weatherImageView.setImageResource(R.drawable.no_border);
             viewHolder.layoutResultCityLinearLayout.setBackgroundResource(R.drawable.no_border);
-            viewHolder.moreDetailsTextView.setText("");
-            viewHolder.moreDetailsTextView.setBackgroundResource(R.drawable.no_border);
-        }else{
+            viewHolder.moreDetailsImageView.setVisibility(View.INVISIBLE);
+        } else {
             Integer minTemperature = Utility.roundCeil(dayForecast.getMinTemperature());
             Integer maxTemperature = Utility.roundCeil(dayForecast.getMaxTemperature());
-            if(minTemperature.intValue() == maxTemperature.intValue()){
+            if (minTemperature.intValue() == maxTemperature.intValue()) {
                 maxTemperature++;
             }
 
-            if(Utility.usesFahrenheit(mContext)){
+            if (Utility.usesFahrenheit(mContext)) {
                 minTemperature = Utility.convertCelsiusToFarenheit(minTemperature);
                 maxTemperature = Utility.convertCelsiusToFarenheit(maxTemperature);
             }
@@ -108,14 +98,13 @@ public class
             viewHolder.minTemperatureTextView.setText(mContext.getString(R.string.display_temperature, Integer.toString(minTemperature)));
             viewHolder.maxTemperatureTextView.setText(mContext.getString(R.string.display_temperature, Integer.toString(maxTemperature)));
             viewHolder.weatherImageView.setImageResource(Utility.getSmallArtResourceForWeatherCondition(WeatherType.getId(dayForecast.getWeatherType())));
-            //viewHolder.weatherImageView.setBackgroundResource(Utility.getSmallArtResourceForWeatherCondition(WeatherType.getId(dayForecast.getWeatherType())));
 
             viewHolder.layoutResultCityLinearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, DetailCityActivity.class);
                     intent.putExtra(DetailCityActivity.ID_RESULT_SEARCH, dayForecast.getId());
-                    intent.putExtra(DetailCityActivity.CITY_NAME, strCityName);
+                    intent.putExtra(DetailCityActivity.CITY_NAME, cityName);
                     intent.putExtra(DetailCityActivity.QTY_ITENS, mQtyItens);
                     intent.putExtra(DetailCityActivity.RELATIVE_POSITION, dayForecast.getPosition());
                     mContext.startActivity(intent);
@@ -130,31 +119,21 @@ public class
         public final TextView dateTextView;
         public final TextView minTemperatureTextView;
         public final TextView maxTemperatureTextView;
-        //public final TextView minTemperatureLabelTextView;
-        //public final TextView maxTemperatureLabelTextView;
         public final ImageView weatherImageView;
         public final LinearLayout layoutResultCityLinearLayout;
-        public final TextView moreDetailsTextView;
+        public final ImageView moreDetailsImageView;
 
         public ViewHolder(View view) {
             dateTextView = (TextView) view.findViewById(R.id.list_item_date_textview);
             minTemperatureTextView = (TextView) view.findViewById(R.id.list_item_min_temperature_textview);
             maxTemperatureTextView = (TextView) view.findViewById(R.id.list_item_max_temperature_textview);
-            //minTemperatureLabelTextView = (TextView) view.findViewById(R.id.list_item_min_temperature_label_textview);
-            //maxTemperatureLabelTextView = (TextView) view.findViewById(R.id.list_item_max_temperature_label_textview);
             weatherImageView = (ImageView) view.findViewById(R.id.weather_imageview);
             layoutResultCityLinearLayout = (LinearLayout) view.findViewById(R.id.layout_result_search_city);
-            moreDetailsTextView = (TextView)view.findViewById(R.id.list_item_more_details);
+            moreDetailsImageView = (ImageView) view.findViewById(R.id.img_more_details);
         }
-    }
-
-    public int getQtyItens() {
-        return mQtyItens;
     }
 
     public void setQtyItens(int mQtyItens) {
         this.mQtyItens = mQtyItens;
     }
-
-
 }

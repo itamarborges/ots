@@ -68,7 +68,7 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
     public void setStrCityName(String strCityName) {
         this.strCityName = strCityName;
         if (mResultCityDayForecastAdapter != null) {
-            mResultCityDayForecastAdapter.setStrCityName(strCityName);
+            mResultCityDayForecastAdapter.setCityName(strCityName);
         }
     }
 
@@ -191,7 +191,7 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
 
     private void fillAdapter(){
         mResultCityDayForecastAdapter = new ResultCityDayForecastAdapter(forecasts,getActivity());
-        mResultCityDayForecastAdapter.setStrCityName(strCityName);
+        mResultCityDayForecastAdapter.setCityName(strCityName);
         mResultCityDayForecastAdapter.setQtyItens(mQtyCities);
         GridView gridview = (GridView) mRootView.findViewById(R.id.gridview);
         gridview.setAdapter(mResultCityDayForecastAdapter);
