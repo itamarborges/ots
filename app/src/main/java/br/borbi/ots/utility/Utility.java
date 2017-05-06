@@ -98,12 +98,6 @@ public class Utility {
         return monthDayFormat.format(date);
     }
 
-    public static String getFormattedDateMonth(Long dateInMillis ) {
-        Date date = new Date(dateInMillis);
-        SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM");
-        return monthDayFormat.format(date);
-    }
-
     public static String getFormattedDateMonth(Date date) {
         SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM");
         return monthDayFormat.format(date);

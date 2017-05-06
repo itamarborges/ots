@@ -35,12 +35,6 @@
             />
     </ScrollView>
 
-    <!--ListView
-        android:id="@+id/listview_result_city"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null" /-->
-
     <TextView
         android:id="@+id/weather_forecast_source_url_text_view"
         android:text="@string/weather_forecast_source_developer_forecast"

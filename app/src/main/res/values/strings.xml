@@ -33,6 +33,7 @@
     <!-- E -->
     <string name="explanation_internet">If you don\'t have an internet connection, it won\'t be possible to search for the weather forecast. It\'s essential that the internet connection is active in your device so you can use this app.</string>
     <string name="error_localization">It was not possible to determine your location.</string>
+    <string name="end_date">End date</string>
 
     <!-- F -->
     <string name="failure_message_internet">Oops… Your internet connection seems to be down. Check your internet connection and press \"Try again\" button.</string>
@@ -100,7 +101,7 @@
     <string name="searching_sunny_cities_message6">When you see the weather forecast from some city, click in the days to see more details.</string>
     <string name="source">Weather Forecast Source:</string>
     <string name="search">Go!</string>
-
+    <string name="start_date">Begin date</string>
 
     <!-- T -->
     <string name="title">Where will the sun shine?</string>

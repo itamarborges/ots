@@ -37,16 +37,8 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
 
     private float x1, x2;
 
-    public int getQtyItens() {
-        return mQtyItens;
-    }
-
     public void setQtyItens(int mQtyItens) {
         this.mQtyItens = mQtyItens;
-    }
-
-    public int getRelativePosition() {
-        return mRelativePosition;
     }
 
     public void setRelativePosition(int mRelativePosition) {

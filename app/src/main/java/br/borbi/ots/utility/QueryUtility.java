@@ -8,7 +8,8 @@ import br.borbi.ots.data.OTSContract;
 class QueryUtility {
 
     public static String buildQuerySelectSearchByCoordinatesAndDate(){
-        String whereClause = OTSContract.Search.COLUMN_NAME_ORIGIN_LAT +
+
+        return OTSContract.Search.COLUMN_NAME_ORIGIN_LAT +
                 " >= ?" +
                 " AND " +
                 OTSContract.Search.COLUMN_NAME_ORIGIN_LAT + " <= ?" +
@@ -18,8 +19,6 @@ class QueryUtility {
                 OTSContract.Search.COLUMN_NAME_ORIGIN_LONG + " <= ?" +
                 " AND " +
                 OTSContract.Search.COLUMN_NAME_DATE_END + " >= ?";
-
-        return whereClause;
     }
 
     public static String buildQuerySelectSearchByDate(){

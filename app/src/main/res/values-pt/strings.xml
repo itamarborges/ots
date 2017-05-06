@@ -66,4 +66,6 @@
     <string name="ok">Ok</string>
     <string name="ots_icon_description">Ícone do Onde tem sol?</string>
     <string name="see_cities_in_map">Veja as cidades no mapa</string>
+    <string name="start_date">Data de início</string>
+    <string name="end_date">Data final</string>
 </resources>
