@@ -56,7 +56,6 @@
     <string name="byBorbiApps">Por BorbiApps</string>
     <string name="title_activity_about">Sobre</string>
     <string name="version">Versão: </string>
-    <string name="facebookUrl">facebook.com/ondetemsol</string>
     <string name="developerForecastCredit">Fornecido por Dark Sky</string>
     <string name="developerForecastLimitation">Não foi possível buscar previsão para mais de 7 dias por limitação do serviço de meteorologia.</string>
     <string name="dateFormatDetails">dd/MM, EEEE</string>

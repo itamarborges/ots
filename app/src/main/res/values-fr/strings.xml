@@ -58,7 +58,6 @@
     <string name="byBorbiApps">Par BorbiApps</string>
     <string name="title_activity_about">Sur</string>
     <string name="version">Version: </string>
-    <string name="facebookUrl">facebook.com/wherewillthesunshine/</string>
     <string name="developerForecastCredit">Fournis par Dark Sky</string>
     <string name="developerForecastLimitation">Il n\'a pas été possible de récupérer la météo de plus de 7 jours comme une limitation du fournisseur de la météorologie.</string>
     <string name="dateFormatDetails">dd/MM, EEEE</string>
