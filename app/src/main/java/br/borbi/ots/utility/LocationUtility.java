@@ -36,14 +36,17 @@ public final class LocationUtility {
 
     private static GoogleApiClient mGoogleApiClient;
 
-    private static Activity mActivity;
+    private static LocationListener mLocationListener;
 
-    public static synchronized void buildGoogleApiClient(Activity activity) {
-        mActivity = activity;
+    public static synchronized void buildGoogleApiClient(Context context,
+                                                         LocationListener locationListener,
+                                                         GoogleApiClient.ConnectionCallbacks callbacks,
+                                                         GoogleApiClient.OnConnectionFailedListener listener) {
+        mLocationListener = locationListener;
 
-        mGoogleApiClient = new GoogleApiClient.Builder(mActivity )
-                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks)mActivity)
-                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener)mActivity)
+        mGoogleApiClient = new GoogleApiClient.Builder(context)
+                .addConnectionCallbacks(callbacks)
+                .addOnConnectionFailedListener(listener)
                 .addApi(LocationServices.API)
                 .build();
 
@@ -64,8 +67,8 @@ public final class LocationUtility {
         }
     }
 
-    private static void saveCoordinates(Double lastLatitude, Double lastLongitude, Activity activity) {
-        SharedPreferences sharedPreferences = activity.getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+    private static void saveCoordinates(Double lastLatitude, Double lastLongitude, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putLong(OTSContract.SHARED_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
@@ -74,7 +77,7 @@ public final class LocationUtility {
         editor.apply();
     }
 
-    public static void cleanSavedCoordinates(Activity activity){
+    public static void cleanSavedCoordinates(Activity activity) {
         SharedPreferences sharedPreferences = activity.getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -85,10 +88,11 @@ public final class LocationUtility {
 
     /**
      * Builds a dialog to ask the user to turn on the location on the device.
+     *
      * @param context context from the place that is calling this
      * @return returns a dialog
      */
-    public static AlertDialog buildLocationDialog(final Context context){
+    public static AlertDialog buildLocationDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.location).setTitle(R.string.location_turn_on);
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -110,23 +114,22 @@ public final class LocationUtility {
         return builder.create();
     }
 
-    public static void onConnected() {
+    public static void onConnected(Context context) {
         try {
-            if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                if(mGoogleApiClient.isConnected()) {
+                if (mGoogleApiClient.isConnected()) {
                     LocationRequest locationRequest = createLocationRequest();
-                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, (LocationListener) mActivity);
+                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, mLocationListener);
                 }
-
-            }else{
-                Log.v(LOG_TAG,"Não tem permissão!");
+            } else {
+                Log.v(LOG_TAG, "Não tem permissão!");
             }
 
         } catch (Exception e) {
-            Log.e(LOG_TAG, mActivity.getString(R.string.error_localization),e);
-            disconnectFromLocationServices(mGoogleApiClient,(LocationListener) mActivity);
+            Log.e(LOG_TAG, context.getString(R.string.error_localization), e);
+            disconnectFromLocationServices(mGoogleApiClient, mLocationListener);
         }
     }
 
@@ -137,11 +140,11 @@ public final class LocationUtility {
     public static void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.e(LOG_TAG, "falhou na conexao, erro = " + connectionResult.getErrorCode());
 
-        disconnectFromLocationServices(mGoogleApiClient, (LocationListener)mActivity);
+        disconnectFromLocationServices(mGoogleApiClient, mLocationListener);
     }
 
-    public static void onLocationChanged(Location location) {
-        saveCoordinates(location.getLatitude(), location.getLongitude(), mActivity);
-        disconnectFromLocationServices(mGoogleApiClient, (LocationListener)mActivity);
+    public static void onLocationChanged(Location location, Context context) {
+        saveCoordinates(location.getLatitude(), location.getLongitude(), context);
+        disconnectFromLocationServices(mGoogleApiClient, mLocationListener);
     }
 }

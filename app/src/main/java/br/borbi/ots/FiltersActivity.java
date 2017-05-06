@@ -773,7 +773,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }else{
             Log.v(LOG_TAG,"vai chamar buildGoogleApiClient em findLocation");
-            LocationUtility.buildGoogleApiClient(this);
+            LocationUtility.buildGoogleApiClient(this, this, this, this);
         }
     }
 
@@ -783,7 +783,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ) {
             // Inicia o servico de localizacao
-            LocationUtility.buildGoogleApiClient(this);
+            LocationUtility.buildGoogleApiClient(this, this, this, this);
         }else{
             AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
             if(dialog!=null) {
@@ -805,7 +805,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        LocationUtility.onConnected();
+        LocationUtility.onConnected(this);
     }
 
     @Override
@@ -821,7 +821,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     @Override
     public void onLocationChanged(Location location) {
-        LocationUtility.onLocationChanged(location);
+        LocationUtility.onLocationChanged(location, this);
         mLastLatitude = location.getLatitude();
         mLastLongitude = location.getLongitude();
     }

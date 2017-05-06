@@ -41,7 +41,7 @@ public class ResultActivity extends ActionBarActivity implements GoogleApiClient
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         if(!foundCoordinates && (lastLatitude==null || lastLongitude == null || lastLatitude == 0d || lastLongitude == 0d)){
-            LocationUtility.buildGoogleApiClient(this);
+            LocationUtility.buildGoogleApiClient(this, this, this, this);
         }
     }
 
@@ -80,7 +80,7 @@ public class ResultActivity extends ActionBarActivity implements GoogleApiClient
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        LocationUtility.onConnected();
+        LocationUtility.onConnected(this);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ResultActivity extends ActionBarActivity implements GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
-        LocationUtility.onLocationChanged(location);
+        LocationUtility.onLocationChanged(location, this);
         Double lastLatitude = location.getLatitude();
         Double lastLongitude = location.getLongitude();
 
