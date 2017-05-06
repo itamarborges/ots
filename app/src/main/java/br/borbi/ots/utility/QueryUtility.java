@@ -8,22 +8,21 @@ import br.borbi.ots.data.OTSContract;
 class QueryUtility {
 
     public static String buildQuerySelectSearchByCoordinatesAndDate(){
-        StringBuilder whereClause = new StringBuilder(
-                OTSContract.Search.COLUMN_NAME_ORIGIN_LAT).append(" >= ?")
-                .append(" AND ")
-                .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LAT).append(" <= ?")
-                .append(" AND ")
-                .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG).append(" >= ?")
-                .append(" AND ")
-                .append(OTSContract.Search.COLUMN_NAME_ORIGIN_LONG).append(" <= ?")
-                .append(" AND ")
-                .append(OTSContract.Search.COLUMN_NAME_DATE_END).append(" >= ?");
+        String whereClause = OTSContract.Search.COLUMN_NAME_ORIGIN_LAT +
+                " >= ?" +
+                " AND " +
+                OTSContract.Search.COLUMN_NAME_ORIGIN_LAT + " <= ?" +
+                " AND " +
+                OTSContract.Search.COLUMN_NAME_ORIGIN_LONG + " >= ?" +
+                " AND " +
+                OTSContract.Search.COLUMN_NAME_ORIGIN_LONG + " <= ?" +
+                " AND " +
+                OTSContract.Search.COLUMN_NAME_DATE_END + " >= ?";
 
-        return whereClause.toString();
+        return whereClause;
     }
 
     public static String buildQuerySelectSearchByDate(){
-        StringBuilder whereClause = new StringBuilder(OTSContract.Search.COLUMN_NAME_DATE_END).append(" >= ?");
-        return whereClause.toString();
+        return OTSContract.Search.COLUMN_NAME_DATE_END + " >= ?";
     }
 }

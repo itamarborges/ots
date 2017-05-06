@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import br.borbi.ots.fragment.DetailCityFragment;
 
 
-public class DetailCityActivity extends ActionBarActivity {
+public class DetailCityActivity extends AppCompatActivity {
 
     public static final String ID_RESULT_SEARCH = "ID_RESULT_SEARCH";
     public static final String CITY_NAME = "CITY_NAME";

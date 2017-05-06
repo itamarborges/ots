@@ -53,11 +53,10 @@ class DayForecastModel {
 
         Uri uriResultCity = OTSContract.ResultSearch.CONTENT_URI;
 
-        StringBuilder selection = new StringBuilder();
-        selection.append(OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID);
-        selection.append(" = ? AND ");
-        selection.append(OTSContract.ResultSearch.COLUMN_NAME_DATE);
-        selection.append(" BETWEEN ? AND ?");
+        String selection = OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID +
+                " = ? AND " +
+                OTSContract.ResultSearch.COLUMN_NAME_DATE +
+                " BETWEEN ? AND ?";
 
         int i=0;
         String[]selectionArgs = new String[3];
@@ -68,7 +67,7 @@ class DayForecastModel {
         Cursor cursor = contextParam.getContentResolver().query(
                 uriResultCity,
                 RESULT_CITY_COLUMNS,
-                selection.toString(),
+                selection,
                 selectionArgs,
                 sortOrder);
 

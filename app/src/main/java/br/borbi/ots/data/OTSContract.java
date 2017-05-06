@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.text.format.Time;
 
 /**
  * Created by Itamar on 07/02/2015.
@@ -78,14 +77,6 @@ public final class OTSContract {
     public static final Uri CONTENT_URI_LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY).build();
 
     public static final String METHOD_SAVE_SEARCH = "METHOD_SAVE_SEARCH";
-
-    public static long normalizeDate(long startDate) {
-        // normalize the start date to the beginning of the (UTC) day
-        Time time = new Time();
-        time.set(startDate);
-        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
-        return time.setJulianDay(julianDay);
-    }
 
     // To prevent someone from accidentally instantiating the data class,
     // give it an empty constructor.

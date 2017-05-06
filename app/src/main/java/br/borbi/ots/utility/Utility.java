@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.IntDef;
-import android.text.format.Time;
 import android.widget.EditText;
 
 import java.lang.annotation.Retention;
@@ -233,13 +232,8 @@ public class Utility {
     }
 
     public static Long findSearchByDate(Context context){
-        Time dayTime = new Time();
-        dayTime.setToNow();
-
-        int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-
         String[] selectionArgs = new String[1];
-        selectionArgs[0] = Long.toString(dayTime.setJulianDay(julianToday));
+        selectionArgs[0] = Long.toString((new Date()).getTime());
 
         Cursor c = context.getContentResolver().query(
                 OTSContract.Search.CONTENT_URI,
@@ -259,11 +253,6 @@ public class Utility {
     }
 
     public static Long findSearchByDateAndCoordinates(double lastLatitude, double lastLongitude, Context context){
-        Time dayTime = new Time();
-        dayTime.setToNow();
-
-        int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-
         Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, OTSContract.MAX_DISTANCE_VALID);
 
         String[] selectionArgs = new String[5];
@@ -271,7 +260,7 @@ public class Utility {
         selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
         selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
         selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
-        selectionArgs[4] = Long.toString(dayTime.setJulianDay(julianToday));
+        selectionArgs[4] = Long.toString((new Date()).getTime());
 
         Cursor c = context.getContentResolver().query(
                 OTSContract.Search.CONTENT_URI,

@@ -1,7 +1,7 @@
 package br.borbi.ots;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,7 +16,7 @@ import br.borbi.ots.model.CountryModel;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.Country;
 
-public class CitiesListActivity extends ActionBarActivity {
+public class CitiesListActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = CitiesListActivity.class.getSimpleName();
     private ListView mListView;

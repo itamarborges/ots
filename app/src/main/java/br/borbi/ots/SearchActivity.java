@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ interface TaskFinished {
 }
 
 @SuppressWarnings("UnnecessaryBoxing")
-public class SearchActivity extends ActionBarActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = SearchActivity.class.getName();
 
@@ -190,14 +190,14 @@ public class SearchActivity extends ActionBarActivity {
     private List<City> searchCities(double distance, double lastLatitude, double lastLongitude) {
         Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, distance);
 
-        StringBuilder whereClause = new StringBuilder(
-                OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ?")
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ?")
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ?")
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" <= ?");
+        String whereClause = OTSContract.City.COLUMN_NAME_LATITUDE +
+                " >= ?" +
+                " AND " +
+                OTSContract.City.COLUMN_NAME_LATITUDE + " <= ?" +
+                " AND " +
+                OTSContract.City.COLUMN_NAME_LONGITUDE + " >= ?" +
+                " AND " +
+                OTSContract.City.COLUMN_NAME_LONGITUDE + " <= ?";
 
         String[] selectionArgs = new String[4];
         selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
@@ -218,7 +218,7 @@ public class SearchActivity extends ActionBarActivity {
                 OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES,
                 citiesColumns,
                 //new String[]{OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH, OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID, OTSContract.Country.COLUMN_NAME_COUNTRY_CODE},
-                whereClause.toString(),
+                whereClause,
                 selectionArgs,
                 null);
 
