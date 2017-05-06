@@ -7,7 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -25,7 +25,7 @@ import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.Utility;
 
 
-public class ResultActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class ResultActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class ResultActivity extends ActionBarActivity implements GoogleApiClient
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         if(!foundCoordinates && (lastLatitude==null || lastLongitude == null || lastLatitude == 0d || lastLongitude == 0d)){
-            LocationUtility.buildGoogleApiClient(this);
+            LocationUtility.buildGoogleApiClient(this, this, this, this);
         }
     }
 
@@ -80,7 +80,7 @@ public class ResultActivity extends ActionBarActivity implements GoogleApiClient
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        LocationUtility.onConnected();
+        LocationUtility.onConnected(this);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ResultActivity extends ActionBarActivity implements GoogleApiClient
 
     @Override
     public void onLocationChanged(Location location) {
-        LocationUtility.onLocationChanged(location);
+        LocationUtility.onLocationChanged(location, this);
         Double lastLatitude = location.getLatitude();
         Double lastLongitude = location.getLongitude();
 

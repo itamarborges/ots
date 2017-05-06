@@ -11,14 +11,9 @@ public enum WeatherType {
     SNOW;
 
     private static final String DEVELOPER_FORECAST_CLEAR_DAY = "clear-day";
-    private static final String DEVELOPER_FORECAST_CLEAR_NIGHT = "clear-night";
     private static final String DEVELOPER_FORECAST_RAIN = "rain";
     private static final String DEVELOPER_FORECAST_SNOW = "snow";
     private static final String DEVELOPER_FORECAST_SLEET = "sleet";
-    private static final String DEVELOPER_FORECAST_CLOUDY = "cloudy";
-    private static final String DEVELOPER_FORECAST_PARTLY_CLOUDY_DAY = "partly-cloudy-day";
-    private static final String DEVELOPER_FORECAST_PARTLY_CLOUDY_NIGHT = "partly-cloudy-night";
-
 
     public static WeatherType getWeatherType(int weatherType){
 
@@ -26,7 +21,6 @@ public enum WeatherType {
             return  WeatherType.SUNNY;
         }
 
-        //cd C:\Users\Gabriela\AppData\Local\Android\android-sdk\platform-tools
         if(weatherType >= 802 && weatherType <= 804){
             return WeatherType.CLOUDS;
         }
@@ -72,6 +66,5 @@ public enum WeatherType {
 
     public boolean isSunnyDay(boolean acceptsClouds){
         return this.equals(SUNNY) || (acceptsClouds && this.equals(CLOUDS));
-
     }
 }

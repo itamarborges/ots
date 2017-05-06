@@ -27,7 +27,7 @@ public class CityModel {
         }
 
         String[] selectionArgs = new String[]{Long.toString(cityParam.getId())};
-        Cursor c =  activityParam.getContentResolver().query(
+        Cursor c = activityParam.getContentResolver().query(
                 OTSContract.City.CONTENT_URI,
                 OTSProvider.CITIES_COLUMNS,
                 OTSProvider.FILTER_BY_CITY,
@@ -48,7 +48,7 @@ public class CityModel {
             city.setName(activityParam.getString(activityParam.getResources().getIdentifier(translationFileKey, "string", activityParam.getPackageName())));
 
         }
-        if(c!= null){
+        if (c != null) {
             c.close();
         }
 
@@ -69,7 +69,7 @@ public class CityModel {
             selectionArgs = new String[]{Long.toString(cityParam.getCountryId())};
         }
 
-        Cursor c =  contextParam.getContentResolver().query(
+        Cursor c = contextParam.getContentResolver().query(
                 OTSContract.City.CONTENT_URI,
                 OTSProvider.CITIES_COLUMNS,
                 strFilter,
@@ -105,24 +105,21 @@ public class CityModel {
             String resourceName;
             while (cTags.moveToNext()) {
                 resourceName = cTags.getString(cTags.getColumnIndex(OTSContract.Tag.COLUMN_NAME_RESOURCE_NAME));
-
                 tag = contextParam.getString(contextParam.getResources().getIdentifier(resourceName, "string", contextParam.getPackageName()));
-
                 if (!tag.isEmpty()) {
                     tagNames.add(tag);
                 }
             }
-            if(cTags!= null){
+            if (cTags != null) {
                 cTags.close();
             }
-
 
             city.setTags(tagNames);
 
             listCities.add(city);
         }
 
-        if(c!= null){
+        if (c != null) {
             c.close();
         }
 

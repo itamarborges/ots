@@ -34,12 +34,6 @@ public class City implements Serializable, Comparable<City>{
         this.translationFileKey = translationFileKey;
     }
 
-    public City(int id, String nameEnglish, String countryCode) {
-        this.id = id;
-        this.nameEnglish = nameEnglish;
-        this.countryCode = countryCode;
-    }
-
     public City(int id, String nameEnglish, String countryCode, String countryName, Double latitude, Double longitude) {
         this.id = id;
         this.nameEnglish = nameEnglish;

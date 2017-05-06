@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ interface TaskFinished {
 }
 
 @SuppressWarnings("UnnecessaryBoxing")
-public class SearchActivity extends ActionBarActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = SearchActivity.class.getName();
 
@@ -164,7 +164,7 @@ public class SearchActivity extends ActionBarActivity {
         LinkedList<CityResultSearch> citiesAlreadySearched = CityResultSearchModel.listCities(mContext, new Coordinates(lastLatitude, lastLongitude, Double.valueOf(mMaxDistance)), cal.getTime(), dateBegin, dateEnd);
         mCitiesFromSearch = new ArrayList<>();
         if(citiesAlreadySearched!= null || !citiesAlreadySearched.isEmpty()) {
-            mCitiesFromSearch = new ArrayList<CityResultSearch>();
+            mCitiesFromSearch = new ArrayList<>();
             boolean found = false;
             for (City city : citiesAux) {
                 found = false;
@@ -190,14 +190,14 @@ public class SearchActivity extends ActionBarActivity {
     private List<City> searchCities(double distance, double lastLatitude, double lastLongitude) {
         Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, distance);
 
-        StringBuilder whereClause = new StringBuilder(
-                OTSContract.City.COLUMN_NAME_LATITUDE).append(" >= ?")
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LATITUDE).append(" <= ?")
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" >= ?")
-                .append(" AND ")
-                .append(OTSContract.City.COLUMN_NAME_LONGITUDE).append(" <= ?");
+        String whereClause = OTSContract.City.COLUMN_NAME_LATITUDE +
+                " >= ?" +
+                " AND " +
+                OTSContract.City.COLUMN_NAME_LATITUDE + " <= ?" +
+                " AND " +
+                OTSContract.City.COLUMN_NAME_LONGITUDE + " >= ?" +
+                " AND " +
+                OTSContract.City.COLUMN_NAME_LONGITUDE + " <= ?";
 
         String[] selectionArgs = new String[4];
         selectionArgs[0] = String.valueOf(coordinates.getMinLatitude());
@@ -218,11 +218,11 @@ public class SearchActivity extends ActionBarActivity {
                 OTSContract.CONTENT_URI_LIST_CITIES_BY_COORDINATES,
                 citiesColumns,
                 //new String[]{OTSContract.City.TABLE_NAME + "." + OTSContract.City.COLUMN_NAME_NAME_ENGLISH, OTSContract.City.TABLE_NAME + "." + OTSContract.City._ID, OTSContract.Country.COLUMN_NAME_COUNTRY_CODE},
-                whereClause.toString(),
+                whereClause,
                 selectionArgs,
                 null);
 
-        List<City> cities = new ArrayList<City>();
+        List<City> cities = new ArrayList<>();
 
         if (c.moveToFirst()) {
             do {
@@ -255,21 +255,21 @@ public class SearchActivity extends ActionBarActivity {
 
         getContentResolver().delete(OTSContract.Search.CONTENT_URI,null,null);
 
-        weatherTask = new FetchWeatherTask(this, new TaskFinishedListener());
+        weatherTask = new FetchWeatherTask(new TaskFinishedListener());
         weatherTask.execute(searchParameters);
 
     }
 
     private void validateCities(List<CityResultSearch> cities) {
         Long mIdSearch = null;
-        ArrayList<CityResultSearch> mMCities = new ArrayList<CityResultSearch>();
+        ArrayList<CityResultSearch> mMCities = new ArrayList<>();
 
         for (CityResultSearch cityResultSearch: cities) {
 
             int contSunnyDays = 0;
             boolean validCity = true;
 
-            List<DayForecast> dayForecasts = new LinkedList<DayForecast>();
+            List<DayForecast> dayForecasts = new LinkedList<>();
 
             Integer distance = Utility.roundCeil(CoordinatesUtility.getDistance(lastLatitude, lastLongitude, cityResultSearch.getCity().getLatitude(), cityResultSearch.getCity().getLongitude()));
 

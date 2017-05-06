@@ -51,7 +51,7 @@ public class CountryModel {
 
     public static LinkedList<Country> listCountries(Context contextParam) {
 
-        LinkedList<Country> listCountries = new LinkedList<Country>();
+        LinkedList<Country> listCountries = new LinkedList<>();
 
         Country country;
 

@@ -1,7 +1,6 @@
 package br.borbi.ots.fragment;
 
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -92,7 +91,7 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
 
         buildWeekDaysNamesArray();
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, mWeekDaysNames);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_day_of_week, mWeekDaysNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_day_of_week, mWeekDaysNames);
         GridView gridview = (GridView) mRootView.findViewById(R.id.nameDaysGridView);
         gridview.setAdapter(adapter);
 

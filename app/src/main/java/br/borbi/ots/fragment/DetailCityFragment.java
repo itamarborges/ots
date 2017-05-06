@@ -18,8 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdView;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,20 +35,10 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     private int idResultSearch;
     private static final int DETAIL_CITY_LOADER = 0;
 
-    private AdView mAdView;
-
-    private float x1, y1, x2, y2;
-
-    public int getQtyItens() {
-        return mQtyItens;
-    }
+    private float x1, x2;
 
     public void setQtyItens(int mQtyItens) {
         this.mQtyItens = mQtyItens;
-    }
-
-    public int getRelativePosition() {
-        return mRelativePosition;
     }
 
     public void setRelativePosition(int mRelativePosition) {
@@ -59,7 +47,6 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
 
     private int mQtyItens;
     private int mRelativePosition;
-
 
     private static final String[] RESULT_SEARCH_COLUMNS = {
             OTSContract.ResultSearch.TABLE_NAME + "." + OTSContract.ResultSearch.COLUMN_NAME_DATE,
@@ -117,12 +104,10 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
                     // when user first touches the screen we get x and y coordinate
                     case MotionEvent.ACTION_DOWN: {
                         x1 = touchevent.getX();
-                        y1 = touchevent.getY();
                         return true;
                     }
                     case MotionEvent.ACTION_UP: {
                         x2 = touchevent.getX();
-                        y2 = touchevent.getY();
                         // /if left to right sweep event on screen
                         if (x1 < x2) {
                             mPreviousButton.performClick();
@@ -132,19 +117,6 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
                         if (x1 > x2) {
                             mNextButton.performClick();
                         }
-
-                        // if UP to Down sweep event on screen
-                /*if (y1 < y2)
-                {
-                    Toast.makeText(this, "UP to Down Swap Performed", Toast.LENGTH_LONG).show();
-                }
-
-                // /if Down to UP sweep event on screen
-                if (y1 > y2)
-                {
-                    Toast.makeText(this, "Down to UP Swap Performed", Toast.LENGTH_LONG).show();
-                }
-                */
                         break;
                     }
                 }
