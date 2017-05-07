@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_result_search_city"
-    android:background="@drawable/border"
+    android:background="@drawable/border_gray"
     >
 
     <LinearLayout
@@ -31,17 +31,6 @@
             android:src="@drawable/ots_sunny_small"
             />
 
-        <!--
-        <TextView
-            android:id="@+id/list_item_min_temperature_label_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/min_temperature_abbreviated"
-            android:layout_below="@+id/weather_imageview"
-            android:textAppearance="@style/smallTextView"
-            />
--->
         <TextView
             android:id="@+id/list_item_min_temperature_textview"
             android:layout_width="match_parent"
@@ -51,16 +40,6 @@
             android:textAppearance="@style/dateTextView"
             />
 
-        <!--
-        <TextView
-            android:id="@+id/list_item_max_temperature_label_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/max_temperature_abbreviated"
-            android:textAppearance="@style/smallTextView"
-            />
--->
         <TextView
             android:id="@+id/list_item_max_temperature_textview"
             android:layout_width="match_parent"
@@ -69,28 +48,13 @@
             android:text="18ºC"
             android:textAppearance="@style/dateTextView"
             />
-
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/list_item_more_details"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="+"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_more_horiz_black_24dp"
         android:background="@drawable/background_gray"
-        android:textAppearance="@style/moreDetailsTextView"
-        />
-
-
-    <!--
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/background_gray"
-            android:src="@drawable/ots_plus_sign_small"
-            />
-    -->
-    </LinearLayout>
+        android:id="@+id/img_more_details"/>
+</LinearLayout>
