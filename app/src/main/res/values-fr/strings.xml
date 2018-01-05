@@ -58,10 +58,7 @@
     <string name="try_again">Essayer à nouveau</string>
     <string name="continue_anyway">Continuer malgré tout</string>
     <string name="help_distance">La distance maximun de votre lieu de currente.</string>
-    <string name="explanation_localization">Si l\'application ne peut pas trouver l\'endroit où vous êtes, il ne sera pas possible de déterminer quelles villes sont en rayon à distance informé. Il est essentiel que l\'emplacement est fixé sur votre appareil afin que vous puissiez utiliser cette application.</string>
     <string name="explanation_internet">Si vous ne disposez pas d\'une connexion Internet, il ne sera pas possible de rechercher les prévisions météo. Il est essentiel que la connexion Internet est activé dans votre appareil afin que vous pouvez utiliser cette application.</string>
-    <string name="continue_without_my_location">Continuer sans mon endroit</string>
-    <string name="failure_message_localization">Oops…Il n\'a pas été possible de déterminer votre emplacement. Définissez l\'emplacement de votre appareil et appuyez sur \ "Essayez de me trouver \" bouton.</string>
     <string name="failure_message_internet">Oops… Votre connexion Internet semble être en panne. Vérifiez votre connexion Internet et appuyez sur \ "Essayez de nouveau \" bouton..</string>
     <string name="internet_is_down">Votre connexion Internet semble encore être en panne. Veuillez réessayer.</string>
     <string name="min_temperature_abbreviated">MIN</string>

@@ -33,7 +33,6 @@
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> °F</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> °C</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
-    <string name="failure_message_localization">Ops … Não foi possível determinar sua localização. Habilite a localização em seu dispositivo e pressione o botão \"Tente me achar\".</string>
     <string name="max_temperature">Temperatura máxima:</string>
     <string name="no_data_available">Nenhuma cidade com sol encontrada. Tente alterar o período de dias, a distância, o número de dias com sol ou a temperatura mínima. Atualmente, procuramos cidades no Brasil, Canadá, França e Estados Unidos.</string>
     <string name="average_temperature">Temperaturas Médias:</string>
@@ -45,7 +44,6 @@
     <string name="location_not_found_yet">Ainda não foi possível determinar sua localização. Por favor, tente novamente.</string>
     <string name="try_to_find_me">Tente me achar</string>
     <string name="explanation_why">Por que isso é importante?</string>
-    <string name="continue_without_my_location">Continuar sem minha localização</string>
     <string name="where_am_i">Onde estou?</string>
     <string name="display_min_max_temperature_fahrenheit"><xliff:g>%2$s</xliff:g>º F à <xliff:g>%1$s</xliff:g>º F</string>
     <string name="display_min_max_temperature_celsius"><xliff:g>%2$s</xliff:g>º C à <xliff:g>%1$s</xliff:g>º C</string>
@@ -56,7 +54,6 @@
     <string name="searching_sunny_cities_message1">Estamos buscando cidades com sol.</string>
     <string name="searching_sunny_cities_message2">Logo mostraremos todas as cidades com sol encontradas.</string>
     <string name="searching_sunny_cities_message3">Se estiver demorando muito, pense em diminuir o raio.</string>
-    <string name="explanation_localization">Se o aplicativo não souber onde você está, não será possível determinar quais cidades estão dentro do raio informado. É essencial que a localização esteja habilitada para utilizar este aplicativo.</string>
     <string name="explanation_internet">Se você não tiver conexão à internet, o aplicativo não poderá buscar a previsão do tempo. É essencial que a conexão à internet esteja ativa para utilizar este aplicativo.</string>
     <string name="failure_message_internet">Ops… Você parece estar sem internet. Verifique sua conexão e pressione o botão \"Tentar novamente\".</string>
     <string name="try_again">Tentar novamente</string>

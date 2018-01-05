@@ -6,6 +6,7 @@
     <string name="afternoon">Afternoon</string>
     <string name="action_cities_list">Cities List</string>
     <string name="action_about">About</string>
+    <string name="action_settings">Settings</string>
 
     <!-- B -->
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
@@ -14,6 +15,7 @@
     <!-- C -->
     <string name="celsius" translatable="false">C</string>
     <string name="country_textview">Country:</string>
+    <string name="continue_anyway">Continue anyway</string>
 
     <!-- D -->
     <string name="datePeriod">DATE</string>
@@ -31,6 +33,10 @@
     <string name="dont_care">Don\'t care</string>
     <string name="days">days</string>
     <string name="day">day</string>
+    <string name="detail_city">City: <xliff:g>%1$s</xliff:g>.</string>
+    <string name="detail_date">Date: <xliff:g>%1$s</xliff:g>.</string>
+    <string name="display_per_cent"><xliff:g>%1$s</xliff:g> \%</string>
+    <string name="detail_humidity">Humidity: <xliff:g>%1$s</xliff:g> \%</string>
 
     <!-- E -->
     <string name="explanation_internet">If you don\'t have an internet connection, it won\'t be possible to search for the weather forecast. It\'s essential that the internet connection is active in your device so you can use this app.</string>
@@ -39,6 +45,7 @@
     <!-- F -->
     <string name="failure_message_internet">Oops… Your internet connection seems to be down. Check your internet connection and press \"Try again\" button.</string>
     <string name="farenheit" translatable="false">F</string>
+    <string name="facebookUrl">facebook.com/wherewillthesunshine/</string>
 
     <!-- G -->
 
@@ -47,9 +54,11 @@
     <string name="help_date_period">Weather forecast available only from today until 16 days from now.</string>
     <string name="here_the_sun_shines">Here the sun will shine!</string>
     <string name="help_distance">Maximum distance from your current location.</string>
+    <string name="historic">Historic</string>
 
     <!-- I -->
     <string name="invalid_fields">Please verify all red fields.</string>
+    <string name="internet_is_down">It looks as if you don\'t have internet connection.</string>
 
     <!-- J -->
 
@@ -63,6 +72,8 @@
     <string name="location">This app needs you to turn the location services on in order to determine which cities are near you. You won\'t be able to use this app if location isn\'t active.</string>
     <string name="location_turn_on">Turn on location services?</string>
     <string name="location_explanation">Please turn your location services on to use this app.</string>
+    <string name="location_found">Your location was found with success.</string>
+    <string name="location_not_found_yet">Your location has not been found yet</string>
 
     <!-- M -->
     <string name="minimum_distance_kilometers">Please inform distance between <xliff:g>%1$s</xliff:g> and <xliff:g>%2$s</xliff:g> kilometers.</string>
@@ -84,6 +95,7 @@
 
 
     <!-- P -->
+    <string name="previous">Previous</string>
 
     <!-- Q -->
     <string name="qty_sunny_days">SUNNY DAYS</string>
@@ -102,11 +114,16 @@
     <string name="searching_sunny_cities_message6">When you see the weather forecast from some city, click in the days to see more details.</string>
     <string name="source">Weather Forecast Source:</string>
     <string name="search">Go!</string>
+    <string name="snow">Snow</string>
 
 
     <!-- T -->
     <string name="title">Where will the sun shine?</string>
     <string name="title_activity_about">About</string>
+    <string name="to">to </string>
+    <string name="try_to_find_me">Try to find me</string>
+    <string name="try_again">Try again</string>
+    <string name="title_activity_cities_list">Cities list</string>
 
     <!-- U -->
 
@@ -118,7 +135,7 @@
     <string name="where_am_i">Where am I?</string>
     <string name="weather_forecast_source_open_weather" translatable="false">openweathermap.org/</string>
     <string name="weather_forecast_source_developer_forecast" translatable="false">darksky.net/poweredby/</string>
-
+    <string name="explanation_why">Why is this important?</string>
     <!-- X -->
 
 
