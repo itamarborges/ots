@@ -43,7 +43,7 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
         SearchParameters searchParameters = params[0];
 
-        List<CityResultSearch> cities = new ArrayList<CityResultSearch>();
+        List<CityResultSearch> cities = new ArrayList<>();
         List<City> citiesToSearch = searchParameters.getCities();
 
         CityResultSearch cityResultSearchAux = null;

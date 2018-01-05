@@ -42,7 +42,7 @@ public class TitleCityFragment extends Fragment {
 
         mMCityNameTextView.setText(mMStrCityName);
 
-        final LinkedList<String> tags = new LinkedList<String>();
+        final LinkedList<String> tags = new LinkedList<>();
         tags.addAll(mTags);
 
         if (tags.size() > 0) {
@@ -54,14 +54,14 @@ public class TitleCityFragment extends Fragment {
 
         if (tags.size() > 1) {
             mMSecondTagTextView.setVisibility(View.VISIBLE);
-            mMSecondTagTextView.setText(tags.get(1));
+            mMSecondTagTextView.setText(" / " + tags.get(1));
         } else {
             mMSecondTagTextView.setVisibility(View.GONE);
         }
 
         if (tags.size() > 2) {
             mMThirdTagTextView.setVisibility(View.VISIBLE);
-            mMThirdTagTextView.setText(tags.get(2));
+            mMThirdTagTextView.setText(" / " + tags.get(2));
         } else {
             mMThirdTagTextView.setVisibility(View.GONE);
         }

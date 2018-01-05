@@ -101,12 +101,18 @@ public class CityModel {
                     null);
 
             LinkedList<String> tagNames = new LinkedList<>();
-            String tag;
+            String tag = null;
             String resourceName;
             while (cTags.moveToNext()) {
                 resourceName = cTags.getString(cTags.getColumnIndex(OTSContract.Tag.COLUMN_NAME_RESOURCE_NAME));
 
-                tag = contextParam.getString(contextParam.getResources().getIdentifier(resourceName, "string", contextParam.getPackageName()));
+                try{
+                    tag = contextParam.getString(contextParam.getResources().getIdentifier(resourceName, "string", contextParam.getPackageName()));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
 
                 if (!tag.isEmpty()) {
                     tagNames.add(tag);

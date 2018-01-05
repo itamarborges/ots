@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ interface TaskFinished {
 }
 
 @SuppressWarnings("UnnecessaryBoxing")
-public class SearchActivity extends ActionBarActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = SearchActivity.class.getName();
 
@@ -164,7 +164,7 @@ public class SearchActivity extends ActionBarActivity {
         LinkedList<CityResultSearch> citiesAlreadySearched = CityResultSearchModel.listCities(mContext, new Coordinates(lastLatitude, lastLongitude, Double.valueOf(mMaxDistance)), cal.getTime(), dateBegin, dateEnd);
         mCitiesFromSearch = new ArrayList<>();
         if(citiesAlreadySearched!= null || !citiesAlreadySearched.isEmpty()) {
-            mCitiesFromSearch = new ArrayList<CityResultSearch>();
+            mCitiesFromSearch = new ArrayList<>();
             boolean found = false;
             for (City city : citiesAux) {
                 found = false;
@@ -222,7 +222,7 @@ public class SearchActivity extends ActionBarActivity {
                 selectionArgs,
                 null);
 
-        List<City> cities = new ArrayList<City>();
+        List<City> cities = new ArrayList<>();
 
         if (c.moveToFirst()) {
             do {
@@ -262,14 +262,14 @@ public class SearchActivity extends ActionBarActivity {
 
     private void validateCities(List<CityResultSearch> cities) {
         Long mIdSearch = null;
-        ArrayList<CityResultSearch> mMCities = new ArrayList<CityResultSearch>();
+        ArrayList<CityResultSearch> mMCities = new ArrayList<>();
 
         for (CityResultSearch cityResultSearch: cities) {
 
             int contSunnyDays = 0;
             boolean validCity = true;
 
-            List<DayForecast> dayForecasts = new LinkedList<DayForecast>();
+            List<DayForecast> dayForecasts = new LinkedList<>();
 
             Integer distance = Utility.roundCeil(CoordinatesUtility.getDistance(lastLatitude, lastLongitude, cityResultSearch.getCity().getLatitude(), cityResultSearch.getCity().getLongitude()));
 

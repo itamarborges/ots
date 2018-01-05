@@ -3,13 +3,13 @@ package br.borbi.ots;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.fragment.ResultCityFragment;
 
 
-public class ResultCitiesActivity extends ActionBarActivity {
+public class ResultCitiesActivity extends AppCompatActivity {
 
     public static final String ID_REL_SEARCH_CITY = "ID_REL_SEARCH_CITY";
     public static final String CITY_NAME = "CITY_NAME";

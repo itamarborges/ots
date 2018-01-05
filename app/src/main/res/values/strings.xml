@@ -21,14 +21,16 @@
     <string name="days_without_rain">Include cloudy days</string>
     <string name="distance_miles" translatable="false"><xliff:g>%1$s</xliff:g> mi</string>
     <string name="distance_kilometers" translatable="false"><xliff:g>%1$s</xliff:g> km</string>
-    <string name="display_min_max_temperature" translatable="false"><xliff:g>%1$s</xliff:g>º/<xliff:g>%2$s</xliff:g>º</string>
-    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F to <xliff:g>%2$s</xliff:g>º F</string>
-    <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC to <xliff:g>%2$s</xliff:g> ºC</string>
+    <string name="display_min_max_temperature" translatable="false"><xliff:g>%2$s</xliff:g>º/<xliff:g>%1$s</xliff:g>º</string>
+    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%2$s</xliff:g>º F to <xliff:g>%1$s</xliff:g>º F</string>
+    <string name="display_min_max_temperature_celsius"><xliff:g>%2$s</xliff:g> ºC to <xliff:g>%1$s</xliff:g> ºC</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>
     <string name="detail_precipitation">Precipitation: <xliff:g>%1$s</xliff:g> mm</string>
     <string name="dont_care">Don\'t care</string>
+    <string name="days">days</string>
+    <string name="day">day</string>
 
     <!-- E -->
     <string name="explanation_internet">If you don\'t have an internet connection, it won\'t be possible to search for the weather forecast. It\'s essential that the internet connection is active in your device so you can use this app.</string>
@@ -135,7 +137,10 @@
     <string name="ok">OK</string>
     <string name="see_cities_in_map">Look cities in map!</string>
     <string name="title_activity_maps" translatable="false">Map</string>
-
+    <string name="next">Next</string>
+    <string name="min_temperature_abbreviated">MIN</string>
+    <string name="max_temperature_abbreviated">Max</string>
+    <string name="max_temperature">Max Temperature</string>
 
     <!-- Z -->
 

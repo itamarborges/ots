@@ -1,13 +1,12 @@
 package br.borbi.ots;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdView;
 
@@ -19,7 +18,7 @@ import br.borbi.ots.model.CountryModel;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.Country;
 
-public class CitiesListActivity extends ActionBarActivity {
+public class CitiesListActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = CitiesListActivity.class.getSimpleName();
     private ListView mListView;
@@ -38,7 +37,7 @@ public class CitiesListActivity extends ActionBarActivity {
 
         Spinner countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         mListView = (ListView) findViewById(R.id.listView);
-        mEmptyView = (TextView) findViewById(R.id.listview_list_cities_empty);
+        mEmptyView = findViewById(R.id.listview_list_cities_empty);
 
         final LinkedList<Country> listCountries = CountryModel.listCountries(getApplication());
 

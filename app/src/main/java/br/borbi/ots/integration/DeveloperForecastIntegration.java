@@ -75,7 +75,7 @@ public class DeveloperForecastIntegration {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    buffer.append(line + "\n");
+                    buffer.append(line).append("\n");
                 }
 
                 if (buffer.length() != 0) {
@@ -109,7 +109,7 @@ public class DeveloperForecastIntegration {
     }
 
     private static CityResultSearch getWeatherDataFromJson(String forecastJsonStr, City citySearched) {
-        LinkedList<DayForecast> daysForecast = new LinkedList<DayForecast>();
+        LinkedList<DayForecast> daysForecast = new LinkedList<>();
         CityResultSearch cityResultSearch = null;
 
         try {

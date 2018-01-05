@@ -83,7 +83,7 @@ public class OpenWeatherIntegration {
                 String line;
                 while ((line = reader.readLine()) != null) {
 
-                    buffer.append(line + "\n");
+                    buffer.append(line).append("\n");
                 }
 
                 if (buffer.length() != 0) {
@@ -137,7 +137,7 @@ public class OpenWeatherIntegration {
         final String OWM_PRECIPITATION = "rain";
         final String OWM_HUMIDITY = "humidity";
 
-        LinkedList<DayForecast> daysForecast = new LinkedList<DayForecast>();
+        LinkedList<DayForecast> daysForecast = new LinkedList<>();
         CityResultSearch cityResultSearch = null;
 
         try {

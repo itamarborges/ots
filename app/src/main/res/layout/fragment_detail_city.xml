@@ -44,12 +44,12 @@
                 android:id="@+id/detail_min_max_temperature_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="@dimen/paddingLeftRight"
                 android:text="@string/display_min_max_temperature_celsius"
                 android:textAppearance="?android:textAppearanceMedium"
-                android:layout_weight="1"
-                android:gravity="center_vertical|left"
-                android:fontFamily="sans-serif-condensed"
-                android:paddingLeft="@dimen/paddingLeftRight"
                 android:textColor="?android:attr/textColorPrimary"/>
             <TextView
                 android:id="@+id/precipitation_textView"
@@ -202,22 +202,22 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/btnPrevious"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnPrevious"
             android:layout_alignParentLeft="true"
             android:background="@drawable/ic_navigate_before_black_24dp"
-            style="?android:attr/borderlessButtonStyle"
-            />
+            android:backgroundTint="@color/ots_blue"/>
 
         <Button
+            android:id="@+id/btnNext"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnNext"
             android:layout_alignParentRight="true"
             android:background="@drawable/ic_navigate_next_black_24dp"
-            style="?android:attr/borderlessButtonStyle"
-            />
+            android:backgroundTint="@color/ots_blue"/>
 
     </RelativeLayout>
 

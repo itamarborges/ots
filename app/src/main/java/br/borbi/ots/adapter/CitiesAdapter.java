@@ -140,14 +140,14 @@ public class CitiesAdapter extends BaseAdapter{
 
         if (tags.size() > 1) {
             viewHolder.secondTagTextView.setVisibility(View.VISIBLE);
-            viewHolder.secondTagTextView.setText(tags.get(1));
+            viewHolder.secondTagTextView.setText(" / " + tags.get(1));
         } else {
             viewHolder.secondTagTextView.setVisibility(View.GONE);
         }
 
         if (tags.size() > 2) {
             viewHolder.thirdTagTextView.setVisibility(View.VISIBLE);
-            viewHolder.thirdTagTextView.setText(tags.get(2));
+            viewHolder.thirdTagTextView.setText(" / " + tags.get(2));
         } else {
             viewHolder.thirdTagTextView.setVisibility(View.GONE);
         }

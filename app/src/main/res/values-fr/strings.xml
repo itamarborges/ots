@@ -13,6 +13,7 @@
     <string name="search">Allez!</string>
     <string name="qty_sunny_days">JOURS ENSOLEILLÉ</string>
     <string name="days">journées</string>
+    <string name="day">journée</string>
     <string name="days_without_rain">Considérez jours nuageux</string>
     <string name="min_temperature">TEMPÉRATURE MINIMALE</string>
     <string name="dont_care">Ça ne fait rien</string>
@@ -33,8 +34,8 @@
     <string name="minimum_distance_kilometers">Please inform distance between <xliff:g>%1$s</xliff:g> and <xliff:g>%2$s</xliff:g> kilometers.</string>
     <string name="minimum_distance_miles">Please inform distance between <xliff:g>%1$s</xliff:g> and and <xliff:g>%2$s</xliff:g> miles.</string>
     <string name="no_data_available">Aucune ville ensoleillée a été trouvé. Essayez de changer les dates, la distance, le nombre de jours d\'ensoleillement ou la température minimum. Actuellement, nous cherchons seulement villes au Brésil, au Canada, en France et aux États-Unis.</string>
-    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F à <xliff:g>%2$s</xliff:g>º F</string>
-    <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g>º C à <xliff:g>%2$s</xliff:g>º C</string>
+    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%2$s</xliff:g>º F à <xliff:g>%1$s</xliff:g>º F</string>
+    <string name="display_min_max_temperature_celsius"><xliff:g>%2$s</xliff:g>º C à <xliff:g>%1$s</xliff:g>º C</string>
     <string name="average_temperature">Température Moyenne:</string>
     <string name="morning">Matin</string>
     <string name="afternoon">Après-midi</string>

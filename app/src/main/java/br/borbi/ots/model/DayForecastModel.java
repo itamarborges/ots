@@ -63,7 +63,7 @@ class DayForecastModel {
         String[]selectionArgs = new String[3];
         selectionArgs[i++] = String.valueOf(idRelSearchCity);
         selectionArgs[i++] = String.valueOf(minDate.getTime());
-        selectionArgs[i++] = String.valueOf(maxDate.getTime());
+        selectionArgs[i] = String.valueOf(maxDate.getTime());
 
         Cursor cursor = contextParam.getContentResolver().query(
                 uriResultCity,

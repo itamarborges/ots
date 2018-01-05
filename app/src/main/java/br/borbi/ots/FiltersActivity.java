@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -107,6 +108,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private boolean mLastSearchUseCelsius;
     private boolean mLastSearchUseKilometers;
     private boolean mBolRenewInformations;
+    private SeekBar mSeekBar;
 
     private static Double mLastLatitude;
     private static Double mLastLongitude;
@@ -157,24 +159,31 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         kilometersButton = (Button)findViewById(R.id.btnKm);
         milesButton = (Button)findViewById(R.id.btnMi);
 
-        //Nro dias com sol
-        daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
-
-        daysEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus && daysEditText.getText() != null) {
-                    Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
-
-                    ValidationUtility.validateInteger(daysEditText, 1, maxNumberOfDays, mContext.getString(R.string.minimum_days, String.valueOf(maxNumberOfDays)));
-
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (progress <= 1) {
+                    seekBar.setProgress(1);
+                    daysEditText.setText(String.valueOf(1).concat(" ").concat(getString(R.string.day)));
                 } else {
-                    daysEditText.setSelection(daysEditText.getText().length());
+                    daysEditText.setText(String.valueOf(progress).concat(" ").concat(getString(R.string.days)));
                 }
             }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
         });
+
+        //Nro dias com sol
+        daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
 
         //Dias nublados
         daysWithoutRainCheckbox = (CheckBox) findViewById(R.id.checkBoxDaysWithoutRain);
@@ -214,9 +223,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                 deactivateButton(milesButton);
             }
 
-            daysEditText.setText(String.valueOf(1));
-
-            temperatureCheckbox.setChecked(true);
+              temperatureCheckbox.setChecked(true);
 
             distanceEditText.setText(DISTANCE_DEFAULT);
 
@@ -241,8 +248,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                 deactivateButton(milesButton);
             }
 
-            daysEditText.setText(String.valueOf(mLastSearchSunnyDays));
-
             daysWithoutRainCheckbox.setChecked(mLastSearchConsiderCloudyDays);
 
             temperatureCheckbox.setChecked(mLasrSearchTemperatureDoesNotMatter);
@@ -254,6 +259,11 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             distanceEditText.setText(String.valueOf(mLastSearchDistance));
 
         }
+
+        Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
+        mSeekBar.setMax(maxNumberOfDays);
+
+        mSeekBar.setProgress(mLastSearchSunnyDays);
 
         //Datas
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
@@ -380,7 +390,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                     (mMBolDifferentLatitude) ||
                     (!mLastSearchInitialDate.equals(dateBegin.getTime())) ||
                     (!mLastSearchFinalDate.equals(dateEnd.getTime())) ||
-                    (mLastSearchSunnyDays != Integer.valueOf(daysEditText.getText().toString())) ||
+                    (mLastSearchSunnyDays != mSeekBar.getProgress()) ||
                     (mLastSearchMinTemperature != mMinTemperaure) ||
                     (mLastSearchConsiderCloudyDays != usesCloudyDays) ||
                     (mLasrSearchTemperatureDoesNotMatter != temperatureDoesNotMatter) ||
@@ -404,7 +414,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, dateBegin.getTime());
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, dateEnd.getTime());
-                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, Integer.valueOf(daysEditText.getText().toString()));
+                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, mSeekBar.getProgress());
                     editor.putInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, mMinTemperaure);
                     editor.putInt(OTSContract.SHARED_LAST_SEARCH_DISTANCE, Integer.valueOf(distanceEditText.getText().toString()));
                     editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, usesCloudyDays);
@@ -451,12 +461,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         /*
         Dias com sol
          */
-        String daysString = daysEditText.getText().toString();
-        int numberSunnyDays = 0;
-        if(daysString != null && !daysString.isEmpty()) {
-            numberSunnyDays = Integer.valueOf(daysEditText.getText().toString());
-        }
-
+        int numberSunnyDays = mSeekBar.getProgress();
         /*
         Considerar dias nublados?
          */
@@ -590,6 +595,8 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
             Bundle b = getArguments();
             ((ClickFragment) getActivity()).OnClickFragment(b.getInt(BUTTON_CLICKED), date);
+
+
         }
     }
 
@@ -634,6 +641,10 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             dateEndView.setText(dateFormat.format(date));
             dateEnd = Utility.setDateToFinalHours(date);
         }
+
+        Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
+        mSeekBar.setMax(maxNumberOfDays);
+
         /*
         boolean validDates = validateDates();
         if(validDates){
@@ -661,11 +672,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, MAXIMUM_DISTANCE_MILES, mContext.getString(R.string.minimum_distance_miles,String.valueOf(MINIMUM_DISTANCE_MILES), String.valueOf(MAXIMUM_DISTANCE_MILES)));
         }
 
-        // Valida numero de dias
-        Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
-        boolean validDays = ValidationUtility.validateInteger(daysEditText, 1, Utility.getNumberOfDaysToShow(dateBegin, dateEnd), mContext.getString(R.string.minimum_days, String.valueOf(maxNumberOfDays)));
-
-        return (validDistance && validDays);
+        return validDistance;
     }
 
     private void activateTemperatureButtonsStatus(){

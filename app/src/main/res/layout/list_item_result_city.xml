@@ -31,17 +31,16 @@
             android:src="@drawable/ots_sunny_small"
             />
 
-        <!--
         <TextView
-            android:id="@+id/list_item_min_temperature_label_textview"
+            android:id="@+id/list_item_max_temperature_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/min_temperature_abbreviated"
-            android:layout_below="@+id/weather_imageview"
-            android:textAppearance="@style/smallTextView"
+            android:text="18ºC"
+            android:textAppearance="@style/dateTextView"
             />
--->
+
+
         <TextView
             android:id="@+id/list_item_min_temperature_textview"
             android:layout_width="match_parent"
@@ -51,24 +50,6 @@
             android:textAppearance="@style/dateTextView"
             />
 
-        <!--
-        <TextView
-            android:id="@+id/list_item_max_temperature_label_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/max_temperature_abbreviated"
-            android:textAppearance="@style/smallTextView"
-            />
--->
-        <TextView
-            android:id="@+id/list_item_max_temperature_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="18ºC"
-            android:textAppearance="@style/dateTextView"
-            />
 
     </LinearLayout>
 
@@ -79,18 +60,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="+"
-        android:background="@drawable/background_gray"
+        android:textColor="@color/ots_pure_white"
+        android:background="@color/ots_blue"
         android:textAppearance="@style/moreDetailsTextView"
         />
 
-
-    <!--
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/background_gray"
-            android:src="@drawable/ots_plus_sign_small"
-            />
-    -->
     </LinearLayout>
