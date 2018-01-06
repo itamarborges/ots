@@ -246,7 +246,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:max="16"
-            android:progress="1"/>
+            android:progress="0"/>
 
         <EditText
             android:id="@+id/editTextQtySunnyDays"
