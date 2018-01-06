@@ -245,6 +245,8 @@
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
             android:max="16"
             android:progress="0"/>
 
@@ -256,7 +258,7 @@
             android:background="@null"
             android:contextClickable="false"
             android:cursorVisible="false"
-            android:editable="false"
+            android:focusable="false"
             android:ems="@integer/fontSizeEms"
             android:enabled="false"
             android:gravity="center_vertical|center_horizontal"
@@ -385,6 +387,7 @@
         android:onClick="onSaveButtonClicked"
         android:background="@drawable/button_background"
         android:layout_marginBottom="@dimen/paddingTopBtn"
+        android:focusable="false"
         android:layout_marginTop="@dimen/paddingBottonBtn"
         android:clickable="true"
         android:textColor="#ffffff"

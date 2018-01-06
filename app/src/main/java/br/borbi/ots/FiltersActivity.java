@@ -1,6 +1,7 @@
 package br.borbi.ots;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -173,7 +174,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                hideKeyboard(FiltersActivity.this);
             }
 
             @Override
@@ -537,6 +538,15 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         button.setTextColor(getResources().getColor(R.color.ots_pure_black));
     }
 
+    public static void hideKeyboard(Activity a) {
+        View current = a.getCurrentFocus();
+        if (current != null) {
+            InputMethodManager imm = (InputMethodManager) a.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(current.getWindowToken(), 0);
+            current.clearFocus();
+        }
+    }
+
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 
@@ -583,10 +593,14 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             datePickerDialog.getDatePicker().setMinDate(today.getTimeInMillis());
             datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
 
+            hideKeyboard(getActivity());
+
             // Create a new instance of DatePickerDialog and return it
             //return new DatePickerDialog(getActivity(), this, year, month, day);
             return datePickerDialog;
         }
+
+
 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -684,6 +698,9 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             activateButton(celsiusButton);
             deactivateButton(fahrenheitButton);
         }
+
+        temperatureEditText.setFocusable(true);
+        temperatureEditText.setFocusableInTouchMode(true);
     }
 
     private void disableTemperatureButtonsStatus(){
@@ -693,6 +710,8 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         fahrenheitButton.setTextColor(getResources().getColor(R.color.ots_pure_white));
         celsiusButton.setBackgroundResource(R.color.ots_disabled_button_color);
         celsiusButton.setTextColor(getResources().getColor(R.color.ots_pure_white));
+        temperatureEditText.setFocusable(false);
+        temperatureEditText.setFocusableInTouchMode(false);
     }
 
     /*
