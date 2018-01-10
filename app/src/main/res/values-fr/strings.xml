@@ -17,7 +17,6 @@
     <string name="dont_care">Ça ne fait rien</string>
 
     <string name="error_localization">Il n\'a pas été possible de déterminer votre position.</string>
-    <string name="snow">Niege</string>
     <string name="historic">Historique</string>
     <string name="begin_date_before_end_date">Please set begin date before end date.</string>
     <string name="detail_city">City: <xliff:g>%1$s</xliff:g>.</string>

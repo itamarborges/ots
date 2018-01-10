@@ -21,7 +21,6 @@
     <string name="minimum_days">Número de dias deve ser entre 1 e <xliff:g>%1$s</xliff:g>.</string>
     <string name="invalid_fields">Por favor, verifique todos os campos destacados.</string>
     <string name="location_not_found">Ainda não foi possível determinar sua localização. Essa pesquisa pode não corresponder à sua localização atual.</string>
-    <string name="snow">Neve</string>
     <string name="historic">Histórica</string>
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> °F</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> °C</string>

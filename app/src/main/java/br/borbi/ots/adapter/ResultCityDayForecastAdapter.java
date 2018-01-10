@@ -81,7 +81,8 @@ public class ResultCityDayForecastAdapter extends BaseAdapter {
             viewHolder.maxTemperatureTextView.setText("");
             viewHolder.weatherImageView.setImageResource(R.drawable.no_border);
             viewHolder.layoutResultCityLinearLayout.setBackgroundResource(R.drawable.no_border);
-            viewHolder.moreDetailsImageView.setVisibility(View.INVISIBLE);
+            viewHolder.moreDetailsTextView.setText("");
+            viewHolder.moreDetailsTextView.setBackgroundResource(R.drawable.no_border);
         } else {
             Integer minTemperature = Utility.roundCeil(dayForecast.getMinTemperature());
             Integer maxTemperature = Utility.roundCeil(dayForecast.getMaxTemperature());
@@ -121,7 +122,7 @@ public class ResultCityDayForecastAdapter extends BaseAdapter {
         public final TextView maxTemperatureTextView;
         public final ImageView weatherImageView;
         public final LinearLayout layoutResultCityLinearLayout;
-        public final ImageView moreDetailsImageView;
+        public final TextView moreDetailsTextView;
 
         public ViewHolder(View view) {
             dateTextView = (TextView) view.findViewById(R.id.list_item_date_textview);
@@ -129,7 +130,7 @@ public class ResultCityDayForecastAdapter extends BaseAdapter {
             maxTemperatureTextView = (TextView) view.findViewById(R.id.list_item_max_temperature_textview);
             weatherImageView = (ImageView) view.findViewById(R.id.weather_imageview);
             layoutResultCityLinearLayout = (LinearLayout) view.findViewById(R.id.layout_result_search_city);
-            moreDetailsImageView = (ImageView) view.findViewById(R.id.img_more_details);
+            moreDetailsTextView = (TextView)view.findViewById(R.id.list_item_more_details);
         }
     }
 
