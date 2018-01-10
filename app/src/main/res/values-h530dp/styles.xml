@@ -41,13 +41,12 @@
     <!-- Backward-compatible version of ?android:attr/buttonBarButtonStyle -->
 
     <style name="titleTextView">
-        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-black</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">@dimen/font_size_big</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="subtitleTextView">
-        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-black</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">@dimen/font_size_small</item>
         <item name="android:textColor">?android:attr/textColorTertiary</item>
     </style>
@@ -58,22 +57,19 @@
     </style>
 
     <style name="smallTitleTextView">
-        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-black</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">10sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="moreDetailsTextView">
-        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-black</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">@dimen/font_size_medium</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:color">@color/ots_dark_grey</item>
     </style>
 
     <style name="mediumTitleTextView">
-        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-bold</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">@dimen/font_size_medium</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
@@ -84,9 +80,8 @@
     </style>
 
     <style name="averageTemperatureTitleTextView">
-        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-bold</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">@dimen/font_size_medium</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
     </style>
 

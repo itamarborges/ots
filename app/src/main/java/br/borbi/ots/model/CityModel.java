@@ -114,6 +114,7 @@ public class CityModel {
                 cTags.close();
             }
 
+
             city.setTags(tagNames);
 
             listCities.add(city);

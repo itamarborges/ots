@@ -11,6 +11,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_alignParentTop="true"
+    android:layout_marginLeft="@dimen/marginFragmentLeftRight"
     android:id="@+id/linearLayout">
 
     <TextView

@@ -8,12 +8,23 @@ import android.support.v7.app.AppCompatActivity;
 
 import br.borbi.ots.fragment.DetailCityFragment;
 
+
 public class DetailCityActivity extends AppCompatActivity {
 
     public static final String ID_RESULT_SEARCH = "ID_RESULT_SEARCH";
     public static final String CITY_NAME = "CITY_NAME";
     public static final String QTY_ITENS = "QTY_ITENS";
     public static final String RELATIVE_POSITION = "RELATIVE_POSITION";
+
+    private int mIdResultSearch;
+
+    public int getidResultSearch() {
+        return mIdResultSearch;
+    }
+
+    public void setidResultSearch(int idResultSearch) {
+        this.mIdResultSearch = idResultSearch;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

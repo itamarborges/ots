@@ -78,7 +78,7 @@ public class CityResultSearchModel {
         selectionArgs[i++] = String.valueOf(coordinates.getMaxLongitude());
         selectionArgs[i++] = String.valueOf(minDateLastSearch.getTime());
         selectionArgs[i++] = String.valueOf(maxDateBegin.getTime());
-        selectionArgs[i++] = String.valueOf(minDateEnd.getTime());
+        selectionArgs[i] = String.valueOf(minDateEnd.getTime());
 
         Cursor cursor = contextParam.getContentResolver().query(
                 uriSearchByCities,

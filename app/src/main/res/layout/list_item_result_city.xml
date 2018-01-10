@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_result_search_city"
-    android:background="@drawable/border_gray"
+    android:background="@drawable/border"
     >
 
     <LinearLayout
@@ -32,6 +32,16 @@
             />
 
         <TextView
+            android:id="@+id/list_item_max_temperature_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="18ºC"
+            android:textAppearance="@style/dateTextView"
+            />
+
+
+        <TextView
             android:id="@+id/list_item_min_temperature_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,21 +50,19 @@
             android:textAppearance="@style/dateTextView"
             />
 
-        <TextView
-            android:id="@+id/list_item_max_temperature_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="18ºC"
-            android:textAppearance="@style/dateTextView"
-            />
+
     </LinearLayout>
 
-    <ImageView
+
+    <TextView
+        android:id="@+id/list_item_more_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_more_horiz_black_24dp"
-        android:background="@drawable/background_gray"
-        android:id="@+id/img_more_details"/>
-</LinearLayout>
+        android:gravity="center_horizontal"
+        android:text="+"
+        android:textColor="@color/ots_pure_white"
+        android:background="@color/ots_blue"
+        android:textAppearance="@style/moreDetailsTextView"
+        />
+
+    </LinearLayout>

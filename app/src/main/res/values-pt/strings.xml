@@ -9,6 +9,8 @@
     <string name="miles">mi</string>
     <string name="search">Vai!</string>
     <string name="qty_sunny_days">DIAS COM SOL</string>
+    <string name="days">dias</string>
+    <string name="day">dia</string>
     <string name="days_without_rain">Considerar dias nublados</string>
     <string name="min_temperature">TEMPERATURA MÍNIMA</string>
     <string name="dont_care">Não importa</string>
@@ -19,9 +21,12 @@
     <string name="minimum_days">Número de dias deve ser entre 1 e <xliff:g>%1$s</xliff:g>.</string>
     <string name="invalid_fields">Por favor, verifique todos os campos destacados.</string>
     <string name="location_not_found">Ainda não foi possível determinar sua localização. Essa pesquisa pode não corresponder à sua localização atual.</string>
+    <string name="snow">Neve</string>
+    <string name="historic">Histórica</string>
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> °F</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> °C</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
+    <string name="max_temperature">Temperatura máxima:</string>
     <string name="no_data_available">Nenhuma cidade com sol encontrada. Tente alterar o período de dias, a distância, o número de dias com sol ou a temperatura mínima. Atualmente, procuramos cidades no Brasil, Canadá, França e Estados Unidos.</string>
     <string name="average_temperature">Temperaturas Médias:</string>
     <string name="morning">Manhã</string>
@@ -29,8 +34,8 @@
     <string name="night">Noite</string>
     <string name="source">Fonte da previsão do tempo:</string>
     <string name="where_am_i">Onde estou?</string>
-    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F à <xliff:g>%2$s</xliff:g>º F</string>
-    <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g>º C à <xliff:g>%2$s</xliff:g>º C</string>
+    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%2$s</xliff:g>º F à <xliff:g>%1$s</xliff:g>º F</string>
+    <string name="display_min_max_temperature_celsius"><xliff:g>%2$s</xliff:g>º C à <xliff:g>%1$s</xliff:g>º C</string>
     <string name="here_the_sun_shines">Aqui tem sol!</string>
     <string name="searching_the_sun">Pesquisando …</string>
     <string name="searching_sunny_cities_message1">Estamos buscando cidades com sol.</string>

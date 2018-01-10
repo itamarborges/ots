@@ -81,6 +81,7 @@ public class OpenWeatherIntegration {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
+
                     buffer.append(line).append("\n");
                 }
 

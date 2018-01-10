@@ -21,15 +21,16 @@
     <string name="days_without_rain">Include cloudy days</string>
     <string name="distance_miles" translatable="false"><xliff:g>%1$s</xliff:g> mi</string>
     <string name="distance_kilometers" translatable="false"><xliff:g>%1$s</xliff:g> km</string>
-    <string name="display_min_max_temperature" translatable="false"><xliff:g>%1$s</xliff:g>º/<xliff:g>%2$s</xliff:g>º</string>
-    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%1$s</xliff:g>º F to <xliff:g>%2$s</xliff:g>º F</string>
-    <string name="display_min_max_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC to <xliff:g>%2$s</xliff:g> ºC</string>
+    <string name="display_min_max_temperature" translatable="false"><xliff:g>%2$s</xliff:g>º/<xliff:g>%1$s</xliff:g>º</string>
+    <string name="display_min_max_temperature_fahrenheit"><xliff:g>%2$s</xliff:g>º F to <xliff:g>%1$s</xliff:g>º F</string>
+    <string name="display_min_max_temperature_celsius"><xliff:g>%2$s</xliff:g> ºC to <xliff:g>%1$s</xliff:g> ºC</string>
     <string name="display_temperature"><xliff:g>%1$s</xliff:g>º</string>
     <string name="display_temperature_fahrenheit"><xliff:g>%1$s</xliff:g> ºF</string>
     <string name="display_temperature_celsius"><xliff:g>%1$s</xliff:g> ºC</string>
     <string name="detail_precipitation">Precipitation: <xliff:g>%1$s</xliff:g> mm</string>
     <string name="dont_care">Don\'t care</string>
-
+    <string name="days">days</string>
+    <string name="day">day</string>
     <!-- E -->
     <string name="explanation_internet">If you don\'t have an internet connection, it won\'t be possible to search for the weather forecast. It\'s essential that the internet connection is active in your device so you can use this app.</string>
     <string name="error_localization">It was not possible to determine your location.</string>
@@ -46,6 +47,7 @@
     <string name="help_date_period">Weather forecast available only from today until 16 days from now.</string>
     <string name="here_the_sun_shines">Here the sun will shine!</string>
     <string name="help_distance">Maximum distance from your current location.</string>
+    <string name="historic">Historic</string>
 
     <!-- I -->
     <string name="invalid_fields">Please verify all red fields.</string>
@@ -101,6 +103,7 @@
     <string name="searching_sunny_cities_message6">When you see the weather forecast from some city, click in the days to see more details.</string>
     <string name="source">Weather Forecast Source:</string>
     <string name="search">Go!</string>
+    <string name="snow">Snow</string>
     <string name="start_date">Begin date</string>
 
     <!-- T -->

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="culture">Culture</string>
-    <string name="history">History</string>
-    <string name="adventures">Adventures</string>
-    <string name="food">Food</string>
-    <string name="theme_park">Theme Park</string>
-    <string name="beach">Beach</string>
-    <string name="relax">Relax</string>
-    <string name="water_sports">Water Sports</string>
-    <string name="boat_trip">Boat Trip</string>
+    <string name="history">Histoire</string>
+    <string name="adventures">Aventures</string>
+    <string name="food">Nourriture</string>
+    <string name="theme_park">Parc d\'attractions</string>
+    <string name="beach">Plage</string>
+    <string name="relax">Relaxer</string>
+    <string name="water_sports">Sports nautiques</string>
+    <string name="boat_trip">Voyage en bateau</string>
     <string name="ski">Ski</string>
     <string name="casinos">Casinos</string>
-    <string name="swimming_pools">Swimming Pools</string>
+    <string name="swimming_pools">Piscines</string>
     <string name="sports">Sports</string>
     <string name="snow">Snow</string>
 </resources>
