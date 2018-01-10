@@ -35,8 +35,6 @@ public class CitiesFragment extends Fragment {
             OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag.COLUMN_NAME_RESOURCE_NAME
     };
 
-    // these indices must match the projection
-    public static final int INDEX_TAG_ID = 0;
     public static final int INDEX_RESOURCE_NAME = 1;
 
     public CitiesFragment() {}

@@ -7,4 +7,5 @@
     <color name="ots_dark_grey">#ff696969</color>
     <color name="ots_disabled_button_color">#E0E0E0</color>
     <color name="ots_pure_black">#000000</color>
+    <color name="city_title">#ff37474f</color>
 </resources>

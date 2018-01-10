@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
@@ -346,10 +347,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
                 //Verifying if the parameters are equals than the last ones
                 //If they are and didn´t have passed more than 2 hours, the search won't happen
-                Time time = new Time();
-                time.setToNow();
-
-                Long timeNow = time.toMillis(false);
+                Long timeNow = (new Date()).getTime();
 
                 useKilometers = kilometersChecked;
                 useCelsius = celsiusChecked;
@@ -530,12 +528,12 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     private void activateButton(Button button){
         button.setBackgroundResource(R.color.ots_blue);
-        button.setTextColor(getResources().getColor(R.color.ots_pure_white));
+        button.setTextColor(ContextCompat.getColor(this, R.color.ots_pure_white));
     }
 
     private void deactivateButton(Button button){
         button.setBackgroundResource(R.color.ots_disabled_button_color);
-        button.setTextColor(getResources().getColor(R.color.ots_pure_black));
+        button.setTextColor(ContextCompat.getColor(this, R.color.ots_pure_black));
     }
 
     public static void hideKeyboard(Activity a) {
@@ -600,8 +598,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             return datePickerDialog;
         }
 
-
-
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
@@ -609,8 +605,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
             Bundle b = getArguments();
             ((ClickFragment) getActivity()).OnClickFragment(b.getInt(BUTTON_CLICKED), date);
-
-
         }
     }
 
@@ -707,12 +701,13 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         deactivateButton(fahrenheitButton);
         deactivateButton(celsiusButton);
         fahrenheitButton.setBackgroundResource(R.color.ots_disabled_button_color);
-        fahrenheitButton.setTextColor(getResources().getColor(R.color.ots_pure_white));
+        fahrenheitButton.setTextColor(ContextCompat.getColor(this, R.color.ots_pure_white));
         celsiusButton.setBackgroundResource(R.color.ots_disabled_button_color);
-        celsiusButton.setTextColor(getResources().getColor(R.color.ots_pure_white));
+        celsiusButton.setTextColor(ContextCompat.getColor(this, R.color.ots_pure_white));
         temperatureEditText.setFocusable(false);
         temperatureEditText.setFocusableInTouchMode(false);
     }
+
 
     /*
     Verifica se o checkbox "nao importa" para a temperatura minima esta marcado. Se estiver, desabilita o campo.
@@ -799,7 +794,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }else{
             Log.v(LOG_TAG,"vai chamar buildGoogleApiClient em findLocation");
-            LocationUtility.buildGoogleApiClient(this);
+            LocationUtility.buildGoogleApiClient(this, this, this, this);
         }
     }
 
@@ -809,7 +804,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ) {
             // Inicia o servico de localizacao
-            LocationUtility.buildGoogleApiClient(this);
+            LocationUtility.buildGoogleApiClient(this, this, this, this);
         }else{
             AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
             if(dialog!=null) {
@@ -831,7 +826,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        LocationUtility.onConnected();
+        LocationUtility.onConnected(this);
     }
 
     @Override
@@ -847,7 +842,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     @Override
     public void onLocationChanged(Location location) {
-        LocationUtility.onLocationChanged(location);
+        LocationUtility.onLocationChanged(location, this);
         mLastLatitude = location.getLatitude();
         mLastLongitude = location.getLongitude();
     }

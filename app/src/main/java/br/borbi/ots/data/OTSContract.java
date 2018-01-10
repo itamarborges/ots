@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.text.format.Time;
 
 /**
  * Created by Itamar on 07/02/2015.
@@ -48,7 +47,6 @@ public final class OTSContract {
 
     public static final int MAX_DISTANCE_VALID = 100;
 
-    public static final int INDETERMINATED_VALUE = 99999;
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
     // the content provider.
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
@@ -71,7 +69,6 @@ public final class OTSContract {
     public static final Uri CONTENT_URI_LIST_TAGS_FROM_A_CITY = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_TAGS_FROM_A_CITY).build();
 
     public static final String PATH_LIST_CITIES_WITH_TAGS = "list_cities_with_tags";
-    public static final Uri CONTENT_URI_LIST_CITIES_WITH_TAGS = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_WITH_TAGS).build();
 
     public static final String PATH_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS = "list_cities_by_search_and_new_search_parameters";
     public static final Uri CONTENT_URI_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LIST_CITIES_BY_SEARCH_AND_NEW_SEARCH_PARAMETERS).build();
@@ -81,17 +78,9 @@ public final class OTSContract {
 
     public static final String METHOD_SAVE_SEARCH = "METHOD_SAVE_SEARCH";
 
-    public static long normalizeDate(long startDate) {
-        // normalize the start date to the beginning of the (UTC) day
-        Time time = new Time();
-        time.set(startDate);
-        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
-        return time.setJulianDay(julianDay);
-    }
-
     // To prevent someone from accidentally instantiating the data class,
     // give it an empty constructor.
-    public OTSContract() {
+    private OTSContract() {
     }
 
     public static final String CREATE_TABLE = " CREATE TABLE ";
@@ -100,7 +89,6 @@ public final class OTSContract {
     public static final String TYPE_INTEGER = " INTEGER ";
     public static final String TYPE_REAL = " REAL ";
     public static final String NOT_NULL = " NOT NULL ";
-    public static final String NULL = " NULL ";
     public static final String UNIQUE_ON_CONFLICT_REPLACE = " UNIQUE ON CONFLICT REPLACE ";
 
     public static abstract class Tag implements BaseColumns {
@@ -109,8 +97,6 @@ public final class OTSContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_TAG).build();
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_TAG;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_TAG;
 
         public static final String TABLE_NAME = "tag";
         public static final String COLUMN_NAME_RESOURCE_NAME = "resource_name";
@@ -126,8 +112,6 @@ public final class OTSContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_REL_CITY_TAG).build();
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REL_CITY_TAG;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REL_CITY_TAG;
 
         public static final String TABLE_NAME = "rel_city_tag";
         public static final String COLUMN_NAME_CITY_ID = "city_id";
@@ -144,9 +128,6 @@ public final class OTSContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_CITY).build();
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CITY;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CITY;
-
 
         public static final String TABLE_NAME = "city";
         public static final String COLUMN_NAME_LATITUDE = "latitude";
@@ -168,8 +149,6 @@ public final class OTSContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_COUNTRY).build();
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COUNTRY;
 
         public static final String TABLE_NAME = "country";
         public static final String COLUMN_NAME_COUNTRY_CODE = "country_code";
@@ -186,8 +165,6 @@ public final class OTSContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_SEARCH).build();
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SEARCH;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SEARCH;
 
         public static final String TABLE_NAME = "search";
         public static final String COLUMN_NAME_DATE_BEGIN = "date_begin";
@@ -211,8 +188,6 @@ public final class OTSContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_REL_SEARCH_CITY).build();
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REL_SEARCH_CITY;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_REL_SEARCH_CITY;
 
         public static final String TABLE_NAME = "rel_search_city";
         public static final String COLUMN_NAME_SEARCH_ID = "search_id";
@@ -231,8 +206,6 @@ public final class OTSContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_RESULT_SEARCH).build();
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_RESULT_SEARCH;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_RESULT_SEARCH;
 
         public static final String TABLE_NAME = "result_search";
         public static final String COLUMN_NAME_REL_SEARCH_CITY_ID = "rel_search_city_id";

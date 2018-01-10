@@ -1,6 +1,5 @@
 package br.borbi.ots.integration;
 
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -38,7 +37,7 @@ public class DeveloperForecastIntegration {
     private static final String PARAM_UNITS = "units";
     private static final String PARAM_UNITS_VALUE = "si";
 
-    public static CityResultSearch searchWeatherData(City city, int numberOfDays, Context context) {
+    public static CityResultSearch searchWeatherData(City city) {
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -69,7 +68,7 @@ public class DeveloperForecastIntegration {
 
             // Read the input stream into a String
             InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (inputStream != null) {
                 reader = new BufferedReader(new InputStreamReader(inputStream));
 

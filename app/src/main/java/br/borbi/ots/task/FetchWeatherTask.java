@@ -1,6 +1,5 @@
 package br.borbi.ots.task;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -24,14 +23,10 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
 
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
-    private final Context mContext;
+    private final SearchActivity.TaskFinishedListener taskFinishedListener;
 
-    private SearchActivity.TaskFinishedListener taskFinishedListener;
-
-    public FetchWeatherTask(Context context,SearchActivity.TaskFinishedListener taskFinishedListener) {
-        mContext = context;
+    public FetchWeatherTask(SearchActivity.TaskFinishedListener taskFinishedListener) {
         this.taskFinishedListener = taskFinishedListener;
-
     }
 
     @Override
@@ -86,11 +81,11 @@ public class FetchWeatherTask extends AsyncTask<SearchParameters, Void, List<Cit
     }
 
     private CityResultSearch searchOpenWeatherData(City city, int numberOfDays){
-        return OpenWeatherIntegration.searchWeatherData(city,numberOfDays,mContext);
+        return OpenWeatherIntegration.searchWeatherData(city,numberOfDays);
     }
 
     private CityResultSearch searchDeveloperForecastData(City city, int numberOfDays){
-        return DeveloperForecastIntegration.searchWeatherData(city,numberOfDays,mContext);
+        return DeveloperForecastIntegration.searchWeatherData(city);
     }
 
     @Override

@@ -8,47 +8,47 @@ import java.util.Locale;
  */
 public class Country implements Comparable<Country> {
 
-    private int mId;
-    private String mCountryCode;
-    private String mTranslationFileKey;
-    private String mCountryName;
+    private int id;
+    private String countryCode;
+    private String translationFileKey;
+    private String countryName;
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public void setId(int id) {
-        this.mId = id;
+        this.id = id;
     }
 
     public String getCountryName() {
-        return mCountryName;
+        return countryName;
     }
 
     public void setCountryName(String mCityName) {
-        this.mCountryName = mCityName;
+        this.countryName = mCityName;
     }
 
     public String getCountryCode() {
-        return mCountryCode;
+        return countryCode;
     }
 
     public void setCountryCode(String mCountryCode) {
-        this.mCountryCode = mCountryCode;
+        this.countryCode = mCountryCode;
     }
 
     public String getTranslationFileKay() {
-        return mTranslationFileKey;
+        return translationFileKey;
     }
 
     public void setTranslationFileKay(String mTranslationFileKey) {
-        this.mTranslationFileKey = mTranslationFileKey;
+        this.translationFileKey = mTranslationFileKey;
     }
 
-    public Country(int mId, String mCountryCode, String mCityName) {
-        this.mId = mId;
-        this.mCountryCode = mCountryCode;
-        this.mCountryName = mCityName;
+    public Country(int id, String countryCode, String mCityName) {
+        this.id = id;
+        this.countryCode = countryCode;
+        this.countryName = mCityName;
     }
 
     @Override
@@ -60,6 +60,6 @@ public class Country implements Comparable<Country> {
 
     @Override
     public String toString() {
-        return mCountryName;
+        return countryName;
     }
 }

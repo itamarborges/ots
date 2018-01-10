@@ -8,12 +8,10 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.IntDef;
-import android.text.format.Time;
 import android.widget.EditText;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -100,12 +98,6 @@ public class Utility {
         return monthDayFormat.format(date);
     }
 
-    public static String getFormattedDateMonth(Long dateInMillis ) {
-        Date date = new Date(dateInMillis);
-        SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM");
-        return monthDayFormat.format(date);
-    }
-
     public static String getFormattedDateMonth(Date date) {
         SimpleDateFormat monthDayFormat = new SimpleDateFormat("dd/MM");
         return monthDayFormat.format(date);
@@ -141,14 +133,6 @@ public class Utility {
 
     public static Date getDate(int year, int monthOfYear, int dayOfMonth){
         return (new GregorianCalendar(year,monthOfYear,dayOfMonth,0,0,0)).getTime();
-    }
-
-    /*
-    Formata a data marcada no calendario de acordo com o formato marcado como padrao no aparelho.
-     */
-    public static String formatDate(int year, int monthOfYear, int dayOfMonth, DateFormat dateFormat) {
-        Calendar data = new GregorianCalendar(year,monthOfYear,dayOfMonth);
-        return dateFormat.format(data.getTime());
     }
 
     public static Date setDateToFinalHours(Date date){
@@ -242,13 +226,8 @@ public class Utility {
     }
 
     public static Long findSearchByDate(Context context){
-        Time dayTime = new Time();
-        dayTime.setToNow();
-
-        int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-
         String[] selectionArgs = new String[1];
-        selectionArgs[0] = Long.toString(dayTime.setJulianDay(julianToday));
+        selectionArgs[0] = Long.toString((new Date()).getTime());
 
         Cursor c = context.getContentResolver().query(
                 OTSContract.Search.CONTENT_URI,
@@ -268,11 +247,6 @@ public class Utility {
     }
 
     public static Long findSearchByDateAndCoordinates(double lastLatitude, double lastLongitude, Context context){
-        Time dayTime = new Time();
-        dayTime.setToNow();
-
-        int julianToday = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-
         Coordinates coordinates = new Coordinates(lastLatitude, lastLongitude, OTSContract.MAX_DISTANCE_VALID);
 
         String[] selectionArgs = new String[5];
@@ -280,7 +254,7 @@ public class Utility {
         selectionArgs[1] = String.valueOf(coordinates.getMaxLatitude());
         selectionArgs[2] = String.valueOf(coordinates.getMinLongitude());
         selectionArgs[3] = String.valueOf(coordinates.getMaxLongitude());
-        selectionArgs[4] = Long.toString(dayTime.setJulianDay(julianToday));
+        selectionArgs[4] = Long.toString((new Date()).getTime());
 
         Cursor c = context.getContentResolver().query(
                 OTSContract.Search.CONTENT_URI,

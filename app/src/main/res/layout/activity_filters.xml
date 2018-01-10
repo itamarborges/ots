@@ -68,7 +68,8 @@
                     android:padding="@dimen/paddingCalendar"
                     android:src="@drawable/calendar"
                     android:nestedScrollingEnabled="false"
-                    android:onClick="showCalendar" />
+                    android:onClick="showCalendar"
+                    android:contentDescription="@string/start_date"/>
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +100,8 @@
             android:padding="@dimen/paddingCalendar"
             android:src="@drawable/calendar"
             android:nestedScrollingEnabled="false"
-            android:onClick="showCalendar" />
+            android:onClick="showCalendar"
+            android:contentDescription="@string/end_date"/>
            </LinearLayout>
 
     </LinearLayout>

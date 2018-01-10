@@ -41,12 +41,7 @@ public class OTSProvider extends ContentProvider {
     private static final int LIST_RESULT_SEARCH_WITH_REL_SEARCH_CITY = 1600;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
-    private static final String CLASS_NAME = OTSProvider.class.getName();
     private OTSDbHelper mOpenHelper;
-
-    public static final String FILTER_BY_SEARCH_ID=
-            OTSContract.Search.TABLE_NAME+
-                    "." + OTSContract.Search._ID + " = ? ";
 
     public static final String FILTER_BY_CITY = OTSContract.City.TABLE_NAME+"." + OTSContract.City._ID + " = ? ";
     public static final String FILTER_CITY_BY_COUNTRY = OTSContract.City.TABLE_NAME+"." + OTSContract.City.COLUMN_NAME_COUNTRY_ID + " = ? ";
@@ -698,52 +693,50 @@ s.date_end >= ? //dt final da pesquisa atual
 
          */
 
-        StringBuilder sql = new StringBuilder();
-        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
-        sql.append(" INNER JOIN ");
-        sql.append(OTSContract.Search.TABLE_NAME);
-        sql.append(" ON ");
-        sql.append(OTSContract.Search.TABLE_NAME);
-        sql.append(".");
-        sql.append(OTSContract.Search._ID);
-        sql.append(" = ");
-        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
-        sql.append(".");
-        sql.append(OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID);
-        sql.append(" INNER JOIN ");
-        sql.append(OTSContract.City.TABLE_NAME);
-        sql.append(" ON ");
-        sql.append(OTSContract.City.TABLE_NAME);
-        sql.append(".");
-        sql.append(OTSContract.City._ID);
-        sql.append(" = ");
-        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
-        sql.append(".");
-        sql.append(OTSContract.RelSearchCity.COLUMN_NAME_CITY_ID);
-        sql.append(" INNER JOIN ");
-        sql.append(OTSContract.Country.TABLE_NAME);
-        sql.append(" ON ");
-        sql.append(OTSContract.Country.TABLE_NAME);
-        sql.append(".");
-        sql.append(OTSContract.Country._ID);
-        sql.append(" = ");
-        sql.append(OTSContract.City.TABLE_NAME);
-        sql.append(".");
-        sql.append(OTSContract.City.COLUMN_NAME_COUNTRY_ID);
+        String sql = OTSContract.RelSearchCity.TABLE_NAME +
+                " INNER JOIN " +
+                OTSContract.Search.TABLE_NAME +
+                " ON " +
+                OTSContract.Search.TABLE_NAME +
+                "." +
+                OTSContract.Search._ID +
+                " = " +
+                OTSContract.RelSearchCity.TABLE_NAME +
+                "." +
+                OTSContract.RelSearchCity.COLUMN_NAME_SEARCH_ID +
+                " INNER JOIN " +
+                OTSContract.City.TABLE_NAME +
+                " ON " +
+                OTSContract.City.TABLE_NAME +
+                "." +
+                OTSContract.City._ID +
+                " = " +
+                OTSContract.RelSearchCity.TABLE_NAME +
+                "." +
+                OTSContract.RelSearchCity.COLUMN_NAME_CITY_ID +
+                " INNER JOIN " +
+                OTSContract.Country.TABLE_NAME +
+                " ON " +
+                OTSContract.Country.TABLE_NAME +
+                "." +
+                OTSContract.Country._ID +
+                " = " +
+                OTSContract.City.TABLE_NAME +
+                "." +
+                OTSContract.City.COLUMN_NAME_COUNTRY_ID;
 
-        sWeatherBySearchQueryBuilder.setTables(sql.toString());
+        sWeatherBySearchQueryBuilder.setTables(sql);
 
-        StringBuilder whereClause = new StringBuilder();
-        whereClause.append(OTSContract.City.COLUMN_NAME_LATITUDE);
-        whereClause.append(" BETWEEN ? AND ? AND ");
-        whereClause.append(OTSContract.City.COLUMN_NAME_LONGITUDE);
-        whereClause.append(" BETWEEN ? AND ? AND ");
-        whereClause.append(OTSContract.Search.COLUMN_NAME_DATETIME_LAST_SEARCH);
-        whereClause.append(" >= ? AND ");
-        whereClause.append(OTSContract.Search.COLUMN_NAME_DATE_BEGIN);
-        whereClause.append(" <= ? AND ");
-        whereClause.append(OTSContract.Search.COLUMN_NAME_DATE_END);
-        whereClause.append(" >= ?");
+        String whereClause = OTSContract.City.COLUMN_NAME_LATITUDE +
+                " BETWEEN ? AND ? AND " +
+                OTSContract.City.COLUMN_NAME_LONGITUDE +
+                " BETWEEN ? AND ? AND " +
+                OTSContract.Search.COLUMN_NAME_DATETIME_LAST_SEARCH +
+                " >= ? AND " +
+                OTSContract.Search.COLUMN_NAME_DATE_BEGIN +
+                " <= ? AND " +
+                OTSContract.Search.COLUMN_NAME_DATE_END +
+                " >= ?";
 
 /*
         Log.v(CLASS_NAME, "=== projection = ");
@@ -756,7 +749,7 @@ s.date_end >= ? //dt final da pesquisa atual
 */
         return sWeatherBySearchQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
-                whereClause.toString(),
+                whereClause,
                 selectionArgs,
                 null,
                 null,
@@ -766,22 +759,21 @@ s.date_end >= ? //dt final da pesquisa atual
     private Cursor listDayForecastResultSearch(String[] projection, String selection, String[] selectionArgs){
         SQLiteQueryBuilder sqLiteQueryBuilder = new SQLiteQueryBuilder();
 
-        StringBuilder sql = new StringBuilder();
-        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
-        sql.append(" INNER JOIN ");
-        sql.append(OTSContract.ResultSearch.TABLE_NAME);
-        sql.append(" ON ");
-        sql.append(OTSContract.RelSearchCity.TABLE_NAME);
-        sql.append(".");
-        sql.append(OTSContract.RelSearchCity._ID);
-        sql.append(" = ");
-        sql.append(OTSContract.ResultSearch.TABLE_NAME);
-        sql.append(".");
-        sql.append(OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID);
+        String sql = OTSContract.RelSearchCity.TABLE_NAME +
+                " INNER JOIN " +
+                OTSContract.ResultSearch.TABLE_NAME +
+                " ON " +
+                OTSContract.RelSearchCity.TABLE_NAME +
+                "." +
+                OTSContract.RelSearchCity._ID +
+                " = " +
+                OTSContract.ResultSearch.TABLE_NAME +
+                "." +
+                OTSContract.ResultSearch.COLUMN_NAME_REL_SEARCH_CITY_ID;
 
         //Log.v(CLASS_NAME, "sql = " + sql);
 
-        sqLiteQueryBuilder.setTables(sql.toString());
+        sqLiteQueryBuilder.setTables(sql);
 
         return sqLiteQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,

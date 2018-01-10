@@ -32,22 +32,20 @@ public class DetailCityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_city);
 
         Intent intent = getIntent();
-        mIdResultSearch = intent.getIntExtra(ID_RESULT_SEARCH, -1);
-        int mMQtyItens = intent.getIntExtra(QTY_ITENS, 0);
-        int mMRelativePosition = intent.getIntExtra(RELATIVE_POSITION, -1);
+        int idResultSearch = intent.getIntExtra(ID_RESULT_SEARCH, -1);
+        int qtyItens = intent.getIntExtra(QTY_ITENS, 0);
+        int relativePosition = intent.getIntExtra(RELATIVE_POSITION, -1);
 
         DetailCityFragment newDetailCityFragment = new DetailCityFragment();
 
-        newDetailCityFragment.setIdResultSearch(mIdResultSearch);
-        newDetailCityFragment.setQtyItens(mMQtyItens);
-        newDetailCityFragment.setRelativePosition(mMRelativePosition);
+        newDetailCityFragment.setIdResultSearch(idResultSearch);
+        newDetailCityFragment.setQtyItens(qtyItens);
+        newDetailCityFragment.setRelativePosition(relativePosition);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         fragmentTransaction.replace(R.id.fragment_layout, newDetailCityFragment);
         fragmentTransaction.commit();
-
-
     }
 }
