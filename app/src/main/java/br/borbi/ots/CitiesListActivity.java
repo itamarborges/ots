@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.google.android.gms.ads.AdView;
-
 import java.util.LinkedList;
 
 import br.borbi.ots.adapter.CitiesListAdapter;

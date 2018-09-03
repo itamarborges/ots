@@ -146,9 +146,7 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         if(search.getMinTemperature() != 0){
-            if(search.getMinTemperature() > minTemperature){
-                return false;
-            }
+            return search.getMinTemperature() <= minTemperature;
         }
 
         return true;
