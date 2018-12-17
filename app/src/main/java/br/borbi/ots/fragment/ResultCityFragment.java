@@ -28,6 +28,8 @@ import br.borbi.ots.enums.WeatherForecastSourcePriority;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.DateUtility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -59,7 +61,11 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
     private String[] mWeekDaysNames;
 
     private View mRootView;
-    private View mEmptyView;
+
+    @BindView(R.id.listview_result_city_empty) View mEmptyView;
+    @BindView(R.id.nameDaysGridView) GridView nameDaysGridview;
+    @BindView(R.id.gridview) GridView gridview;
+    @BindView(R.id.weather_forecast_source_url_text_view) TextView weatherForecastUrlTextView;
 
     public String getStrCityName() {
         return strCityName;
@@ -87,13 +93,12 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
                              Bundle savedInstanceState) {
 
         mRootView = inflater.inflate(R.layout.fragment_result_city, container, false);
-        mEmptyView = mRootView.findViewById(R.id.listview_result_city_empty);
+        ButterKnife.bind(this, mRootView);
 
         buildWeekDaysNamesArray();
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, mWeekDaysNames);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_day_of_week, mWeekDaysNames);
-        GridView gridview = (GridView) mRootView.findViewById(R.id.nameDaysGridView);
-        gridview.setAdapter(adapter);
+        nameDaysGridview.setAdapter(adapter);
 
         return mRootView;
     }
@@ -176,7 +181,6 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
                 }
             };
 
-            TextView weatherForecastUrlTextView = (TextView)mRootView.findViewById(R.id.weather_forecast_source_url_text_view);
             weatherForecastUrlTextView.setVisibility(View.VISIBLE);
             weatherForecastUrlTextView.setText(getString(R.string.developerForecastCredit));
             Linkify.addLinks(weatherForecastUrlTextView, Pattern.compile(getString(R.string.developerForecastCredit)), getString(R.string.weather_forecast_source_developer_forecast),null,t);
@@ -193,7 +197,7 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
         mResultCityDayForecastAdapter = new ResultCityDayForecastAdapter(forecasts,getActivity());
         mResultCityDayForecastAdapter.setCityName(strCityName);
         mResultCityDayForecastAdapter.setQtyItens(mQtyCities);
-        GridView gridview = (GridView) mRootView.findViewById(R.id.gridview);
+
         gridview.setAdapter(mResultCityDayForecastAdapter);
         gridview.setEmptyView(mEmptyView);
     }

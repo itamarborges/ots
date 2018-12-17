@@ -25,6 +25,8 @@ import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.enums.WeatherForecastSourcePriority;
 import br.borbi.ots.utility.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -34,6 +36,19 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
     public static final String LOG_TAG = DetailCityFragment.class.getSimpleName();
     private int idResultSearch;
     private static final int DETAIL_CITY_LOADER = 0;
+
+    @BindView(R.id.detail_date_textView) TextView mDateDetail;
+    @BindView(R.id.detail_min_max_temperature_textView) TextView mMinMaxTemperatureDetail;
+    @BindView(R.id.morning_temperature_textView) TextView mAverageMorning;
+    @BindView(R.id.afternoon_temperature_textView) TextView mAverageAfternoon;
+    @BindView(R.id.night_temperature_textView) TextView mAverageNight;
+    @BindView(R.id.precipitation_textView) TextView mPrecipitation;
+    @BindView(R.id.imageWeatherDetail) ImageView mWeatherImageView;
+    @BindView(R.id.url_source_textView) TextView mUrlSourceTextView;
+    @BindView(R.id.temperatura_media_textView) TextView mTemperaturaMediaTextView;
+    @BindView(R.id.temperatures_linearLayout) LinearLayout mTemperaturesLinearLayout;
+    @BindView(R.id.btnNext) Button mNextButton;
+    @BindView(R.id.btnPrevious) Button mPreviousButton;
 
     private float x1, x2;
 
@@ -62,20 +77,6 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
             OTSContract.RelSearchCity.TABLE_NAME + "." + OTSContract.RelSearchCity.COLUMN_NAME_WEATHER_FORECAST_SOURCE
     };
 
-    private TextView mDateDetail;
-    private TextView mMinMaxTemperatureDetail;
-    private TextView mAverageMorning;
-    private TextView mAverageAfternoon;
-    private TextView mAverageNight;
-    private TextView mPrecipitation;
-    private ImageView mWeatherImageView;
-    private TextView mUrlSourceTextView;
-    private TextView mTemperaturaMediaTextView;
-    private LinearLayout mTemperaturesLinearLayout;
-
-    private Button mNextButton;
-    private Button mPreviousButton;
-
     public DetailCityFragment() {}
 
     @Override
@@ -84,18 +85,7 @@ public class DetailCityFragment extends Fragment implements LoaderManager.Loader
 
         View rootView = inflater.inflate(R.layout.fragment_detail_city, container, false);
 
-        mDateDetail = (TextView) rootView.findViewById(R.id.detail_date_textView);
-        mMinMaxTemperatureDetail = (TextView) rootView.findViewById(R.id.detail_min_max_temperature_textView);
-        mAverageMorning = (TextView) rootView.findViewById(R.id.morning_temperature_textView);
-        mAverageAfternoon = (TextView) rootView.findViewById(R.id.afternoon_temperature_textView);
-        mAverageNight = (TextView) rootView.findViewById(R.id.night_temperature_textView);
-        mWeatherImageView = (ImageView) rootView.findViewById(R.id.imageWeatherDetail);
-        mNextButton = (Button) rootView.findViewById(R.id.btnNext);
-        mPreviousButton = (Button) rootView.findViewById(R.id.btnPrevious);
-        mPrecipitation = (TextView) rootView.findViewById(R.id.precipitation_textView);
-        mUrlSourceTextView = (TextView) rootView.findViewById(R.id.url_source_textView);
-        mTemperaturaMediaTextView = (TextView) rootView.findViewById(R.id.temperatura_media_textView);
-        mTemperaturesLinearLayout = (LinearLayout) rootView.findViewById(R.id.temperatures_linearLayout);
+        ButterKnife.bind(this, rootView);
 
         rootView.setOnTouchListener(new View.OnTouchListener() {
             @Override

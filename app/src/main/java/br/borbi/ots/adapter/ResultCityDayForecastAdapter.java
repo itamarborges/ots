@@ -17,6 +17,8 @@ import br.borbi.ots.R;
 import br.borbi.ots.enums.WeatherType;
 import br.borbi.ots.pojo.DayForecast;
 import br.borbi.ots.utility.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Gabriela on 10/07/2015.
@@ -117,20 +119,16 @@ public class ResultCityDayForecastAdapter extends BaseAdapter {
     }
 
     public static class ViewHolder {
-        public final TextView dateTextView;
-        public final TextView minTemperatureTextView;
-        public final TextView maxTemperatureTextView;
-        public final ImageView weatherImageView;
-        public final LinearLayout layoutResultCityLinearLayout;
-        public final TextView moreDetailsTextView;
+
+        @BindView(R.id.list_item_date_textview) TextView dateTextView;
+        @BindView(R.id.list_item_min_temperature_textview) TextView minTemperatureTextView;
+        @BindView(R.id.list_item_max_temperature_textview) TextView maxTemperatureTextView;
+        @BindView(R.id.weather_imageview) ImageView weatherImageView;
+        @BindView(R.id.layout_result_search_city) LinearLayout layoutResultCityLinearLayout;
+        @BindView(R.id.list_item_more_details) TextView moreDetailsTextView;
 
         public ViewHolder(View view) {
-            dateTextView = (TextView) view.findViewById(R.id.list_item_date_textview);
-            minTemperatureTextView = (TextView) view.findViewById(R.id.list_item_min_temperature_textview);
-            maxTemperatureTextView = (TextView) view.findViewById(R.id.list_item_max_temperature_textview);
-            weatherImageView = (ImageView) view.findViewById(R.id.weather_imageview);
-            layoutResultCityLinearLayout = (LinearLayout) view.findViewById(R.id.layout_result_search_city);
-            moreDetailsTextView = (TextView)view.findViewById(R.id.list_item_more_details);
+            ButterKnife.bind(this, view);
         }
     }
 

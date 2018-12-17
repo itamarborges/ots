@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,8 @@ import br.borbi.ots.utility.ForwardUtility;
 import br.borbi.ots.utility.LocationUtility;
 import br.borbi.ots.utility.Utility;
 import br.borbi.ots.utility.ValidationUtility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 interface ClickFragment {
 
@@ -54,6 +57,23 @@ interface ClickFragment {
 }
 
 public class FiltersActivity extends AppCompatActivity implements ClickFragment,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener,ActivityCompat.OnRequestPermissionsResultCallback {
+
+    @BindView(R.id.textViewDateBeginPeriod) TextView dateBeginView;
+    @BindView(R.id.textViewDateEndPeriod) TextView dateEndView;
+    @BindView(R.id.editTextMaxDistance) EditText distanceEditText;
+    @BindView(R.id.textViewHelpDatePeriod) TextView helpDatePeriod;
+    @BindView(R.id.btnKm) Button kilometersButton;
+    @BindView(R.id.btnMi) Button milesButton;
+    @BindView(R.id.seekBar) SeekBar mSeekBar;
+    //Nro dias com sol
+    @BindView(R.id.editTextQtySunnyDays) EditText daysEditText;
+    //Dias nublados
+    @BindView(R.id.checkBoxDaysWithoutRain) CheckBox daysWithoutRainCheckbox;
+    //Temperatura
+    @BindView(R.id.editTextMinTemperature) EditText temperatureEditText;
+    @BindView(R.id.checkBoxTemperature) CheckBox temperatureCheckbox;
+    @BindView(R.id.btnCelsius) Button celsiusButton;
+    @BindView(R.id.btnFahrenheit) Button fahrenheitButton;
 
     private static final String LOG_TAG = FiltersActivity.class.getSimpleName();
 
@@ -75,21 +95,9 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private static final int INDETERMINED_TEMPERATURE = 999;
 
     private static DateFormat dateFormat;
-    private TextView dateBeginView;
-    private TextView dateEndView;
-    private EditText distanceEditText;
-    private EditText daysEditText;
-    private CheckBox daysWithoutRainCheckbox;
-    private EditText temperatureEditText;
-    private CheckBox temperatureCheckbox;
     private static Date dateBegin;
     private static Date dateEnd;
 
-    private Button kilometersButton;
-    private Button milesButton;
-
-    private Button celsiusButton;
-    private Button fahrenheitButton;
 
     private boolean celsiusChecked = true;
     private boolean kilometersChecked = true;
@@ -109,7 +117,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     private boolean mLastSearchUseCelsius;
     private boolean mLastSearchUseKilometers;
     private boolean mBolRenewInformations;
-    private SeekBar mSeekBar;
 
     private static Double mLastLatitude;
     private static Double mLastLongitude;
@@ -119,12 +126,11 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        mBolRenewInformations = false;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
+        ButterKnife.bind(this);
 
+        mBolRenewInformations = false;
         mContext = this;
 
         Intent intent = getIntent();
@@ -135,12 +141,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         findLocation();
 
         getParametersLastSearch();
-
-        dateBeginView = (TextView) findViewById(R.id.textViewDateBeginPeriod);
-        dateEndView = (TextView) findViewById(R.id.textViewDateEndPeriod);
-
-        //Distancia
-        distanceEditText = (EditText) findViewById(R.id.editTextMaxDistance);
 
         distanceEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -155,12 +155,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             }
         });
 
-        TextView helpDatePeriod = (TextView) findViewById(R.id.textViewHelpDatePeriod);
 
-        kilometersButton = (Button)findViewById(R.id.btnKm);
-        milesButton = (Button)findViewById(R.id.btnMi);
-
-        mSeekBar = (SeekBar) findViewById(R.id.seekBar);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -183,11 +178,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             }
         });
 
-        //Nro dias com sol
-        daysEditText = (EditText) findViewById(R.id.editTextQtySunnyDays);
 
-        //Dias nublados
-        daysWithoutRainCheckbox = (CheckBox) findViewById(R.id.checkBoxDaysWithoutRain);
 
         daysWithoutRainCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,11 +188,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             }
         });
 
-        //Temperatura
-        temperatureEditText = (EditText) findViewById(R.id.editTextMinTemperature);
-        temperatureCheckbox = (CheckBox) findViewById(R.id.checkBoxTemperature);
-        celsiusButton= (Button)findViewById(R.id.btnCelsius);
-        fahrenheitButton = (Button)findViewById(R.id.btnFahrenheit);
 
         temperatureCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,11 +14,19 @@ import java.util.Set;
 
 import br.borbi.ots.R;
 import br.borbi.ots.data.OTSContract;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Itamar on 16/06/2015.
  */
 public class TitleCityFragment extends Fragment {
+
+    @BindView(R.id.city_name_textview) TextView mMCityNameTextView;
+    @BindView(R.id.fragment_city_first_tag_textview) TextView mMFirstTagTextView;
+    @BindView(R.id.fragment_city_second_tag_textview) TextView mMSecondTagTextView;
+    @BindView(R.id.fragment_city_third_tag_textview) TextView mMThirdTagTextView;
+
 
     public static final String LOG_TAG = TitleCityFragment.class.getSimpleName();
 
@@ -33,10 +41,8 @@ public class TitleCityFragment extends Fragment {
         final Set<String> mTags  = sp.getStringSet(OTSContract.KEY_CITY_TAGS, null);
 
         View rootView = inflater.inflate(R.layout.fragment_title_city, container, false);
-        TextView mMCityNameTextView = (TextView) rootView.findViewById(R.id.city_name_textview);
-        TextView mMFirstTagTextView = (TextView) rootView.findViewById(R.id.fragment_city_first_tag_textview);
-        TextView mMSecondTagTextView = (TextView) rootView.findViewById(R.id.fragment_city_second_tag_textview);
-        TextView mMThirdTagTextView = (TextView) rootView.findViewById(R.id.fragment_city_third_tag_textview);
+
+        ButterKnife.bind(this, rootView);
 
         mMCityNameTextView.setText(mMStrCityName);
 

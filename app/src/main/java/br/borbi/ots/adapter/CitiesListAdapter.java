@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -12,6 +14,8 @@ import java.util.List;
 
 import br.borbi.ots.R;
 import br.borbi.ots.pojo.City;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -98,16 +102,13 @@ public class CitiesListAdapter extends BaseAdapter{
     }
 
     public static class ViewHolder {
-        public final TextView cityNameTextView;
-        public final TextView firstTagTextView;
-        public final TextView secondtTagTextView;
-        public final TextView thirdTagTextView;
+        @BindView(R.id.list_item_city_list_name_textview) TextView cityNameTextView;
+        @BindView(R.id.list_item_city_list_first_tag_textview) TextView firstTagTextView;
+        @BindView(R.id.list_item_city_list_second_tag_textview) TextView secondtTagTextView;
+        @BindView(R.id.list_item_city_list_third_tag_textview) TextView thirdTagTextView;
 
         public ViewHolder(View view) {
-            cityNameTextView = (TextView) view.findViewById(R.id.list_item_city_list_name_textview);
-            firstTagTextView = (TextView) view.findViewById(R.id.list_item_city_list_first_tag_textview);
-            secondtTagTextView = (TextView) view.findViewById(R.id.list_item_city_list_second_tag_textview);
-            thirdTagTextView = (TextView) view.findViewById(R.id.list_item_city_list_third_tag_textview);
+            ButterKnife.bind(this, view);
         }
     }
 

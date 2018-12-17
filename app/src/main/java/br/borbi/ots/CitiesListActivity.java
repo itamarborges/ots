@@ -15,21 +15,21 @@ import br.borbi.ots.model.CityModel;
 import br.borbi.ots.model.CountryModel;
 import br.borbi.ots.pojo.City;
 import br.borbi.ots.pojo.Country;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class CitiesListActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = CitiesListActivity.class.getSimpleName();
-    private ListView mListView;
-    private View mEmptyView;
+    @BindView(R.id.countrySpinner) Spinner countrySpinner;
+    @BindView(R.id.listView) ListView mListView;
+    @BindView(R.id.listview_list_cities_empty) View mEmptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities_list);
-
-        Spinner countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
-        mListView = (ListView) findViewById(R.id.listView);
-        mEmptyView = findViewById(R.id.listview_list_cities_empty);
+        ButterKnife.bind(this);
 
         final LinkedList<Country> listCountries = CountryModel.listCountries(getApplication());
 

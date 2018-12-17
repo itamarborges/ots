@@ -19,6 +19,8 @@ import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.model.CityResultSearchModel;
 import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.utility.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -28,8 +30,11 @@ public class CitiesFragment extends Fragment {
     public static final String LOG_TAG = CitiesFragment.class.getSimpleName();
 
     private View mRootView;
-    private View mEmptyView;
 
+    @BindView(R.id.listview_cities_empty) View mEmptyView;
+    @BindView(R.id.listview_cities) ListView mListView;
+    @BindView(R.id.btnSeeCities) Button mSeeCitiesBtn;
+    
     public static final String[] TAG_COLUMNS = {
             OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag._ID,
             OTSContract.Tag.TABLE_NAME + "." + OTSContract.Tag.COLUMN_NAME_RESOURCE_NAME
@@ -44,8 +49,8 @@ public class CitiesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mRootView = inflater.inflate(R.layout.fragment_cities, container, false);
-        mEmptyView = mRootView.findViewById(R.id.listview_cities_empty);
-
+        ButterKnife.bind(this, mRootView);
+        
         final LinkedList<CityResultSearch> cities = CityResultSearchModel.list(getActivity());
         if(cities.size() > 0){
             CityResultSearch cityResultSearch = cities.get(0);
@@ -56,12 +61,9 @@ public class CitiesFragment extends Fragment {
 
         fillAdapter(cities);
 
-
-        Button mMSeeCitiesBtn = (Button) mRootView.findViewById(R.id.btnSeeCities);
-
         if ((Utility.isGoogleMapsInstalled(getContext())) && (cities.size() > 0)) {
 
-            mMSeeCitiesBtn.setOnClickListener(new View.OnClickListener() {
+            mSeeCitiesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -74,7 +76,7 @@ public class CitiesFragment extends Fragment {
             });
 
         } else {
-            mMSeeCitiesBtn.setVisibility(View.GONE);
+            mSeeCitiesBtn.setVisibility(View.GONE);
         }
 
 
@@ -83,8 +85,8 @@ public class CitiesFragment extends Fragment {
 
     private void fillAdapter(LinkedList<CityResultSearch> cities ){
         CitiesAdapter mMCitiesAdapter = new CitiesAdapter(cities, getActivity());
-        ListView mMListView = (ListView) mRootView.findViewById(R.id.listview_cities);
-        mMListView.setEmptyView(mEmptyView);
-        mMListView.setAdapter(mMCitiesAdapter);
+
+        mListView.setEmptyView(mEmptyView);
+        mListView.setAdapter(mMCitiesAdapter);
     }
 }

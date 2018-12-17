@@ -25,6 +25,8 @@ import br.borbi.ots.data.OTSProvider;
 import br.borbi.ots.fragment.CitiesFragment;
 import br.borbi.ots.pojo.CityResultSearch;
 import br.borbi.ots.utility.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Itamar on 16/06/2015.
@@ -193,22 +195,17 @@ public class CitiesAdapter extends BaseAdapter{
     }
 
     public static class ViewHolder {
-        public final TextView cityNameTextView;
-        public final TextView firstTagTextView;
-        public final TextView secondTagTextView;
-        public final TextView thirdTagTextView;
-        public final TextView distanceTextView;
-        public final LinearLayout layoutCities;
-        public final ImageView youAreHereImageView;
+        @BindView(R.id.list_item_city_name_textview) TextView cityNameTextView;
+        @BindView(R.id.list_item_resul_first_tag_textview) TextView firstTagTextView;
+        @BindView(R.id.list_item_resul_second_tag_textview) TextView secondTagTextView;
+        @BindView(R.id.list_item_resul_third_tag_textview) TextView thirdTagTextView;
+        @BindView(R.id.list_item_distance_textview) TextView distanceTextView;
+        @BindView(R.id.image_view_you_are_here) ImageView youAreHereImageView;
+        @BindView(R.id.layout_search_city) LinearLayout layoutCities;
+
 
         public ViewHolder(View view) {
-            cityNameTextView = (TextView) view.findViewById(R.id.list_item_city_name_textview);
-            firstTagTextView = (TextView) view.findViewById(R.id.list_item_resul_first_tag_textview);
-            secondTagTextView = (TextView) view.findViewById(R.id.list_item_resul_second_tag_textview);
-            thirdTagTextView = (TextView) view.findViewById(R.id.list_item_resul_third_tag_textview);
-            distanceTextView = (TextView) view.findViewById(R.id.list_item_distance_textview);
-            layoutCities = (LinearLayout) view.findViewById(R.id.layout_search_city);
-            youAreHereImageView = (ImageView) view.findViewById(R.id.image_view_you_are_here);
+            ButterKnife.bind(this, view);
         }
     }
 }

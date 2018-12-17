@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.amazon.device.ads.Ad;
 import com.amazon.device.ads.AdError;
@@ -24,6 +25,8 @@ import br.borbi.ots.R;
 import br.borbi.ots.credentials.Credentials;
 import br.borbi.ots.data.OTSContract;
 import br.borbi.ots.utility.Utility;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class AdFragment extends Fragment {
     private static String LOG_TAG = AdFragment.class.getSimpleName();
@@ -33,9 +36,10 @@ public class AdFragment extends Fragment {
 
     private  boolean mAmazonAdEnabled;
 
+    @BindView(R.id.linearLayoutAd) ViewGroup mAdViewContainer;
+
     private AdLayout mAmazonAdView;
     private AdView mAdmobAdView;
-    private ViewGroup mAdViewContainer;
     private Double mLastLatitude;
     private Double mLastLongitude;
 
@@ -52,6 +56,7 @@ public class AdFragment extends Fragment {
         mLastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
         View rootView = inflater.inflate(R.layout.fragment_ad, container, false);
+        ButterKnife.bind(this, rootView);
 
         if (Utility.isNetworkAvailable(this.getContext())) {
             setPrimaryAdSource(getActivity().getBaseContext());
@@ -59,7 +64,7 @@ public class AdFragment extends Fragment {
             initializeAdAmazon(this.getActivity());
             initializeAdmob(this.getActivity());
 
-            mAdViewContainer = (ViewGroup)rootView.findViewById(R.id.linearLayoutAd);
+
 
             if(mAmazonAdEnabled){
                 mAdViewContainer.addView(mAmazonAdView);
