@@ -72,4 +72,7 @@
     <string name="see_cities_in_map">Les villes sur le carte</string>
     <string name="start_date">Date de début</string>
     <string name="end_date">Date de fin</string>
+    <string name="click_here_to_read_our_privacy_policy">Cliquez ici pour lire notre politique de confidentialité</string>
+    <string name="title_activity_privacy_policy">Politique de confidentialité</string>
+    <string name="go_back">Retourner</string>
 </resources>

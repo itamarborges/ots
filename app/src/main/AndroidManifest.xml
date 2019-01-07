@@ -57,7 +57,7 @@
         <provider
             android:name=".data.OTSProvider"
             android:authorities="br.borbi.ots.app"
-            android:exported="false" />
+            android:exported="false"/>
 
         <activity
             android:name=".FiltersActivity"
@@ -162,6 +162,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.borbi.ots.ResultActivity"/>
+        </activity>
+        <activity
+            android:name=".PrivacyPolicyActivity"
+            android:label="@string/title_activity_privacy_policy"
+            android:parentActivityName=".AboutActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.borbi.ots.AboutActivity"/>
         </activity>
     </application>
 

@@ -139,6 +139,9 @@
     <string name="ok">OK</string>
     <string name="see_cities_in_map">Look cities in map!</string>
     <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="click_here_to_read_our_privacy_policy">Click here to read our privacy policy</string>
+    <string name="title_activity_privacy_policy">Privacy Policy</string>
+    <string name="go_back">Go Back</string>
 
 
     <!-- Z -->
