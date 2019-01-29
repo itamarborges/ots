@@ -60,16 +60,17 @@
                     android:textAppearance="@style/dateTextView" />
 
                 <ImageButton
+                    android:id="@+id/calendarDateBegin"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:id="@+id/calendarDateBegin"
-                    android:background="#E0E0E0"
-                    android:padding="@dimen/paddingCalendar"
-                    android:src="@drawable/calendar"
+                    android:background="@color/ots_blue"
+                    android:contentDescription="@string/start_date"
                     android:nestedScrollingEnabled="false"
                     android:onClick="showCalendar"
-                    android:contentDescription="@string/start_date"/>
+                    android:padding="@dimen/paddingCalendar"
+                    android:src="@drawable/calendar"
+                    android:tint="@android:color/white"/>
             </LinearLayout>
 
             <LinearLayout
@@ -91,17 +92,18 @@
             android:gravity="center_vertical|center_horizontal"
             android:textAppearance="@style/dateTextView" />
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:id="@+id/calendarDateEnd"
-            android:background="#E0E0E0"
-            android:padding="@dimen/paddingCalendar"
-            android:src="@drawable/calendar"
-            android:nestedScrollingEnabled="false"
-            android:onClick="showCalendar"
-            android:contentDescription="@string/end_date"/>
+                <ImageButton
+                    android:id="@+id/calendarDateEnd"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@color/ots_blue"
+                    android:contentDescription="@string/end_date"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="showCalendar"
+                    android:padding="@dimen/paddingCalendar"
+                    android:src="@drawable/calendar"
+                    android:tint="@android:color/white"/>
            </LinearLayout>
 
     </LinearLayout>
@@ -169,14 +171,14 @@
             </LinearLayout>
 
             <Button
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="fill_parent"
-                android:text="@string/km"
                 android:id="@+id/btnKm"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
                 android:background="@color/ots_blue"
-                android:textColor="@color/ots_pure_white"
-                android:onClick="changeDistanceMeasure"/>
+                android:onClick="changeDistanceMeasure"
+                android:text="@string/km"
+                android:textColor="@color/ots_pure_white"/>
 
             <Button
                 android:layout_width="0dp"

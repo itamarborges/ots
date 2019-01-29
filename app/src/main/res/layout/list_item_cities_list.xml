@@ -1,50 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/layout_search_city"
-    android:orientation="horizontal"
-    android:background="@drawable/border"
-    android:padding="5dp">
+              android:id="@+id/layout_search_city"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/border"
+              android:orientation="horizontal"
+              android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:measureWithLargestChild="false"
+        android:orientation="vertical"
         android:showDividers="beginning|middle|end">
 
         <TextView
             android:id="@+id/list_item_city_list_name_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:text="Porto Alegre - Brasil"
-            android:textAppearance="@style/titleTextView"
-            android:focusableInTouchMode="true" />
+            android:textAppearance="@style/titleTextView"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/list_item_city_list_first_tag_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Praia - Neve"
-            android:textAppearance="@style/smallTitleTextView" />
-        <TextView
-            android:id="@+id/list_item_city_list_second_tag_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Neve"
-            android:textAppearance="@style/smallTitleTextView" />
-        <TextView
-            android:id="@+id/list_item_city_list_third_tag_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Comida"
-            android:textAppearance="@style/smallTitleTextView"
-        />
+            <TextView
+                android:id="@+id/list_item_city_list_first_tag_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Praia - Neve"
+                android:textAppearance="@style/smallTitleTextView"/>
+
+            <TextView
+                android:id="@+id/list_item_city_list_second_tag_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Neve"
+                android:textAppearance="@style/smallTitleTextView"/>
+
+            <TextView
+                android:id="@+id/list_item_city_list_third_tag_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comida"
+                android:textAppearance="@style/smallTitleTextView"
+                />
         </LinearLayout>
     </LinearLayout>
 
