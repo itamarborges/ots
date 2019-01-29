@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/paddingBottomScreen"
-    android:paddingTop="@dimen/activity_vertical_margin">
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/paddingBottomScreen"
+                android:paddingTop="@dimen/activity_vertical_margin">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -48,7 +47,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingLeft="@dimen/paddingLeftRight"
+                        android:paddingStart="@dimen/paddingLeftRight"
                         android:text="@string/app_name"
                         android:paddingBottom="@dimen/paddingMarginBottonTop"/>
 
@@ -56,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingLeft="@dimen/paddingLeftRight"
+                        android:paddingStart="@dimen/paddingLeftRight"
                         android:text="@string/byBorbiApps"
                         android:paddingTop="@dimen/paddingMarginBottonTop"
                         android:paddingBottom="@dimen/paddingMarginBottonTop"/>
@@ -72,50 +71,52 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-condensed"
-                            android:paddingLeft="@dimen/paddingLeftRight"
+                            android:paddingStart="@dimen/paddingLeftRight"
                             android:text="@string/version"/>
 
                         <TextView
                             android:id="@+id/versionTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp"
+                            android:layout_marginStart="2dp"
                             android:fontFamily="sans-serif-condensed" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/source"
+                        android:fontFamily="sans-serif-condensed"
                         android:gravity="center_vertical|left"
-                        android:fontFamily="sans-serif-condensed"
+                        android:paddingBottom="@dimen/paddingMarginBottonTop"
                         android:paddingLeft="@dimen/paddingLeftRight"
-                        android:paddingBottom="@dimen/paddingMarginBottonTop"/>
+                        android:text="@string/source"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/weather_forecast_source_open_weather"
-                        android:gravity="left|top"
-                        android:fontFamily="sans-serif-condensed"
-                        android:paddingLeft="@dimen/paddingLeftRight"
-                        android:linksClickable="true"
-                        android:autoLink="web"
                         android:layout_gravity="center"
+                        android:autoLink="web"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="left|top"
+                        android:linksClickable="true"
+                        android:paddingBottom="@dimen/paddingMarginBottonTop"
+                        android:paddingStart="@dimen/paddingLeftRight"
                         android:paddingTop="@dimen/paddingMarginBottonTop"
-                        android:paddingBottom="@dimen/paddingMarginBottonTop"/>
+                        android:text="@string/weather_forecast_source_open_weather"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/weather_forecast_source_developer_forecast"
-                        android:gravity="left|top"
-                        android:fontFamily="sans-serif-condensed"
-                        android:paddingLeft="@dimen/paddingLeftRight"
-                        android:linksClickable="true"
                         android:autoLink="web"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="left|top"
+                        android:linksClickable="true"
+                        android:paddingBottom="@dimen/paddingMarginBottonTop"
+                        android:paddingStart="@dimen/paddingLeftRight"
                         android:paddingTop="@dimen/paddingMarginBottonTop"
-                        android:paddingBottom="@dimen/paddingMarginBottonTop"/>
+                        android:text="@string/weather_forecast_source_developer_forecast"
+                        />
                 </LinearLayout>
             </LinearLayout>
 
@@ -125,14 +126,15 @@
                 android:layout_gravity="center_vertical">
 
                 <TextView
+                    android:id="@+id/privacy_policy_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/privacy_policy_textview"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:gravity="center_horizontal"
-                    android:text="@string/click_here_to_read_our_privacy_policy"/>
-
+                    android:text="@string/click_here_to_read_our_privacy_policy"
+                    />
 
             </FrameLayout>
 
@@ -148,7 +150,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:paddingLeft="@dimen/paddingLeftRight"
+                    android:paddingStart="@dimen/paddingLeftRight"
                     android:text="@string/label_click_ofinion"
                     android:layout_weight="2"/>
 
@@ -171,6 +173,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_gravity="bottom"/>
 </RelativeLayout>
