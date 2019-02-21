@@ -275,7 +275,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 for (DayForecast dayForecast : cityResultSearch.getDayForecasts()) {
 
-                    if((dayForecast.getDate().after(dateBegin) && dayForecast.getDate().before(dateEnd)) || Utility.isSameDay(dayForecast.getDate(), dateBegin)){
+                    if((dayForecast.getDate().after(dateBegin) && dayForecast.getDate().before(dateEnd)) || Utility.isSameDay(dayForecast.getDate(), dateBegin) || Utility.isSameDay(dayForecast.getDate(), dateEnd)){
 
                         if (!dontUseTemperature && dayForecast.getMinTemperature() < minTemperature) {
                             validCity = false;

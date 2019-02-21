@@ -1,412 +1,441 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingLeft="@dimen/layoutLeftRight"
-    android:paddingRight="@dimen/layoutLeftRight"
-    android:paddingTop="@dimen/paddingMarginBottonTop"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context="br.borbi.ots.FiltersActivity"
-    android:background="@color/ots_pure_white">
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/paddingLeftRight"
-        android:paddingRight="@dimen/paddingLeftRight"
-        android:paddingTop="@dimen/paddingMarginBottonTop">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/datePeriod"
-            android:gravity="center"
-            android:textAppearance="@style/titleTextView"
-            android:layout_marginTop="@dimen/paddingMarginBottonTop"
-            android:layout_marginBottom="@dimen/paddingMarginBottonTop" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/sizeGroup"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="fill_parent"
-                android:background="@drawable/border_gray"
-                android:showDividers="middle"
-                android:id="@+id/layoutDateBegin"
-                android:onClick="showCalendar"
-                android:layout_marginRight="@dimen/distanceCalendar">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:id="@+id/textViewDateBeginPeriod"
-                    android:text="@string/dateFormat"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:textAppearance="@style/dateTextView" />
-
-                <ImageButton
-                    android:id="@+id/calendarDateBegin"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:background="@color/ots_blue"
-                    android:contentDescription="@string/start_date"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="showCalendar"
-                    android:padding="@dimen/paddingCalendar"
-                    android:src="@drawable/calendar"
-                    android:tint="@android:color/white"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="fill_parent"
-                android:background="@drawable/border_gray"
-                android:layout_marginLeft="@dimen/distanceCalendar"
-                android:onClick="showCalendar">
-
-            <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:id="@+id/textViewDateEndPeriod"
-            android:text="@string/dateFormat"
-            android:layout_gravity="center"
-            android:gravity="center_vertical|center_horizontal"
-            android:textAppearance="@style/dateTextView" />
-
-                <ImageButton
-                    android:id="@+id/calendarDateEnd"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:background="@color/ots_blue"
-                    android:contentDescription="@string/end_date"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="showCalendar"
-                    android:padding="@dimen/paddingCalendar"
-                    android:src="@drawable/calendar"
-                    android:tint="@android:color/white"/>
-           </LinearLayout>
-
-    </LinearLayout>
-
-
-        <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/help_date_period"
-        android:id="@+id/textViewHelpDatePeriod"
-        android:textAppearance="@style/subtitleTextView"
-        android:paddingRight="@dimen/paddingLeftRight"
-        android:paddingTop="@dimen/paddingMarginBottonTop"
-        android:paddingBottom="@dimen/paddingMarginBottonTop"
-            android:gravity="center_vertical|center_horizontal" />
-
-     </LinearLayout>
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/sizeSeparator"
-        android:visibility="visible"
-        android:background="@android:color/darker_gray"
-        />
-    <!-- Distância-->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/paddingLeftRight"
-        android:paddingRight="@dimen/paddingLeftRight"
-        android:paddingTop="@dimen/paddingMarginBottonTop">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/paddingMarginBottonTop"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/max_distance"
-            android:textAppearance="@style/titleTextView"/>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/sizeGroup"
-            android:orientation="horizontal"
-            android:background="@drawable/border_gray"
-            android:layout_marginLeft="@dimen/distanceLeftRight"
-            android:layout_marginRight="@dimen/distanceLeftRight"
-            android:gravity="right">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center|bottom"
-                android:gravity="bottom">
-
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:id="@+id/editTextMaxDistance"
-                    android:background="@null"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical|center_horizontal" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnKm"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="2"
-                android:background="@color/ots_blue"
-                android:onClick="changeDistanceMeasure"
-                android:text="@string/km"
-                android:textColor="@color/ots_pure_white"/>
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="fill_parent"
-                android:text="@string/mi"
-                android:id="@+id/btnMi"
-                android:background="@color/ots_disabled_button_color"
-                android:textColor="@color/ots_pure_black"
-                android:onClick="changeDistanceMeasure"
-                />
-
-            <RadioGroup
-                android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-                android:visibility="gone">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/kilometers" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/miles" />
-        </RadioGroup>
-
-        </LinearLayout>
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/help_distance"
-            android:textAppearance="@style/subtitleTextView"
-            android:gravity="left"
-            android:paddingTop="@dimen/paddingMarginBottonTop"
-            android:paddingBottom="@dimen/paddingMarginBottonTop"
-            android:layout_marginLeft="@dimen/distanceLeftRight" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/sizeSeparator"
-        android:visibility="visible"
-        android:background="@android:color/darker_gray"
-        />
-    <!-- Dias bons -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/paddingLeftRight"
-        android:paddingRight="@dimen/paddingLeftRight"
-        android:paddingTop="@dimen/paddingMarginBottonTop">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/qty_sunny_days"
-            android:textAppearance="@style/titleTextView"
-            android:textAlignment="center"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_marginBottom="@dimen/paddingMarginBottonTop" />
-
-        <SeekBar
-            android:id="@+id/seekBar"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusableInTouchMode="false"
-            android:focusable="false"
-            android:max="16"
-            android:progress="0"/>
+            android:fillViewport="true"
+    >
 
-        <EditText
-            android:id="@+id/editTextQtySunnyDays"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:background="@null"
-            android:contextClickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:ems="@integer/fontSizeEms"
-            android:enabled="false"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="none"/>
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/days_without_rain"
-            android:id="@+id/checkBoxDaysWithoutRain"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            style="@style/subtitleTextView"
-            android:layout_gravity="center|left"
-            android:layout_marginLeft="@dimen/checkAlignLeft" />
-
-        <!-- Considerar apenas dias sem chuva-->
-    </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/sizeSeparator"
-        android:visibility="visible"
-        android:background="@android:color/darker_gray"
-        />
-    <!-- Temperatura -->
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/paddingLeftRight"
-        android:paddingRight="@dimen/paddingLeftRight"
-        android:paddingTop="@dimen/paddingMarginBottonTop">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/min_temperature"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:elegantTextHeight="false"
-            android:gravity="center_vertical|center_horizontal"
-            android:textAppearance="@style/titleTextView"
-            android:layout_marginBottom="@dimen/paddingMarginBottonTop" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/ots_pure_white"
+                  android:orientation="vertical"
+                  android:paddingLeft="@dimen/layoutLeftRight"
+                  android:paddingRight="@dimen/layoutLeftRight"
+                  android:paddingTop="@dimen/paddingMarginBottonTop"
+                  tools:context="br.borbi.ots.FiltersActivity">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="@dimen/distanceLeftRight"
-            android:layout_marginRight="@dimen/distanceLeftRight">
+            android:paddingLeft="@dimen/paddingLeftRight"
+            android:paddingRight="@dimen/paddingLeftRight"
+            android:paddingTop="@dimen/paddingMarginBottonTop">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/paddingMarginBottonTop"
+                android:layout_marginTop="@dimen/paddingMarginBottonTop"
+                android:gravity="center"
+                android:text="@string/datePeriod"
+                android:textAppearance="@style/titleTextView"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/sizeGroup"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/layoutDateBegin"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="@dimen/distanceCalendar"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_gray"
+                    android:onClick="showCalendar"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:id="@+id/textViewDateBeginPeriod"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/dateFormat"
+                        android:textAppearance="@style/dateTextView"/>
+
+                    <ImageButton
+                        android:id="@+id/calendarDateBegin"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@color/ots_blue"
+                        android:contentDescription="@string/start_date"
+                        android:nestedScrollingEnabled="false"
+                        android:onClick="showCalendar"
+                        android:padding="@dimen/paddingCalendar"
+                        android:src="@drawable/calendar"
+                        android:tint="@android:color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="@dimen/distanceCalendar"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_gray"
+                    android:onClick="showCalendar"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewDateEndPeriod"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/dateFormat"
+                        android:textAppearance="@style/dateTextView"/>
+
+                    <ImageButton
+                        android:id="@+id/calendarDateEnd"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@color/ots_blue"
+                        android:contentDescription="@string/end_date"
+                        android:nestedScrollingEnabled="false"
+                        android:onClick="showCalendar"
+                        android:padding="@dimen/paddingCalendar"
+                        android:src="@drawable/calendar"
+                        android:tint="@android:color/white"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textViewHelpDatePeriod"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingBottom="@dimen/paddingMarginBottonTop"
+                android:paddingRight="@dimen/paddingLeftRight"
+                android:paddingTop="@dimen/paddingMarginBottonTop"
+                android:text="@string/help_date_period"
+                android:textAppearance="@style/subtitleTextView"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/sizeSeparator"
+            android:background="@android:color/darker_gray"
+            android:visibility="visible"
+            />
+        <!-- Distância-->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/paddingLeftRight"
+            android:paddingRight="@dimen/paddingLeftRight"
+            android:paddingTop="@dimen/paddingMarginBottonTop">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/paddingMarginBottonTop"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/max_distance"
+                android:textAppearance="@style/titleTextView"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/sizeGroup"
+                android:layout_marginLeft="@dimen/distanceLeftRight"
+                android:layout_marginRight="@dimen/distanceLeftRight"
+                android:background="@drawable/border_gray"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center|bottom"
+                    android:layout_weight="3"
+                    android:gravity="bottom">
+
+                    <EditText
+                        android:id="@+id/editTextMaxDistance"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="number"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnKm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@color/ots_blue"
+                    android:onClick="changeDistanceMeasure"
+                    android:text="@string/km"
+                    android:textColor="@color/ots_pure_white"/>
+
+                <Button
+                    android:id="@+id/btnMi"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@color/ots_disabled_button_color"
+                    android:onClick="changeDistanceMeasure"
+                    android:text="@string/mi"
+                    android:textColor="@color/ots_pure_black"
+                    />
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kilometers"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/miles"/>
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distanceLeftRight"
+                android:gravity="left"
+                android:paddingBottom="@dimen/paddingMarginBottonTop"
+                android:paddingTop="@dimen/paddingMarginBottonTop"
+                android:text="@string/help_distance"
+                android:textAppearance="@style/subtitleTextView"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/sizeSeparator"
+            android:background="@android:color/darker_gray"
+            android:visibility="visible"
+            />
+        <!-- Dias bons -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/paddingLeftRight"
+            android:paddingRight="@dimen/paddingLeftRight"
+            android:paddingTop="@dimen/paddingMarginBottonTop">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/paddingMarginBottonTop"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/qty_sunny_days"
+                android:textAlignment="center"
+                android:textAppearance="@style/titleTextView"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sizeGroup"
+                android:layout_marginLeft="@dimen/distanceLeftRight"
+                android:layout_marginRight="@dimen/distanceLeftRight"
+                android:layout_weight="4"
+                android:background="@drawable/border_gray"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSubtractDays"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/ots_blue"
+                    android:text="-"
+                    android:textColor="@color/ots_pure_white"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/editTextQtySunnyDays"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:contextClickable="false"
+                    android:cursorVisible="false"
+                    android:ems="@integer/fontSizeEms"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:inputType="none"/>
+
+                <Button
+                    android:id="@+id/btnAddDays"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/ots_blue"
+                    android:text="+"
+                    android:textColor="@color/ots_pure_white"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checkBoxDaysWithoutRain"
+                style="@style/subtitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="@dimen/checkAlignLeft"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:text="@string/days_without_rain"/>
+
+            <!-- Considerar apenas dias sem chuva-->
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/sizeSeparator"
+            android:background="@android:color/darker_gray"
+            android:visibility="visible"
+            />
+        <!-- Temperatura -->
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/sizeGroup"
-            android:orientation="horizontal"
-            android:background="@drawable/border_gray"
-            android:gravity="right"
-            android:id="@+id/fieldsTemperature"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/paddingLeftRight"
+            android:paddingRight="@dimen/paddingLeftRight"
+            android:paddingTop="@dimen/paddingMarginBottonTop">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/paddingMarginBottonTop"
+                android:elegantTextHeight="false"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/min_temperature"
+                android:textAlignment="center"
+                android:textAppearance="@style/titleTextView"/>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center|bottom"
-                android:gravity="bottom" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/distanceLeftRight"
+                android:layout_marginRight="@dimen/distanceLeftRight"
+                android:orientation="vertical">
 
-                <EditText
+                <LinearLayout
+                    android:id="@+id/fieldsTemperature"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:id="@+id/editTextMinTemperature"
-                    android:background="@null"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:layout_height="@dimen/sizeGroup"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_gray"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center|bottom"
+                        android:layout_weight="3"
+                        android:gravity="bottom">
+
+                        <EditText
+                            android:id="@+id/editTextMinTemperature"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            android:background="@null"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:inputType="number"/>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnCelsius"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:background="@color/ots_disabled_button_color"
+                        android:onClick="changeTemperatureMeasure"
+                        android:text="@string/celsius"
+                        android:textColor="@color/ots_pure_white"
+                        />
+
+                    <Button
+                        android:id="@+id/btnFahrenheit"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:background="@color/ots_disabled_button_color"
+                        android:onClick="changeTemperatureMeasure"
+                        android:text="@string/farenheit"
+                        android:textColor="@color/ots_pure_white"
+                        />
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="fill_parent"
-                android:text="@string/celsius"
-                android:id="@+id/btnCelsius"
-                android:background="@color/ots_disabled_button_color"
-                android:textColor="@color/ots_pure_white"
-                android:onClick="changeTemperatureMeasure"
-                />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="fill_parent"
-                android:text="@string/farenheit"
-                android:id="@+id/btnFahrenheit"
-                android:background="@color/ots_disabled_button_color"
-                android:textColor="@color/ots_pure_white"
-                android:onClick="changeTemperatureMeasure"
-                />
-
+            <CheckBox
+                android:id="@+id/checkBoxTemperature"
+                style="@style/subtitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="@dimen/checkAlignLeft"
+                android:layout_weight="1"
+                android:text="@string/dont_care"/>
 
         </LinearLayout>
 
-        </LinearLayout>
+        <!-- Botao para pesquisar-->
 
-        <CheckBox
+        <Button
+            android:id="@+id/buttonSearch"
             android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="0dp"
-            android:text="@string/dont_care"
-            android:id="@+id/checkBoxTemperature"
-            android:layout_marginLeft="@dimen/checkAlignLeft"
-            android:layout_gravity="center|left"
-            style="@style/subtitleTextView" />
+            android:layout_height="@dimen/sizeBtn"
+            android:layout_gravity="right"
+            android:layout_marginBottom="@dimen/paddingTopBtn"
+            android:layout_marginTop="@dimen/paddingBottonBtn"
+            android:background="@drawable/button_background"
+            android:clickable="true"
+            android:focusable="false"
+            android:onClick="onSaveButtonClicked"
+            android:text="@string/search"
+            android:textColor="#ffffff"/>
 
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="bottom"
+            android:paddingBottom="@dimen/paddingBottomScreen">
+
+            <fragment
+                android:id="@+id/anuncioFilters"
+                android:name="br.borbi.ots.fragment.AdFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"/>
+        </FrameLayout>
     </LinearLayout>
-
-    <!-- Botao para pesquisar-->
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/sizeBtn"
-        android:text="@string/search"
-        android:id="@+id/buttonSearch"
-        android:onClick="onSaveButtonClicked"
-        android:background="@drawable/button_background"
-        android:layout_marginBottom="@dimen/paddingTopBtn"
-        android:focusable="false"
-        android:layout_marginTop="@dimen/paddingBottonBtn"
-        android:clickable="true"
-        android:textColor="#ffffff"
-        android:layout_gravity="right" />
-<FrameLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:paddingBottom="@dimen/paddingBottomScreen"
-    android:gravity="bottom">
-
-    <fragment android:name="br.borbi.ots.fragment.AdFragment"
-        android:id="@+id/anuncioFilters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-              android:layout_gravity="bottom"/>
-</FrameLayout>
-</LinearLayout>
-    </ScrollView>
+</ScrollView>

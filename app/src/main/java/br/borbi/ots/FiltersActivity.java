@@ -49,6 +49,7 @@ import br.borbi.ots.utility.Utility;
 import br.borbi.ots.utility.ValidationUtility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 interface ClickFragment {
 
@@ -63,7 +64,9 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     @BindView(R.id.textViewHelpDatePeriod) TextView helpDatePeriod;
     @BindView(R.id.btnKm) Button kilometersButton;
     @BindView(R.id.btnMi) Button milesButton;
-    @BindView(R.id.seekBar) SeekBar mSeekBar;
+    @BindView(R.id.btnAddDays) Button addDaysButton;
+    @BindView(R.id.btnSubtractDays) Button subtractDaysButton;
+
     //Nro dias com sol
     @BindView(R.id.editTextQtySunnyDays) EditText daysEditText;
     //Dias nublados
@@ -123,6 +126,36 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
     private Boolean mAppJustOpened = false;
 
+    @OnClick(R.id.btnSubtractDays)
+    public void btnSubtractDays(Button btn) {
+        int currentDays = Integer.valueOf(daysEditText.getText().toString());
+        if (currentDays > 1) {
+            activateButton(addDaysButton);
+            currentDays--;
+            daysEditText.setText(String.valueOf(currentDays));
+        }
+
+        if (currentDays == 1) {
+            deactivateButton(btn);
+        }
+    }
+
+    @OnClick(R.id.btnAddDays)
+    public void btnAddDays(Button btn) {
+        int currentDays = Integer.valueOf(daysEditText.getText().toString());
+        Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
+
+        if (currentDays < maxNumberOfDays) {
+            activateButton(subtractDaysButton);
+            currentDays++;
+            daysEditText.setText(String.valueOf(currentDays));
+        }
+
+        if (currentDays == maxNumberOfDays) {
+            deactivateButton(btn);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,30 +186,6 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                 }
             }
         });
-
-
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (progress <= 1) {
-                    seekBar.setProgress(1);
-                    daysEditText.setText(String.valueOf(1).concat(" ").concat(getString(R.string.day)));
-                } else {
-                    daysEditText.setText(String.valueOf(progress).concat(" ").concat(getString(R.string.days)));
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                hideKeyboard(FiltersActivity.this);
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
 
 
         daysWithoutRainCheckbox.setOnClickListener(new View.OnClickListener() {
@@ -246,10 +255,10 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
         }
 
-        Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
-        mSeekBar.setMax(maxNumberOfDays);
-
-        mSeekBar.setProgress(mLastSearchSunnyDays);
+        daysEditText.setText(Integer.toString(mLastSearchSunnyDays));
+        if (mLastSearchSunnyDays == 1) {
+            deactivateButton(subtractDaysButton);
+        }
 
         //Datas
         dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
@@ -373,7 +382,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                     (mMBolDifferentLatitude) ||
                     (!mLastSearchInitialDate.equals(dateBegin.getTime())) ||
                     (!mLastSearchFinalDate.equals(dateEnd.getTime())) ||
-                    (mLastSearchSunnyDays != mSeekBar.getProgress()) ||
+                    (mLastSearchSunnyDays != Integer.valueOf(daysEditText.getText().toString())) ||
                     (mLastSearchMinTemperature != mMinTemperaure) ||
                     (mLastSearchConsiderCloudyDays != usesCloudyDays) ||
                     (mLasrSearchTemperatureDoesNotMatter != temperatureDoesNotMatter) ||
@@ -397,7 +406,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_LATITUDE, Double.doubleToRawLongBits(lastLatitude));
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_INITIAL_DATE, dateBegin.getTime());
                     editor.putLong(OTSContract.SHARED_LAST_SEARCH_FINAL_DATE, dateEnd.getTime());
-                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, mSeekBar.getProgress());
+                    editor.putInt(OTSContract.SHARED_LAST_SEARCH_SUNNY_DAYS, Integer.valueOf(daysEditText.getText().toString()));
                     editor.putInt(OTSContract.SHARED_LAST_SEARCH_MIN_TEMPERATURE, mMinTemperaure);
                     editor.putInt(OTSContract.SHARED_LAST_SEARCH_DISTANCE, Integer.valueOf(distanceEditText.getText().toString()));
                     editor.putBoolean(OTSContract.SHARED_LAST_SEARCH_CONSIDER_CLOUDY_DAYS, usesCloudyDays);
@@ -444,7 +453,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         /*
         Dias com sol
          */
-        int numberSunnyDays = mSeekBar.getProgress();
+        int numberSunnyDays = Integer.valueOf(daysEditText.getText().toString());
         /*
         Considerar dias nublados?
          */
@@ -634,16 +643,24 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             dateEnd = Utility.setDateToFinalHours(date);
         }
 
-        Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
-        mSeekBar.setMax(maxNumberOfDays);
-
-        /*
         boolean validDates = validateDates();
         if(validDates){
-            int numberOfDays = Utility.getDefaultNumberOfDaysToShow(dateBegin, dateEnd);
-            daysEditText.setText(String.valueOf(numberOfDays));
+            Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
+
+            if (maxNumberOfDays < Integer.valueOf(daysEditText.getText().toString())) {
+                daysEditText.setText(String.valueOf(maxNumberOfDays));
+            }
+
+            if (maxNumberOfDays == Integer.valueOf(daysEditText.getText().toString())) {
+                deactivateButton(addDaysButton);
+            } else {
+                activateButton(addDaysButton);
+            }
+
+            if (maxNumberOfDays == 1){
+                deactivateButton(subtractDaysButton);
+            }
         }
-        */
     }
 
     private boolean validateDates(){
@@ -718,6 +735,18 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     protected void onResume(){
         super.onResume();
         defineNextStep();
+
+        Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
+
+        if (maxNumberOfDays == Integer.valueOf(daysEditText.getText().toString())) {
+            deactivateButton(addDaysButton);
+        } else {
+            activateButton(addDaysButton);
+        }
+
+        if (maxNumberOfDays == 1){
+            deactivateButton(subtractDaysButton);
+        }
     }
 
     /**

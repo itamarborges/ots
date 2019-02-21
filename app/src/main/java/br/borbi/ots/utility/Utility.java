@@ -142,6 +142,14 @@ public class Utility {
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 59);
+
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+
         return calendar.getTime();
     }
 
@@ -175,7 +183,7 @@ public class Utility {
 
         int numberOfDays;
         if(dateBegin.after(today.getTime())){
-            numberOfDays = Utility.getDifferenceInDays(today.getTime(), dateEnd) + 1;
+            numberOfDays = Utility.getDifferenceInDays(today.getTime(), dateEnd) + 2;
         }else{
             numberOfDays = Utility.getDifferenceInDays(dateBegin, dateEnd) + 1;
         }
