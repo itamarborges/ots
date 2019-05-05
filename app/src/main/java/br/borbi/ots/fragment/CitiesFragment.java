@@ -29,8 +29,6 @@ public class CitiesFragment extends Fragment {
 
     public static final String LOG_TAG = CitiesFragment.class.getSimpleName();
 
-    private View mRootView;
-
     @BindView(R.id.listview_cities_empty) View mEmptyView;
     @BindView(R.id.listview_cities) ListView mListView;
     @BindView(R.id.btnSeeCities) Button mSeeCitiesBtn;
@@ -48,7 +46,7 @@ public class CitiesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mRootView = inflater.inflate(R.layout.fragment_cities, container, false);
+        View mRootView = inflater.inflate(R.layout.fragment_cities, container, false);
         ButterKnife.bind(this, mRootView);
         
         final LinkedList<CityResultSearch> cities = CityResultSearchModel.list(getActivity());
