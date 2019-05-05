@@ -20,8 +20,19 @@
     android:layout_height="fill_parent"
     android:id="@+id/fragment_layout"
     android:layout_below="@+id/fragment_title_city">
-
-
 </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
+
+        <fragment android:name="br.borbi.ots.fragment.AdFragment"
+                  android:id="@+id/anuncioFragmentDetailCity"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="bottom"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

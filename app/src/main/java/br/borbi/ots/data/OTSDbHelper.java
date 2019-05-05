@@ -26,7 +26,7 @@ import br.borbi.ots.data.OTSContract.Tag;
 public class OTSDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
 
     private static final String DATABASE_NAME = "ots.db";
     private static final String LOG_TAG = "OTSDbHelper";
@@ -37,6 +37,8 @@ public class OTSDbHelper extends SQLiteOpenHelper {
     private static final long COUNTRY_ID_USA = 100001;
     private static final long COUNTRY_ID_FRANCE = 100002;
     private static final long COUNTRY_ID_CANADA = 100003;
+    private static final long COUNTRY_ID_PORTUGAL = 100004;
+
 
     private static final HashMap<String,Integer> mExistingTags = new HashMap<>();
     private static Integer mNextTagId = 100000;
@@ -147,6 +149,7 @@ public class OTSDbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_USA + ", 'US', 'united_states');");
         db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_FRANCE + ", 'FR', 'france');");
         db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_CANADA + ", 'CA', 'canada');");
+        db.execSQL("INSERT INTO " + Country.TABLE_NAME + "(" + Country._ID + ", " + Country.COLUMN_NAME_COUNTRY_CODE + ", " + Country.COLUMN_NAME_TRANSLATION_FILE_KEY + ") VALUES (" + COUNTRY_ID_PORTUGAL + ", 'PT', 'portugal');");
 
         //Log.v(LOG_TAG, "primeiros inserts executaram");
 
