@@ -8,8 +8,8 @@ android {
         applicationId "br.borbi.ots"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 29
-        versionName "3.2"
+        versionCode 30
+        versionName "3.3"
         vectorDrawables.useSupportLibrary true
     }
     buildTypes {
