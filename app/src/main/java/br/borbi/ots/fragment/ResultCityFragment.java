@@ -60,8 +60,6 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
 
     private String[] mWeekDaysNames;
 
-    private View mRootView;
-
     @BindView(R.id.listview_result_city_empty) View mEmptyView;
     @BindView(R.id.nameDaysGridView) GridView nameDaysGridview;
     @BindView(R.id.gridview) GridView gridview;
@@ -92,7 +90,7 @@ public class ResultCityFragment extends Fragment implements LoaderManager.Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mRootView = inflater.inflate(R.layout.fragment_result_city, container, false);
+        View mRootView = inflater.inflate(R.layout.fragment_result_city, container, false);
         ButterKnife.bind(this, mRootView);
 
         buildWeekDaysNamesArray();
