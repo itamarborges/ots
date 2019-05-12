@@ -27,7 +27,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-7723898994387347~5164928919"/>
+            android:value="@string/ads_application_id" />
 
         <!--
              Optionally, register AnalyticsReceiver and AnalyticsService to support background

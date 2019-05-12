@@ -55,26 +55,40 @@ interface ClickFragment {
     void OnClickFragment(int v, Date date);
 }
 
-public class FiltersActivity extends AppCompatActivity implements ClickFragment,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener,ActivityCompat.OnRequestPermissionsResultCallback {
+public class FiltersActivity extends AppCompatActivity implements ClickFragment, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
-    @BindView(R.id.textViewDateBeginPeriod) TextView dateBeginView;
-    @BindView(R.id.textViewDateEndPeriod) TextView dateEndView;
-    @BindView(R.id.editTextMaxDistance) EditText distanceEditText;
-    @BindView(R.id.textViewHelpDatePeriod) TextView helpDatePeriod;
-    @BindView(R.id.btnKm) Button kilometersButton;
-    @BindView(R.id.btnMi) Button milesButton;
-    @BindView(R.id.btnAddDays) Button addDaysButton;
-    @BindView(R.id.btnSubtractDays) Button subtractDaysButton;
+    @BindView(R.id.textViewDateBeginPeriod)
+    TextView dateBeginView;
+    @BindView(R.id.textViewDateEndPeriod)
+    TextView dateEndView;
+    @BindView(R.id.editTextMaxDistance)
+    EditText distanceEditText;
+    @BindView(R.id.textViewHelpDatePeriod)
+    TextView helpDatePeriod;
+    @BindView(R.id.btnKm)
+    Button kilometersButton;
+    @BindView(R.id.btnMi)
+    Button milesButton;
+    @BindView(R.id.btnAddDays)
+    Button addDaysButton;
+    @BindView(R.id.btnSubtractDays)
+    Button subtractDaysButton;
 
     //Nro dias com sol
-    @BindView(R.id.editTextQtySunnyDays) EditText daysEditText;
+    @BindView(R.id.editTextQtySunnyDays)
+    EditText daysEditText;
     //Dias nublados
-    @BindView(R.id.checkBoxDaysWithoutRain) CheckBox daysWithoutRainCheckbox;
+    @BindView(R.id.checkBoxDaysWithoutRain)
+    CheckBox daysWithoutRainCheckbox;
     //Temperatura
-    @BindView(R.id.editTextMinTemperature) EditText temperatureEditText;
-    @BindView(R.id.checkBoxTemperature) CheckBox temperatureCheckbox;
-    @BindView(R.id.btnCelsius) Button celsiusButton;
-    @BindView(R.id.btnFahrenheit) Button fahrenheitButton;
+    @BindView(R.id.editTextMinTemperature)
+    EditText temperatureEditText;
+    @BindView(R.id.checkBoxTemperature)
+    CheckBox temperatureCheckbox;
+    @BindView(R.id.btnCelsius)
+    Button celsiusButton;
+    @BindView(R.id.btnFahrenheit)
+    Button fahrenheitButton;
 
     private static final String LOG_TAG = FiltersActivity.class.getSimpleName();
 
@@ -89,10 +103,10 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     public static final String DONT_USE_TEMPERATURE = "DONT_USE_TEMPERATURE";
     private static final int MAX_NUMBER_OF_DAYS = 15;
     private static final String DISTANCE_DEFAULT = "250";
-    private static final int MINIMUM_DISTANCE_KILOMETERS=100;
-    private static final int MAXIMUM_DISTANCE_KILOMETERS=2000;
-    private static final int MINIMUM_DISTANCE_MILES=60;
-    private static final int MAXIMUM_DISTANCE_MILES=1250;
+    private static final int MINIMUM_DISTANCE_KILOMETERS = 100;
+    private static final int MAXIMUM_DISTANCE_KILOMETERS = 2000;
+    private static final int MINIMUM_DISTANCE_MILES = 60;
+    private static final int MAXIMUM_DISTANCE_MILES = 1250;
     private static final int INDETERMINED_TEMPERATURE = 999;
 
     private static DateFormat dateFormat;
@@ -165,8 +179,8 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         mContext = this;
 
         Intent intent = getIntent();
-        if(intent.hasExtra(ForwardUtility.APP_JUST_OPENED)){
-            mAppJustOpened = intent.getBooleanExtra(ForwardUtility.APP_JUST_OPENED,false);
+        if (intent.hasExtra(ForwardUtility.APP_JUST_OPENED)) {
+            mAppJustOpened = intent.getBooleanExtra(ForwardUtility.APP_JUST_OPENED, false);
         }
 
         findLocation();
@@ -190,7 +204,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         daysWithoutRainCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
@@ -205,39 +219,39 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
         if (mLastSearchDateTime.equals(-1L)) {
 
-            dateBegin  = Utility.setDateToInitialHours(new Date());
+            dateBegin = Utility.setDateToInitialHours(new Date());
             dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
 
-            if(Utility.usesMiles(this)){
+            if (Utility.usesMiles(this)) {
                 activateButton(milesButton);
                 deactivateButton(kilometersButton);
                 kilometersChecked = false;
-            }else {
+            } else {
                 activateButton(kilometersButton);
                 deactivateButton(milesButton);
             }
 
-              temperatureCheckbox.setChecked(true);
+            temperatureCheckbox.setChecked(true);
 
             distanceEditText.setText(DISTANCE_DEFAULT);
 
             daysWithoutRainCheckbox.setChecked(true);
 
         } else {
-            dateBegin  = new Date(mLastSearchInitialDate);
-            if(DateUtility.isDateBeforeAnother(dateBegin,new Date())){
+            dateBegin = new Date(mLastSearchInitialDate);
+            if (DateUtility.isDateBeforeAnother(dateBegin, new Date())) {
                 dateBegin = Utility.setDateToInitialHours(new Date());
             }
             dateEnd = new Date(mLastSearchFinalDate);
-            if(DateUtility.isDateBeforeAnother(dateEnd,new Date())){
+            if (DateUtility.isDateBeforeAnother(dateEnd, new Date())) {
                 dateEnd = Utility.setDateToFinalHours(Utility.getDateDaysFromToday(MAX_NUMBER_OF_DAYS));
             }
 
-            if(!mLastSearchUseKilometers){
+            if (!mLastSearchUseKilometers) {
                 activateButton(milesButton);
                 deactivateButton(kilometersButton);
                 kilometersChecked = false;
-            }else {
+            } else {
                 activateButton(kilometersButton);
                 deactivateButton(milesButton);
             }
@@ -272,6 +286,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         Utility.positioningCursorInTheEnd(distanceEditText);
 
     }
+
     public void showCalendar(View view) {
 
         int viewIdClicked = -1;
@@ -279,7 +294,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         DialogFragment newFragment = new DatePickerFragment();
         Bundle bundleArgument = new Bundle();
 
-        viewIdClicked = (view.getId() == R.id.layoutDateBegin || view.getId() == R.id.calendarDateBegin) ? R.id.calendarDateBegin: R.id.calendarDateEnd;
+        viewIdClicked = (view.getId() == R.id.layoutDateBegin || view.getId() == R.id.calendarDateBegin) ? R.id.calendarDateBegin : R.id.calendarDateEnd;
 
         bundleArgument.putInt(BUTTON_CLICKED, viewIdClicked);
         newFragment.setArguments(bundleArgument);
@@ -289,7 +304,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     /**
      * Procura pelos parâmetros da ultima pesquisa realizada e salva no shared preferences.
      */
-    private void getParametersLastSearch(){
+    private void getParametersLastSearch() {
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         //Recovering the paremeters from the last valid search
         mLastSearchDateTime = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_DATE_TIME, -1);
@@ -307,7 +322,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
         try {
             mLastSearchIdSearch = sharedPreferences.getLong(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             mLastSearchIdSearch = (long) sharedPreferences.getInt(OTSContract.SHARED_LAST_SEARCH_ID_SEARCH, -1);
         }
 
@@ -328,7 +343,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
         if ((lastLatitude == null && lastLongitude == null) || (lastLatitude == 0d && lastLongitude == 0d)) {
             AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
-            if(dialog!=null) {
+            if (dialog != null) {
                 dialog.show();
             }
         } else {
@@ -348,9 +363,9 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                 long diff = timeNow - mLastSearchDateTime;
                 long diffHours = diff / (60 * 60 * 1000) % 24;
 
-                if(temperatureEditText.getText() != null){
+                if (temperatureEditText.getText() != null) {
                     String value = temperatureEditText.getText().toString().trim();
-                    if("".equals(value) || value.isEmpty()){
+                    if ("".equals(value) || value.isEmpty()) {
                         temperatureDoesNotMatter = true;
                     }
                 }
@@ -375,19 +390,19 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                 }
 
                 if ((mLastSearchDateTime.equals(-1L)) ||
-                    (mLastSearchIdSearch == -1) ||
-                    (diffHours >= OTSContract.HOURS_TO_SEARCH_EXPIRATION) ||
-                    (mMBolDifferentLatitude) ||
-                    (mMBolDifferentLatitude) ||
-                    (!mLastSearchInitialDate.equals(dateBegin.getTime())) ||
-                    (!mLastSearchFinalDate.equals(dateEnd.getTime())) ||
-                    (mLastSearchSunnyDays != Integer.valueOf(daysEditText.getText().toString())) ||
-                    (mLastSearchMinTemperature != mMinTemperaure) ||
-                    (mLastSearchConsiderCloudyDays != usesCloudyDays) ||
-                    (mLasrSearchTemperatureDoesNotMatter != temperatureDoesNotMatter) ||
-                    (mLastSearchUseCelsius != useCelsius) ||
-                    (mLastSearchDistance != Integer.valueOf(distanceEditText.getText().toString())) ||
-                    (mLastSearchUseKilometers != useKilometers)) {
+                        (mLastSearchIdSearch == -1) ||
+                        (diffHours >= OTSContract.HOURS_TO_SEARCH_EXPIRATION) ||
+                        (mMBolDifferentLatitude) ||
+                        (mMBolDifferentLongitude) ||
+                        (!mLastSearchInitialDate.equals(dateBegin.getTime())) ||
+                        (!mLastSearchFinalDate.equals(dateEnd.getTime())) ||
+                        (mLastSearchSunnyDays != Integer.valueOf(daysEditText.getText().toString())) ||
+                        (mLastSearchMinTemperature != mMinTemperaure) ||
+                        (mLastSearchConsiderCloudyDays != usesCloudyDays) ||
+                        (mLasrSearchTemperatureDoesNotMatter != temperatureDoesNotMatter) ||
+                        (mLastSearchUseCelsius != useCelsius) ||
+                        (mLastSearchDistance != Integer.valueOf(distanceEditText.getText().toString())) ||
+                        (mLastSearchUseKilometers != useKilometers)) {
 
                     //If the parameters have different values and there is no wifi connection,
                     //it will show a message asking for the user to turn on the wifi
@@ -430,7 +445,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         }
     }
 
-    private void callSearch(){
+    private void callSearch() {
         SharedPreferences sharedPref = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
@@ -439,13 +454,13 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
          */
         String distanceString = distanceEditText.getText().toString();
         int distance = 0;
-        if(distanceString != null && !distanceString.isEmpty()) {
-           distance = Integer.valueOf(distanceEditText.getText().toString());
-            if(kilometersChecked){
-                editor.putBoolean(OTSContract.USE_KILOMETERS,true);
-            }else{
+        if (distanceString != null && !distanceString.isEmpty()) {
+            distance = Integer.valueOf(distanceEditText.getText().toString());
+            if (kilometersChecked) {
+                editor.putBoolean(OTSContract.USE_KILOMETERS, true);
+            } else {
                 distance = Utility.convertMilesToKilometers(distance);
-                editor.putBoolean(OTSContract.USE_KILOMETERS,false);
+                editor.putBoolean(OTSContract.USE_KILOMETERS, false);
             }
         }
 
@@ -464,24 +479,24 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
          */
         String temperatureString = temperatureEditText.getText().toString();
         Integer temperature = null;
-        if(temperatureString != null && !temperatureString.isEmpty()) {
+        if (temperatureString != null && !temperatureString.isEmpty()) {
             temperature = Integer.valueOf(temperatureEditText.getText().toString());
-            if(celsiusChecked){
-                editor.putBoolean(OTSContract.USE_CELSIUS,true);
-            }else{
-                temperature= Utility.convertFarenheitToCelsius(temperature);
-                editor.putBoolean(OTSContract.USE_CELSIUS,false);
+            if (celsiusChecked) {
+                editor.putBoolean(OTSContract.USE_CELSIUS, true);
+            } else {
+                temperature = Utility.convertFarenheitToCelsius(temperature);
+                editor.putBoolean(OTSContract.USE_CELSIUS, false);
             }
         }
 
         boolean dontUseTemperature = temperatureCheckbox.isChecked();
-        if(temperature == null){
+        if (temperature == null) {
             dontUseTemperature = true;
         }
 
         editor.apply();
 
-        Intent intent = new Intent(this,SearchActivity.class);
+        Intent intent = new Intent(this, SearchActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         intent.putExtra(DATE_BEGIN, dateBegin);
         intent.putExtra(DATE_END, dateEnd);
@@ -495,11 +510,11 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     }
 
     public void changeDistanceMeasure(View view) {
-        if(view.getId() == R.id.btnKm){
+        if (view.getId() == R.id.btnKm) {
             activateButton(kilometersButton);
             deactivateButton(milesButton);
             kilometersChecked = true;
-        }else {
+        } else {
             activateButton(milesButton);
             deactivateButton(kilometersButton);
             kilometersChecked = false;
@@ -507,23 +522,23 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     }
 
     public void changeTemperatureMeasure(View view) {
-        if(view.getId() == R.id.btnCelsius){
+        if (view.getId() == R.id.btnCelsius) {
             activateButton(celsiusButton);
             deactivateButton(fahrenheitButton);
             celsiusChecked = true;
-        }else {
+        } else {
             activateButton(fahrenheitButton);
             deactivateButton(celsiusButton);
             celsiusChecked = false;
         }
     }
 
-    private void activateButton(Button button){
+    private void activateButton(Button button) {
         button.setBackgroundResource(R.color.ots_blue);
         button.setTextColor(ContextCompat.getColor(this, R.color.ots_pure_white));
     }
 
-    private void deactivateButton(Button button){
+    private void deactivateButton(Button button) {
         button.setBackgroundResource(R.color.ots_disabled_button_color);
         button.setTextColor(ContextCompat.getColor(this, R.color.ots_pure_black));
     }
@@ -549,10 +564,10 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
 
             Calendar today = new GregorianCalendar();
             today.setTime(Utility.setDateToInitialHours(new Date()));
-            if(dateBegin == null){
+            if (dateBegin == null) {
                 checkedBeginDate = today;
-            }else{
-                checkedBeginDate= new GregorianCalendar();
+            } else {
+                checkedBeginDate = new GregorianCalendar();
                 checkedBeginDate.setTime(Utility.setDateToInitialHours(dateBegin));
             }
 
@@ -562,11 +577,11 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             maxDate.setTime(Utility.setDateToFinalHours(new Date()));
             maxDate.add(Calendar.DAY_OF_MONTH, 15);
 
-            if(dateEnd==null){
+            if (dateEnd == null) {
                 checkedEndDate = maxDate;
-            }else{
+            } else {
                 checkedEndDate = new GregorianCalendar();
-                checkedEndDate .setTime(Utility.setDateToFinalHours(dateEnd));
+                checkedEndDate.setTime(Utility.setDateToFinalHours(dateEnd));
             }
 
             DatePickerDialog datePickerDialog = null;
@@ -575,7 +590,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             int buttonClicked = b.getInt(BUTTON_CLICKED);
             if (buttonClicked == R.id.calendarDateBegin) {
                 datePickerDialog = new DatePickerDialog(getActivity(), this, checkedBeginDate.get(Calendar.YEAR), checkedBeginDate.get(Calendar.MONTH), checkedBeginDate.get(Calendar.DAY_OF_MONTH));
-            }else{
+            } else {
                 datePickerDialog = new DatePickerDialog(getActivity(), this, checkedEndDate.get(Calendar.YEAR), checkedEndDate.get(Calendar.MONTH), checkedEndDate.get(Calendar.DAY_OF_MONTH));
 
             }
@@ -614,16 +629,16 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch (id) {
-        case R.id.action_where_am_I:
-            Intent mapIntent = ForwardUtility.goToMap(this);
-            if(mapIntent != null){
-                startActivity(mapIntent);
-            }
-            break;
+            case R.id.action_where_am_I:
+                Intent mapIntent = ForwardUtility.goToMap(this);
+                if (mapIntent != null) {
+                    startActivity(mapIntent);
+                }
+                break;
             case R.id.action_cities_list:
                 Intent intent = new Intent(this, CitiesListActivity.class);
                 startActivity(intent);
-            break;
+                break;
             case R.id.action_about:
                 Intent aboutIntent = new Intent(this, AboutActivity.class);
                 startActivity(aboutIntent);
@@ -633,7 +648,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         return super.onOptionsItemSelected(item);
     }
 
-    public void OnClickFragment(int v, Date date){
+    public void OnClickFragment(int v, Date date) {
         if (v == R.id.calendarDateBegin) {
             dateBeginView.setText(dateFormat.format(date));
             dateBegin = Utility.setDateToInitialHours(date);
@@ -643,7 +658,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         }
 
         boolean validDates = validateDates();
-        if(validDates){
+        if (validDates) {
             Integer maxNumberOfDays = Utility.getNumberOfDaysToShow(dateBegin, dateEnd);
 
             if (maxNumberOfDays < Integer.valueOf(daysEditText.getText().toString())) {
@@ -656,39 +671,39 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
                 activateButton(addDaysButton);
             }
 
-            if (maxNumberOfDays == 1){
+            if (maxNumberOfDays == 1) {
                 deactivateButton(subtractDaysButton);
             }
         }
     }
 
-    private boolean validateDates(){
-        if(dateBegin != null && dateBegin.after(dateEnd)){
-            Toast.makeText(this,R.string.begin_date_before_end_date,Toast.LENGTH_LONG).show();
+    private boolean validateDates() {
+        if (dateBegin != null && dateBegin.after(dateEnd)) {
+            Toast.makeText(this, R.string.begin_date_before_end_date, Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
     }
 
-    private boolean validateFields(){
+    private boolean validateFields() {
 
         boolean validDistance = true;
         // Valida distancia.
-        if(kilometersChecked){
-            validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, MAXIMUM_DISTANCE_KILOMETERS, mContext.getString(R.string.minimum_distance_kilometers,String.valueOf(MINIMUM_DISTANCE_KILOMETERS), String.valueOf(MAXIMUM_DISTANCE_KILOMETERS)));
-        }else{
-            validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, MAXIMUM_DISTANCE_MILES, mContext.getString(R.string.minimum_distance_miles,String.valueOf(MINIMUM_DISTANCE_MILES), String.valueOf(MAXIMUM_DISTANCE_MILES)));
+        if (kilometersChecked) {
+            validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_KILOMETERS, MAXIMUM_DISTANCE_KILOMETERS, mContext.getString(R.string.minimum_distance_kilometers, String.valueOf(MINIMUM_DISTANCE_KILOMETERS), String.valueOf(MAXIMUM_DISTANCE_KILOMETERS)));
+        } else {
+            validDistance = ValidationUtility.validateInteger(distanceEditText, MINIMUM_DISTANCE_MILES, MAXIMUM_DISTANCE_MILES, mContext.getString(R.string.minimum_distance_miles, String.valueOf(MINIMUM_DISTANCE_MILES), String.valueOf(MAXIMUM_DISTANCE_MILES)));
         }
 
         return validDistance;
     }
 
-    private void activateTemperatureButtonsStatus(){
-        if (Utility.usesFahrenheit(this)){
+    private void activateTemperatureButtonsStatus() {
+        if (Utility.usesFahrenheit(this)) {
             activateButton(fahrenheitButton);
             deactivateButton(celsiusButton);
             celsiusChecked = false;
-        }else {
+        } else {
             activateButton(celsiusButton);
             deactivateButton(fahrenheitButton);
         }
@@ -697,7 +712,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         temperatureEditText.setFocusableInTouchMode(true);
     }
 
-    private void disableTemperatureButtonsStatus(){
+    private void disableTemperatureButtonsStatus() {
         deactivateButton(fahrenheitButton);
         deactivateButton(celsiusButton);
         fahrenheitButton.setBackgroundResource(R.color.ots_disabled_button_color);
@@ -731,7 +746,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         }
     }
 
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         defineNextStep();
 
@@ -743,7 +758,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
             activateButton(addDaysButton);
         }
 
-        if (maxNumberOfDays == 1){
+        if (maxNumberOfDays == 1) {
             deactivateButton(subtractDaysButton);
         }
     }
@@ -754,8 +769,8 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
      * - the table search is not empty and
      * - the current location is not too far from the place where the search was originally made
      */
-    private void defineNextStep(){
-        if(mAppJustOpened) {
+    private void defineNextStep() {
+        if (mAppJustOpened) {
             mAppJustOpened = false;
             if (mLastLongitude != null && mLastLatitude != null) {
                 Long searchId = Utility.findSearchByDateAndCoordinates(mLastLatitude, mLastLongitude, mContext);
@@ -767,7 +782,7 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         }
     }
 
-    private void forwardActivity(){
+    private void forwardActivity() {
         Long searchId = null;
 
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(OTSContract.SHARED_PREFERENCES, Context.MODE_PRIVATE);
@@ -775,9 +790,9 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        if(lastLatitude == null || lastLongitude == null){
+        if (lastLatitude == null || lastLongitude == null) {
             searchId = Utility.findSearchByDate(mContext);
-        }else {
+        } else {
             searchId = Utility.findSearchByDateAndCoordinates(lastLatitude, lastLongitude, mContext);
         }
 
@@ -794,18 +809,18 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
      */
     private void findLocation() {
 
-        boolean isTest= Boolean.valueOf(getString(R.string.app_in_test));
-        if(isTest) {
-           // mLastLatitude = -30.03306;
-           // mLastLongitude = -51.23;
+        boolean isTest = Boolean.valueOf(getString(R.string.app_in_test));
+        if (isTest) {
+            // mLastLatitude = -30.03306;
+            // mLastLongitude = -51.23;
             // LocationUtility.saveCoordinates(mLastLatitude, mLastLongitude, this);
         }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
-        }else{
-            Log.v(LOG_TAG,"vai chamar buildGoogleApiClient em findLocation");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+        } else {
+            Log.v(LOG_TAG, "vai chamar buildGoogleApiClient em findLocation");
             LocationUtility.buildGoogleApiClient(this, this, this, this);
         }
     }
@@ -814,18 +829,18 @@ public class FiltersActivity extends AppCompatActivity implements ClickFragment,
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             // Inicia o servico de localizacao
             LocationUtility.buildGoogleApiClient(this, this, this, this);
-        }else{
+        } else {
             AlertDialog dialog = LocationUtility.buildLocationDialog(mContext);
-            if(dialog!=null) {
+            if (dialog != null) {
                 dialog.show();
             }
         }
     }
 
-    private AlertDialog buildInternetDialog(final Context context){
+    private AlertDialog buildInternetDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.explanation_internet).setTitle(R.string.failure_message_internet);
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

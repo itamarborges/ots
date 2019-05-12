@@ -14,6 +14,15 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            resValue "string", "ads_application_id", "ca-app-pub-7723898994387347~5164928919"
+        }
+        debug {
+            debuggable true
+            minifyEnabled true
+            useProguard false
+
+            resValue "string", "ads_application_id", "ca-app-pub-7723898994387347~5164928919"
         }
     }
 }
