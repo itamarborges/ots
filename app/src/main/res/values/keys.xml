@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Flag para indicar se app está em teste ou não -->
-    <string translatable="false" name="app_in_test">true</string> <!-- Trocar para false quanto entrar em produção -->
+    <string translatable="false" name="app_in_test">false</string> <!-- Trocar para false quanto entrar em produção -->
 
     <!-- Fonte primária de anúncios -->
     <string name="primary_ad_source" translatable="false">admob</string> <!-- valores possíveis: amazon e admob -->

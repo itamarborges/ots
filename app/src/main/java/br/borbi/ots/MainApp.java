@@ -2,6 +2,7 @@ package br.borbi.ots;
 
 import android.app.Application;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
@@ -26,5 +27,7 @@ public class MainApp extends Application {
             tracker.enableAutoActivityTracking(true);
             tracker.enableAdvertisingIdCollection(true);
         }
+
+        MobileAds.initialize(this, "ca-app-pub-7723898994387347~5164928919");
    }
 }
