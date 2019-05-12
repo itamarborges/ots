@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -38,21 +38,7 @@ public class ResultActivity extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(Credentials.getAdMob());
-//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                mInterstitialAd.show();
-            }
-        });
-
-        mInterstitialAd.loadAd(new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build());
-
+        buildAd();
 
         Intent intent = getIntent();
 
@@ -62,9 +48,24 @@ public class ResultActivity extends AppCompatActivity implements GoogleApiClient
         Double lastLatitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LATITUDE, Double.doubleToLongBits(0)));
         Double lastLongitude = Double.longBitsToDouble(sharedPreferences.getLong(OTSContract.SHARED_LONGITUDE, Double.doubleToLongBits(0)));
 
-        if(!foundCoordinates && (lastLatitude==null || lastLongitude == null || lastLatitude == 0d || lastLongitude == 0d)){
+        if (!foundCoordinates && (lastLatitude == null || lastLongitude == null || lastLatitude == 0d || lastLongitude == 0d)) {
             LocationUtility.buildGoogleApiClient(this, this, this, this);
         }
+    }
+
+    private void buildAd() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(Credentials.getAdMobInterstitial());
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                mInterstitialAd.show();
+            }
+        });
+        mInterstitialAd.loadAd(new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("FBC24ACC9FF929AFB9890167EC930609")
+                .build());
     }
 
     @Override
@@ -77,7 +78,7 @@ public class ResultActivity extends AppCompatActivity implements GoogleApiClient
         switch (id) {
             case R.id.action_where_am_I:
                 Intent mapIntent = ForwardUtility.goToMap(this);
-                if(mapIntent != null){
+                if (mapIntent != null) {
                     startActivity(mapIntent);
                 }
                 break;
@@ -107,7 +108,7 @@ public class ResultActivity extends AppCompatActivity implements GoogleApiClient
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         LocationUtility.onConnectionFailed(connectionResult);
-        Toast.makeText(this,R.string.location_not_found,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.location_not_found, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -117,9 +118,9 @@ public class ResultActivity extends AppCompatActivity implements GoogleApiClient
         Double lastLongitude = location.getLongitude();
 
         Search search = SearchModel.findSearch(this);
-        if (search != null){
-            Double distance = CoordinatesUtility.getDistance(lastLatitude,lastLongitude, search.getOriginLatitude(), search.getOriginLongitude());
-            if (!Utility.isDistanceSmallerThanMinimumDistance(distance.intValue(), 50)){
+        if (search != null) {
+            Double distance = CoordinatesUtility.getDistance(lastLatitude, lastLongitude, search.getOriginLatitude(), search.getOriginLongitude());
+            if (!Utility.isDistanceSmallerThanMinimumDistance(distance.intValue(), 50)) {
                 Toast.makeText(this, getString(R.string.location_not_found), Toast.LENGTH_LONG).show();
             }
         }
