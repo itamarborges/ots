@@ -2,6 +2,7 @@ package br.borbi.ots;
 
 import android.app.Application;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
@@ -15,8 +16,8 @@ public class MainApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        boolean isTest= Boolean.valueOf(getString(R.string.app_in_test));
-        if(!isTest) {
+        boolean isTest = Boolean.valueOf(getString(R.string.app_in_test));
+        if (!isTest) {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             analytics.setLocalDispatchPeriod(1800);
 
@@ -26,5 +27,7 @@ public class MainApp extends Application {
             tracker.enableAutoActivityTracking(true);
             tracker.enableAdvertisingIdCollection(true);
         }
-   }
+
+        MobileAds.initialize(this, getString(R.string.ads_application_id));
+    }
 }
