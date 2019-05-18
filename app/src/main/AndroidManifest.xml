@@ -14,7 +14,7 @@
     <application
         android:name=".MainApp"
         android:allowBackup="false"
-        android:icon="@drawable/logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/title"
         android:largeHeap="true"
         android:theme="@style/AppTheme"
