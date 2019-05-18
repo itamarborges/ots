@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="br.borbi.ots">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="br.borbi.ots">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -16,12 +17,18 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/title"
         android:largeHeap="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <!-- Add the following meta-data for devices running Google Play service. -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/ads_application_id" />
 
         <!--
              Optionally, register AnalyticsReceiver and AnalyticsService to support background
@@ -125,9 +132,9 @@
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-        <activity
-            android:name="com.amazon.device.ads.AdActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <!--<activity-->
+            <!--android:name="com.amazon.device.ads.AdActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"/>-->
         <activity
             android:name=".CitiesListActivity"
             android:label="@string/action_cities_list"
